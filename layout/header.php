@@ -107,12 +107,29 @@ if (isset($_SESSION['menuHeader'])) {
                                     </a>
                                 </li>
 
+                                <?php
+                                if($_SESSION["login"] == false) {
+                                ?>
                                 <li>
                                     <a href="#" class="c-link dropdown-toggle" data-toggle="modal" data-target="#login-form">Log In
                                         <i class="glyphicon glyphicon-log-in"> </i>
                                     </a>
                                 </li>
-
+                                <?php } elseif($_SESSION["login"] == true) { ?>
+                                <li class="c-menu-type-classic">
+                                    <a href="#" class="c-link dropdown-toggle" >
+                                        <?php echo 'Welcome' . ", " . $_SESSION["username"] ?>
+                                        <span class="c-arrow c-toggler"></span>
+                                    </a>
+                                    <ul class="dropdown-menu c-menu-type-classic c-pull-right">
+                                        <li>
+                                            <a href="#" class="c-link dropdown-toggle"  data-toggle="modal" data-target="#modalLogout">Log Out
+                                                <i class="glyphicon glyphicon-log-out"> </i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <?php } ?>
                             </ul>
                         </nav>
                         <!-- END: MEGA MENU -->
@@ -124,6 +141,7 @@ if (isset($_SESSION['menuHeader'])) {
         </header>
         <!-- END: HEADER -->
         <!-- END: LAYOUT/HEADERS/HEADER-1 -->
+
         <!-- BEGIN: CONTENT/USER/FORGET-PASSWORD-FORM -->
         <div class="modal fade c-content-login-form" id="forget-password-form" role="dialog">
             <div class="modal-dialog">
@@ -159,15 +177,15 @@ if (isset($_SESSION['menuHeader'])) {
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h3 class="c-font-24 c-font-sbold">Good Afternoon!</h3>
+                        <h3 class="c-font-24 c-font-sbold">Good Day!</h3>
                         <p>Let's make today a great day!</p>
-                        <form>
+                        <form action="login.php" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label for="login-email" class="hide">Email</label>
-                                <input type="email" class="form-control input-lg c-square" id="login-email" placeholder="Username"> </div>
+                                <label for="username" class="hide">Username</label>
+                                <input type="text" class="form-control input-lg c-square" id="username" placeholder="Username" name="username"> </div>
                             <div class="form-group">
                                 <label for="login-password" class="hide">Password</label>
-                                <input type="password" class="form-control input-lg c-square" id="login-password" placeholder="Password"> </div>
+                                <input type="password" class="form-control input-lg c-square" id="login-password" placeholder="Password" name="password"> </div>
                            
                             <div class="form-group">
                                 <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login">Login</button>
@@ -177,5 +195,21 @@ if (isset($_SESSION['menuHeader'])) {
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- END: CONTENT/USER/LOGIN-FORM -->
+
+        <!-- BEGIN: CONTENT/USER/LOGOUT-FORM -->
+        <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content c-square">
+                <div class="modal-body">
+                    <h3 class="c-font-24 c-font-sbold">Are you sure want to logout ?</h3>
+                        <div class="form-group">
+                            <button  data-dismiss="modal"  class="btn btn-danger">Cancel</button>
+                            <button class="btn btn-info" ><a href="logout.php"> Logout</a></button>
+                        </div>
+                </div>
+            </div>
+        </div>
         </div>
         <!-- END: CONTENT/USER/LOGIN-FORM -->
