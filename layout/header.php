@@ -40,7 +40,10 @@
         <link href="assets/base/css/custom.css" rel="stylesheet" type="text/css" />
         <!-- END THEME STYLES -->
         <link rel="shortcut icon" href="favicon.ico" />
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
+        
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.bootstrap.min.css">
+
         
  
     </head>
@@ -57,6 +60,7 @@ if (isset($_SESSION['menuHeader'])) {
     else if($akses == 'gallery'){ $menuGallery = 'class="c-active"'; }
     else if($akses == 'groupDiscussion'){ $menuGroupDiscussion = 'class="c-active"'; }
     
+    $_SESSION["login"] = '';
 }
 
 ?>
