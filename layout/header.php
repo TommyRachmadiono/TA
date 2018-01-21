@@ -59,9 +59,8 @@ if (isset($_SESSION['menuHeader'])) {
     if($akses == 'home'){ $menuHome = 'class="c-active"'; }
     else if($akses == 'gallery'){ $menuGallery = 'class="c-active"'; }
     else if($akses == 'groupDiscussion'){ $menuGroupDiscussion = 'class="c-active"'; }
-    
-    $_SESSION["login"] = '';
 }
+$_SESSION["login"];
 
 ?>
 
