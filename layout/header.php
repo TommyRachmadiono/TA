@@ -41,8 +41,8 @@
         <!-- END THEME STYLES -->
         <link rel="shortcut icon" href="favicon.ico" />
         
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/DataTables/css/dataTables.bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/DataTables/css/buttons.bootstrap.min.css">
 
         
  
