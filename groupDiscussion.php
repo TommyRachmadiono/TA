@@ -13,7 +13,9 @@ include_once 'layout/header.php';
 				<p class="c-center">Create your own discussion group and invite your friend to discuss anything you want.</p>
 			</div>
 			<div class="c-content-panel">
-				
+				<button type="button" class="btn btn-success" style="margin-top: 2%; margin-left: 2%;">
+					<i class="icon-bubbles">Create Group</i>
+				</button>
 				<div class="c-body">
 					<div class="row">
 						<div class="col-md-12">
@@ -124,9 +126,6 @@ include_once 'layout/header.php';
 					</div>
 				</div>
 			</div>
-			<button type="button" class="btn btn-success">
-				<i class="icon-bubbles">Create Group</i>
-			</button>
 		</div>
 	</div>
 </div>
@@ -134,3 +133,18 @@ include_once 'layout/header.php';
 <?php
 include_once 'layout/footer.php';
 ?>
+
+<!-- DATATABLES -->
+<script type="text/javascript" src="assets/DataTables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="assets/DataTables/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/DataTables/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="assets/DataTables/js/buttons.bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/DataTables/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="assets/DataTables/js/buttons.print.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#example').DataTable( {
+			
+		} );
+	} );
+</script>

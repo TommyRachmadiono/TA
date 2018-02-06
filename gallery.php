@@ -14,14 +14,12 @@ include_once 'layout/header.php';
                     </div>
                     <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
                         <li>
-                            <a href="#">Pages</a>
+                            <a href="index.php">Home</a>
                         </li>
                         <li>/</li>
                         <li>
-                            <a href="page-fullwidth-gallery.html">Full Width Gallery</a>
+                            <a href="#">Gallery</a>
                         </li>
-                        <li>/</li>
-                        <li class="c-state_active">Jango Components</li>
                     </ul>
                 </div>
             </div>

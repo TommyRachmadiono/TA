@@ -14,7 +14,9 @@ if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) {
 		$_SESSION["login"] = true;
 		$_SESSION["username"] = $username;
-		echo '<script type="text/javascript">alert("welcome user"); </script>';
+		setcookie("login", true, time()+3600);
+		
+		echo '<script type="text/javascript">alert("welcome"); </script>';
 		
 		echo '<script type="text/javascript"> window.location = "index.php" </script>';
 

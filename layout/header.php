@@ -40,7 +40,7 @@
         <link href="assets/base/css/custom.css" rel="stylesheet" type="text/css" />
         <!-- END THEME STYLES -->
         <link rel="shortcut icon" href="favicon.ico" />
-        
+        <!-- DATATABLES -->
         <link rel="stylesheet" type="text/css" href="assets/DataTables/css/dataTables.bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="assets/DataTables/css/buttons.bootstrap.min.css">
 
@@ -60,7 +60,12 @@ if (isset($_SESSION['menuHeader'])) {
     else if($akses == 'gallery'){ $menuGallery = 'class="c-active"'; }
     else if($akses == 'groupDiscussion'){ $menuGroupDiscussion = 'class="c-active"'; }
 }
-$_SESSION["login"];
+if(isset($_COOKIE["login"]))
+{
+    $_SESSION["login"] = $_COOKIE["login"];
+} else {
+    $_SESSION["login"] = false;
+}
 
 ?>
 
@@ -73,7 +78,7 @@ $_SESSION["login"];
                     <!-- BEGIN: BRAND -->
                     <div class="c-navbar-wrapper clearfix">
                         <div class="c-brand c-pull-left">
-                            <a href="index.html" class="c-logo">
+                            <a href="index.php" class="c-logo">
                                 <img src="assets/base/img/layout/logos/logo-3.png" alt="JANGO" class="c-desktop-logo">
                                 <img src="assets/base/img/layout/logos/logo-3.png" alt="JANGO" class="c-desktop-logo-inverse">
                                 <img src="assets/base/img/layout/logos/logo-3.png" alt="JANGO" class="c-mobile-logo"> </a>
@@ -105,7 +110,7 @@ $_SESSION["login"];
                                     
                                 </li>
                                 <li>
-                                    <a href="javascript:;" class="c-link dropdown-toggle">Shop
+                                    <a href="javascript:;" class="c-link dropdown-toggle">Student Achievements
                                         <span class="c-arrow c-toggler"></span>
                                     </a>
                                 </li>

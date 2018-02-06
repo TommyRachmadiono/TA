@@ -234,19 +234,7 @@
 
         <!-- GALERI -->
         <script src="assets/base/js/scripts/pages/fullwidth-gallery.js" type="text/javascript"></script>
-        <script type="text/javascript" src="assets/DataTables/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="assets/DataTables/js/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/DataTables/js/dataTables.buttons.min.js"></script>
-        <script type="text/javascript" src="assets/DataTables/js/buttons.bootstrap.min.js"></script>
-        <script type="text/javascript" src="assets/DataTables/js/buttons.html5.min.js"></script>
-        <script type="text/javascript" src="assets/DataTables/js/buttons.print.min.js"></script>>
+
         
     </body>
-    <script>
-       $(document).ready(function() {
-        $('#example').DataTable( {
-   
-        } );
-    } );
-</script>
 </html>
