@@ -1,39 +1,44 @@
 <?php
 session_start();
-
 include 'config/connectdb.php';
-$_SESSION['menuHeader'] = 'home';
 include_once 'layout/header.php';
+$_SESSION['menuHeader'] = '';
 
+if ($_SESSION["login"] == false) {
+    echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';
+    echo '<script type="text/javascript"> window.location = "index.php" </script>';
+}
 $count = 0;
+$user_id = $_SESSION['user_id'];
+$group_id = $_GET["id"];
 ?>
 
-<!-- BEGIN: PAGE CONTAINER -->
 <div class="c-layout-page">
     <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
-    <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both" style="margin-bottom: 0;">
-        <div class="container" style="margin-bottom: 0;">
-            <?php if ($_SESSION["login"] == true) { ?>
-                <div class="c-page-title c-pull-left">
+    <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
+        <div class="container">
+            <div class="c-page-title c-pull-left">
+                <h3 class="c-font-uppercase c-font-sbold">Sidebar Menu v1</h3>
+                <h4 class="">Page Sub Title Goes Here</h4>
+            </div>
+            <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
+                <li>
+                    <a href="index.php">Home</a>
+                </li>
+                <li>/</li>
+                <?php
+                $sql = "SELECT * FROM `grup` WHERE id = '$group_id'";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        ?>
+                        <li class="c-state_active">Group <?php echo $row['topik_grup'] ?></li>
+                        <?php
+                    }
+                }
+                ?>
 
-                    <h3 class="c-font-uppercase c-font-sbold"><?php echo $_SESSION['nama'] ?></h3>
-                    <h4 class=""><?php echo $_SESSION['role'] ?></h4>
-
-                </div>
-
-
-                <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular" style="width: 74%; margin-top: 0; margin-bottom: 0;">
-                    <li style="width: 100%; margin-bottom: 0;">
-                        <div>
-                            <form method="POST" action="postingController.php" enctype="multipart-formdata">
-                                <input type="hidden" name="act" value="posting_feeds">
-                                <textarea class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="What's on your mind?"></textarea>
-                                <input type="submit" value="POST" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
-                            </form>
-                        </div>
-                    </li>
-                </ul>
-            <?php } ?>
+            </ul>
         </div>
     </div>
     <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
@@ -60,15 +65,13 @@ $count = 0;
                     </a>
                     <?php
                     if ($_SESSION["login"] == true) {
-                        $id = $_SESSION['user_id'];
-                        $sql = "SELECT * FROM `grup` WHERE user_id = '$id'";
+                        $sql = "SELECT * FROM `grup` WHERE user_id = '$user_id'";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
                             // output data of each row
                             while ($row = $result->fetch_assoc()) {
                                 ?>
-
                             <li>
                                 <a href="group_page.php?id=<?php echo $row['id'] ?>">
                                     <i class="icon-bubbles"></i> <?php echo $row['topik_grup'] ?></a>
@@ -114,10 +117,17 @@ $count = 0;
             <!-- END: LAYOUT/SIDEBARS/SIDEBAR-MENU-1 -->
         </div>
 
-        <!-- BEGIN: PAGE CONTENT -->
+        <!-- BEGIN CONTENT -->
         <div class="c-layout-sidebar-content ">
+            <div style="margin-bottom: 12%;">
+                <form method="POST" action="postingController.php" enctype="multipart-formdata">
+                    <input type="hidden" name="act" value="posting_group">
+                    <textarea class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="What's on your mind?"></textarea>
+                    <input type="submit" value="POST" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
+                </form>
+            </div>
             <?php
-            $sql = "SELECT p.idpostingan, p.isi, p.tgldiposting, u.nama FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE ISNULL(p.grup_id) order by p.idpostingan desc";
+            $sql = "SELECT p.idpostingan, p.isi, p.tgldiposting, u.nama FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE p.grup_id = $group_id order by p.idpostingan desc";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -188,12 +198,11 @@ $count = 0;
                                     <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php">
                                         <div class="row">
                                             <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
-
                                                 <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
-                                                <input type="hidden" name="act" value="comment_feeds">
+                                                <input type="hidden" name="act" value="comment_feeds_group">
+                                                <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
                                                 <input type="text" placeholder="Write a comment" class="form-control" id="komen<?php echo $count ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
                                                 <button type="submit" class="btn btn-default" style="float: right; margin-right: 2%; margin-top: 1%;">Comment</button>
-
                                             </div>
                                         </div>
                                     </form>
@@ -206,9 +215,8 @@ $count = 0;
             }
             ?>
         </div>
+        <!-- END CONTENT -->
     </div>
-    <!-- END: PAGE CONTENT -->
-
     <!-- MODAL CREATE GROUP -->
     <div class="modal fade c-content-login-form" id="create-group" role="dialog">
         <div class="modal-dialog">
@@ -234,9 +242,8 @@ $count = 0;
             </div>
         </div>
     </div>
+    <!-- END MODAL CREATE GROUP -->
 </div>
-
-<!-- END: PAGE CONTAINER -->
 <!-- FOOTER -->
 <?php
 include_once 'layout/footer.php';

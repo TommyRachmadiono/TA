@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'config/connectdb.php';
 
 $_SESSION['menuHeader'] = 'groupDiscussion';
 include_once 'layout/header.php';
@@ -13,113 +14,43 @@ include_once 'layout/header.php';
 				<p class="c-center">Create your own discussion group and invite your friend to discuss anything you want.</p>
 			</div>
 			<div class="c-content-panel">
-				<button type="button" class="btn btn-success" style="margin-top: 2%; margin-left: 2%;">
+				<a class="c-link dropdown-toggle" data-toggle="modal" data-target="#create-group"><button type="button" class="btn btn-success" style="margin-top: 2%; margin-left: 2%;">
 					<i class="icon-bubbles">Create Group</i>
-				</button>
+				</button></a>
 				<div class="c-body">
 					<div class="row">
 						<div class="col-md-12">
 							<table id="example" class="table table-hover" cellspacing="0" width="100%">
 								<thead>
 									<tr>
-										<th>First name</th>
-										<th>Last name</th>
-										<th>Position</th>
-										<th>Office</th>
-										<th>Start date</th>
-										<th>Salary</th>
+										<th>ID</th>
+										<th>Group Topic</th>
+										<th>Created By</th>
+										<th>Date Created</th>
+										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>a</td>
-										<td>Last name</td>
-										<td>Position</td>
-										<td>Office</td>
-										<td>Start date</td>
-										<td>Salary</td>
-									</tr>
-									<tr>
-										<td>b</td>
-										<td>Last name</td>
-										<td>Position</td>
-										<td>Office</td>
-										<td>Start date</td>
-										<td>Salary</td>
-									</tr>
-									<tr>
-										<td>c</td>
-										<td>Last name</td>
-										<td>Position</td>
-										<td>Office</td>
-										<td>Start date</td>
-										<td>Salary</td>
-									</tr>
-									<tr>
-										<td>d</td>
-										<td>Last name</td>
-										<td>Position</td>
-										<td>Office</td>
-										<td>Start date</td>
-										<td>Salary</td>
-									</tr>
-									<tr>
-										<td>e</td>
-										<td>Last name</td>
-										<td>Position</td>
-										<td>Office</td>
-										<td>Start date</td>
-										<td>Salary</td>
-									</tr>
-									<tr>
-										<td>f</td>
-										<td>Last name</td>
-										<td>Position</td>
-										<td>Office</td>
-										<td>Start date</td>
-										<td>Salary</td>
-									</tr>
-									<tr>
-										<td>g</td>
-										<td>Last name</td>
-										<td>Position</td>
-										<td>Office</td>
-										<td>Start date</td>
-										<td>Salary</td>
-									</tr>
-									<tr>
-										<td>h</td>
-										<td>Last name</td>
-										<td>Position</td>
-										<td>Office</td>
-										<td>Start date</td>
-										<td>Salary</td>
-									</tr>
-									<tr>
-										<td>i</td>
-										<td>Last name</td>
-										<td>Position</td>
-										<td>Office</td>
-										<td>Start date</td>
-										<td>Salary</td>
-									</tr>
-									<tr>
-										<td>j</td>
-										<td>Last name</td>
-										<td>Position</td>
-										<td>Office</td>
-										<td>Start date</td>
-										<td>Salary</td>
-									</tr>
-									<tr>
-										<td>k</td>
-										<td>Last name</td>
-										<td>Position</td>
-										<td>Office</td>
-										<td>Start date</td>
-										<td>Salary</td>
-									</tr>
+									<?php	
+									$sql = "SELECT * FROM grup";
+									$result = $conn->query($sql);
 
+									if ($result->num_rows > 0) {
+										// output data of each row
+										while($row = $result->fetch_assoc()) { ?>
+										<tr>
+											<td><?php echo $row["id"] ?></td>
+											<td><?php echo $row["topik_grup"] ?></td>
+											<td><?php echo $row["user_id"] ?></td>
+											<td><?php echo $row["tgl_dibuat"] ?></td>
+											<td>Show</td>
+										</tr>
+										<?php	}
+									} else {
+										echo "0 results";
+									}
+									$conn->close();
+									?>
 								</tbody>
 							</table>
 						</div>
@@ -130,9 +61,36 @@ include_once 'layout/header.php';
 	</div>
 </div>
 
+<div class="modal fade c-content-login-form" id="create-group" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content c-square">
+			<div class="modal-header c-no-border">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h3 class="c-font-24 c-font-sbold">Create New Discussion Group</h3>
+				<form action="create_group.php" method="POST" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="create-group" class="">Topic Discussion</label>
+						<input type="text" class="form-control input-lg c-square" id="topic_discussion" placeholder="Topic Discussion" name="topic_discussion" required=""> 
+					</div>
+
+					<div class="form-group">
+						<button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;" name="create-group" id="create-group">Create</button><br><br>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 <?php
 include_once 'layout/footer.php';
 ?>
+
+
 
 <!-- DATATABLES -->
 <script type="text/javascript" src="assets/DataTables/js/jquery.dataTables.min.js"></script>
@@ -144,7 +102,8 @@ include_once 'layout/footer.php';
 <script>
 	$(document).ready(function() {
 		$('#example').DataTable( {
-			
+
 		} );
 	} );
 </script>
+
