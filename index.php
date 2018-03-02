@@ -14,14 +14,11 @@ $count = 0;
     <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both" style="margin-bottom: 0;">
         <div class="container" style="margin-bottom: 0;">
             <?php if ($_SESSION["login"] == true) { ?>
-                <div class="c-page-title c-pull-left">
-
-                    <h3 class="c-font-uppercase c-font-sbold"><?php echo $_SESSION['nama'] ?></h3>
-                    <h4 class=""><?php echo $_SESSION['role'] ?></h4>
-
+                <div class="c-page-title c-pull-left" style=" margin-bottom:0;">
+                    <img style="width: 100%; height: 180px; margin-left: 15%; border-radius: 50%;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
                 </div>
 
-
+                <div>
                 <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular" style="width: 74%; margin-top: 0; margin-bottom: 0;">
                     <li style="width: 100%; margin-bottom: 0;">
                         <div>
@@ -29,10 +26,12 @@ $count = 0;
                                 <input type="hidden" name="act" value="posting_feeds">
                                 <textarea class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="What's on your mind?"></textarea>
                                 <input type="submit" value="POST" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
+                                <button type="button" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%;">Attatchment</button>
                             </form>
                         </div>
                     </li>
                 </ul>
+            </div>
             <?php } ?>
         </div>
     </div>
@@ -128,15 +127,16 @@ $count = 0;
                     $count++;
                     ?>
                     <div class="panel panel-warning">
-                        <div class="panel-heading">
-
-                            <h3 class="panel-title"><?php echo $row['nama'] ?>
+                        <div class="panel-heading" >
+                            <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
+                            <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
                                 <a class="anchorjs-link" href="#panel-title">
                                     <span class="anchorjs-icon"></span>
                                 </a>
                             </h3>
+
                         </div>
-                        <div class="panel-body"> <p> <?php echo $row['isi'] ?> </p> 
+                        <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <hr style="margin: 0; padding-top: 10px;">
 
                             <!-- ICON LIKE DAN KOMEN DISINI -->
@@ -168,15 +168,14 @@ $count = 0;
                                         // output data of each row
                                         while ($row2 = $result2->fetch_assoc()) {
                                             ?> 
-                                            <div class="row">
+                                            <div class="row" style="">
 
-                                                <div class="col-md-2">
-
-                                                    <h3><?php echo $row2['nama'] ?></h3>
+                                                <div class="col-md-4" style="margin-top: 2%;">
+                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
+                                                    <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
                                                 </div>
-                                                <div class="col-md-10">
-                                                    <p style="margin-top: 1.5%; "><?php echo $row2['isi'] ?></p>
-
+                                                <div class="col-md-8" style="margin-top: 2%;">
+                                                    <p style="margin-top: 1.5%; "><?php echo nl2br($row2['isi']); ?></p>
                                                 </div>
                                             </div>
                                             <?php

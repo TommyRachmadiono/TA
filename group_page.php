@@ -10,7 +10,8 @@ if ($_SESSION["login"] == false) {
 }
 $count = 0;
 $user_id = $_SESSION['user_id'];
-$group_id = $_GET["id"];
+if (isset($_GET["id"])){
+    $group_id = $_GET["id"];
 ?>
 
 <div class="c-layout-page">
@@ -18,8 +19,7 @@ $group_id = $_GET["id"];
     <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
         <div class="container">
             <div class="c-page-title c-pull-left">
-                <h3 class="c-font-uppercase c-font-sbold">Sidebar Menu v1</h3>
-                <h4 class="">Page Sub Title Goes Here</h4>
+                <img style="width: 100%; height: 100px; margin-left: 15%; border-radius: 50%;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
             </div>
             <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
                 <li>
@@ -35,6 +35,9 @@ $group_id = $_GET["id"];
                         <li class="c-state_active">Group <?php echo $row['topik_grup'] ?></li>
                         <?php
                     }
+                } else {
+                    echo '<script type="text/javascript">alert("Jangan otak atik idnya lewat url cok"); </script>';
+                    echo '<script type="text/javascript"> window.location = "index.php" </script>';
                 }
                 ?>
 
@@ -139,8 +142,8 @@ $group_id = $_GET["id"];
                     ?>
                     <div class="panel panel-warning">
                         <div class="panel-heading">
-
-                            <h3 class="panel-title"><?php echo $row['nama'] ?>
+                            <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
+                            <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
                                 <a class="anchorjs-link" href="#panel-title">
                                     <span class="anchorjs-icon"></span>
                                 </a>
@@ -180,11 +183,11 @@ $group_id = $_GET["id"];
                                             ?> 
                                             <div class="row">
 
-                                                <div class="col-md-2">
-
-                                                    <h3><?php echo $row2['nama'] ?></h3>
+                                                <div class="col-md-4" style="margin-top: 2%;">
+                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
+                                                    <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
                                                 </div>
-                                                <div class="col-md-10">
+                                                <div class="col-md-8" style="margin-top: 2%;">
                                                     <p style="margin-top: 1.5%; "><?php echo $row2['isi'] ?></p>
 
                                                 </div>
@@ -244,6 +247,12 @@ $group_id = $_GET["id"];
     </div>
     <!-- END MODAL CREATE GROUP -->
 </div>
+<?php 
+} else {
+    echo '<script type="text/javascript">alert("Mau ngapain hayo?"); </script>';
+    echo '<script type="text/javascript"> window.location = "index.php" </script>';
+}
+?>
 <!-- FOOTER -->
 <?php
 include_once 'layout/footer.php';

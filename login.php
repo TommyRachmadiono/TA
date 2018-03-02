@@ -17,6 +17,7 @@ if ($result->num_rows > 0) {
 		$_SESSION['role'] = $row['role'];
 		$_SESSION['nama'] = $row['nama'];
 		$_SESSION['user_id'] = $row['id'];
+		$_SESSION['foto_profil'] = $row['foto'];
 		$_SESSION["login"] = true;
 		$_SESSION["username"] = $username;
 

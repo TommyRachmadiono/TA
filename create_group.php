@@ -12,7 +12,7 @@ VALUES ('$topic_discussion', '$user_id', '$tgl_dibuat')";
 
 if ($conn->query($sql) === TRUE) {
     echo "New record created successfully";
-    header('Location: groupDiscussion.php');
+    header('Location: index.php');
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
