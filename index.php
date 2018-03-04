@@ -5,9 +5,20 @@ include 'config/connectdb.php';
 $_SESSION['menuHeader'] = 'home';
 include_once 'layout/header.php';
 
+$foto ='';
 $count = 0;
 ?>
+<?php 
+$sql = "SELECT * FROM `user` WHERE username = '$username' AND password = '$password'";
+$result = $conn->query($sql);
 
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+
+        }
+    }
+?>
 <!-- BEGIN: PAGE CONTAINER -->
 <div class="c-layout-page">
     <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
@@ -116,7 +127,7 @@ $count = 0;
         <!-- BEGIN: PAGE CONTENT -->
         <div class="c-layout-sidebar-content ">
             <?php
-            $sql = "SELECT p.idpostingan, p.isi, p.tgldiposting, u.nama FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE ISNULL(p.grup_id) order by p.idpostingan desc";
+            $sql = "SELECT p.idpostingan, p.isi, p.tgldiposting, u.nama, u.foto FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE ISNULL(p.grup_id) order by p.idpostingan desc";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -128,7 +139,7 @@ $count = 0;
                     ?>
                     <div class="panel panel-warning">
                         <div class="panel-heading" >
-                            <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
+                            <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row['foto'] ?>">
                             <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
                                 <a class="anchorjs-link" href="#panel-title">
                                     <span class="anchorjs-icon"></span>
@@ -139,21 +150,47 @@ $count = 0;
                         <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <hr style="margin: 0; padding-top: 10px;">
 
+                            <?php
+                    if ($_SESSION["login"] == true) { ?>
                             <!-- ICON LIKE DAN KOMEN DISINI -->
-                            <div class="row" style="">
-                                <a href="#icon/thumbs-o-up"> <div class="fa-hover col-md-6 filter-icon" style="text-align: center;">
-                                        <i class="fa fa-thumbs-o-up"></i> Like
-                                    </div></a>
+                            <div class="row" style="width: 100%;">
+                                <div class="col-md-6">
+                                    <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
+                                <?php
+                                $user_id = $_SESSION['user_id'];
+                                $query1 = mysqli_query($conn,"SELECT * FROM `like` WHERE postid = $idpostingan AND user_id = $user_id"); 
+                                if(mysqli_num_rows($query1)>0) {
+                                    
+                                ?>
+                                    <button value="<?php echo $idpostingan ?>" class="unlike btn btn-default" style="width: 100%;"> 
+                                        <i class="fa fa-thumbs-o-up"></i>Unlike
+                                    </button>
+                                <?php } else { ?>
+                                    <button value="<?php echo $idpostingan ?>" class="like btn btn-default" style="width: 100%;"> 
+                                        <i class="fa fa-thumbs-o-up"></i>Like
+                                    </button>
+                                <?php } ?>
+                                </div>
+                                </div>
 
-                                <a href=""> <div class="fa-hover col-md-6 filter-icon" style="text-align: center;" onclick="document.getElementById('komen<?php echo $count ?>').focus(); return false;">        
+                                <div class="col-md-6">
+                                    <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $count ?>').focus(); return false;">
+                                <button class="btn btn-default" style="width: 100%;">         
                                         <i class="fa fa-comment-o"></i>Comment
-                                    </div></a>
+                                    </button></div>
+                                </div>
                             </div> 
+                            <?php } ?>
                             <hr style="margin-top: 10px; margin-bottom: 0; height: 3px;">
 
                             <!-- TOTAL LIKE MASUKIN DISINI -->
                             <div style="background-color: #f7f7f7;">
-                                <i class="fa fa-thumbs-up" style="margin-left: 3%;"></i> <h3 style="padding-top: 2%; display: inline;">4</h3>
+                                <i class="fa fa-thumbs-up" style="margin-left: 3%;"></i> <span id="show_like<?php echo $idpostingan ?>" style="padding-top: 2%; display: inline;">
+                                    <?php
+                                    $query2 = mysqli_query($conn,"SELECT * FROM `like` WHERE postid = $idpostingan"); 
+                                    echo mysqli_num_rows($query2); 
+                                    ?>
+                                </span>
                                 <hr style="margin: 0;">
                             </div>
 
@@ -161,7 +198,7 @@ $count = 0;
                                 <!-- ISI DARI KOMEN MASUK DISINI -->
                                 <div style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
                                     <?php
-                                    $sql2 = "SELECT u.nama, k.isi FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan";
+                                    $sql2 = "SELECT u.nama, k.isi, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan";
                                     $result2 = $conn->query($sql2);
 
                                     if ($result2->num_rows > 0) {
@@ -171,7 +208,7 @@ $count = 0;
                                             <div class="row" style="">
 
                                                 <div class="col-md-4" style="margin-top: 2%;">
-                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
+                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row2['foto'] ?>">
                                                     <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
                                                 </div>
                                                 <div class="col-md-8" style="margin-top: 2%;">
@@ -183,6 +220,8 @@ $count = 0;
                                     }
                                     ?>
 
+                                    <?php
+                    if ($_SESSION["login"] == true) { ?>
                                     <!-- INPUT TYPE KOMEN DAN BUTTON KOMEN DISINI -->
                                     <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php">
                                         <div class="row">
@@ -196,6 +235,7 @@ $count = 0;
                                             </div>
                                         </div>
                                     </form>
+                                    <?php } ?>
                                 </div>
                             </section>
                         </div>
@@ -236,7 +276,77 @@ $count = 0;
 </div>
 
 <!-- END: PAGE CONTAINER -->
+
+
 <!-- FOOTER -->
 <?php
 include_once 'layout/footer.php';
 ?>
+
+<script type = "text/javascript">
+    $(document).ready(function(){
+        
+        $(document).on('click', '.like', function(){
+            var id=$(this).val();
+            var $this = $(this);
+            $this.toggleClass('like');
+            if($this.hasClass('like')){
+                $this.text('Like'); 
+            } else {
+                $this.text('Unlike');
+                $this.addClass("unlike"); 
+            }
+                $.ajax({
+                    type: "POST",
+                    url: "like.php",
+                    data: {
+                        id: id,
+                        like: 1,
+                    },
+                    success: function(){
+                        showLike(id);
+                    }
+                });
+        });
+        
+        $(document).on('click', '.unlike', function(){
+            var id=$(this).val();
+            var $this = $(this);
+            $this.toggleClass('unlike');
+            if($this.hasClass('unlike')){
+                $this.text('Unlike'); 
+            } else {
+                $this.text('Like');
+                $this.addClass("like"); 
+            }
+                $.ajax({
+                    type: "POST",
+                    url: "like.php",
+                    data: {
+                        id: id,
+                        like: 1,
+                    },
+                    success: function(){
+                        showLike(id);
+                    }
+                });
+        });
+
+            function showLike(id){
+        $.ajax({
+            async: true,
+            type: "POST",
+            url: 'show_like.php',
+            data:{
+                id: id,
+                showlike: 1
+            },
+            success: function(response){
+                $('#show_like'+id).html(response);   
+            }});
+    }
+        
+    });
+    
+
+</script>

@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include 'config/connectdb.php';
 
@@ -67,9 +66,6 @@ switch ($act) {
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
-        break;
-    default:
-        # code...
         break;
 }
 ?>

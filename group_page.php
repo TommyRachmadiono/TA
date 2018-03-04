@@ -125,6 +125,7 @@ if (isset($_GET["id"])){
             <div style="margin-bottom: 12%;">
                 <form method="POST" action="postingController.php" enctype="multipart-formdata">
                     <input type="hidden" name="act" value="posting_group">
+                    <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
                     <textarea class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="What's on your mind?"></textarea>
                     <input type="submit" value="POST" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
                 </form>
@@ -149,18 +150,24 @@ if (isset($_GET["id"])){
                                 </a>
                             </h3>
                         </div>
-                        <div class="panel-body"> <p> <?php echo $row['isi'] ?> </p> 
+                        <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <hr style="margin: 0; padding-top: 10px;">
 
                             <!-- ICON LIKE DAN KOMEN DISINI -->
-                            <div class="row" style="">
-                                <a href="#icon/thumbs-o-up"> <div class="fa-hover col-md-6 filter-icon" style="text-align: center;">
-                                        <i class="fa fa-thumbs-o-up"></i> Like
-                                    </div></a>
+                            <div class="row" style="width: 100%;">
+                                <div class="col-md-6">
+                                    <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
+                                <button class="btn btn-default" style="width: 100%;"> 
+                                        <i class="fa fa-thumbs-o-up"></i>Like
+                                    </button></div>
+                                </div>
 
-                                <a href=""> <div class="fa-hover col-md-6 filter-icon" style="text-align: center;" onclick="document.getElementById('komen<?php echo $count ?>').focus(); return false;">        
+                                <div class="col-md-6">
+                                    <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $count ?>').focus(); return false;">
+                                <button class="btn btn-default" style="width: 100%;">         
                                         <i class="fa fa-comment-o"></i>Comment
-                                    </div></a>
+                                    </button></div>
+                                </div>
                             </div> 
                             <hr style="margin-top: 10px; margin-bottom: 0; height: 3px;">
 
@@ -188,7 +195,7 @@ if (isset($_GET["id"])){
                                                     <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
                                                 </div>
                                                 <div class="col-md-8" style="margin-top: 2%;">
-                                                    <p style="margin-top: 1.5%; "><?php echo $row2['isi'] ?></p>
+                                                    <p style="margin-top: 1.5%; "><?php echo nl2br($row2['isi']) ?></p>
 
                                                 </div>
                                             </div>
