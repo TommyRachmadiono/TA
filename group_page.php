@@ -173,25 +173,15 @@ if (isset($_GET["id"])) {
                                         </div>
                                     </div>
 
-<<<<<<< HEAD
-                            <!-- ICON LIKE DAN KOMEN DISINI -->
-                            <div class="row" style="width: 100%;">
-                                <div class="col-md-6">
-                                    <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
-                                <button class="btn btn-default like" style="width: 100%;"> 
-                                        <i class="fa fa-thumbs-o-up"></i>Like
-                                    </button></div>
-                                </div>
-=======
                                     <div class="col-md-6">
                                         <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $count ?>').focus(); return false;">
                                             <button class="btn btn-default" style="width: 100%;">         
                                                 <i class="fa fa-comment-o"></i>Comment
                                             </button></div>
                                     </div>
-                                </div> 
+                       </div>
                                 <hr style="margin-top: 10px; margin-bottom: 0; height: 3px;">
->>>>>>> 2bc65def2c3d622f64881dbfa6f1b7999c2ddf66
+
 
                                 <!-- TOTAL LIKE MASUKIN DISINI -->
                                 <div style="background-color: #f7f7f7;">
