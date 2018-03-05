@@ -234,7 +234,7 @@
 
         <!-- GALERI -->
         <script src="assets/base/js/scripts/pages/fullwidth-gallery.js" type="text/javascript"></script>
+        <script src="js/like.js" type="text/javascript"></script>
 
-        
     </body>
 </html>

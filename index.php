@@ -163,7 +163,7 @@ if ($result->num_rows > 0) {
                                     
                                 ?>
                                     <button value="<?php echo $idpostingan ?>" class="unlike btn btn-default" style="width: 100%;"> 
-                                        <i class="fa fa-thumbs-o-up"></i>Unlike
+                                        <i class="fa fa-thumbs-o-down"></i>Unlike
                                     </button>
                                 <?php } else { ?>
                                     <button value="<?php echo $idpostingan ?>" class="like btn btn-default" style="width: 100%;"> 
@@ -283,70 +283,4 @@ if ($result->num_rows > 0) {
 include_once 'layout/footer.php';
 ?>
 
-<script type = "text/javascript">
-    $(document).ready(function(){
-        
-        $(document).on('click', '.like', function(){
-            var id=$(this).val();
-            var $this = $(this);
-            $this.toggleClass('like');
-            if($this.hasClass('like')){
-                $this.text('Like'); 
-            } else {
-                $this.text('Unlike');
-                $this.addClass("unlike"); 
-            }
-                $.ajax({
-                    type: "POST",
-                    url: "like.php",
-                    data: {
-                        id: id,
-                        like: 1,
-                    },
-                    success: function(){
-                        showLike(id);
-                    }
-                });
-        });
-        
-        $(document).on('click', '.unlike', function(){
-            var id=$(this).val();
-            var $this = $(this);
-            $this.toggleClass('unlike');
-            if($this.hasClass('unlike')){
-                $this.text('Unlike'); 
-            } else {
-                $this.text('Like');
-                $this.addClass("like"); 
-            }
-                $.ajax({
-                    type: "POST",
-                    url: "like.php",
-                    data: {
-                        id: id,
-                        like: 1,
-                    },
-                    success: function(){
-                        showLike(id);
-                    }
-                });
-        });
 
-            function showLike(id){
-        $.ajax({
-            async: true,
-            type: "POST",
-            url: 'show_like.php',
-            data:{
-                id: id,
-                showlike: 1
-            },
-            success: function(response){
-                $('#show_like'+id).html(response);   
-            }});
-    }
-        
-    });
-    
-
-</script>
