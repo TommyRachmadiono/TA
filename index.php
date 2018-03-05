@@ -158,7 +158,7 @@ if ($result->num_rows > 0) {
                                     <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
                                 <?php
                                 $user_id = $_SESSION['user_id'];
-                                $query1 = mysqli_query($conn,"SELECT * FROM `like` WHERE postid = $idpostingan AND user_id = $user_id"); 
+                                $query1 = mysqli_query($conn,"SELECT * FROM `like` WHERE post_id = $idpostingan AND user_id = $user_id"); 
                                 if(mysqli_num_rows($query1)>0) {
                                     
                                 ?>
@@ -187,7 +187,7 @@ if ($result->num_rows > 0) {
                             <div style="background-color: #f7f7f7;">
                                 <i class="fa fa-thumbs-up" style="margin-left: 3%;"></i> <span id="show_like<?php echo $idpostingan ?>" style="padding-top: 2%; display: inline;">
                                     <?php
-                                    $query2 = mysqli_query($conn,"SELECT * FROM `like` WHERE postid = $idpostingan"); 
+                                    $query2 = mysqli_query($conn,"SELECT * FROM `like` WHERE post_id = $idpostingan"); 
                                     echo mysqli_num_rows($query2); 
                                     ?>
                                 </span>
