@@ -157,7 +157,7 @@ if (isset($_GET["id"])){
                             <div class="row" style="width: 100%;">
                                 <div class="col-md-6">
                                     <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
-                                <button class="btn btn-default" style="width: 100%;"> 
+                                <button class="btn btn-default like" style="width: 100%;"> 
                                         <i class="fa fa-thumbs-o-up"></i>Like
                                     </button></div>
                                 </div>
