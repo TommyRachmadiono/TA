@@ -5,19 +5,19 @@ include 'config/connectdb.php';
 $_SESSION['menuHeader'] = 'home';
 include_once 'layout/header.php';
 
-$foto ='';
+$foto = '';
 $count = 0;
 ?>
-<?php 
+<?php
 $sql = "SELECT * FROM `user` WHERE username = '$username' AND password = '$password'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
-    while($row = $result->fetch_assoc()) {
-
-        }
+    while ($row = $result->fetch_assoc()) {
+        
     }
+}
 ?>
 <!-- BEGIN: PAGE CONTAINER -->
 <div class="c-layout-page">
@@ -30,19 +30,19 @@ if ($result->num_rows > 0) {
                 </div>
 
                 <div>
-                <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular" style="width: 74%; margin-top: 0; margin-bottom: 0;">
-                    <li style="width: 100%; margin-bottom: 0;">
-                        <div>
-                            <form method="POST" action="postingController.php" enctype="multipart-formdata">
-                                <input type="hidden" name="act" value="posting_feeds">
-                                <textarea class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="What's on your mind?"></textarea>
-                                <input type="submit" value="POST" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
-                                <button type="button" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%;">Attatchment</button>
-                            </form>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                    <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular" style="width: 74%; margin-top: 0; margin-bottom: 0;">
+                        <li style="width: 100%; margin-bottom: 0;">
+                            <div>
+                                <form method="POST" action="postingController.php" enctype="multipart-formdata">
+                                    <input type="hidden" name="act" value="posting_feeds">
+                                    <textarea class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="What's on your mind?"></textarea>
+                                    <input type="submit" value="POST" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
+                                    <button type="button" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%;">Attatchment</button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             <?php } ?>
         </div>
     </div>
@@ -150,46 +150,44 @@ if ($result->num_rows > 0) {
                         <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <hr style="margin: 0; padding-top: 10px;">
 
-                            <?php
-                    if ($_SESSION["login"] == true) { ?>
-                            <!-- ICON LIKE DAN KOMEN DISINI -->
-                            <div class="row" style="width: 100%;">
-                                <div class="col-md-6">
-                                    <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
-                                <?php
-                                $user_id = $_SESSION['user_id'];
-                                $query1 = mysqli_query($conn,"SELECT * FROM `like` WHERE post_id = $idpostingan AND user_id = $user_id"); 
-                                if(mysqli_num_rows($query1)>0) {
-                                    
-                                ?>
-                                    <button value="<?php echo $idpostingan ?>" class="unlike btn btn-default" style="width: 100%;"> 
-                                        <i class="fa fa-thumbs-o-down"></i>Unlike
-                                    </button>
-                                <?php } else { ?>
-                                    <button value="<?php echo $idpostingan ?>" class="like btn btn-default" style="width: 100%;"> 
-                                        <i class="fa fa-thumbs-o-up"></i>Like
-                                    </button>
-                                <?php } ?>
-                                </div>
-                                </div>
+                            <?php if ($_SESSION["login"] == true) { ?>
+                                <!-- ICON LIKE DAN KOMEN DISINI -->
+                                <div class="row" style="width: 100%;">
+                                    <div class="col-md-6">
+                                        <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
+                                            <?php
+                                            $user_id = $_SESSION['user_id'];
+                                            $query1 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $idpostingan AND user_id = $user_id");
+                                            if (mysqli_num_rows($query1) > 0) {
+                                                ?>
+                                                <button value="<?php echo $idpostingan ?>" class="unlike btn btn-default" style="width: 100%;"> 
+                                                    <i class="fa fa-thumbs-o-down"></i>Unlike
+                                                </button>
+            <?php } else { ?>
+                                                <button value="<?php echo $idpostingan ?>" class="like btn btn-default" style="width: 100%;"> 
+                                                    <i class="fa fa-thumbs-o-up"></i>Like
+                                                </button>
+            <?php } ?>
+                                        </div>
+                                    </div>
 
-                                <div class="col-md-6">
-                                    <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $count ?>').focus(); return false;">
-                                <button class="btn btn-default" style="width: 100%;">         
-                                        <i class="fa fa-comment-o"></i>Comment
-                                    </button></div>
-                                </div>
-                            </div> 
-                            <?php } ?>
+                                    <div class="col-md-6">
+                                        <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $count ?>').focus(); return false;">
+                                            <button class="btn btn-default" style="width: 100%;">         
+                                                <i class="fa fa-comment-o"></i>Comment
+                                            </button></div>
+                                    </div>
+                                </div> 
+        <?php } ?>
                             <hr style="margin-top: 10px; margin-bottom: 0; height: 3px;">
 
                             <!-- TOTAL LIKE MASUKIN DISINI -->
                             <div style="background-color: #f7f7f7;">
                                 <i class="fa fa-thumbs-up" style="margin-left: 3%;"></i> <span id="show_like<?php echo $idpostingan ?>" style="padding-top: 2%; display: inline;">
-                                    <?php
-                                    $query2 = mysqli_query($conn,"SELECT * FROM `like` WHERE post_id = $idpostingan"); 
-                                    echo mysqli_num_rows($query2); 
-                                    ?>
+        <?php
+        $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $idpostingan");
+        echo mysqli_num_rows($query2);
+        ?>
                                 </span>
                                 <hr style="margin: 0;">
                             </div>
@@ -197,14 +195,14 @@ if ($result->num_rows > 0) {
                             <section id="comment">
                                 <!-- ISI DARI KOMEN MASUK DISINI -->
                                 <div style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
-                                    <?php
-                                    $sql2 = "SELECT u.nama, k.isi, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan";
-                                    $result2 = $conn->query($sql2);
+        <?php
+        $sql2 = "SELECT u.nama, k.isi, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan";
+        $result2 = $conn->query($sql2);
 
-                                    if ($result2->num_rows > 0) {
-                                        // output data of each row
-                                        while ($row2 = $result2->fetch_assoc()) {
-                                            ?> 
+        if ($result2->num_rows > 0) {
+            // output data of each row
+            while ($row2 = $result2->fetch_assoc()) {
+                ?> 
                                             <div class="row" style="">
 
                                                 <div class="col-md-4" style="margin-top: 2%;">
@@ -215,35 +213,34 @@ if ($result->num_rows > 0) {
                                                     <p style="margin-top: 1.5%; "><?php echo nl2br($row2['isi']); ?></p>
                                                 </div>
                                             </div>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
+                <?php
+            }
+        }
+        ?>
 
-                                    <?php
-                    if ($_SESSION["login"] == true) { ?>
-                                    <!-- INPUT TYPE KOMEN DAN BUTTON KOMEN DISINI -->
-                                    <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php">
-                                        <div class="row">
-                                            <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
+                                    <?php if ($_SESSION["login"] == true) { ?>
+                                        <!-- INPUT TYPE KOMEN DAN BUTTON KOMEN DISINI -->
+                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php">
+                                            <div class="row">
+                                                <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
 
-                                                <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
-                                                <input type="hidden" name="act" value="comment_feeds">
-                                                <input type="text" placeholder="Write a comment" class="form-control" id="komen<?php echo $count ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
-                                                <button type="submit" class="btn btn-default" style="float: right; margin-right: 2%; margin-top: 1%;">Comment</button>
+                                                    <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
+                                                    <input type="hidden" name="act" value="comment_feeds">
+                                                    <input type="text" placeholder="Write a comment" class="form-control" id="komen<?php echo $count ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
+                                                    <button type="submit" class="btn btn-default" style="float: right; margin-right: 2%; margin-top: 1%;">Comment</button>
 
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                    <?php } ?>
+                                        </form>
+        <?php } ?>
                                 </div>
                             </section>
                         </div>
                     </div>
-                    <?php
-                }
-            }
-            ?>
+        <?php
+    }
+}
+?>
         </div>
     </div>
     <!-- END: PAGE CONTENT -->
