@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2018 at 03:31 AM
+-- Generation Time: Mar 06, 2018 at 04:38 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.4
 
@@ -65,8 +65,8 @@ CREATE TABLE `komentar` (
 --
 
 CREATE TABLE `like` (
-  `post_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -231,9 +231,9 @@ ALTER TABLE `komentar`
 -- Indexes for table `like`
 --
 ALTER TABLE `like`
-  ADD PRIMARY KEY (`post_id`,`user_id`),
-  ADD KEY `fk_postingan_has_user_user1_idx` (`user_id`),
-  ADD KEY `fk_postingan_has_user_postingan1_idx` (`post_id`);
+  ADD PRIMARY KEY (`user_id`,`post_id`),
+  ADD KEY `fk_user_has_postingan_postingan1_idx` (`post_id`),
+  ADD KEY `fk_user_has_postingan_user1_idx` (`user_id`);
 
 --
 -- Indexes for table `materi`
@@ -390,8 +390,8 @@ ALTER TABLE `komentar`
 -- Constraints for table `like`
 --
 ALTER TABLE `like`
-  ADD CONSTRAINT `fk_postingan_has_user_postingan1` FOREIGN KEY (`post_id`) REFERENCES `postingan` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_postingan_has_user_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_user_has_postingan_postingan1` FOREIGN KEY (`post_id`) REFERENCES `postingan` (`idpostingan`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_user_has_postingan_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `materi_has_week`
