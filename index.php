@@ -35,7 +35,7 @@ if ($result->num_rows > 0) {
                             <div>
                                 <form method="POST" action="postingController.php" enctype="multipart-formdata">
                                     <input type="hidden" name="act" value="posting_feeds">
-                                    <textarea class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="What's on your mind?"></textarea>
+                                    <textarea required="" class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="What's on your mind?"></textarea>
                                     <input type="submit" value="POST" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
                                     <button type="button" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%;">Attatchment</button>
                                 </form>
@@ -59,9 +59,11 @@ if ($result->num_rows > 0) {
                 </a>
             </div>
 
-            <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#create-group" style="width: 100%;" id="createGroup"><button type="button" class="btn btn-success" style="margin-left: 2%; width: 100%;">
+            <?php if($_SESSION["login"]==true){ ?>
+            <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#create-group" style="width: 100%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
                     <i class="icon-bubbles">Create Group</i>
                 </button></a>
+                <?php } ?>
 
             <ul class="c-sidebar-menu collapse " id="sidebar-menu-1" style="margin-top: 7%;">
                 <li class="c-active">
@@ -152,8 +154,8 @@ if ($result->num_rows > 0) {
 
                             <?php if ($_SESSION["login"] == true) { ?>
                                 <!-- ICON LIKE DAN KOMEN DISINI -->
-                                <div class="row" style="width: 100%;">
-                                    <div class="col-md-6">
+                                <div class="row" style="width: 100%; padding: 0; margin: 0;">
+                                    <div class="col-md-6" style="margin: 0; padding: 0;">
                                         <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
                                             <?php
                                             $user_id = $_SESSION['user_id'];
@@ -171,7 +173,7 @@ if ($result->num_rows > 0) {
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" style="margin: 0; padding: 0;">
                                         <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $count ?>').focus(); return false;">
                                             <button class="btn btn-default" style="width: 100%;">         
                                                 <i class="fa fa-comment-o"></i>Comment
@@ -256,10 +258,11 @@ if ($result->num_rows > 0) {
                 </div>
                 <div class="modal-body">
                     <h3 class="c-font-24 c-font-sbold">Create New Discussion Group</h3>
-                    <form action="create_group.php" method="POST" enctype="multipart/form-data">
+                    <form action="groupController.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="create-group" class="">Your Group Name</label>
                             <input type="text" class="form-control input-lg c-square" id="topic_discussion" placeholder="Group Name" name="topic_discussion" required=""> 
+                            <input type="hidden" name="act" value="create_group">
                         </div>
 
                         <div class="form-group">

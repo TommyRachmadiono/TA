@@ -19,7 +19,7 @@ if (isset($_GET["id"])) {
         <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
             <div class="container">
                 <div class="c-page-title c-pull-left">
-                    <img style="width: 100%; height: 100px; margin-left: 15%; border-radius: 50%;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
+                    <img style="width: 100%; height: 150px; margin-left: 15%; border-radius: 50%;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
                 </div>
                 <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
                     <li>
@@ -57,9 +57,17 @@ if (isset($_GET["id"])) {
                     </a>
                 </div>
 
-                <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#create-group" style="width: 100%;" id="createGroup"><button type="button" class="btn btn-success" style="margin-left: 2%; width: 100%;">
-                        <i class="icon-bubbles">Create Group</i>
+                <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#create-group" style="width: 100%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
+                        <i class="icon-bubbles"> Create Group</i>
                     </button></a>
+
+                    <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#create-group" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
+                    <i class="fa fa-eye"> Show Member</i>
+                </button></a>
+
+                <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#invite-member" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
+                    <i class="fa fa-user-plus"> Invite Member</i>
+                </button></a>
 
                 <ul class="c-sidebar-menu collapse " id="sidebar-menu-1" style="margin-top: 7%;">
                     <li class="c-active">
@@ -154,8 +162,8 @@ if (isset($_GET["id"])) {
                                 <hr style="margin: 0; padding-top: 10px;">
 
                                 <!-- ICON LIKE DAN KOMEN DISINI -->
-                                <div class="row" style="width: 100%;">
-                                    <div class="col-md-6">
+                                <div class="row" style="width: 100%; margin: 0; padding: 0;">
+                                    <div class="col-md-6" style="margin: 0; padding: 0;">
                                         <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
                                             <?php
                                             $user_id = $_SESSION['user_id'];
@@ -173,7 +181,7 @@ if (isset($_GET["id"])) {
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" style="margin: 0; padding: 0;">
                                         <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $count ?>').focus(); return false;">
                                             <button class="btn btn-default" style="width: 100%;">         
                                                 <i class="fa fa-comment-o"></i>Comment
@@ -255,10 +263,11 @@ if (isset($_GET["id"])) {
                     </div>
                     <div class="modal-body">
                         <h3 class="c-font-24 c-font-sbold">Create New Discussion Group</h3>
-                        <form action="create_group.php" method="POST" enctype="multipart/form-data">
+                        <form action="groupController.php" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="create-group" class="">Your Group Name</label>
                                 <input type="text" class="form-control input-lg c-square" id="topic_discussion" placeholder="Group Name" name="topic_discussion" required=""> 
+                                <input type="hidden" name="act" value="create_group">
                             </div>
 
                             <div class="form-group">
@@ -270,6 +279,57 @@ if (isset($_GET["id"])) {
             </div>
         </div>
         <!-- END MODAL CREATE GROUP -->
+
+        <!-- MODAL INVITE MEMBER -->
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" id="invite-member" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content c-square">
+                    <div class="modal-header c-no-border">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="example" class="table table-hover table-bordered" width="100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Username</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>1</th>
+                                                <td>Emily</td>
+                                                <td>Brewer</td>
+                                                <td>username</td>
+                                                <td><button class="btn btn-default">Invite</button></td>
+                                            </tr>
+                                            <tr>
+                                                <th>2</th>
+                                                <td>Danielle</td>
+                                                <td>Payne</td>
+                                                <td>username</td>
+                                                <td><button class="btn btn-default">Invite</button></td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>Laura</td>
+                                                <td>Sandoval</td>
+                                                <td>username</td>
+                                                <td><button class="btn btn-default">Invite</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MODAL CREATE GROUP -->
+
     </div>
     <?php
 } else {
