@@ -61,13 +61,13 @@ if (isset($_GET["id"])) {
                         <i class="icon-bubbles"> Create Group</i>
                     </button></a>
 
-                    <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#create-group" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
-                    <i class="fa fa-eye"> Show Member</i>
-                </button></a>
+                <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#create-group" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
+                        <i class="fa fa-eye"> Show Member</i>
+                    </button></a>
 
                 <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#invite-member" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
-                    <i class="fa fa-user-plus"> Invite Member</i>
-                </button></a>
+                        <i class="fa fa-user-plus"> Invite Member</i>
+                    </button></a>
 
                 <ul class="c-sidebar-menu collapse " id="sidebar-menu-1" style="margin-top: 7%;">
                     <li class="c-active">
@@ -187,7 +187,7 @@ if (isset($_GET["id"])) {
                                                 <i class="fa fa-comment-o"></i>Comment
                                             </button></div>
                                     </div>
-                       </div>
+                                </div>
                                 <hr style="margin-top: 10px; margin-bottom: 0; height: 3px;">
 
 
@@ -291,44 +291,38 @@ if (isset($_GET["id"])) {
                     </div>
                     <div class="modal-body">
                         <table id="example" class="table table-hover table-bordered" width="100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Username</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th>1</th>
-                                                <td>Emily</td>
-                                                <td>Brewer</td>
-                                                <td>username</td>
-                                                <td><button class="btn btn-default">Invite</button></td>
-                                            </tr>
-                                            <tr>
-                                                <th>2</th>
-                                                <td>Danielle</td>
-                                                <td>Payne</td>
-                                                <td>username</td>
-                                                <td><button class="btn btn-default">Invite</button></td>
-                                            </tr>
-                                            <tr>
-                                                <th>3</th>
-                                                <td>Laura</td>
-                                                <td>Sandoval</td>
-                                                <td>username</td>
-                                                <td><button class="btn btn-default">Invite</button></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">User ID</th>
+                                    <th style="text-align: center;">Nama User</th>
+                                    <th style="text-align: center;">Username</th>
+                                    <th style="text-align: center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $query = mysqli_query($conn, "SELECT * FROM user WHERE id NOT IN(SELECT a.user_id FROM grup g INNER JOIN anggota a on a.grup_id=g.id WHERE g.id = $group_id)") or die(mysqli_error());
+                                if (mysqli_num_rows($query) > 0) {
+                                    while ($row = mysqli_fetch_assoc($query)) {
+                                        ?>
+                                        <tr>
+                                            <th style="text-align: center;"><?php echo $row['id'] ?></th>
+                                            <td style="text-align: center;"><?php echo $row['nama'] ?></td>
+                                            <td style="text-align: center;"><?php echo $row['username'] ?></td>
+                                            <form action="" method="POST">
+                                            <td style="text-align: center;"><button class="btn btn-default">Invite</button></td>
+                                            </form>
+                                        </tr>
+                                    <?php }
+                                }
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- END MODAL CREATE GROUP -->
+        <!-- END MODAL INVITE MEMBER -->
 
     </div>
     <?php

@@ -24,7 +24,6 @@ if ($result->num_rows > 0) {
 		setcookie("login", true, time()+3600);
 		
 		echo '<script type="text/javascript">alert("welcome"); </script>';
-		
 		echo '<script type="text/javascript"> window.location = "index.php" </script>';
 
 	}
