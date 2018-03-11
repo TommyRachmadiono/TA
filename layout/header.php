@@ -103,16 +103,9 @@ if (isset($_COOKIE["login"])) {
                             <ul class="nav navbar-nav c-theme-nav">
                                 <li <?php echo $menuHome; ?>>
                                     <a href="index.php" class="c-link dropdown-toggle">Home
-                                        
                                     </a>
-
                                 </li>
-                                <li <?php echo $menuGroupDiscussion; ?>>
-                                    <a href="groupDiscussion.php" class="c-link dropdown-toggle">Group Discussion
-                                        
-                                    </a>
 
-                                </li>
                                 <li <?php echo $menuGallery; ?>>
                                     <a href="gallery.php" class="c-link dropdown-toggle">Gallery
                                         

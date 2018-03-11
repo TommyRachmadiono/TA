@@ -33,7 +33,16 @@ switch ($act) {
 	break;
 
 	case 'invite_member':
-		# code...
+		$member_id = $_POST['member_id'];
+		$group_id = $_POST['group_id'];
+		$tgl_join = date("Y/m/d");
+
+		$sql = "INSERT INTO anggota (grup_id, user_id, tgl_join) 
+		VALUES ('$group_id', '$member_id', '$tgl_join')";
+		if($conn->query($sql) === TRUE) {
+			echo '<script type="text/javascript">alert("User '. $member_id . ' has been invited to group"); </script>';
+			echo '<script type="text/javascript"> window.location = "group_page.php?id=' . $group_id . '" </script>';
+		} 
 	break;
 }
 ?>

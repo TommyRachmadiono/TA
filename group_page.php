@@ -65,9 +65,15 @@ if (isset($_GET["id"])) {
                         <i class="fa fa-eye"> Show Member</i>
                     </button></a>
 
+                <?php
+                $sql = "SELECT * FROM user u INNER JOIN grup g on u.id = g.user_id WHERE u.id = $user_id AND g.id=$group_id";
+                $result = $conn->query($sql);
+                if($result->num_rows>0) {
+                ?>
                 <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#invite-member" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
                         <i class="fa fa-user-plus"> Invite Member</i>
                     </button></a>
+                    <?php } ?>
 
                 <ul class="c-sidebar-menu collapse " id="sidebar-menu-1" style="margin-top: 7%;">
                     <li class="c-active">
@@ -76,9 +82,8 @@ if (isset($_GET["id"])) {
                         </a>
                         <?php
                         if ($_SESSION["login"] == true) {
-                            $sql = "SELECT * FROM `grup` WHERE user_id = '$user_id'";
+                            $sql = "SELECT g.id, g.topik_grup FROM anggota a INNER JOIN grup g on a.grup_id = g.id WHERE a.user_id = '$user_id'";
                             $result = $conn->query($sql);
-
                             if ($result->num_rows > 0) {
                                 // output data of each row
                                 while ($row = $result->fetch_assoc()) {
@@ -309,9 +314,14 @@ if (isset($_GET["id"])) {
                                             <th style="text-align: center;"><?php echo $row['id'] ?></th>
                                             <td style="text-align: center;"><?php echo $row['nama'] ?></td>
                                             <td style="text-align: center;"><?php echo $row['username'] ?></td>
-                                            <form action="" method="POST">
-                                            <td style="text-align: center;"><button class="btn btn-default">Invite</button></td>
-                                            </form>
+                                            <td style="text-align: center;">
+                                                <form action="groupController.php" method="POST">
+                                                <input type="hidden" value="invite_member" name="act">
+                                                <input type="hidden" value="<?php echo $row['id'] ?>" name="member_id">
+                                                <input type="hidden" value="<?php echo $group_id; ?>" name="group_id">
+                                                <button class="btn btn-default">Invite</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     <?php }
                                 }

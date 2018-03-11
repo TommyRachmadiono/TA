@@ -67,36 +67,34 @@ if ($result->num_rows > 0) {
 
             <ul class="c-sidebar-menu collapse " id="sidebar-menu-1" style="margin-top: 7%;">
                 <li class="c-active">
-                    <a class="c-toggler">My Groups
-                        <span class="c-arrow"></span>
-                    </a>
-                    <?php
-                    if ($_SESSION["login"] == true) {
-                        $id = $_SESSION['user_id'];
-                        $sql = "SELECT * FROM `grup` WHERE user_id = '$id'";
-                        $result = $conn->query($sql);
-
-                        if ($result->num_rows > 0) {
-                            // output data of each row
-                            while ($row = $result->fetch_assoc()) {
-                                ?>
-
-                            <li>
-                                <a href="group_page.php?id=<?php echo $row['id'] ?>">
-                                    <i class="icon-bubbles"></i> <?php echo $row['topik_grup'] ?></a>
-                            </li>
-                            <?php
+                        <a class="c-toggler">My Groups
+                            <span class="c-arrow"></span>
+                        </a>
+                        <?php
+                        if ($_SESSION["login"] == true) {
+                            $user_id = $_SESSION['user_id'];
+                            $sql = "SELECT g.id, g.topik_grup FROM anggota a INNER JOIN grup g on a.grup_id = g.id WHERE a.user_id = '$user_id'";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                // output data of each row
+                                while ($row = $result->fetch_assoc()) {
+                                    ?>
+                                <li>
+                                    <a href="group_page.php?id=<?php echo $row['id'] ?>">
+                                        <i class="icon-bubbles"></i> <?php echo $row['topik_grup'] ?></a>
+                                </li>
+                                <?php
+                            }
                         }
-                    }
-                } elseif ($_SESSION["login"] == false) {
-                    ?>
-                    <li>
-                        <a href="#">
-                            <i class="icon-bubbles"></i> Example Link</a>
-                    </li>
-                <?php } ?>
+                    } elseif ($_SESSION["login"] == false) {
+                        ?>
+                        <li>
+                            <a href="#">
+                                <i class="icon-bubbles"></i> Example Link</a>
+                        </li>
+                    <?php } ?>
 
-                </li>
+                    </li>
             </ul>
             <br>
             <ul class="c-sidebar-menu collapse " id="sidebar-menu-2">
