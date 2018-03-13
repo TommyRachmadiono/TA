@@ -61,7 +61,7 @@ if (isset($_GET["id"])) {
                         <i class="icon-bubbles"> Create Group</i>
                     </button></a>
 
-                <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#create-group" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
+                <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#show-member" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
                         <i class="fa fa-eye"> Show Member</i>
                     </button></a>
 
@@ -333,6 +333,46 @@ if (isset($_GET["id"])) {
             </div>
         </div>
         <!-- END MODAL INVITE MEMBER -->
+
+        <!-- MODAL SHOW MEMBER -->
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" id="show-member" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content c-square">
+                    <div class="modal-header c-no-border">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="example2" class="table table-hover table-bordered" width="100%;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">User ID</th>
+                                    <th style="text-align: center;">Nama User</th>
+                                    <th style="text-align: center;">Username</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $query = mysqli_query($conn, "SELECT u.id, u.nama, u.username FROM user u INNER JOIN anggota a on u.id=a.user_id WHERE a.grup_id=$group_id") or die(mysqli_error());
+                                if (mysqli_num_rows($query) > 0) {
+                                    while ($row = mysqli_fetch_assoc($query)) {
+                                        ?>
+                                        <tr>
+                                            <th style="text-align: center;"><?php echo $row['id'] ?></th>
+                                            <td style="text-align: center;"><?php echo $row['nama'] ?></td>
+                                            <td style="text-align: center;"><?php echo $row['username'] ?></td>
+                                        </tr>
+                                    <?php }
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MODAL SHOW MEMBER -->
 
     </div>
     <?php

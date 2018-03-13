@@ -92,5 +92,8 @@ switch ($act) {
             echo mysqli_num_rows($query2);
         }
         break;
+    case 'getData':
+        
+        break;
 }
 ?>

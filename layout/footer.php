@@ -242,9 +242,15 @@
         <!-- GALERI -->
         <script src="assets/base/js/scripts/pages/fullwidth-gallery.js" type="text/javascript"></script>
         <script src="js/like.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/scroll_feeds.js" type="text/javascript"></script>
         <script>
            
                 var table = $('#example').DataTable( {
+                    lengthChange: false,
+                    buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+                } );
+                var table = $('#example2').DataTable( {
                     lengthChange: false,
                     buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
                 } );
