@@ -10,17 +10,24 @@ $lastID = $_POST['id'];
 //Limit on data display
 $showLimit = 2;
 
+$sisadata;
+
 //Get all rows except already displayed
-$queryAll = $db->query("SELECT COUNT(*) as num_rows FROM postingan WHERE idpostingan < ".$lastID." ORDER BY id DESC");
-$rowAll = $queryAll->fetch_assoc();
-$allNumRows = $rowAll['num_rows'];
+$querytotalkontenbelumterload = "SELECT COUNT(*) as num_rows FROM postingan WHERE idpostingan < $lastID ORDER BY idpostingan DESC";
+$hasil = mysqli_query($conn, $querytotalkontenbelumterload) or die(mysqli_error());
+if(mysqli_num_rows($hasil) > 0){
+    while ($row = mysqli_fetch_assoc($hasil)) {
+       $sisadata = $row['num_rows'];
+    }
+}
 
+$queryloadposting = "SELECT * FROM postingan WHERE idpostingan < $lastID ORDER BY idpostingan DESC LIMIT $showLimit";
 //Get rows by limit except already displayed
-$query = $db->query("SELECT * FROM postingan WHERE idpostingan < ".$lastID." ORDER BY id DESC LIMIT ".$showLimit);
-
-if($query->num_rows > 0){
-    while($row = $query->fetch_assoc()){ 
+$hasil = mysqli_query($conn, $queryloadposting) or die(mysqli_error());
+if(mysqli_num_rows($hasil) > 0){
+    while ($row = mysqli_fetch_assoc($hasil)) {
         $postID = $row["idpostingan"]; ?>
+
 <div class="panel panel-warning">
                             <div class="panel-heading" >
                                 <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row['foto'] ?>">
@@ -121,20 +128,16 @@ if($query->num_rows > 0){
                                 </section>
                             </div>
                         </div>
-<?php } ?>
-<?php if($allNumRows > $showLimit){ ?>
-    <div class="load-more" lastID="<?php echo $postID; ?>" style="display: none;">
-        <img src="images/loading.gif"/>
-    </div>
+
+        <?php
+    }
+    if($sisadata > $showLimit){ ?>
+    <div id="postterakhir" lastID="<?php echo $postID; ?>" style="display: none;"><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
 <?php }else{ ?>
-    <div class="load-more" lastID="0">
-        That's All!
-    </div>
+    <div id="postterakhir" lastID="0"><h>abis bis bis</h></div>
 <?php }
 }else{ ?>
-    <div class="load-more" lastID="0">
-        That's All!
-    </div>
+   <div id="postterakhir" lastID="0"><h>abis bis bis</h></div>
 <?php
     }
 }

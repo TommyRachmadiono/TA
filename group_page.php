@@ -9,6 +9,7 @@ if ($_SESSION["login"] == false) {
     echo '<script type="text/javascript"> window.location = "index.php" </script>';
 }
 $count = 0;
+$lastId;
 $user_id = $_SESSION['user_id'];
 if (isset($_GET["id"])) {
     $group_id = $_GET["id"];
@@ -134,7 +135,7 @@ if (isset($_GET["id"])) {
             </div>
 
             <!-- BEGIN CONTENT -->
-            <div class="c-layout-sidebar-content ">
+            <div class="c-layout-sidebar-content " id="postlist">
                 <div style="margin-bottom: 12%;">
                     <form method="POST" action="postingController.php" enctype="multipart-formdata">
                         <input type="hidden" name="act" value="posting_group">
@@ -151,6 +152,7 @@ if (isset($_GET["id"])) {
                     // output data of each row
                     while ($row = $result->fetch_assoc()) {
                         $idpostingan = $row['idpostingan'];
+                        $lastID = $idpostingan;
 
                         $count++;
                         ?>
@@ -252,6 +254,9 @@ if (isset($_GET["id"])) {
                         </div>
                         <?php
                     }
+                    ?>
+                        <div id="postterakhir" lastID = <?php echo $lastID; ?> style="display: none;""><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
+                    <?php
                 }
                 ?>
             </div>
