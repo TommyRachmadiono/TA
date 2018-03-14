@@ -232,6 +232,12 @@
         <!-- END: PAGE SCRIPTS -->
         <!-- END: LAYOUT/BASE/BOTTOM -->
 
+        <!-- GALERI -->
+        <script src="assets/base/js/scripts/pages/fullwidth-gallery.js" type="text/javascript"></script>
+        <script src="js/like.js" type="text/javascript"></script>
+        <script src="js/comment.js" type="text/javascript"></script>
+        <script src="js/scroll_feeds.js" type="text/javascript"></script>
+
         <script src="assets/DataTables/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="assets/DataTables/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
         <script src="assets/DataTables/js/dataTables.buttons.min.js" type="text/javascript"></script>
@@ -239,13 +245,8 @@
         <script src="assets/DataTables/js/buttons.html5.min.js" type="text/javascript"></script>
         <script src="assets/DataTables/js/buttons.print.min.js" type="text/javascript"></script>
         <script src="assets/DataTables/js/buttons.colVis.min.js" type="text/javascript"></script>
-        <!-- GALERI -->
-        <script src="assets/base/js/scripts/pages/fullwidth-gallery.js" type="text/javascript"></script>
-        <script src="js/like.js" type="text/javascript"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="js/scroll_feeds.js" type="text/javascript"></script>
+        
         <script>
-           
                 var table = $('#example').DataTable( {
                     lengthChange: false,
                     buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
@@ -254,7 +255,6 @@
                     lengthChange: false,
                     buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
                 } );
-
         </script>
     </body>
     </html>

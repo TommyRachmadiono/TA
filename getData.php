@@ -1,7 +1,8 @@
 <?php
 session_start();
 include 'config/connectdb.php';
-
+$var = 'a';
+$count = 0;
 if(!empty($_POST["id"])){
 
 //Get last ID
@@ -19,14 +20,18 @@ if(mysqli_num_rows($hasil) > 0){
     while ($row = mysqli_fetch_assoc($hasil)) {
        $sisadata = $row['num_rows'];
     }
+} else {
+    echo '<h2>BELUM ADA KONTEN</h2';
 }
 
-$queryloadposting = "SELECT * FROM postingan WHERE idpostingan < $lastID ORDER BY idpostingan DESC LIMIT $showLimit";
+$queryloadposting = "SELECT * FROM postingan p INNER JOIN user u on p.user_id=u.id WHERE idpostingan < $lastID ORDER BY idpostingan DESC LIMIT $showLimit";
 //Get rows by limit except already displayed
 $hasil = mysqli_query($conn, $queryloadposting) or die(mysqli_error());
 if(mysqli_num_rows($hasil) > 0){
     while ($row = mysqli_fetch_assoc($hasil)) {
-        $postID = $row["idpostingan"]; ?>
+        $postID = $row["idpostingan"]; 
+        
+        $count++; ?>
 
 <div class="panel panel-warning">
                             <div class="panel-heading" >
@@ -48,7 +53,7 @@ if(mysqli_num_rows($hasil) > 0){
                                             <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
                                                 <?php
                                                 $user_id = $_SESSION['user_id'];
-                                                $query1 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $idpostingan AND user_id = $user_id");
+                                                $query1 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $postID AND user_id = $user_id");
                                                 if (mysqli_num_rows($query1) > 0) {
                                                     ?>
                                                     <button value="<?php echo $idpostingan ?>" class="unlike btn btn-default" style="width: 100%;"> 
@@ -63,7 +68,7 @@ if(mysqli_num_rows($hasil) > 0){
                                         </div>
 
                                         <div class="col-md-6" style="margin: 0; padding: 0;">
-                                            <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $count ?>').focus(); return false;">
+                                            <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $var+$count; ?>').focus(); return false;">
                                                 <button class="btn btn-default" style="width: 100%;">         
                                                     <i class="fa fa-comment-o"></i>Comment
                                                 </button></div>
@@ -76,7 +81,7 @@ if(mysqli_num_rows($hasil) > 0){
                                 <div style="background-color: #f7f7f7;">
                                     <i class="fa fa-thumbs-up" style="margin-left: 3%;"></i> <span id="show_like<?php echo $idpostingan ?>" style="padding-top: 2%; display: inline;">
                                         <?php
-                                        $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $idpostingan");
+                                        $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $postID");
                                         echo mysqli_num_rows($query2);
                                         ?>
                                     </span>
@@ -87,7 +92,7 @@ if(mysqli_num_rows($hasil) > 0){
                                     <!-- ISI DARI KOMEN MASUK DISINI -->
                                     <div style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
                                         <?php
-                                        $sql2 = "SELECT u.nama, k.isi, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan";
+                                        $sql2 = "SELECT u.nama, k.isi, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $postID";
                                         $result2 = $conn->query($sql2);
 
                                         if ($result2->num_rows > 0) {
@@ -117,7 +122,7 @@ if(mysqli_num_rows($hasil) > 0){
 
                                                         <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
                                                         <input type="hidden" name="act" value="comment_feeds">
-                                                        <input type="text" placeholder="Write a comment" class="form-control" id="komen<?php echo $count ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
+                                                        <input type="text" placeholder="Write a comment" class="form-control" id="komen<?php echo $var+$count; ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
                                                         <button type="submit" class="btn btn-default" style="float: right; margin-right: 2%; margin-top: 1%;">Comment</button>
 
                                                     </div>

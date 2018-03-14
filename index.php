@@ -125,7 +125,7 @@ if ($result->num_rows > 0) {
         </div>
 
         <!-- BEGIN: PAGE CONTENT -->
-        <div id="postList">
+        <div id="postlist">
             <div class="c-layout-sidebar-content ">
                 <?php
                 $sql = "SELECT p.idpostingan, p.isi, p.tgldiposting, u.nama, u.foto FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE ISNULL(p.grup_id) order by p.idpostingan desc LIMIT 5";
@@ -188,8 +188,8 @@ if ($result->num_rows > 0) {
                                         <?php
                                         $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $idpostingan");
                                         echo mysqli_num_rows($query2);
-                                        ?>
-                                    </span>
+                                        ?> 
+                                    </span><div id="loadkomen" style="display: inline; margin-left: 35%;">LOAD KOMEN</div>
                                     <hr style="margin: 0;">
                                 </div>
 
@@ -204,7 +204,7 @@ if ($result->num_rows > 0) {
                                             // output data of each row
                                             while ($row2 = $result2->fetch_assoc()) {
                                                 ?> 
-                                                <div class="row" style="">
+                                                <div id="isikomen" class="row" style="">
 
                                                     <div class="col-md-4" style="margin-top: 2%;">
                                                         <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row2['foto'] ?>">
