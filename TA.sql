@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2018 at 10:30 AM
+-- Generation Time: Mar 15, 2018 at 07:54 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -79,19 +79,6 @@ CREATE TABLE `komentar` (
   `user_id` int(11) NOT NULL,
   `postingan_idpostingan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `komentar`
---
-
-INSERT INTO `komentar` (`idkomentar`, `isi`, `user_id`, `postingan_idpostingan`) VALUES
-(1, 'safafafdafafaf', 1, 2),
-(2, 'SADSADSADASDASD', 1, 17),
-(4, '', 1, 34),
-(5, 'asd', 1, 34),
-(6, 'asdasda', 1, 26),
-(7, '', 1, 25),
-(8, 'sad', 1, 25);
 
 -- --------------------------------------------------------
 
@@ -413,7 +400,7 @@ ALTER TABLE `grup`
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `materi`
 --

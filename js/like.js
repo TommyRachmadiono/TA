@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $(document).on('click', '.like', function(){
+
         var id=$(this).val();
         var $this = $(this);
         $this.toggleClass('like');
@@ -48,6 +49,7 @@ $(document).ready(function(){
     });
 
     function showLike(id){
+
         $.ajax({
             async: true,
             type: "POST",

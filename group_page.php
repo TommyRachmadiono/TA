@@ -1,3 +1,5 @@
+<!-- <script type='text/javascript'>alert('coba');</script> -->
+
 <?php
 session_start();
 include 'config/connectdb.php';
@@ -8,7 +10,8 @@ if ($_SESSION["login"] == false) {
     echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';
     echo '<script type="text/javascript"> window.location = "index.php" </script>';
 }
-$count = 0;
+$_SESSION['count'] = 0;
+
 $lastId;
 $user_id = $_SESSION['user_id'];
 if (isset($_GET["id"])) {
@@ -69,12 +72,12 @@ if (isset($_GET["id"])) {
                 <?php
                 $sql = "SELECT * FROM user u INNER JOIN grup g on u.id = g.user_id WHERE u.id = $user_id AND g.id=$group_id";
                 $result = $conn->query($sql);
-                if($result->num_rows>0) {
-                ?>
-                <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#invite-member" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
-                        <i class="fa fa-user-plus"> Invite Member</i>
-                    </button></a>
-                    <?php } ?>
+                if ($result->num_rows > 0) {
+                    ?>
+                    <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#invite-member" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
+                            <i class="fa fa-user-plus"> Invite Member</i>
+                        </button></a>
+                <?php } ?>
 
                 <ul class="c-sidebar-menu collapse " id="sidebar-menu-1" style="margin-top: 7%;">
                     <li class="c-active">
@@ -154,7 +157,7 @@ if (isset($_GET["id"])) {
                         $idpostingan = $row['idpostingan'];
                         $lastID = $idpostingan;
 
-                        $count++;
+                        $_SESSION['count'] ++;
                         ?>
                         <div class="panel panel-warning">
                             <div class="panel-heading">
@@ -189,7 +192,7 @@ if (isset($_GET["id"])) {
                                     </div>
 
                                     <div class="col-md-6" style="margin: 0; padding: 0;">
-                                        <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $count ?>').focus(); return false;">
+                                        <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $_SESSION['count'] ?>').focus(); return false;">
                                             <button class="btn btn-default" style="width: 100%;">         
                                                 <i class="fa fa-comment-o"></i>Comment
                                             </button></div>
@@ -243,8 +246,8 @@ if (isset($_GET["id"])) {
                                                     <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
                                                     <input type="hidden" name="act" value="comment_feeds_group">
                                                     <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
-                                                    <input type="text" placeholder="Write a comment" class="form-control" id="komen<?php echo $count ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
-                                                    <button type="submit" class="btn btn-default" style="float: right; margin-right: 2%; margin-top: 1%;">Comment</button>
+                                                    <input type="text" placeholder="Write a comment" class="form-control" id="komen<?php echo $_SESSION['count'] ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
+
                                                 </div>
                                             </div>
                                         </form>
@@ -255,11 +258,20 @@ if (isset($_GET["id"])) {
                         <?php
                     }
                     ?>
-                        <div id="postterakhir" lastID = <?php echo $lastID; ?> style="display: none;""><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
+                    <div id="postterakhir" lastID = <?php echo $lastID; ?> groupID=<?php echo $group_id; ?> act="datapage" style="display: none;""><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
+
                     <?php
                 }
                 ?>
             </div>
+
+            <div class="row">
+                <div class="col-md-3"> </div>
+                <div class="col-md-9">
+                    <button id="btnshowmore" style="width: 100%; margin-bottom: 4%; height: 50px; margin-top: 0;" class="btn btn-danger">SHOW MORE</button>
+                </div>
+            </div>
+
             <!-- END CONTENT -->
         </div>
         <?php include_once 'layout/modal_group.php' ?>
