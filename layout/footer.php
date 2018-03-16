@@ -235,7 +235,6 @@
         <!-- GALERI -->
         <script src="assets/base/js/scripts/pages/fullwidth-gallery.js" type="text/javascript"></script>
         <script src="js/like.js" type="text/javascript"></script>
-        <script src="js/comment.js" type="text/javascript"></script>
         <script src="js/scroll_feeds.js" type="text/javascript"></script>
 
         <script src="assets/DataTables/js/jquery.dataTables.min.js" type="text/javascript"></script>

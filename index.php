@@ -189,7 +189,7 @@ if ($result->num_rows > 0) {
                                     $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $idpostingan");
                                     echo mysqli_num_rows($query2);
                                     ?> 
-                                </span><div id="loadkomen" style="display: inline; margin-left: 35%;">LOAD KOMEN</div>
+                                </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>LOAD KOMEN</div>
                                 <hr style="margin: 0;">
                             </div>
 
@@ -204,7 +204,7 @@ if ($result->num_rows > 0) {
                                         // output data of each row
                                         while ($row2 = $result2->fetch_assoc()) {
                                             ?> 
-                                            <div id="isikomen" class="row" style="">
+                                            <div id="isikomen<?php echo $idpostingan; ?>" class="row" style="">
 
                                                 <div class="col-md-4" style="margin-top: 2%;">
                                                     <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row2['foto'] ?>">
