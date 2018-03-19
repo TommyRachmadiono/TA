@@ -208,13 +208,13 @@ if (isset($_GET["id"])) {
                                         $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $idpostingan");
                                         echo mysqli_num_rows($query2);
                                         ?>
-                                    </span>
+                                    </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>LOAD KOMEN</div>
                                     <hr style="margin: 0;">
                                 </div>
 
                                 <section id="comment">
                                     <!-- ISI DARI KOMEN MASUK DISINI -->
-                                    <div style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
+                                    <div id="isikomen<?php echo $idpostingan; ?>" style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
                                         <?php
                                         $sql2 = "SELECT u.nama, k.isi FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan";
                                         $result2 = $conn->query($sql2);

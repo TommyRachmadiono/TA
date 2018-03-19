@@ -195,7 +195,7 @@ if ($result->num_rows > 0) {
 
                             <section id="comment">
                                 <!-- ISI DARI KOMEN MASUK DISINI -->
-                                <div style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
+                                <div id="isikomen<?php echo $idpostingan; ?>" style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
                                     <?php
                                     $sql2 = "SELECT u.nama, k.isi, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan";
                                     $result2 = $conn->query($sql2);
@@ -204,7 +204,7 @@ if ($result->num_rows > 0) {
                                         // output data of each row
                                         while ($row2 = $result2->fetch_assoc()) {
                                             ?> 
-                                            <div id="isikomen<?php echo $idpostingan; ?>" class="row" style="">
+                                            <div class="row" style="">
 
                                                 <div class="col-md-4" style="margin-top: 2%;">
                                                     <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row2['foto'] ?>">
@@ -228,8 +228,6 @@ if ($result->num_rows > 0) {
                                                     <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
                                                     <input type="hidden" name="act" value="comment_feeds">
                                                     <input type="text" placeholder="Write a comment" class="form-control" id="komen<?php echo $_SESSION['count'] ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
-                                                    <button type="submit" class="btn btn-default" style="float: right; margin-right: 2%; margin-top: 1%;">Comment</button>
-
                                                 </div>
                                             </div>
                                         </form>

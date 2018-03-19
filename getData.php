@@ -101,7 +101,7 @@ if (!empty($_POST["id"])) {
                                         // output data of each row
                                         while ($row2 = $result2->fetch_assoc()) {
                                             ?> 
-                                            <div id="isikomen<?php echo $idpostingan; ?>" class="row" style="">
+                                            <div id="isikomen<?php echo $postID; ?>" class="row" style="">
 
                                                 <div class="col-md-4" style="margin-top: 2%;">
                                                     <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row2['foto'] ?>">
@@ -122,10 +122,9 @@ if (!empty($_POST["id"])) {
                                             <div class="row">
                                                 <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
 
-                                                    <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
+                                                    <input type="hidden" name="idpostingan" value="<?php echo $postID ?>">
                                                     <input type="hidden" name="act" value="comment_feeds">
                                                     <input type="text" placeholder="Write a comment" class="form-control" id="komen<?php echo $_SESSION['count'] ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
-                                                    <button type="submit" class="btn btn-default" style="float: right; margin-right: 2%; margin-top: 1%;">Comment</button>
 
                                                 </div>
                                             </div>
