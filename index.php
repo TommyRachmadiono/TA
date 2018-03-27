@@ -38,10 +38,10 @@ if ($result->num_rows > 0) {
                                     <input type="submit" value="POST" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
 
                                     <button id="btnphoto" type="button" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%;">
-                                       <span class="glyphicon glyphicon-paperclip"> 
-                                           <input type="file" id="photo" name="photo" style="display: none;">
-                                        </span>
+                                       <span class="glyphicon glyphicon-paperclip"></span>
                                     </button>
+
+                                    <input type="file" id="photo" name="photo" style="display: none;">
 
                                 </form>
                             </div>
