@@ -255,5 +255,11 @@
                     buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
                 } );
         </script>
+
+        <script>
+            $('#btnphoto').click(function(){
+                $('#photo').trigger('click');
+            });
+        </script>
     </body>
     </html>

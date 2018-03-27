@@ -10,6 +10,8 @@ if ($_SESSION["login"] == false) {
     echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';
     echo '<script type="text/javascript"> window.location = "index.php" </script>';
 }
+
+$_SESSION['menuHeader'] = 'group_page';
 $_SESSION['count'] = 0;
 
 $lastId;
@@ -50,92 +52,9 @@ if (isset($_GET["id"])) {
         </div>
         <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
         <div class="container">
-            <div class="c-layout-sidebar-menu c-theme ">
-                <!-- BEGIN: LAYOUT/SIDEBARS/SIDEBAR-MENU-1 -->
-                <div class="c-sidebar-menu-toggler">
-                    <h3 class="c-title c-font-uppercase c-font-bold">Navigation</h3>
-                    <a href="javascript:;" class="c-content-toggler" data-toggle="collapse" data-target="#sidebar-menu-1, #sidebar-menu-2, #createGroup">
-                        <span class="c-line"></span>
-                        <span class="c-line"></span>
-                        <span class="c-line"></span>
-                    </a>
-                </div>
 
-                <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#create-group" style="width: 100%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
-                        <i class="icon-bubbles"> Create Group</i>
-                    </button></a>
-
-                <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#show-member" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
-                        <i class="fa fa-eye"> Show Member</i>
-                    </button></a>
-
-                <?php
-                $sql = "SELECT * FROM user u INNER JOIN grup g on u.id = g.user_id WHERE u.id = $user_id AND g.id=$group_id";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    ?>
-                    <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#invite-member" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
-                            <i class="fa fa-user-plus"> Invite Member</i>
-                        </button></a>
-                <?php } ?>
-
-                <ul class="c-sidebar-menu collapse " id="sidebar-menu-1" style="margin-top: 7%;">
-                    <li class="c-active">
-                        <a class="c-toggler">My Groups
-                            <span class="c-arrow"></span>
-                        </a>
-                        <?php
-                        if ($_SESSION["login"] == true) {
-                            $sql = "SELECT g.id, g.topik_grup FROM anggota a INNER JOIN grup g on a.grup_id = g.id WHERE a.user_id = '$user_id'";
-                            $result = $conn->query($sql);
-                            if ($result->num_rows > 0) {
-                                // output data of each row
-                                while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                <li>
-                                    <a href="group_page.php?id=<?php echo $row['id'] ?>">
-                                        <i class="icon-bubbles"></i> <?php echo $row['topik_grup'] ?></a>
-                                </li>
-                                <?php
-                            }
-                        }
-                    } elseif ($_SESSION["login"] == false) {
-                        ?>
-                        <li>
-                            <a href="#">
-                                <i class="icon-bubbles"></i> Example Link</a>
-                        </li>
-                    <?php } ?>
-
-                    </li>
-                </ul>
-                <br>
-                <ul class="c-sidebar-menu collapse " id="sidebar-menu-2">
-
-                    <li class="c-active">
-                        <a class="c-toggler">Mata Pelajaran
-                            <span class="c-arrow"></span>
-                        </a>
-                    <li>
-                        <a href="#">
-                            <i class="icon-social-dribbble"></i> Example Link</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-bell"></i> Example Link</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-bubbles"></i> Example Link</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-user"></i> Example Link</a>
-                    </li>
-                    </li>
-                </ul>
-                <!-- END: LAYOUT/SIDEBARS/SIDEBAR-MENU-1 -->
-            </div>
+            <!-- SIDEBAR MENU -->
+            <?php include_once 'layout/sidebar_menu.php'; ?>
 
             <!-- BEGIN CONTENT -->
             <div class="c-layout-sidebar-content " id="postlist">
@@ -168,7 +87,8 @@ if (isset($_GET["id"])) {
                                     </a>
                                 </h3>
                             </div>
-                            <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
+                            <div class="panel-body" style="word-wrap: break-word;"> 
+                                <p> <?php echo nl2br($row['isi']) ?> </p> 
                                 <hr style="margin: 0; padding-top: 10px;">
 
                                 <!-- ICON LIKE DAN KOMEN DISINI -->
@@ -214,31 +134,25 @@ if (isset($_GET["id"])) {
 
                                 <section id="comment">
                                     <!-- ISI DARI KOMEN MASUK DISINI -->
-                                    <div id="isikomen<?php echo $idpostingan; ?>" style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
-                                        <?php
-                                        $sql2 = "SELECT u.nama, k.isi FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan";
-                                        $result2 = $conn->query($sql2);
+                                    <div style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
+                                        <div id="isikomen<?php echo $idpostingan; ?>">
+                                            <?php
+                                            $sql2 = "SELECT u.nama, k.isi FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan";
+                                            $result2 = $conn->query($sql2);
 
-                                        if ($result2->num_rows > 0) {
-                                            // output data of each row
-                                            while ($row2 = $result2->fetch_assoc()) {
-                                                ?> 
-                                                <div class="row">
+                                            if ($result2->num_rows > 0) {
+                                                // output data of each row
+                                                while ($row2 = $result2->fetch_assoc()) {
+                                                    ?> 
+                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
+                                                    <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
 
-                                                    <div class="col-md-4" style="margin-top: 2%;">
-                                                        <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
-                                                        <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
-                                                    </div>
-                                                    <div class="col-md-8" style="margin-top: 2%;">
-                                                        <p style="margin-top: 1.5%; "><?php echo nl2br($row2['isi']) ?></p>
-
-                                                    </div>
-                                                </div>
-                                                <?php
+                                                    <p style="margin-top: 1.5%;margin-bottom: 2%;"><?php echo nl2br($row2['isi']) ?></p>
+                                                    <?php
+                                                }
                                             }
-                                        }
-                                        ?>
-
+                                            ?>
+                                        </div>
                                         <!-- INPUT TYPE KOMEN DAN BUTTON KOMEN DISINI -->
                                         <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php">
                                             <div class="row">
@@ -260,9 +174,10 @@ if (isset($_GET["id"])) {
                     ?>
                     <div id="postterakhir" lastID = <?php echo $lastID; ?> groupID=<?php echo $group_id; ?> act="datapage" style="display: none;""><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
 
-                    <?php
-                }
-                ?>
+                    <?php } else {
+                    ?>
+                    <div id="postterakhir" lastID="0" groupID="" act=""><h>BELOM ADA KONTEN</h></div>
+                <?php } ?>
             </div>
 
             <div class="row">

@@ -9,7 +9,7 @@ if (!empty($_POST["id"])) {
     $group_id = $_POST['groupID'];
     $act = $_POST['act'];
 //Limit on data display
-    $showLimit = 2;
+    $showLimit = 5;
     $sisadata;
 
     switch ($act) {
@@ -21,8 +21,6 @@ if (!empty($_POST["id"])) {
                 while ($row = mysqli_fetch_assoc($hasil)) {
                     $sisadata = $row['num_rows'];
                 }
-            } else {
-                echo '<h2>BELUM ADA KONTEN</h2';
             }
 
             $queryloadposting = "SELECT * FROM postingan p INNER JOIN user u on p.user_id=u.id WHERE idpostingan < $lastID AND p.grup_id = $group_id ORDER BY idpostingan DESC LIMIT $showLimit";

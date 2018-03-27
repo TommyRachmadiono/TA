@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include 'config/connectdb.php';
 
@@ -7,7 +8,7 @@ $act = $_POST["act"];
 switch ($act) {
     case 'posting_feeds':
         $isi = mysqli_real_escape_string($conn, $_POST["textarea"]);
-       
+
         $tgldiposting = date('Y/m/d');
         $user_id = $_SESSION['user_id'];
 
@@ -21,7 +22,7 @@ switch ($act) {
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
-        
+
         break;
     case 'comment_feeds':
         $comment = mysqli_real_escape_string($conn, $_POST["comment"]);
@@ -93,7 +94,7 @@ switch ($act) {
         }
         break;
     case 'getData':
-        
+
         break;
 }
 ?>
