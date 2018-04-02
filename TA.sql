@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2018 at 07:54 AM
+-- Generation Time: Apr 02, 2018 at 01:00 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -43,7 +43,11 @@ INSERT INTO `anggota` (`grup_id`, `user_id`, `tgl_join`) VALUES
 (17, 2, '2018-03-10'),
 (17, 3, '2018-03-24'),
 (18, 1, '2018-03-08'),
-(19, 2, '2018-03-10');
+(18, 2, '2018-03-20'),
+(19, 2, '2018-03-10'),
+(20, 1, '2018-03-26'),
+(21, 1, '2018-03-26'),
+(22, 1, '2018-03-26');
 
 -- --------------------------------------------------------
 
@@ -65,7 +69,10 @@ CREATE TABLE `grup` (
 INSERT INTO `grup` (`id`, `topik_grup`, `user_id`, `tgl_dibuat`) VALUES
 (17, 'coba lagi', 1, '2018-03-06'),
 (18, 'TES NEW GROUP', 1, '2018-03-08'),
-(19, 'ZXC', 2, '2018-03-10');
+(19, 'ZXC', 2, '2018-03-10'),
+(20, 'A', 1, '2018-03-26'),
+(21, 'B', 1, '2018-03-26'),
+(22, 'C', 1, '2018-03-26');
 
 -- --------------------------------------------------------
 
@@ -75,7 +82,7 @@ INSERT INTO `grup` (`id`, `topik_grup`, `user_id`, `tgl_dibuat`) VALUES
 
 CREATE TABLE `komentar` (
   `idkomentar` int(11) NOT NULL,
-  `isi` varchar(45) DEFAULT NULL,
+  `isi` varchar(2000) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `postingan_idpostingan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -90,15 +97,6 @@ CREATE TABLE `like` (
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `like`
---
-
-INSERT INTO `like` (`user_id`, `post_id`) VALUES
-(1, 17),
-(2, 17),
-(2, 18);
 
 -- --------------------------------------------------------
 
@@ -152,40 +150,45 @@ CREATE TABLE `matpel_has_week` (
 
 CREATE TABLE `postingan` (
   `idpostingan` int(11) NOT NULL,
-  `isi` varchar(100) DEFAULT NULL,
+  `isi` varchar(1000) DEFAULT NULL,
   `tgldiposting` date DEFAULT NULL,
   `user_id` int(11) NOT NULL,
-  `grup_id` int(11) DEFAULT NULL
+  `grup_id` int(11) DEFAULT NULL,
+  `file` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `postingan`
 --
 
-INSERT INTO `postingan` (`idpostingan`, `isi`, `tgldiposting`, `user_id`, `grup_id`) VALUES
-(17, 'COBA\r\nASD\r\nASD\r\nASD\r\nASD\r\n', '2018-03-06', 1, NULL),
-(18, 'coba', '2018-03-06', 1, 17),
-(19, 'sad', '2018-03-13', 1, NULL),
-(20, 'asdf', '2018-03-13', 1, NULL),
-(21, 'asdfdsafds', '2018-03-13', 1, NULL),
-(22, 'dskafkdsf', '2018-03-13', 1, NULL),
-(23, 'casocosckoewocd', '2018-03-13', 1, NULL),
-(24, 'cboaboaboaob', '2018-03-13', 1, NULL),
-(25, 'aksoemosmdosamofsa', '2018-03-13', 1, NULL),
-(26, 'laskfkoigmremvoa', '2018-03-13', 1, NULL),
-(27, 'sdsafcxacasds\r\nadasdsa', '2018-03-14', 1, 17),
-(28, 'posting', '2018-03-14', 1, 17),
-(29, '[psting 2', '2018-03-14', 1, 17),
-(30, '6', '2018-03-14', 1, 17),
-(31, '7', '2018-03-14', 1, 17),
-(32, '8', '2018-03-14', 1, 17),
-(33, '9', '2018-03-14', 1, 17),
-(34, '10', '2018-03-14', 1, 17),
-(35, '11', '2018-03-14', 1, 17),
-(36, '12', '2018-03-14', 1, 17),
-(37, '13', '2018-03-14', 1, 17),
-(38, '14\r\n', '2018-03-14', 1, 17),
-(39, '15', '2018-03-14', 1, 17);
+INSERT INTO `postingan` (`idpostingan`, `isi`, `tgldiposting`, `user_id`, `grup_id`, `file`) VALUES
+(17, 'COBA\r\nASD\r\nASD\r\nASD\r\nASD\r\n', '2018-03-06', 1, NULL, ''),
+(18, 'coba', '2018-03-06', 1, 17, ''),
+(19, 'sad', '2018-03-13', 1, NULL, ''),
+(20, 'asdf', '2018-03-13', 1, NULL, ''),
+(21, 'asdfdsafds', '2018-03-13', 1, NULL, ''),
+(22, 'dskafkdsf', '2018-03-13', 1, NULL, ''),
+(23, 'casocosckoewocd', '2018-03-13', 1, NULL, ''),
+(24, 'cboaboaboaob', '2018-03-13', 1, NULL, ''),
+(25, 'aksoemosmdosamofsa', '2018-03-13', 1, NULL, ''),
+(26, 'laskfkoigmremvoa', '2018-03-13', 1, NULL, ''),
+(27, 'sdsafcxacasds\r\nadasdsa', '2018-03-14', 1, 17, ''),
+(28, 'posting', '2018-03-14', 1, 17, ''),
+(29, '[psting 2', '2018-03-14', 1, 17, ''),
+(30, '6', '2018-03-14', 1, 17, ''),
+(31, '7', '2018-03-14', 1, 17, ''),
+(32, '8', '2018-03-14', 1, 17, ''),
+(33, '9', '2018-03-14', 1, 17, ''),
+(34, '10', '2018-03-14', 1, 17, ''),
+(35, '11', '2018-03-14', 1, 17, ''),
+(36, '12', '2018-03-14', 1, 17, ''),
+(37, '13', '2018-03-14', 1, 17, ''),
+(38, '14\r\n', '2018-03-14', 1, 17, ''),
+(39, '15', '2018-03-14', 1, 17, ''),
+(55, 'coba upload file ', '2018-04-02', 1, NULL, 'Hydrangeas.jpg'),
+(56, 'coba upadte status biasa', '2018-04-02', 1, NULL, ''),
+(57, 'coba upadte status biasa pkae files', '2018-04-02', 1, NULL, 'Jellyfish.jpg'),
+(58, 'update statusd aosdkasokdoas', '2018-04-02', 1, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -390,17 +393,17 @@ ALTER TABLE `week`
 -- AUTO_INCREMENT for table `anggota`
 --
 ALTER TABLE `anggota`
-  MODIFY `grup_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `grup_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `grup`
 --
 ALTER TABLE `grup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `materi`
 --
@@ -415,7 +418,7 @@ ALTER TABLE `matpel`
 -- AUTO_INCREMENT for table `postingan`
 --
 ALTER TABLE `postingan`
-  MODIFY `idpostingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `idpostingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT for table `tugas`
 --

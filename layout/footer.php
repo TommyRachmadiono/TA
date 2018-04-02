@@ -246,19 +246,34 @@
         <script src="assets/DataTables/js/buttons.colVis.min.js" type="text/javascript"></script>
         
         <script>
-                var table = $('#example').DataTable( {
-                    lengthChange: false,
-                    buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
-                } );
-                var table = $('#example2').DataTable( {
-                    lengthChange: false,
-                    buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
-                } );
+            var table = $('#example').DataTable( {
+                lengthChange: false,
+                buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+            } );
+            var table = $('#example2').DataTable( {
+                lengthChange: false,
+                buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+            } );
         </script>
 
+        <!-- INI SCRIPT BUAT UPLOAD FILE -->
         <script>
-            $('#btnphoto').click(function(){
-                $('#photo').trigger('click');
+            $('#btnfile').click(function(){
+                $('#file').trigger('click');
+            });
+
+            $('input[type="file"]').change(function() {
+                if ($(this).val()) {
+                    error = false;
+
+                    var filename = $(this).val();
+
+                    $(this).closest('.posting').find('.file-name').html(filename);
+
+                    if (error) {
+                        parent.addClass('error').prepend.after('<div class="alert alert-error">' + error + '</div>');
+                    }
+                }
             });
         </script>
     </body>

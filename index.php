@@ -31,18 +31,19 @@ if ($result->num_rows > 0) {
                 <div>
                     <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular" style="width: 74%; margin-top: 0; margin-bottom: 0;">
                         <li style="width: 100%; margin-bottom: 0;">
-                            <div>
-                                <form method="POST" action="postingController.php" enctype="multipart-formdata">
+                            <div class="posting">
+                                <form method="POST" action="postingController.php" enctype="multipart/form-data">
                                     <input type="hidden" name="act" value="posting_feeds">
                                     <textarea required="" class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="What's on your mind?"></textarea>
                                     <input type="submit" value="POST" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
 
-                                    <button id="btnphoto" type="button" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%;">
+                                    <button id="btnfile" type="button" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%;">
                                        <span class="glyphicon glyphicon-paperclip"></span>
                                     </button>
-
-                                    <input type="file" id="photo" name="photo" style="display: none;">
-
+                                    
+                                    <input type="file" id="file" name="file" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%; display: none;">
+                                    <p class="file-name" style="float: right; margin-top: 2%;">Please select a file <br> max 5mb</p>
+                                    
                                 </form>
                             </div>
                         </li>
@@ -60,7 +61,7 @@ if ($result->num_rows > 0) {
         <!-- BEGIN: PAGE CONTENT -->
         <div class="c-layout-sidebar-content " id="postlist">
             <?php
-            $sql = "SELECT p.idpostingan, p.isi, p.tgldiposting, u.nama, u.foto FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE ISNULL(p.grup_id) order by p.idpostingan desc LIMIT 5";
+            $sql = "SELECT p.file, p.idpostingan, p.isi, p.tgldiposting, u.nama, u.foto FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE ISNULL(p.grup_id) order by p.idpostingan desc LIMIT 5";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -83,6 +84,12 @@ if ($result->num_rows > 0) {
                         </div>
                         <div class="panel-body" style="word-wrap: break-word;"> 
                             <p> <?php echo nl2br($row['isi']) ?> </p> 
+                            <div>
+                                <?php if(!empty($row['file'])) { ?>
+                                <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
+                                <?php } ?>
+                            </div>
+
                             <hr style="margin: 0; padding-top: 10px;">
 
                             <?php if ($_SESSION["login"] == true) { ?>

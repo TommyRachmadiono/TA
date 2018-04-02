@@ -44,6 +44,11 @@ if (!empty($_POST["id"])) {
 
                         </div>
                         <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
+                            <div>
+                                <?php if(!empty($row['file'])) { ?>
+                                <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
+                                <?php } ?>
+                            </div>
                             <hr style="margin: 0; padding-top: 10px;">
 
                             <?php if ($_SESSION["login"] == true) { ?>
@@ -182,6 +187,11 @@ if (!empty($_POST["id"])) {
 
                         </div>
                         <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
+                            <div>
+                                <?php if(!empty($row['file'])) { ?>
+                                <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
+                                <?php } ?>
+                            </div>
                             <hr style="margin: 0; padding-top: 10px;">
 
                             <?php if ($_SESSION["login"] == true) { ?>

@@ -8,21 +8,55 @@ $act = $_POST["act"];
 switch ($act) {
     case 'posting_feeds':
         $isi = mysqli_real_escape_string($conn, $_POST["textarea"]);
-
         $tgldiposting = date('Y/m/d');
         $user_id = $_SESSION['user_id'];
+        $file_name = basename($_FILES["file"]["name"]);
 
-        $sql = "INSERT INTO postingan (isi, tgldiposting, user_id)
-	VALUES ('$isi', '$tgldiposting', '$user_id')";
+        if ($_FILES["file"]["size"] != 0) {
+            $target_dir = "postingan/";
+            $target_file = $target_dir . basename($_FILES["file"]["name"]);
+            $uploadOk = 1;
 
-        if (mysqli_query($conn, $sql)) {
-            echo '<script type="text/javascript">alert("Berhasil posting status"); </script>';
-            echo '<script type="text/javascript"> window.location = "index.php" </script>';
-            $conn->close();
+            if (file_exists($target_file)) {
+                echo "Sorry, file already exists.";
+                echo $file_name;
+                $uploadOk = 0;
+            }
+            //BATASI FILE CUMAN 5MB
+            if ($_FILES["file"]["size"] > 5485760) {
+                echo "Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+            if ($uploadOk == 0) {
+                echo "Sorry, your file was not uploaded.";
+                // if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+                    $sql = "INSERT INTO postingan (isi, tgldiposting, user_id,file)
+                VALUES ('$isi', '$tgldiposting', '$user_id','$file_name')";
+                    if (mysqli_query($conn, $sql)) {
+                        echo '<script type="text/javascript">alert("Berhasil posting status"); </script>';
+                        echo '<script type="text/javascript"> window.location = "index.php" </script>';
+                        $conn->close();
+                    } else {
+                        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                    }
+                } else {
+                    echo '<script type="text/javascript">alert("Sorry there was an error uploading your file")</script>';
+                }
+            }
         } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        }
 
+            $sql = "INSERT INTO postingan (isi, tgldiposting, user_id)
+        VALUES ('$isi', '$tgldiposting', '$user_id')";
+            if (mysqli_query($conn, $sql)) {
+                echo '<script type="text/javascript">alert("Berhasil posting status"); </script>';
+                echo '<script type="text/javascript"> window.location = "index.php" </script>';
+                $conn->close();
+            } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            }
+        }
         break;
     case 'comment_feeds':
         $comment = mysqli_real_escape_string($conn, $_POST["comment"]);
@@ -30,7 +64,7 @@ switch ($act) {
         $user_id = $_SESSION['user_id'];
 
         $sql = "INSERT INTO komentar (isi, user_id, postingan_idpostingan)
-	VALUES ('$comment', '$user_id', '$idpostingan')";
+    VALUES ('$comment', '$user_id', '$idpostingan')";
 
         if (mysqli_query($conn, $sql)) {
             echo '<script type="text/javascript">alert("Berhasil menambahkan komentar"); </script>';
