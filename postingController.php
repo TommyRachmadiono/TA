@@ -13,8 +13,10 @@ switch ($act) {
         $file_name = basename($_FILES["file"]["name"]);
 
         if ($_FILES["file"]["size"] != 0) {
+            $tglupload = date('YmdHis');
+
             $target_dir = "postingan/";
-            $target_file = $target_dir . basename($_FILES["file"]["name"]);
+            $target_file = $target_dir . $tglupload . $_FILES['file']['name'];
             $uploadOk = 1;
 
             if (file_exists($target_file)) {
@@ -46,7 +48,6 @@ switch ($act) {
                 }
             }
         } else {
-
             $sql = "INSERT INTO postingan (isi, tgldiposting, user_id)
         VALUES ('$isi', '$tgldiposting', '$user_id')";
             if (mysqli_query($conn, $sql)) {
