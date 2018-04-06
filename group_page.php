@@ -58,16 +58,23 @@ if (isset($_GET["id"])) {
 
             <!-- BEGIN CONTENT -->
             <div class="c-layout-sidebar-content " id="postlist">
-                <div style="margin-bottom: 12%;">
-                    <form method="POST" action="postingController.php" enctype="multipart-formdata">
+                <div class="posting" style="margin-bottom: 12%;">
+                    <form method="POST" action="postingController.php" enctype="multipart/form-data">
                         <input type="hidden" name="act" value="posting_group">
                         <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
                         <textarea class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="What's on your mind?"></textarea>
                         <input type="submit" value="POST" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
+
+                        <button id="btnfile" type="button" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%;">
+                            <span class="glyphicon glyphicon-paperclip"></span>
+                        </button>
+
+                        <input type="file" id="file" name="file" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%; display: none;">
+                        <p class="file-name" style="float: right; margin-top: 2%;">Please select a file <br> max 5mb</p>
                     </form>
                 </div>
                 <?php
-                $sql = "SELECT p.idpostingan, p.isi, p.tgldiposting, u.nama, u.foto FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE p.grup_id = $group_id order by p.idpostingan desc LIMIT 5";
+                $sql = "SELECT p.file, p.idpostingan, p.isi, p.tgldiposting, u.nama, u.foto FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE p.grup_id = $group_id order by p.idpostingan desc LIMIT 5";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -88,7 +95,12 @@ if (isset($_GET["id"])) {
                                 </h3>
                             </div>
                             <div class="panel-body" style="word-wrap: break-word;"> 
-                                <p> <?php echo nl2br($row['isi']) ?> </p> 
+                                <p> <?php echo nl2br($row['isi']) ?> </p>
+                                <div>
+                                <?php if (!empty($row['file'])) { ?>
+                                    <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
+                                <?php } ?>
+                            </div> 
                                 <hr style="margin: 0; padding-top: 10px;">
 
                                 <!-- ICON LIKE DAN KOMEN DISINI -->
@@ -174,7 +186,7 @@ if (isset($_GET["id"])) {
                     ?>
                     <div id="postterakhir" lastID = <?php echo $lastID; ?> groupID=<?php echo $group_id; ?> act="datapage" style="display: none;""><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
 
-                    <?php } else {
+                <?php } else {
                     ?>
                     <div id="postterakhir" lastID="0" groupID="" act=""><h>BELOM ADA KONTEN</h></div>
                 <?php } ?>

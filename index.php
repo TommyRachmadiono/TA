@@ -5,7 +5,6 @@ include 'config/connectdb.php';
 $_SESSION['menuHeader'] = 'home';
 include_once 'layout/header.php';
 $_SESSION['count'] = 0;
-
 ?>
 <?php
 $sql = "SELECT * FROM `user` WHERE username = '$username' AND password = '$password'";
@@ -38,12 +37,11 @@ if ($result->num_rows > 0) {
                                     <input type="submit" value="POST" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
 
                                     <button id="btnfile" type="button" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%;">
-                                       <span class="glyphicon glyphicon-paperclip"></span>
+                                        <span class="glyphicon glyphicon-paperclip"></span>
                                     </button>
-                                    
+
                                     <input type="file" id="file" name="file" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%; display: none;">
                                     <p class="file-name" style="float: right; margin-top: 2%;">Please select a file <br> max 5mb</p>
-                                    
                                 </form>
                             </div>
                         </li>
@@ -85,8 +83,8 @@ if ($result->num_rows > 0) {
                         <div class="panel-body" style="word-wrap: break-word;"> 
                             <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <div>
-                                <?php if(!empty($row['file'])) { ?>
-                                <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
+                                <?php if (!empty($row['file'])) { ?>
+                                    <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
                                 <?php } ?>
                             </div>
 
