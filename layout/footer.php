@@ -187,9 +187,9 @@
         <!--[if lt IE 9]>
     <script src="../assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
-<script src="assets/plugins/jquery.min.js" type="text/javascript"></script>
+
 <script src="assets/plugins/jquery-migrate.min.js" type="text/javascript"></script>
-<script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
 <script src="assets/plugins/jquery.easing.min.js" type="text/javascript"></script>
 <script src="assets/plugins/reveal-animate/wow.js" type="text/javascript"></script>
 <script src="assets/base/js/scripts/reveal-animate/reveal-animate.js" type="text/javascript"></script>
@@ -245,6 +245,10 @@
         <script src="assets/DataTables/js/buttons.print.min.js" type="text/javascript"></script>
         <script src="assets/DataTables/js/buttons.colVis.min.js" type="text/javascript"></script>
         
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+        <script type="text/javascript" src="js/calendar.js"></script>
+        <script type="text/javascript" src="js/events.js"></script>
+
         <script>
             var table = $('#example').DataTable( {
                 lengthChange: false,

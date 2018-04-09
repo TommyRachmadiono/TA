@@ -45,13 +45,16 @@
     <link rel="stylesheet" type="text/css" href="assets/DataTables/css/buttons.bootstrap.min.css">
 
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="assets/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 </head>
 
 <?php
 $menuHome = '';
 $menuGallery = '';
-$menuGroupDiscussion = '';
+$menuCalendar = '';
 
 if (isset($_SESSION['menuHeader'])) {
     $akses = $_SESSION['menuHeader'];
@@ -60,8 +63,8 @@ if (isset($_SESSION['menuHeader'])) {
         $menuHome = 'class="c-active"';
     } else if ($akses == 'gallery') {
         $menuGallery = 'class="c-active"';
-    } else if ($akses == 'groupDiscussion') {
-        $menuGroupDiscussion = 'class="c-active"';
+    } else if ($akses == 'eventCalendar') {
+        $menuCalendar = 'class="c-active"';
     }
 }
 if (isset($_COOKIE["login"])) {
@@ -107,12 +110,15 @@ if (isset($_COOKIE["login"])) {
                                 </li>
 
                                 <li <?php echo $menuGallery; ?>>
-                                    <a href="gallery.php" class="c-link dropdown-toggle">Gallery
-                                        
+                                    <a href="gallery.php" class="c-link dropdown-toggle">Gallery    
                                     </a>
-
                                 </li>
                                 
+                                <li <?php echo $menuCalendar; ?>>
+                                    <a href="event_calendar.php" class="c-link dropdown-toggle">Event Calendar    
+                                    </a>
+                                </li>
+
                                 <li>
                                     <a href="javascript:;" class="c-link dropdown-toggle">Student Achievements
                                         

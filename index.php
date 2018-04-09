@@ -24,7 +24,7 @@ if ($result->num_rows > 0) {
         <div class="container" style="margin-bottom: 0;">
             <?php if ($_SESSION["login"] == true) { ?>
                 <div class="c-page-title c-pull-left" style=" margin-bottom:0;">
-                    <img style="width: 100%; height: 180px; margin-left: 15%; border-radius: 50%;" src="images/<?php echo $_SESSION['foto_profil'] ?>">
+                    <img style="width: 100%; height: 180px; margin-left: 15%; border-radius: 50%;" src="img/<?php echo $_SESSION['foto_profil'] ?>">
                 </div>
 
                 <div>
@@ -72,7 +72,7 @@ if ($result->num_rows > 0) {
                     ?>
                     <div class="panel panel-warning">
                         <div class="panel-heading" >
-                            <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row['foto'] ?>">
+                            <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row['foto'] ?>">
                             <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
                                 <a class="anchorjs-link" href="#panel-title">
                                     <span class="anchorjs-icon"></span>
@@ -83,9 +83,19 @@ if ($result->num_rows > 0) {
                         <div class="panel-body" style="word-wrap: break-word;"> 
                             <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <div>
-                                <?php if (!empty($row['file'])) { ?>
+                                <?php if (!empty($row['file'])) {
+                                $file = $row['file'];
+                                $info = pathinfo($file);
+                                $ext = $info['extension'];
+                                if($ext == "jpg" || $ext == "png" || $ext == "jpeg") { ?>
                                     <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
-                                <?php } ?>
+                                    <?php } else { ?>
+                                    <div class="fa fa-hover">
+                                    <a href="postingan/<?php echo $file ?>" download> <i class="fa fa-file-o"></i>
+                                        <?php echo $file ?>
+                                    </a>
+                                </div>
+                                <?php }} ?>
                             </div>
 
                             <hr style="margin: 0; padding-top: 10px;">
@@ -144,7 +154,7 @@ if ($result->num_rows > 0) {
                                             // output data of each row
                                             while ($row2 = $result2->fetch_assoc()) {
                                                 ?> 
-                                                <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row2['foto'] ?>">
+                                                <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row2['foto'] ?>">
                                                 <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
                                                 <p style="margin-top: 1.5%; margin-bottom: 2%;"><?php echo nl2br($row2['isi']); ?></p>
                                                 <?php

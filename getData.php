@@ -35,7 +35,7 @@ if (!empty($_POST["id"])) {
 
                     <div class="panel panel-warning">
                         <div class="panel-heading" >
-                            <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row['foto'] ?>">
+                            <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row['foto'] ?>">
                             <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
                                 <a class="anchorjs-link" href="#panel-title">
                                     <span class="anchorjs-icon"></span>
@@ -107,7 +107,7 @@ if (!empty($_POST["id"])) {
                                             <div id="isikomen<?php echo $postID; ?>" class="row" style="">
 
                                                 <div class="col-md-4" style="margin-top: 2%;">
-                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row2['foto'] ?>">
+                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row2['foto'] ?>">
                                                     <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
                                                 </div>
                                                 <div class="col-md-8" style="margin-top: 2%;">
@@ -178,7 +178,7 @@ if (!empty($_POST["id"])) {
 
                     <div class="panel panel-warning">
                         <div class="panel-heading" >
-                            <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row['foto'] ?>">
+                            <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row['foto'] ?>">
                             <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
                                 <a class="anchorjs-link" href="#panel-title">
                                     <span class="anchorjs-icon"></span>
@@ -250,7 +250,7 @@ if (!empty($_POST["id"])) {
                                             <div id="isikomen<?php echo $postID; ?>" class="row" style="">
 
                                                 <div class="col-md-4" style="margin-top: 2%;">
-                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/<?php echo $row2['foto'] ?>">
+                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row2['foto'] ?>">
                                                     <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
                                                 </div>
                                                 <div class="col-md-8" style="margin-top: 2%;">
