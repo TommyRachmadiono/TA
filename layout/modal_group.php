@@ -27,7 +27,7 @@
         <!-- END MODAL CREATE GROUP -->
 
         <!-- MODAL INVITE MEMBER -->
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" id="invite-member" role="dialog">
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" id="invite-member" role="dialog" style="margin-top: 5%;">
             <div class="modal-dialog">
                 <div class="modal-content c-square">
                     <div class="modal-header c-no-border">
@@ -76,7 +76,7 @@
         <!-- END MODAL INVITE MEMBER -->
 
         <!-- MODAL SHOW MEMBER -->
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" id="show-member" role="dialog">
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" id="show-member" role="dialog" style="margin-top: 5%;">
             <div class="modal-dialog">
                 <div class="modal-content c-square">
                     <div class="modal-header c-no-border">

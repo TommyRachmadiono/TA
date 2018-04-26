@@ -139,7 +139,7 @@ if ($result->num_rows > 0) {
                                     echo mysqli_num_rows($query2);
                                     ?> 
                                 </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>LOAD KOMEN</div>
-                                <hr style="margin: 0;">
+                                <hr style="margin: 0; height: 5px;">
                             </div>
 
                             <section id="comment">

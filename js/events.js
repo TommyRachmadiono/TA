@@ -1,11 +1,12 @@
 (function($) {
 	"use strict";
+
 	var options = {
 		events_source: 'event.php',
 		view: 'month',
 		tmpl_path: 'tmpls/',
 		tmpl_cache: false,
-		day: '2018-02-28',
+		day: 'now',
 		onAfterEventsLoad: function(events) {
 			if(!events) {
 				return;
@@ -15,7 +16,7 @@
 
 			$.each(events, function(key, val) {
 				$(document.createElement('li'))
-					.html('<a href="' + val.url + '">' + val.title + '</a>')
+					.html('<a onclick="bukamodal();" href="' + val.url + '">' + val.title + '</a>')
 					.appendTo(list);
 			});
 		},

@@ -9,11 +9,12 @@ switch ($act) {
     case 'posting_feeds':
         $isi = mysqli_real_escape_string($conn, $_POST["textarea"]);
         $tgldiposting = date('Y/m/d');
+        $tglupload = date('YmdHis');
         $user_id = $_SESSION['user_id'];
-        $file_name = basename($_FILES["file"]["name"]);
+        $file_name = basename($tglupload . $_FILES["file"]["name"]);
 
         if ($_FILES["file"]["size"] != 0) {
-            $tglupload = date('YmdHis');
+            
 
             $target_dir = "postingan/";
             $target_file = $target_dir . $tglupload . $_FILES['file']['name'];
@@ -79,12 +80,13 @@ switch ($act) {
         $isi = mysqli_real_escape_string($conn, $_POST["textarea"]);
         $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
         $tgldiposting = date('Y/m/d');
+        $tglupload = date('YmdHis');
         $user_id = $_SESSION['user_id'];
-        $file_name = basename($_FILES["file"]["name"]);
+        $file_name = basename($tglupload . $_FILES["file"]["name"]);
 
         if ($_FILES["file"]["size"] != 0) {
             $target_dir = "postingan/";
-            $target_file = $target_dir . basename($_FILES["file"]["name"]);
+            $target_file = $target_dir . $tglupload . basename($_FILES["file"]["name"]);
             $uploadOk = 1;
 
             if (file_exists($target_file)) {

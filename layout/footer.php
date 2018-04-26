@@ -245,9 +245,16 @@
         <script src="assets/DataTables/js/buttons.print.min.js" type="text/javascript"></script>
         <script src="assets/DataTables/js/buttons.colVis.min.js" type="text/javascript"></script>
         
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+        <script type="text/javascript" src="js/underscore-min.js"></script>
         <script type="text/javascript" src="js/calendar.js"></script>
         <script type="text/javascript" src="js/events.js"></script>
+        
+        <!-- INI BIAR KALO REFRESH BALIK KE TOP PAGE -->
+        <script type="text/javascript">
+            $(window).on('beforeunload', function(){
+                $(window).scrollTop(0);
+            });
+        </script>
 
         <script>
             var table = $('#example').DataTable( {
@@ -258,6 +265,7 @@
                 lengthChange: false,
                 buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
             } );
+
         </script>
 
         <!-- INI SCRIPT BUAT UPLOAD FILE -->
