@@ -136,7 +136,7 @@ if (isset($_COOKIE["login"])) {
                                     <?php } elseif ($_SESSION["login"] == true) { ?>
                                     <li class="c-menu-type-classic">
                                         <a href="#" class="c-link dropdown-toggle" >
-                                            <?php echo 'Welcome' . ", " . $_SESSION["username"] ?>
+                                            <?php echo 'Welcome' . ", " . $_COOKIE["username"] ?>
                                             <span class="c-arrow c-toggler"></span>
                                         </a>
                                         <ul class="dropdown-menu c-menu-type-classic c-pull-right">

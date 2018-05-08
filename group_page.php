@@ -15,9 +15,15 @@ $_SESSION['menuHeader'] = 'group_page';
 $_SESSION['count'] = 0;
 
 $lastId;
-$user_id = $_SESSION['user_id'];
+$user_id = $_COOKIE['user_id'];
 if (isset($_GET["id"])) {
     $group_id = $_GET["id"];
+    $sql = "SELECT * FROM grup g INNER JOIN anggota a on g.id = a.grup_id WHERE a.grup_id = '$group_id' AND a.user_id = '$user_id'";
+    $result = $conn->query($sql);
+    if ($result->num_rows == 0) {
+        echo '<script type="text/javascript">alert("Kamu bukan anggota grup ini"); </script>';
+        echo '<script type="text/javascript"> window.location = "index.php" </script>';
+}
     ?>
 
     <div class="c-layout-page">
@@ -25,7 +31,7 @@ if (isset($_GET["id"])) {
         <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
             <div class="container">
                 <div class="c-page-title c-pull-left">
-                    <img style="width: 100%; height: 150px; margin-left: 15%; border-radius: 50%;" src="img/<?php echo $_SESSION['foto_profil'] ?>">
+                    <img style="width: 100%; height: 150px; margin-left: 15%; border-radius: 50%;" src="img/<?php echo $_COOKIE['foto_profil'] ?>">
                 </div>
                 <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
                     <li>
@@ -118,7 +124,7 @@ if (isset($_GET["id"])) {
                                     <div class="col-md-6" style="margin: 0; padding: 0;">
                                         <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
                                             <?php
-                                            $user_id = $_SESSION['user_id'];
+                                            $user_id = $_COOKIE['user_id'];
                                             $query1 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $idpostingan AND user_id = $user_id");
                                             if (mysqli_num_rows($query1) > 0) {
                                                 ?>

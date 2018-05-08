@@ -57,7 +57,7 @@ if (!empty($_POST["id"])) {
                                     <div class="col-md-6" style="margin: 0; padding: 0;">
                                         <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
                                             <?php
-                                            $user_id = $_SESSION['user_id'];
+                                            $user_id = $_COOKIE['user_id'];
                                             $query1 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $postID AND user_id = $user_id");
                                             if (mysqli_num_rows($query1) > 0) {
                                                 ?>

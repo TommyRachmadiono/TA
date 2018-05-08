@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 include 'config/connectdb.php';
 
@@ -10,7 +9,7 @@ switch ($act) {
         $isi = mysqli_real_escape_string($conn, $_POST["textarea"]);
         $tgldiposting = date('Y/m/d');
         $tglupload = date('YmdHis');
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_COOKIE['user_id'];
         $file_name = basename($tglupload . $_FILES["file"]["name"]);
 
         if ($_FILES["file"]["size"] != 0) {
@@ -63,7 +62,7 @@ switch ($act) {
     case 'comment_feeds':
         $comment = mysqli_real_escape_string($conn, $_POST["comment"]);
         $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_COOKIE['user_id'];
 
         $sql = "INSERT INTO komentar (isi, user_id, postingan_idpostingan)
     VALUES ('$comment', '$user_id', '$idpostingan')";
@@ -81,7 +80,7 @@ switch ($act) {
         $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
         $tgldiposting = date('Y/m/d');
         $tglupload = date('YmdHis');
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_COOKIE['user_id'];
         $file_name = basename($tglupload . $_FILES["file"]["name"]);
 
         if ($_FILES["file"]["size"] != 0) {
@@ -133,7 +132,7 @@ switch ($act) {
     case 'comment_feeds_group':
         $comment = mysqli_real_escape_string($conn, $_POST["comment"]);
         $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_COOKIE['user_id'];
         $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
 
         $sql = "INSERT INTO komentar (isi, user_id, postingan_idpostingan)
@@ -150,12 +149,12 @@ switch ($act) {
         if (isset($_POST['like'])) {
 
             $id = $_POST['id'];
-            $query = mysqli_query($conn, "select * from `like` where post_id='$id' and user_id='" . $_SESSION['user_id'] . "'") or die(mysqli_error());
+            $query = mysqli_query($conn, "select * from `like` where post_id='$id' and user_id='" . $_COOKIE['user_id'] . "'") or die(mysqli_error());
 
             if (mysqli_num_rows($query) > 0) {
-                mysqli_query($conn, "delete from `like` where user_id='" . $_SESSION['user_id'] . "' and post_id='$id'");
+                mysqli_query($conn, "delete from `like` where user_id='" . $_COOKIE['user_id'] . "' and post_id='$id'");
             } else {
-                mysqli_query($conn, "insert into `like` (user_id,post_id) values ('" . $_SESSION['user_id'] . "', '$id')");
+                mysqli_query($conn, "insert into `like` (user_id,post_id) values ('" . $_COOKIE['user_id'] . "', '$id')");
             }
         }
         break;

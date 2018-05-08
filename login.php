@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include 'config/connectdb.php';
@@ -22,7 +21,11 @@ if ($result->num_rows > 0) {
 		$_SESSION["username"] = $username;
 
 		setcookie("login", true, time()+3600);
-		
+		setcookie("user_id", $_SESSION["user_id"], time()+3600);
+		setcookie("username", $_SESSION["username"], time()+3600);
+		setcookie("foto_profil", $_SESSION["foto_profil"], time()+3600);
+		setcookie("role", $_SESSION["role"], time()+3600);
+
 		echo '<script type="text/javascript">alert("Welcome '. $_SESSION['nama'] . '"); </script>';
 		echo '<script type="text/javascript"> window.location = "index.php" </script>';
 
@@ -32,5 +35,4 @@ if ($result->num_rows > 0) {
 	echo $username;
 	echo $password;
 }
-$conn->close();
 ?>
