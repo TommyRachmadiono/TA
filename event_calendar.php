@@ -128,9 +128,10 @@ include 'config/connectdb.php';
                                     <th style="text-align: center;"><b>Deskripsi Event</th>
                                     <th style="text-align: center;"><b>Tanggal Mulai</th>
                                     <th style="text-align: center;"><b>Tanggal Selesai</th>
-                                    <?php if($_SESSION['role']=='guru') { ?>
+                                    <?php if($_SESSION['login']==true) {
+                                    	if($_SESSION['role']=='guru') { ?>
                                     <th style="text-align: center;"><b>Action</th>
-                                    <?php } ?>
+                                    <?php }} ?>
                                 </tr>
                             </thead>
                             <tbody>

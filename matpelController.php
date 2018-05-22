@@ -11,8 +11,8 @@ switch ($act) {
 	$week_id = mysqli_real_escape_string($conn, $_POST["week_id"]);
 
 
-	$sql = "INSERT INTO tugas (namatugas)
-	VALUES ('$namatugas')";
+	$sql = "INSERT INTO tugas (namatugas, matpel_id, week_id)
+	VALUES ('$namatugas', '$matpel_id', '$week_id')";
 	if (mysqli_query($conn, $sql)) {
 
 		$sql2 = "SELECT id FROM tugas ORDER BY id DESC LIMIT 1";
@@ -23,13 +23,8 @@ switch ($act) {
 				mkdir('tugas/'.$tugas_id.' '.$namatugas);
 			}
 		}
-
-		$sql3 = "INSERT INTO matpel_has_week (matpel_id, week_id, tugas_id, materi_id)
-		VALUES ('$matpel_id', '$week_id', '$tugas_id', NULL)";
-		if(mysqli_query($conn, $sql3)) {
-			echo '<script type="text/javascript">alert("Berhasil membuat tugas baru"); </script>';
-			echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
-		}
+		echo '<script type="text/javascript">alert("Berhasil membuat tugas baru"); </script>';
+		echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
 		
 	} else {
 		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -44,14 +39,13 @@ switch ($act) {
 	$result = $conn->query($sql2);
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
-			$path = $row['id'].' '.$row['namatugas'];
+			$path = 'tugas/'.$row['id'].' '.$row['namatugas'];
 			rmdir($path);
 		}
 	}
 
-	$sql = "DELETE FROM matpel_has_week WHERE tugas_id = '$tugas_id'";
+	$sql = "DELETE FROM tugas WHERE id = '$tugas_id'";
 	if (mysqli_query($conn, $sql)) {
-
 		echo '<script type="text/javascript">alert("Berhasil Menghapus Tugas"); </script>';
 		echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
 	} else {
@@ -76,33 +70,19 @@ switch ($act) {
 	}
 	if ($uploadOk == 0) {
 		echo "Sorry, your file was not uploaded.";
-                // if everything is ok, try to upload file
+    // if everything is ok, try to upload file
 	} else {
 		if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-			$sql = "INSERT INTO materi (file)
-			VALUES ('$file_name')";
+			$sql = "INSERT INTO materi (file, matpel_id, week_id, user_id)
+			VALUES ('$file_name', '$matpel_id', '$week_id', '$user_id')";
 			if (mysqli_query($conn, $sql)) {
-				$sql2 = "SELECT id FROM materi ORDER BY id DESC LIMIT 1";
-				$result = $conn->query($sql2);
-				if ($result->num_rows > 0) {
-					while ($row = $result->fetch_assoc()) {
-						$materi_id = $row['id'];
-					}
-				}
-
-				$sql3 = "INSERT INTO matpel_has_week (matpel_id, week_id, materi_id)
-				VALUES ('$matpel_id','$week_id','$materi_id')";
-				if (mysqli_query($conn, $sql3)) {
-					echo '<script type="text/javascript">alert("Berhasil Upload Materi"); </script>';
-					echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
-				}
-			} else {
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
+				echo '<script type="text/javascript">alert("Berhasil Upload Materi"); </script>';
+				echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
 		} else {
-			echo '<script type="text/javascript">alert("Sorry there was an error uploading your file")</script>';
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 		}
 	}
+}
 	break;
 
 	case 'delete_materi':
@@ -110,8 +90,6 @@ switch ($act) {
 	$materi_id = mysqli_real_escape_string($conn, $_POST["materi_id"]);
 	$dir = "materi";
 
-	$sql = "DELETE FROM matpel_has_week WHERE materi_id = '$materi_id'";
-	if (mysqli_query($conn, $sql)) {
 		$sql2 = "SELECT * FROM materi WHERE id = '$materi_id'";
 		$result = $conn->query($sql2);
 		if ($result->num_rows > 0) {
@@ -121,12 +99,12 @@ switch ($act) {
 		}
 
 		if(unlink($dir.'/'.$file)){
+			$sql = "DELETE FROM materi WHERE id = '$materi_id'"; 
+			mysqli_query($conn,$sql);
 			echo '<script type="text/javascript">alert("Berhasil Menghapus Materi"); </script>';
 			echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
 		}
-	} else {
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-	}	
+
 	break;
 
 	case 'upload_tugas':
@@ -291,6 +269,7 @@ switch ($act) {
 	header('Pragma: public');
 	header('Content-Length: ' . filesize($zip_file));
 	readfile($zip_file);
+	unlink($zip_file);
 
 	break;
 

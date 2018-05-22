@@ -14,16 +14,16 @@ if (isset($_GET["id"])) {
 	$user_id = $_COOKIE['user_id'];
 	$matpel_id = $_SESSION['matpel_id'];
 
-	$sql = "SELECT * FROM relasi_user_matpel rum INNER JOIN matpel m on rum.matpel_id = m.id INNER JOIN matpel_has_week mhw on m.id = mhw.matpel_id INNER JOIN tugas t on mhw.tugas_id = t.id WHERE mhw.tugas_id = '$tugas_id' AND rum.user_id = '$user_id'";
+	$sql = "SELECT * FROM relasi_user_matpel rum INNER JOIN tugas t on rum.matpel_id = t.matpel_id WHERE rum.user_id = '$user_id' AND t.id='$tugas_id'";
 	$result = $conn->query($sql);
 	if ($result->num_rows == 0) {
-		echo '<script type="text/javascript">alert("Kamu tidak mengambil mata pelajaran ini"); </script>';
+		 echo '<script type="text/javascript">alert("Kamu tidak mengambil mata pelajaran ini"); </script>';
 		echo '<script type="text/javascript"> window.location = "index.php" </script>';
 	}
 	?>
 	<div class="c-layout-page">
 		<!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
-		<div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold">
+		<div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold" style="background-color: lightblue;">
 			<div class="container">
 				<div class="c-page-title c-pull-left">
 					<h3 class="c-font-uppercase c-font-sbold">
@@ -92,8 +92,8 @@ if (isset($_GET["id"])) {
 						</div>
 						<div class="panel-body">
 								<div class="form-group">
-							<label style="margin-right: 5%;">Nama File : </label><?php echo $row['file']; ?> <br>
-							<label style="margin-right: 1.5%;">Tanggal Upload : </label><?php echo $row['tgl_diupload']; ?> <br>
+							<label style="margin-right: 4.5%;">Nama File  </label>: <?php echo $row['file']; ?> <br>
+							<label style="">Tanggal Upload : </label> <?php echo $row['tgl_diupload']; ?> <br>
 						<form action="matpelController.php" method="POST">
 							<input type="hidden" name="act" value="delete_tugas_user">
 							<input type="hidden" name="tugas_id" value="<?php echo $tugas_id; ?>">

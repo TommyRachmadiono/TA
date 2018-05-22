@@ -109,6 +109,9 @@ if (isset($_COOKIE["login"])) {
                                     </a>
                                 </li>
 
+                                <?php
+                                if ($_SESSION["login"] == true) {
+                                    ?>
                                 <li <?php echo $menuGallery; ?>>
                                     <a href="gallery.php" class="c-link dropdown-toggle">Gallery    
                                     </a>
@@ -124,6 +127,7 @@ if (isset($_COOKIE["login"])) {
                                         
                                     </a>
                                 </li>
+                                <?php } ?>
 
                                 <?php
                                 if ($_SESSION["login"] == false) {
@@ -147,6 +151,13 @@ if (isset($_COOKIE["login"])) {
                                             </li>
                                         </ul>
                                     </li>
+
+                                    <li class="c-cart-toggler-wrapper">
+                                    <a href="#" class="c-btn-icon c-cart-toggler">
+                                        <i class="fa fa-bell"></i>
+                                        <span class="c-cart-number c-theme-bg">2</span>
+                                    </a>
+                                </li>
                                     <?php } ?>
 
                                 </ul>
@@ -155,8 +166,44 @@ if (isset($_COOKIE["login"])) {
                             <!-- END: LAYOUT/HEADERS/MEGA-MENU -->
                             <!-- END: HOR NAV -->
                         </div>
+                        <div class="c-cart-menu">
+                        <div class="c-cart-menu-title">
+                            <p class="c-cart-menu-float-l c-font-sbold">Notification</p>
+                        </div>
+                        <ul class="c-cart-menu-items">
+                            <li>
+                                <div class="c-cart-menu-close">
+                                    <a href="#" class="c-theme-link">×</a>
+                                </div>
+                                <img src="assets/base/img/content/shop2/24.jpg" />
+                                <div class="c-cart-menu-content">
+                                    <p>1 x
+                                        <span class="c-item-price c-theme-font">$30</span>
+                                    </p>
+                                    <a href="shop-product-details-2.html" class="c-item-name c-font-sbold">Winter Coat</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="c-cart-menu-close">
+                                    <a href="#" class="c-theme-link">×</a>
+                                </div>
+                                <img src="assets/base/img/content/shop2/12.jpg" />
+                                <div class="c-cart-menu-content">
+                                    <p>1 x
+                                        <span class="c-item-price c-theme-font">$30</span>
+                                    </p>
+                                    <a href="shop-product-details.html" class="c-item-name c-font-sbold">Sports Wear</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="c-cart-menu-footer">
+                            <a href="#" class="btn btn-md c-btn c-btn-square c-btn-grey-3 c-font-white c-font-bold c-center c-font-uppercase">View Cart</a>
+                            <a href="#" class="btn btn-md c-btn c-btn-square c-theme-btn c-font-white c-font-bold c-center c-font-uppercase">Checkout</a>
+                        </div>
+                    </div>
                     </div>
                 </div>
+                
             </header>
             <!-- END: HEADER -->
             <!-- END: LAYOUT/HEADERS/HEADER-1 -->
@@ -232,3 +279,6 @@ if (isset($_COOKIE["login"])) {
                         </div>
                     </div>
         <!-- END: CONTENT/USER/LOGOUT-FORM -->
+
+
+        

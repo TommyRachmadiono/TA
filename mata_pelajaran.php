@@ -33,7 +33,7 @@ if (isset($_GET["id"])) {
 
     <div class="c-layout-page">
         <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
-        <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold">
+        <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold" style="background-color: lightblue;">
             <div class="container">
                 <div class="c-page-title c-pull-left">
                     <h3 class="c-font-uppercase c-font-sbold">
@@ -153,8 +153,9 @@ if (isset($_GET["id"])) {
                                 <div class="" style="margin: 2%; margin-bottom: 0;">
                                     <form action="matpelController.php" method="POST" enctype="multipart/form-data">
                                         <div class="form-group" style="display: inline;">
-                                            <label>Upload Materi :</label> 
+                                            <label>Upload Materi :</label>
                                             <input type="file" name="file" required="" style="display: inline;">
+                                            <small style="color: black;">Max 20MB</small>
                                             <input type="hidden" name="week_id" value="<?php echo $row['id']; ?>">
                                             <input type="hidden" name="act" value="upload_materi">
                                             <input type="submit" value="Upload" class="btn btn-primary">
@@ -197,7 +198,7 @@ if (isset($_GET["id"])) {
             <?php } ?>
                             <div class="panel-body"> 
                                 <?php
-                                $sql2 = "SELECT t.id,t.namatugas FROM matpel m INNER JOIN matpel_has_week mhw on m.id = mhw.matpel_id INNER JOIN week w on mhw.week_id = w.id INNER JOIN tugas t on mhw.tugas_id=t.id WHERE w.id= '$week_id' AND m.id='$matpel_id'";
+                                $sql2 = "SELECT * FROM tugas t WHERE t.matpel_id='$matpel_id' AND t.week_id='$week_id'";
                                 $result2 = $conn->query($sql2);
                                 if ($result2->num_rows > 0) {
                                     // output data of each row
@@ -222,7 +223,7 @@ if (isset($_GET["id"])) {
                                 ?>
 
                                 <?php
-                                $sql3 = "SELECT mt.id,mt.file FROM matpel m INNER JOIN matpel_has_week mhw on m.id = mhw.matpel_id INNER JOIN week w on mhw.week_id = w.id INNER JOIN materi mt on mhw.materi_id=mt.id WHERE w.id= '$week_id' AND m.id='$matpel_id'";
+                                $sql3 = "SELECT * FROM materi m WHERE m.matpel_id='$matpel_id' AND m.week_id='$week_id'";
                                 $result3 = $conn->query($sql3);
                                 if ($result3->num_rows > 0) {
                                     while ($row3 = $result3->fetch_assoc()) {
