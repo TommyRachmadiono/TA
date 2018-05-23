@@ -71,7 +71,7 @@ $_SESSION['count'] = 0;
                                     <span class="anchorjs-icon"></span>
                                 </a>
                             </h3>
-
+                            <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>"><i class="fa fa-close"></i></a>
                         </div>
                         <div class="panel-body" style="word-wrap: break-word;"> 
                             <p> <?php echo nl2br($row['isi']) ?> </p> 
@@ -151,11 +151,12 @@ $_SESSION['count'] = 0;
                                                 <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3> 
                                                 <?php if ($_SESSION["login"] == true && $row2['id'] == $user_id) { ?>
                                                 <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>
-                                                <a href="#" style="float: right; margin-right: 2%;" data-toggle="modal" data-target="#modalEditKomen<?php echo $row2['idkomentar']; ?>"><span class="glyphicon glyphicon-edit"></span></a>
+                                                <a href="#" style="float: right; margin-right: 2%;" data-toggle="modal" data-target="#modalEditKomen<?php echo $row2['idkomentar']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
                                                 <?php } ?>
                                                 <p style="margin-top: 1.5%; margin-bottom: 2%;"><?php echo nl2br($row2['isi']); ?></p>
+                                                
                                                 <!-- BEGIN: MODAL DELETE COMMENT -->
-                    <div class="modal fade" id="modalDeleteKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="modalDeleteKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content c-square">
                                 <div class="modal-body">
@@ -173,8 +174,9 @@ $_SESSION['count'] = 0;
                         </div>
                     </div>
         <!-- END: MODAL DELETE COMMENT -->
+        
         <!-- BEGIN: MODAL EDIT COMMENT -->
-                    <div class="modal fade" id="modalEditKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="modalEditKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content c-square">
                                 <div class="modal-body">

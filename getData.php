@@ -301,10 +301,11 @@ if (!empty($_POST["id"])) {
                                                     <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
                                                     <?php if ($_SESSION["login"] == true && $row2['id'] == $user_id) { ?>
                                                 <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>
-                                                <a href="#" style="float: right; margin-right: 2%;" data-toggle="modal" data-target="#modalEditKomen<?php echo $row2['idkomentar']; ?>"><span class="glyphicon glyphicon-edit"></span></a>
+                                                <a href="#" style="float: right; margin-right: 2%;" data-toggle="modal" data-target="#modalEditKomen<?php echo $row2['idkomentar']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
                                                 <?php } ?>
                                                     <p style="margin-top: 1.5%; "><?php echo nl2br($row2['isi']); ?></p>
-                                                <!-- BEGIN: MODAL DELETE COMMENT -->
+                                                
+                                                    <!-- BEGIN: MODAL DELETE COMMENT -->
                     <div class="modal fade" id="modalDeleteKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content c-square">
