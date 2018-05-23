@@ -15,11 +15,9 @@ $_SESSION['count'] = 0;
     <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
     <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both" style="margin-bottom: 0; background-color: lightblue;">
         <div class="container" style="margin-bottom: 0;">
-            
                 <div class="c-page-title c-pull-left" style=" margin-bottom:0;">
                     <img style="width: 100%; height: 180px; margin-left: 15%; border-radius: 50%;" src="img/<?php echo $_COOKIE['foto_profil'] ?>">
                 </div>
-
                 <div>
                     <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular" style="width: 74%; margin-top: 0; margin-bottom: 0;">
                         <li style="width: 100%; margin-bottom: 0;">
@@ -185,9 +183,9 @@ $_SESSION['count'] = 0;
                                         <?php
                                         $idkomen = $row2['idkomentar'];
                                         $sql = "SELECT isi FROM komentar WHERE idkomentar = '$idkomen'";
-                                        $result = $conn->query($sql);
-                                        if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) { ?>
+                                        $result3 = $conn->query($sql);
+                                        if ($result3->num_rows > 0) {
+                                        while ($row = $result3->fetch_assoc()) { ?>
                                        
                                         <form method="POST" action="postingController.php">
                                              <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
