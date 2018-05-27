@@ -6,9 +6,10 @@ $event_description = mysqli_real_escape_string($conn, $_POST["event_description"
 $start_date = mysqli_real_escape_string($conn, $_POST["start_date"]);
 $end_date = mysqli_real_escape_string($conn, $_POST["end_date"]);
 $created = date("Y/m/d");
+$user_id = $_COOKIE['user_id'];
 
-$sql = "INSERT INTO events (title, description, start_date, end_date, created)
-VALUES ('$event_name', '$event_description', '$start_date', '$end_date', '$created')";
+$sql = "INSERT INTO events (title, description, start_date, end_date, created, user_id)
+VALUES ('$event_name', '$event_description', '$start_date', '$end_date', '$created', '$user_id')";
 
 if (mysqli_query($conn, $sql)) {
     echo '<script type="text/javascript">alert("Berhasil menambahkan event baru"); </script>';

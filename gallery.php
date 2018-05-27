@@ -3,271 +3,198 @@ session_start();
 
 $_SESSION['menuHeader'] = 'gallery';
 include_once 'layout/header.php';
+
+if ($_SESSION["login"] == false) {
+    echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';
+    echo '<script type="text/javascript"> window.location = "index.php" </script>';
+}
 ?>
+<!-- BEGIN: PAGE CONTAINER -->
 <div class="c-layout-page">
-            <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
-            <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold">
-                <div class="container">
-                    <div class="c-page-title c-pull-left">
-                        <h3 class="c-font-uppercase c-font-sbold">Full Width Gallery</h3>
-                        <h4 class="">Page Sub Title Goes Here</h4>
-                    </div>
-                    <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
-                        <li>
-                            <a href="index.php">Home</a>
-                        </li>
-                        <li>/</li>
-                        <li>
-                            <a href="#">Gallery</a>
-                        </li>
-                    </ul>
-                </div>
+    <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
+    <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold">
+        <div class="container">
+            <div class="c-page-title c-pull-left">
+                <h3 class="c-font-uppercase c-font-sbold">Isotope Gallery</h3>
             </div>
-            <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
-            <!-- BEGIN: PAGE CONTENT -->
-            <div class="c-content-box c-size-md c-bg-white c-overflow-hide">
-                <div id="filters-container" class="cbp-l-filters-alignCenter">
-                    <div data-filter="*" class="cbp-filter-item-active cbp-filter-item"> ALL
-                        <div class="cbp-filter-counter"></div>
-                    </div> /
-                    <div data-filter=".identity" class="cbp-filter-item"> IDENTITY
-                        <div class="cbp-filter-counter"></div>
-                    </div> /
-                    <div data-filter=".web-design" class="cbp-filter-item"> WEB DESIGN
-                        <div class="cbp-filter-counter"></div>
-                    </div> /
-                    <div data-filter=".graphic" class="cbp-filter-item"> GRAPHIC
-                        <div class="cbp-filter-counter"></div>
-                    </div> /
-                    <div data-filter=".logos" class="cbp-filter-item"> LOGO
-                        <div class="cbp-filter-counter"></div>
-                    </div> /
-                    <div data-filter=".motion" class="cbp-filter-item"> MOTION
-                        <div class="cbp-filter-counter"></div>
-                    </div>
-                </div>
-                <div id="grid-container" class="cbp">
-                    <div class="cbp-item identity logos">
-                        <a href="assets/base/img/content/stock/34.jpg" class="cbp-caption cbp-lightbox" data-title="Dashboard<br>by Paul Flavius Nechita">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/34.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">Dashboard</div>
-                                        <div class="cbp-l-caption-desc">by Paul Flavius Nechita</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item web-design">
-                        <a href="assets/base/img/content/stock/33.jpg" class="cbp-caption cbp-lightbox" data-title="Client chat app WIP<br>by Paul Flavius Nechita">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/33.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">Client chat app WIP</div>
-                                        <div class="cbp-l-caption-desc">by Paul Flavius Nechita</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item motion identity">
-                        <a href="assets/base/img/content/stock/32.jpg" class="cbp-caption cbp-lightbox" data-title="World Clock Widget<br>by Paul Flavius Nechita">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/32.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">World Clock Widget</div>
-                                        <div class="cbp-l-caption-desc">by Paul Flavius Nechita</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item identity graphic">
-                        <a href="assets/base/img/content/stock/31.jpg" class="cbp-caption cbp-lightbox" data-title="Website Lightbox<br>by Paul Flavius Nechita">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/31.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">Website Lightbox</div>
-                                        <div class="cbp-l-caption-desc">by Paul Flavius Nechita</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item motion logos">
-                        <a href="assets/base/img/content/stock/30.jpg" class="cbp-caption cbp-lightbox" data-title="Skateshop Website<br>by Paul Flavius Nechita">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/30.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">Skateshop Website</div>
-                                        <div class="cbp-l-caption-desc">by Paul Flavius Nechita</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item web-design">
-                        <a href="assets/base/img/content/stock/29.jpg" class="cbp-caption cbp-lightbox" data-title="10 Navigation Bars<br>by Paul Flavius Nechita">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/29.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">10 Navigation Bars</div>
-                                        <div class="cbp-l-caption-desc">by Paul Flavius Nechita</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item identity motion">
-                        <a href="assets/base/img/content/stock/28.jpg" class="cbp-caption cbp-lightbox" data-title="To-Do Dashboard<br>by Tiberiu Neamu">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/28.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">To-Do Dashboard</div>
-                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item web-design graphic">
-                        <a href="assets/base/img/content/stock/27.jpg" class="cbp-caption cbp-lightbox" data-title="Events and  More<br>by Tiberiu Neamu">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/27.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">Events and More</div>
-                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item graphic logos">
-                        <a href="assets/base/img/content/stock/26.jpg" class="cbp-caption cbp-lightbox" data-title="WhereTO App<br>by Tiberiu Neamu">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/26.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">WhereTO App</div>
-                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item graphic motion">
-                        <a href="assets/base/img/content/stock/25.jpg" class="cbp-caption cbp-lightbox" data-title="Bolt UI<br>by Tiberiu Neamu">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/25.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">Bolt UI</div>
-                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item graphic">
-                        <a href="assets/base/img/content/stock/24.jpg" class="cbp-caption cbp-lightbox" data-title="iDevices<br>by Tiberiu Neamu">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/24.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">iDevices</div>
-                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item graphic logos">
-                        <a href="assets/base/img/content/stock/23.jpg" class="cbp-caption cbp-lightbox" data-title="Ski * Buddy<br>by Tiberiu Neamu">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/23.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">Ski * Buddy</div>
-                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item graphic logos">
-                        <a href="assets/base/img/content/stock/22.jpg" class="cbp-caption cbp-lightbox" data-title="Seemple* Music for iPad<br>by Tiberiu Neamu">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/22.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">Seemple* Music for iPad</div>
-                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item graphic logos">
-                        <a href="assets/base/img/content/stock/21.jpg" class="cbp-caption cbp-lightbox" data-title="Drag 2 Upload ~ Widget<br>by Tiberiu Neamu">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/21.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">Drag 2 Upload ~ Widget</div>
-                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cbp-item graphic logos">
-                        <a href="assets/base/img/content/stock/20.jpg" class="cbp-caption cbp-lightbox" data-title="Starindeed Website<br>by Tiberiu Neamu">
-                            <div class="cbp-caption-defaultWrap">
-                                <img src="assets/base/img/content/stock/20.jpg" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title">Starindeed Website</div>
-                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div id="loadMore-container" class="cbp-l-loadMore-text">
-                    <a href="ajax/fullwidth-gallery/load-more.html?test=1" class="cbp-l-loadMore-link btn c-btn-square c-btn-border-2x c-btn-dark c-btn-bold c-btn-uppercase">
-                        <span class="cbp-l-loadMore-defaultText">LOAD MORE</span>
-                        <span class="cbp-l-loadMore-loadingText">LOADING...</span>
-                        <span class="cbp-l-loadMore-noMoreLoading">NO MORE WORKS</span>
-                    </a>
-                </div>
-            </div>
-            <!-- END: PAGE CONTENT -->
+            <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
+                <li>
+                    <a href="#">Components</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a href="javascript:;">Jango Components</a>
+                </li>
+                <li>/</li>
+                <li class="c-state_active">Isotope Gallery</li>
+            </ul>
         </div>
+    </div>
+    <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
+    <!-- BEGIN: PAGE CONTENT -->
+    <!-- BEGIN: CONTENT/ISOTOPE/GALLERY-2 -->
+
+    <?php if($_COOKIE['role']=='admin') { ?>
+    <div style="margin: 2%;">
+        <button class="btn btn-info">Add New Photo</button>
+        <table id="gallery" class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">ID</th>
+                    <th style="text-align: center;">Nama File</th>
+                    <th style="text-align: center;">Gambar</th>
+                    <th style="text-align: center;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+
+                ?>
+                <tr>
+                    <th style="text-align: center;">a</th>
+                    <td style="text-align: center;">b</td>
+                    <td style="text-align: center;">c</td>
+                    <td style="text-align: center;">
+                        <form action="#" method="POST">
+                            <input type="hidden" value="invite_member" name="act">
+                            <input type="hidden" value="<?php echo $row['id'] ?>" name="member_id">
+                            <input type="hidden" value="<?php echo $group_id; ?>" name="group_id">
+                            <button class="btn btn-default">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <?php 
+
+                ?>
+            </tbody>
+        </table>
+    </div>
+    <?php } ?>
+    <div class="c-content-box c-size-md c-bg-white">
+        <div class="c-content-title-1" id="content_title">
+            <h3 class="c-center c-font-uppercase c-font-bold">Gallery</h3>
+            <div class="c-line-center c-theme-bg"></div>
+        </div>
+    </div>
+    <div id="c-isotope-anchor-1" class="c-content-box c-size-md c-bg-img-center" style="background-image: url(assets/base/img/content/backgrounds/bg-84.jpg)">
+        <div class="container">
+            <div class="c-content-isotope-gallery c-opt-2">
+                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0">
+                    <div class="c-content-isotope-image-container">
+                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/85.jpg" />
+                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/85.jpg" data-options="thumbnail:'assets/base/img/content/stock5/85.jpg'" data-caption="<h4>The Architect</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
+                            <div class="c-content-isotope-overlay-icon">
+                                <i class="fa fa-search c-font-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.2s">
+                    <div class="c-content-isotope-image-container">
+                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/79.jpg" />
+                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/79.jpg" data-options="thumbnail:'assets/base/img/content/stock5/79.jpg'" data-caption="<h4>The Tower</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
+                            <div class="c-content-isotope-overlay-icon">
+                                <i class="fa fa-search c-font-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.4s">
+                    <div class="c-content-isotope-image-container">
+                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/70.jpg" />
+                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/70.jpg" data-options="thumbnail:'assets/base/img/content/stock5/70.jpg'" data-caption="<h4>The Map</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
+                            <div class="c-content-isotope-overlay-icon">
+                                <i class="fa fa-search c-font-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.6s">
+                    <div class="c-content-isotope-image-container">
+                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/89.jpg" />
+                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/89.jpg" data-options="thumbnail:'assets/base/img/content/stock5/89.jpg'" data-caption="<h4>The Run</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
+                            <div class="c-content-isotope-overlay-icon">
+                                <i class="fa fa-search c-font-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.8s">
+                    <div class="c-content-isotope-image-container">
+                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/90.jpg" />
+                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/90.jpg" data-options="thumbnail:'assets/base/img/content/stock5/90.jpg'" data-caption="<h4>Workload</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
+                            <div class="c-content-isotope-overlay-icon">
+                                <i class="fa fa-search c-font-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0">
+                    <div class="c-content-isotope-image-container">
+                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/88.jpg" />
+                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/88.jpg" data-options="thumbnail:'assets/base/img/content/stock5/88.jpg'" data-caption="<h4>The Balloon</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
+                            <div class="c-content-isotope-overlay-icon">
+                                <i class="fa fa-search c-font-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.2s">
+                    <div class="c-content-isotope-image-container">
+                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/94.jpg" />
+                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/94.jpg" data-options="thumbnail:'assets/base/img/content/stock5/94.jpg'" data-caption="<h4>The Thinking Man</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
+                            <div class="c-content-isotope-overlay-icon">
+                                <i class="fa fa-search c-font-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.4s">
+                    <div class="c-content-isotope-image-container">
+                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/65.jpg" />
+                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/65.jpg" data-options="thumbnail:'assets/base/img/content/stock5/65.jpg'" data-caption="<h4>The Route</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
+                            <div class="c-content-isotope-overlay-icon">
+                                <i class="fa fa-search c-font-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.6s">
+                    <div class="c-content-isotope-image-container">
+                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/5.jpg" />
+                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/5.jpg" data-options="thumbnail:'assets/base/img/content/stock5/5.jpg'" data-caption="<h4>The Record</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
+                            <div class="c-content-isotope-overlay-icon">
+                                <i class="fa fa-search c-font-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.8s">
+                    <div class="c-content-isotope-image-container">
+                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/68.jpg" />
+                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/68.jpg" data-options="thumbnail:'assets/base/img/content/stock5/68.jpg'" data-caption="<h4>The Music</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
+                            <div class="c-content-isotope-overlay-icon">
+                                <i class="fa fa-search c-font-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: CONTENT/ISOTOPE/GALLERY-2 -->
+    <!-- END: PAGE CONTENT -->
+</div>
+<!-- END: PAGE CONTAINER -->
+
+
+
 <?php
 include_once 'layout/footer.php';
 ?>
+<script>
+    var table = $('#gallery').DataTable( {
+        lengthChange: false,
+        buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+    } );
+</script>

@@ -110,7 +110,8 @@ if (isset($_GET["id"])) {
                                 <a href="mata_pelajaran.php?id=<?php echo $row['id'] ?>">
                                     <i class="icon-notebook"></i> <?php echo $row['nama_pelajaran']; ?></a>
                             </li>
-                        <?php }
+                        <?php
+                        }
                     }
                     ?>
                 </ul>
@@ -195,7 +196,7 @@ if (isset($_GET["id"])) {
                                     </div>
                                 </div>
                                 <!-- END MODAL BUAT TUGAS -->
-            <?php } ?>
+                                <?php } ?>
                             <div class="panel-body"> 
                                 <?php
                                 $sql2 = "SELECT * FROM tugas t WHERE t.matpel_id='$matpel_id' AND t.week_id='$week_id'";
@@ -212,13 +213,14 @@ if (isset($_GET["id"])) {
                                                                 <input type="hidden" name="matpel_id" value="$matpel_id">
                                                                 <input type="hidden" name="tugas_id" value="<?php echo $row2['id']; ?>">
                                                                 <?php if ($_COOKIE['role'] == 'guru') { ?>
-                                                                <button class="btn btn-default" style="float: right;">Delete</button>
-                                                                <?php } ?>
+                                                                    <button class="btn btn-default" style="float: right;">Delete</button>
+                    <?php } ?>
                                                             </h3></a>
                                                 </form>
                                             </div>
                                         </div>
-                                    <?php }
+                                    <?php
+                                    }
                                 }
                                 ?>
 
@@ -229,24 +231,25 @@ if (isset($_GET["id"])) {
                                     while ($row3 = $result3->fetch_assoc()) {
                                         ?>
                                         <form action="matpelController.php" method="POST">
-                                        <a href="materi/<?php echo $row3['file']; ?>" download> 
-                                            <i class="fa fa-file-o"></i><?php echo $row3['file']; ?>
-                                        </a>  <?php if ($_COOKIE['role'] == 'guru') { ?>
-                                        <input type="hidden" name="act" value="delete_materi">
-                                        <input type="hidden" name="materi_id" value="<?php echo $row3['id'] ?>">
-                                        <button class="btn btn-default">Delete</button>
-                                    </form>
+                                            <a href="materi/<?php echo $row3['file']; ?>" download> 
+                                                <i class="fa fa-file-o"></i><?php echo $row3['file']; ?>
+                                            </a>  <?php if ($_COOKIE['role'] == 'guru') { ?>
+                                                <input type="hidden" name="act" value="delete_materi">
+                                                <input type="hidden" name="materi_id" value="<?php echo $row3['id'] ?>">
+                                                <button class="btn btn-default">Delete</button>
+                                            </form>
                                         <?php } ?><br>
-                                       
-                <?php }
-            }
-            ?> 	
+
+                                    <?php
+                                    }
+                                }
+                                ?> 	
                             </div>
                         </div>
-        <?php
-        }
-    }
-    ?>
+                        <?php
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>

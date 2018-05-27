@@ -4,6 +4,11 @@ session_start();
 $_SESSION['menuHeader'] = 'eventCalendar';
 include_once 'layout/header.php';
 include 'config/connectdb.php';
+
+if ($_SESSION["login"] == false) {
+	echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';
+	echo '<script type="text/javascript"> window.location = "index.php" </script>';
+}
 ?>
 
 <div class="c-layout-page">
@@ -51,12 +56,15 @@ include 'config/connectdb.php';
 				<div id="showEventCalendar"></div>
 			</div>
 			<div class="col-md-3">
+
+				<?php if($_COOKIE['role'] != 'murid' AND $_COOKIE['role'] != 'ortu') { ?>
 				<a data-toggle="modal" data-target="#create-event" style="width: 100%;"><button class="btn btn-default" style="width: 100%;">
 					<i class="fa fa-calendar-plus-o"> Create New Event</i>
 				</button></a>
+				<?php } ?>
 
 				<a data-toggle="modal" data-target="#detail-event" style="width: 100%;"><button class="btn btn-default" style="width: 100%; margin-top: 6%;">
-					<i class="fa fa-calendar-plus-o"> Detail Event</i>
+					<i class="fa fa-calendar"> Detail Event</i>
 				</button></a>
 				<br><br>
 				<h4>All Events List</h4>
@@ -112,68 +120,68 @@ include 'config/connectdb.php';
 
 <!-- END MODAL DETAIL EVENT -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" id="detail-event" role="dialog" style="margin-top: 5%;">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content c-square">
-                    <div class="modal-header c-no-border">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                    	<div class="table-responsive">
-                        <table id="example3" class="table table-hover table-bordered " width="100%;">
-                            <thead>
-                                <tr>
-                                    <th style="text-align: center; "><b>Nama Event</th>
-                                    <th style="text-align: center;"><b>Deskripsi Event</th>
-                                    <th style="text-align: center;"><b>Tanggal Mulai</th>
-                                    <th style="text-align: center;"><b>Tanggal Selesai</th>
-                                    <?php if($_SESSION['login']==true) {
-                                    	if($_SESSION['role']=='guru') { ?>
-                                    <th style="text-align: center;"><b>Action</th>
-                                    <?php }} ?>
-                                </tr>
-                            </thead>
-                            <tbody>
-                               <?php
-                                $query = mysqli_query($conn, "SELECT * FROM events ORDER BY id desc") or die(mysqli_error());
-                                if (mysqli_num_rows($query) > 0) {
-                                    while ($row = mysqli_fetch_assoc($query)) {
-                                        ?>
-                                        <tr>
-                                            <td style="text-align: center;"><?php echo $row['title']; ?></td>
-                                            <td style="text-align: center;"><?php echo $row['description']; ?></td>
-                                            <td style="text-align: center;"><?php echo $row['start_date']; ?></td>
-                                            <td style="text-align: center;"><?php echo $row['end_date']; ?></td>
-                                            <?php if($_SESSION['role']=='guru'){ ?>
-                                            <td style="text-align: center;">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content c-square">
+			<div class="modal-header c-no-border">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table id="example3" class="table table-hover table-bordered " width="100%;">
+						<thead>
+							<tr>
+								<th style="text-align: center; "><b>Nama Event</th>
+									<th style="text-align: center;"><b>Deskripsi Event</th>
+										<th style="text-align: center;"><b>Tanggal Mulai</th>
+											<th style="text-align: center;"><b>Tanggal Selesai</th>
+												<?php if($_SESSION['login']==true) {
+													if($_SESSION['role']=='guru') { ?>
+													<th style="text-align: center;"><b>Action</th>
+														<?php }} ?>
+													</tr>
+												</thead>
+												<tbody>
+													<?php
+													$query = mysqli_query($conn, "SELECT * FROM events ORDER BY id desc") or die(mysqli_error());
+													if (mysqli_num_rows($query) > 0) {
+														while ($row = mysqli_fetch_assoc($query)) {
+															?>
+															<tr>
+																<td style="text-align: center;"><?php echo $row['title']; ?></td>
+																<td style="text-align: center;"><?php echo $row['description']; ?></td>
+																<td style="text-align: center;"><?php echo $row['start_date']; ?></td>
+																<td style="text-align: center;"><?php echo $row['end_date']; ?></td>
+																<?php if($_SESSION['role']=='guru'){ ?>
+																<td style="text-align: center;">
 
-                                                <form action="#" method="POST">
-                                                <input type="hidden" value="invite_member" name="act">
-                                                
-                                                <input type="hidden" value="" name="">
-                                                <button class="btn btn-default">Delete</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                					   <?php }
-                                } }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+																	<form action="#" method="POST">
+																		<input type="hidden" value="invite_member" name="act">
 
-<script>
-var table = $('#example3').DataTable( {
-                lengthChange: false,
-                buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
-            } );
+																		<input type="hidden" value="" name="">
+																		<button class="btn btn-default">Delete</button>
+																	</form>
+																</td>
+															</tr>
+															<?php }
+														} }
+														?>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
-		function bukamodal(){
-			$("#detail-event").modal();
-		}
-</script>
+							<script>
+								var table = $('#example3').DataTable( {
+									lengthChange: false,
+									buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+								} );
+
+								function bukamodal(){
+									$("#detail-event").modal();
+								}
+							</script>

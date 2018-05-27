@@ -188,5 +188,25 @@ switch ($act) {
     }
     break;
 
+    case 'delete_status':
+    $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
+    $sql = "DELETE FROM komentar WHERE postingan_idpostingan = '$idpostingan'"; 
+    if(mysqli_query($conn,$sql)) {
+        $sql2 = "DELETE FROM `like` WHERE post_id = '$idpostingan'";
+        if(mysqli_query($conn,$sql2)) {
+            $sql3 = "DELETE FROM postingan WHERE idpostingan = '$idpostingan'"; 
+            if(mysqli_query($conn,$sql3)) {
+                echo '<script type="text/javascript">alert("Berhasil Menghapus Status"); </script>';
+                echo '<script type="text/javascript"> window.location = "index.php" </script>';
+            } else {
+                echo "Error : " . mysqli_error($conn);
+            }
+        } else {
+            echo "Error updating record: " . mysqli_error($conn);
+        }
+    } else {
+        echo "Error : " . mysqli_error($conn);
+    }
+    break;
 }
 ?>

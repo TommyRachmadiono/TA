@@ -32,6 +32,25 @@ if (!empty($_POST["id"])) {
 
                     $_SESSION['count'] ++
                     ?>
+                    <!-- BEGIN: MODAL DELETE STATUS -->
+                    <div class="modal fade" id="modalDeleteStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content c-square">
+                                <div class="modal-body">
+                                    <h3 class="c-font-24 c-font-sbold">Are you sure want to delete this status ?</h3>
+                                    <div class="form-group">
+                                        <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                                        <form method="POST" action="postingController.php" style="display: inline-block;">
+                                            <input type="hidden" name="act" value="delete_status">
+                                            <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
+                                            <button class="btn btn-info" > Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: MODAL DELETE STATUS -->
 
                     <div class="panel panel-warning">
                         <div class="panel-heading" >
@@ -41,7 +60,10 @@ if (!empty($_POST["id"])) {
                                     <span class="anchorjs-icon"></span>
                                 </a>
                             </h3>
-
+                            <?php if($_SESSION["login"] == true) { 
+                                if($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') { ?>
+                            <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>"><i class="fa fa-close"></i></a>
+                            <?php }} ?>
                         </div>
                         <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <div>
@@ -132,7 +154,7 @@ if (!empty($_POST["id"])) {
                     </div>
         <!-- END: MODAL DELETE COMMENT -->
         <!-- BEGIN: MODAL EDIT COMMENT -->
-                    <div class="modal fade" id="modalEditKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="modalEditKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content c-square">
                                 <div class="modal-body">
@@ -141,9 +163,9 @@ if (!empty($_POST["id"])) {
                                         <?php
                                         $idkomen = $row2['idkomentar'];
                                         $sql = "SELECT isi FROM komentar WHERE idkomentar = '$idkomen'";
-                                        $result = $conn->query($sql);
-                                        if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) { ?>
+                                        $result3 = $conn->query($sql);
+                                        if ($result3->num_rows > 0) {
+                                        while ($row = $result3->fetch_assoc()) { ?>
                                        
                                         <form method="POST" action="postingController.php">
                                              <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
@@ -224,7 +246,26 @@ if (!empty($_POST["id"])) {
 
                     $_SESSION['count'] ++
                     ?>
-
+                    <!-- BEGIN: MODAL DELETE STATUS -->
+                    <div class="modal fade" id="modalDeleteStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content c-square">
+                                <div class="modal-body">
+                                    <h3 class="c-font-24 c-font-sbold">Are you sure want to delete this status ?</h3>
+                                    <div class="form-group">
+                                        <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                                        <form method="POST" action="postingController.php" style="display: inline-block;">
+                                            <input type="hidden" name="act" value="delete_status">
+                                            <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
+                                            <button class="btn btn-info" > Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: MODAL DELETE STATUS -->
+                    
                     <div class="panel panel-warning">
                         <div class="panel-heading" >
                             <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row['foto'] ?>">
@@ -233,7 +274,10 @@ if (!empty($_POST["id"])) {
                                     <span class="anchorjs-icon"></span>
                                 </a>
                             </h3>
-
+                            <?php if($_SESSION["login"] == true) { 
+                                if($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') { ?>
+                            <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>"><i class="fa fa-close"></i></a>
+                            <?php }} ?>
                         </div>
                         <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <div>
@@ -325,7 +369,7 @@ if (!empty($_POST["id"])) {
                     </div>
         <!-- END: MODAL DELETE COMMENT -->
         <!-- BEGIN: MODAL EDIT COMMENT -->
-                    <div class="modal fade" id="modalEditKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="modalEditKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content c-square">
                                 <div class="modal-body">
@@ -334,9 +378,9 @@ if (!empty($_POST["id"])) {
                                         <?php
                                         $idkomen = $row2['idkomentar'];
                                         $sql = "SELECT isi FROM komentar WHERE idkomentar = '$idkomen'";
-                                        $result = $conn->query($sql);
-                                        if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) { ?>
+                                        $result3 = $conn->query($sql);
+                                        if ($result3->num_rows > 0) {
+                                        while ($row = $result3->fetch_assoc()) { ?>
                                        
                                         <form method="POST" action="postingController.php">
                                              <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>

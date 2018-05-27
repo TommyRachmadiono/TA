@@ -233,7 +233,15 @@
         <!-- END: LAYOUT/BASE/BOTTOM -->
 
         <!-- GALERI -->
-        <script src="assets/base/js/scripts/pages/fullwidth-gallery.js" type="text/javascript"></script>
+        <script src="assets/plugins/isotope/isotope.pkgd.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/isotope/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/isotope/packery-mode.pkgd.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/ilightbox/js/jquery.requestAnimationFrame.js" type="text/javascript"></script>
+        <script src="assets/plugins/ilightbox/js/jquery.mousewheel.js" type="text/javascript"></script>
+        <script src="assets/plugins/ilightbox/js/ilightbox.packed.js" type="text/javascript"></script>
+        <script src="assets/base/js/scripts/pages/isotope-gallery.js" type="text/javascript"></script>
+        <script src="assets/base/js/scripts/pages/lightbox-gallery.js" type="text/javascript"></script>
+
         <script src="js/like.js" type="text/javascript"></script>
         <script src="js/scroll_feeds.js" type="text/javascript"></script>
 

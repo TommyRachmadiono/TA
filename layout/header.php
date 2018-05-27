@@ -55,6 +55,7 @@
 $menuHome = '';
 $menuGallery = '';
 $menuCalendar = '';
+$menuStudentAchievement = '';
 
 if (isset($_SESSION['menuHeader'])) {
     $akses = $_SESSION['menuHeader'];
@@ -65,6 +66,8 @@ if (isset($_SESSION['menuHeader'])) {
         $menuGallery = 'class="c-active"';
     } else if ($akses == 'eventCalendar') {
         $menuCalendar = 'class="c-active"';
+    } else if($akses = 'studentAchievement') {
+        $menuStudentAchievement = 'class="c-active"';
     }
 }
 if (isset($_COOKIE["login"])) {
@@ -122,8 +125,8 @@ if (isset($_COOKIE["login"])) {
                                     </a>
                                 </li>
 
-                                <li>
-                                    <a href="javascript:;" class="c-link dropdown-toggle">Student Achievements
+                                <li <?php echo $menuStudentAchievement; ?>>
+                                    <a href="student_achievement.php" class="c-link dropdown-toggle">Student Achievements
                                         
                                     </a>
                                 </li>
@@ -144,6 +147,14 @@ if (isset($_COOKIE["login"])) {
                                             <span class="c-arrow c-toggler"></span>
                                         </a>
                                         <ul class="dropdown-menu c-menu-type-classic c-pull-right">
+                                            <?php if($_COOKIE['role'] == 'admin')  { ?>
+                                            <li>
+                                                <a href="#" class="c-link dropdown-toggle">User <i class="fa fa-user"></i> </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="c-link dropdown-toggle">Mata Pelajaran <i class="fa fa-book"></i> </a>
+                                            </li>
+                                            <?php } ?>
                                             <li>
                                                 <a href="#" class="c-link dropdown-toggle"  data-toggle="modal" data-target="#modalLogout">Log Out
                                                     <i class="glyphicon glyphicon-log-out"> </i>
@@ -152,7 +163,7 @@ if (isset($_COOKIE["login"])) {
                                         </ul>
                                     </li>
 
-                                    <li class="c-cart-toggler-wrapper">
+                                <li class="c-cart-toggler-wrapper">
                                     <a href="#" class="c-btn-icon c-cart-toggler">
                                         <i class="fa fa-bell"></i>
                                         <span class="c-cart-number c-theme-bg">2</span>
