@@ -54,7 +54,7 @@ if (!empty($_POST["id"])) {
 
                     <div class="panel panel-warning">
                         <div class="panel-heading" >
-                            <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row['foto'] ?>">
+                            <img style="border-width: 3px; border-style: solid; border-color: black; display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto'] ?>">
                             <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
                                 <a class="anchorjs-link" href="#panel-title">
                                     <span class="anchorjs-icon"></span>
@@ -111,7 +111,7 @@ if (!empty($_POST["id"])) {
                                     $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $postID");
                                     echo mysqli_num_rows($query2);
                                     ?>
-                                </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>LOAD KOMEN</div>
+                                </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>Show / Hide Komentar</div>
                                 <hr style="margin: 0;">
                             </div>
 
@@ -128,7 +128,7 @@ if (!empty($_POST["id"])) {
                                         while ($row2 = $result2->fetch_assoc()) {
                                             ?> 
                                                 
-                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row2['foto'] ?>">
+                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row2['foto'] ?>">
                                                     <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
                                                     <?php if ($_SESSION["login"] == true && $row2['id'] == $user_id) { ?>
                                                 <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>
@@ -268,7 +268,7 @@ if (!empty($_POST["id"])) {
                     
                     <div class="panel panel-warning">
                         <div class="panel-heading" >
-                            <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row['foto'] ?>">
+                            <img style="border-width: 3px; border-style: solid; border-color: black; display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto'] ?>">
                             <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
                                 <a class="anchorjs-link" href="#panel-title">
                                     <span class="anchorjs-icon"></span>
@@ -325,7 +325,7 @@ if (!empty($_POST["id"])) {
                                     $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $postID");
                                     echo mysqli_num_rows($query2);
                                     ?>
-                                </span><div id="loadkomen<?php echo $postID; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $postID; ?>').slideToggle();";>LOAD KOMEN</div>
+                                </span><div id="loadkomen<?php echo $postID; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $postID; ?>').slideToggle();";>Show / Hide Komentar</div>
                                 <hr style="margin: 0;">
                             </div>
 
@@ -341,7 +341,7 @@ if (!empty($_POST["id"])) {
                                         // output data of each row
                                         while ($row2 = $result2->fetch_assoc()) {
                                             ?> 
-                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row2['foto'] ?>">
+                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row2['foto'] ?>">
                                                     <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
                                                     <?php if ($_SESSION["login"] == true && $row2['id'] == $user_id) { ?>
                                                 <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>

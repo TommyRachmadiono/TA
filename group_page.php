@@ -31,7 +31,7 @@ if (isset($_GET["id"])) {
         <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both" style="background-color: lightblue; padding-bottom: 2.7%;">
             <div class="container">
                 <div class="c-page-title c-pull-left">
-                    <img style="width: 100%; height: 180px; margin-left: 15%; border-radius: 50%;" src="img/<?php echo $_COOKIE['foto_profil'] ?>">
+                    <img style="border-width: 3px; border-style: solid; border-color: black; height: 180px; margin-left: 15%; border-radius: 50%; width: 190px;" src="images/fotoprofil/<?php echo $_COOKIE['foto_profil'] ?>">
                 </div>
                 <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
                     <li>
@@ -79,7 +79,7 @@ if (isset($_GET["id"])) {
                     </form>
                 </div>
                 <?php
-                $sql = "SELECT p.file, p.idpostingan, p.isi, p.tgldiposting, u.nama, u.foto FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE p.grup_id = $group_id order by p.idpostingan desc LIMIT 5";
+                $sql = "SELECT p.file, p.idpostingan, p.isi, p.tgldiposting, u.nama, u.foto,u.id FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE p.grup_id = $group_id order by p.idpostingan desc LIMIT 5";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -111,7 +111,7 @@ if (isset($_GET["id"])) {
                     <!-- END: MODAL DELETE STATUS -->
                         <div class="panel panel-warning">
                             <div class="panel-heading">
-                                <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row['foto'] ?>">
+                                <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto'] ?>">
                                 <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
                                     <a class="anchorjs-link" href="#panel-title">
                                         <span class="anchorjs-icon"></span>
@@ -180,7 +180,7 @@ if (isset($_GET["id"])) {
                                         $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $idpostingan");
                                         echo mysqli_num_rows($query2);
                                         ?>
-                                    </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>LOAD KOMEN</div>
+                                    </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>Show / Hide Komentar</div>
                                     <hr style="margin: 0;">
                                 </div>
 
@@ -196,7 +196,7 @@ if (isset($_GET["id"])) {
                                                 // output data of each row
                                                 while ($row2 = $result2->fetch_assoc()) {
                                                     ?> 
-                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $_SESSION['foto_profil'] ?>">
+                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row2['foto'] ?>">
                                                     <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
                                                     <?php if ($_SESSION["login"] == true && $row2['id'] == $user_id) { ?>
                                                         <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>

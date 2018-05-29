@@ -7,24 +7,20 @@
                 <div class="col-md-3">
                     <div class="c-container c-first">
                         <div class="c-content-title-1">
-                            <h3 class="c-font-uppercase c-font-bold c-font-white">JAN
-                                <span class="c-theme-font">GO</span>
+                            <h3 class="c-font-uppercase c-font-bold c-font-white">TUGAS AKHIR
                             </h3>
                             <div class="c-line-left hide"></div>
-                            <p class="c-text"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, s ed elit diam nonummy ad minim veniam quis nostrud exerci et tation diam.</p>
+                            <p class="c-text"> Learning beyond the class room. Accessible through any gadgets, anytime and anywhere.</p>
                         </div>
                         <ul class="c-links">
                             <li>
-                                <a href="#">Home</a>
+                                <a href="index.php">Home</a>
                             </li>
                             <li>
-                                <a href="#">About</a>
+                                <a href="event_calendar.php">Event Calendar</a>
                             </li>
                             <li>
-                                <a href="#">Terms</a>
-                            </li>
-                            <li>
-                                <a href="#">Contact</a>
+                                <a href="student_achievement.php">Student Achievements</a>
                             </li>
                         </ul>
                     </div>
@@ -127,7 +123,7 @@
                         <div class="c-content-title-1">
                             <h3 class="c-font-uppercase c-font-bold c-font-white">Find us</h3>
                             <div class="c-line-left hide"></div>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed elit diam nonummy ad minim.</p>
+                            <p>Leave us a message</p>
                         </div>
                         <ul class="c-socials">
                             <li>

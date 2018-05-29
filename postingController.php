@@ -13,8 +13,6 @@ switch ($act) {
     $file_name = basename($tglupload . $_FILES["file"]["name"]);
 
     if ($_FILES["file"]["size"] != 0) {
-
-
         $target_dir = "postingan/";
         $target_file = $target_dir . $tglupload . $_FILES['file']['name'];
         $uploadOk = 1;

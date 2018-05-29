@@ -17,7 +17,7 @@ $_SESSION['count'] = 0;
         <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both" style="margin-bottom: 0; background-color: lightblue;">
             <div class="container" style="margin-bottom: 0;">
                 <div class="c-page-title c-pull-left" style=" margin-bottom:0;">
-                    <img style="width: 100%; height: 180px; margin-left: 15%; border-radius: 50%;" src="img/<?php echo $_COOKIE['foto_profil'] ?>">
+                    <img style="border-width: 3px; border-style: solid; border-color: black; height: 180px; margin-left: 15%; width: 190px; border-radius: 50%;" src="images/fotoprofil/<?php echo $_COOKIE['foto_profil'] ?>">
                 </div>
                 <div>
                     <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular" style="width: 74%; margin-top: 0; margin-bottom: 0;">
@@ -84,7 +84,7 @@ $_SESSION['count'] = 0;
 
                     <div class="panel panel-warning">
                         <div class="panel-heading" >
-                            <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row['foto'] ?>">
+                            <img style="display: inline; border-radius: 50%; height: 40px;" src="fotoprofil/<?php echo $row['foto'] ?>">
                             <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
                                 <a class="anchorjs-link" href="#panel-title">
                                     <span class="anchorjs-icon"></span>
@@ -117,7 +117,6 @@ $_SESSION['count'] = 0;
                             </div>
 
                             <hr style="margin: 0; padding-top: 10px;">
-
                                         <?php if ($_SESSION["login"] == true) { ?>
                                 <!-- ICON LIKE DAN KOMEN DISINI -->
                                 <div class="row" style="width: 100%; padding: 0; margin: 0;">
@@ -155,7 +154,7 @@ $_SESSION['count'] = 0;
                                     $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $idpostingan");
                                     echo mysqli_num_rows($query2);
                                     ?> 
-                                </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>LOAD KOMEN</div>
+                                </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>Show / Hide Komentar</div>
                                 <hr style="margin: 0; height: 5px;">
                             </div>
 
@@ -171,7 +170,7 @@ $_SESSION['count'] = 0;
                                             // output data of each row
                                             while ($row2 = $result2->fetch_assoc()) {
                                                 ?> 
-                                                <img style="display: inline; border-radius: 50%; height: 40px;" src="img/<?php echo $row2['foto'] ?>">
+                                                <img style="display: inline; border-radius: 50%; height: 40px;" src="fotoprofil/<?php echo $row2['foto'] ?>">
                                                 <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3> 
                                                 <?php if ($_SESSION["login"] == true && $row2['id'] == $user_id) { ?>
                                                     <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>

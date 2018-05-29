@@ -149,10 +149,13 @@ if (isset($_COOKIE["login"])) {
                                         <ul class="dropdown-menu c-menu-type-classic c-pull-right">
                                             <?php if($_COOKIE['role'] == 'admin')  { ?>
                                             <li>
-                                                <a href="#" class="c-link dropdown-toggle">User <i class="fa fa-user"></i> </a>
+                                                <a href="master_user.php" class="c-link dropdown-toggle">User <i class="fa fa-user"></i> </a>
                                             </li>
                                             <li>
-                                                <a href="#" class="c-link dropdown-toggle">Mata Pelajaran <i class="fa fa-book"></i> </a>
+                                                <a href="master_matpel.php" class="c-link dropdown-toggle">Mata Pelajaran <i class="fa fa-book"></i> </a>
+                                            </li>
+                                            <li>
+                                                <a href="relasi_user_matpel.php" class="c-link dropdown-toggle">Relasi User Matpel <i class="fa fa-user-plus"></i> </a>
                                             </li>
                                             <?php } ?>
                                             <li>

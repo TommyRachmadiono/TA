@@ -3,6 +3,7 @@ session_start();
 
 $_SESSION['menuHeader'] = 'gallery';
 include_once 'layout/header.php';
+include 'config/connectdb.php';
 
 if ($_SESSION["login"] == false) {
     echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';
@@ -19,14 +20,12 @@ if ($_SESSION["login"] == false) {
             </div>
             <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
                 <li>
-                    <a href="#">Components</a>
+                    <a href="index.php">Home</a>
                 </li>
                 <li>/</li>
                 <li>
-                    <a href="javascript:;">Jango Components</a>
+                    <a href="javascript:;">Gallery</a>
                 </li>
-                <li>/</li>
-                <li class="c-state_active">Isotope Gallery</li>
             </ul>
         </div>
     </div>
@@ -36,7 +35,7 @@ if ($_SESSION["login"] == false) {
 
     <?php if($_COOKIE['role']=='admin') { ?>
     <div style="margin: 2%;">
-        <button class="btn btn-info">Add New Photo</button>
+        <button data-toggle="modal" data-target="#add-photo" class="btn btn-info">Add New Photo</button>
         <table id="gallery" class="table table-hover table-bordered">
             <thead>
                 <tr>
@@ -70,131 +69,103 @@ if ($_SESSION["login"] == false) {
         </table>
     </div>
     <?php } ?>
-    <div class="c-content-box c-size-md c-bg-white">
-        <div class="c-content-title-1" id="content_title">
-            <h3 class="c-center c-font-uppercase c-font-bold">Gallery</h3>
-            <div class="c-line-center c-theme-bg"></div>
-        </div>
+
+    <div class="c-content-title-1" id="content_title">
+        <h3 class="c-center c-font-uppercase c-font-bold">Gallery</h3>
+        <div class="c-line-center c-theme-bg"></div>
     </div>
-    <div id="c-isotope-anchor-1" class="c-content-box c-size-md c-bg-img-center" style="background-image: url(assets/base/img/content/backgrounds/bg-84.jpg)">
-        <div class="container">
-            <div class="c-content-isotope-gallery c-opt-2">
-                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0">
-                    <div class="c-content-isotope-image-container">
-                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/85.jpg" />
-                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/85.jpg" data-options="thumbnail:'assets/base/img/content/stock5/85.jpg'" data-caption="<h4>The Architect</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
-                            <div class="c-content-isotope-overlay-icon">
-                                <i class="fa fa-search c-font-white"></i>
+    
+    <!-- BEGIN: PAGE CONTENT -->
+    <div class="c-content-box c-size-md c-bg-white c-overflow-hide">
+        <div id="filters-container" class="cbp-l-filters-alignCenter">
+            <div data-filter="*" class="cbp-filter-item-active cbp-filter-item"> ALL
+                <div class="cbp-filter-counter"></div>
+            </div>
+        </div>
+        <div id="grid-container" class="cbp">
+            <?php 
+            $sql = "SELECT * FROM gallery g INNER JOIN user u on g.user_id = u.id";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) { ?>
+
+                <div class="cbp-item logos">
+                    <a href="images/gallery/<?php echo $row['file']; ?>" class="cbp-caption cbp-lightbox" data-title="<?php echo $row['title']; ?>">
+                        <div class="cbp-caption-defaultWrap">
+                            <img src="images/gallery/<?php echo $row['file']; ?>" alt=""> </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignLeft">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title"><?php echo $row['title']; ?></div>
+                                        <div class="cbp-l-caption-desc">by <?php echo $row['nama']; ?></div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </a>
+                    </div>
+                    <?php } 
+                } ?>
+                <div class="cbp-item graphic logos">
+                    <a href="assets/base/img/content/stock/20.jpg" class="cbp-caption cbp-lightbox" data-title="Starindeed Website<br>by Tiberiu Neamu">
+                        <div class="cbp-caption-defaultWrap">
+                            <img src="assets/base/img/content/stock/20.jpg" alt=""> </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignLeft">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">Starindeed Website</div>
+                                        <div class="cbp-l-caption-desc">by Tiberiu Neamu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
-                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.2s">
-                    <div class="c-content-isotope-image-container">
-                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/79.jpg" />
-                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/79.jpg" data-options="thumbnail:'assets/base/img/content/stock5/79.jpg'" data-caption="<h4>The Tower</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
-                            <div class="c-content-isotope-overlay-icon">
-                                <i class="fa fa-search c-font-white"></i>
-                            </div>
-                        </div>
+            </div>
+            <!-- END: PAGE CONTENT -->
+            <!-- END: CONTENT/ISOTOPE/GALLERY-2 -->
+            <!-- END: PAGE CONTENT -->
+        </div>
+        <!-- END: PAGE CONTAINER -->
+
+
+
+        <?php
+        include_once 'layout/footer.php';
+        ?>
+        <script>
+            var table = $('#gallery').DataTable( {
+                lengthChange: false,
+                buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+            } );
+        </script>
+
+        <!-- MODAL ADD PHOTO -->
+        <div class="modal fade c-content-login-form" id="add-photo" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content c-square">
+                    <div class="modal-header c-no-border">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div>
-                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.4s">
-                    <div class="c-content-isotope-image-container">
-                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/70.jpg" />
-                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/70.jpg" data-options="thumbnail:'assets/base/img/content/stock5/70.jpg'" data-caption="<h4>The Map</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
-                            <div class="c-content-isotope-overlay-icon">
-                                <i class="fa fa-search c-font-white"></i>
+                    <div class="modal-body">
+                        <h3 class="c-font-24 c-font-sbold">Add New Photo</h3>
+                        <form action="galleryController" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="create-group" class="">Your Photo</label>
+                                <input type="file" class="form-control input-lg c-square" name="" required=""> 
+
+                                <label for="create-group" class="">Title</label>
+                                <input type="text" class="form-control input-lg c-square" id="topic_discussion" placeholder="Title" name="" required=""> 
+                                <input type="hidden" name="act" value="add_photo">
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.6s">
-                    <div class="c-content-isotope-image-container">
-                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/89.jpg" />
-                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/89.jpg" data-options="thumbnail:'assets/base/img/content/stock5/89.jpg'" data-caption="<h4>The Run</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
-                            <div class="c-content-isotope-overlay-icon">
-                                <i class="fa fa-search c-font-white"></i>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;" name="create-group" id="create-group">Add</button><br><br>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.8s">
-                    <div class="c-content-isotope-image-container">
-                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/90.jpg" />
-                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/90.jpg" data-options="thumbnail:'assets/base/img/content/stock5/90.jpg'" data-caption="<h4>Workload</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
-                            <div class="c-content-isotope-overlay-icon">
-                                <i class="fa fa-search c-font-white"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0">
-                    <div class="c-content-isotope-image-container">
-                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/88.jpg" />
-                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/88.jpg" data-options="thumbnail:'assets/base/img/content/stock5/88.jpg'" data-caption="<h4>The Balloon</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
-                            <div class="c-content-isotope-overlay-icon">
-                                <i class="fa fa-search c-font-white"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.2s">
-                    <div class="c-content-isotope-image-container">
-                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/94.jpg" />
-                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/94.jpg" data-options="thumbnail:'assets/base/img/content/stock5/94.jpg'" data-caption="<h4>The Thinking Man</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
-                            <div class="c-content-isotope-overlay-icon">
-                                <i class="fa fa-search c-font-white"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.4s">
-                    <div class="c-content-isotope-image-container">
-                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/65.jpg" />
-                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/65.jpg" data-options="thumbnail:'assets/base/img/content/stock5/65.jpg'" data-caption="<h4>The Route</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
-                            <div class="c-content-isotope-overlay-icon">
-                                <i class="fa fa-search c-font-white"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.6s">
-                    <div class="c-content-isotope-image-container">
-                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/5.jpg" />
-                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/5.jpg" data-options="thumbnail:'assets/base/img/content/stock5/5.jpg'" data-caption="<h4>The Record</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
-                            <div class="c-content-isotope-overlay-icon">
-                                <i class="fa fa-search c-font-white"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="c-content-isotope-item wow animate fadeInUp" data-wow-delay="0.8s">
-                    <div class="c-content-isotope-image-container">
-                        <img class="c-content-isotope-image" src="assets/base/img/content/stock5/68.jpg" />
-                        <div class="c-content-isotope-overlay c-ilightbox-image-2" href="assets/base/img/content/stock5/68.jpg" data-options="thumbnail:'assets/base/img/content/stock5/68.jpg'" data-caption="<h4>The Music</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin dictum nibh pharetra ligula rhoncus, nec iaculis nulla semper.</p>">
-                            <div class="c-content-isotope-overlay-icon">
-                                <i class="fa fa-search c-font-white"></i>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- END: CONTENT/ISOTOPE/GALLERY-2 -->
-    <!-- END: PAGE CONTENT -->
-</div>
-<!-- END: PAGE CONTAINER -->
-
-
-
-<?php
-include_once 'layout/footer.php';
-?>
-<script>
-    var table = $('#gallery').DataTable( {
-        lengthChange: false,
-        buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
-    } );
-</script>
+<!-- END MODAL ADD PHOTO -->

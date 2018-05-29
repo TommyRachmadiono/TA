@@ -78,11 +78,11 @@ switch ($act) {
 			if (mysqli_query($conn, $sql)) {
 				echo '<script type="text/javascript">alert("Berhasil Upload Materi"); </script>';
 				echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
-		} else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			} else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			}
 		}
 	}
-}
 	break;
 
 	case 'delete_materi':
@@ -90,20 +90,20 @@ switch ($act) {
 	$materi_id = mysqli_real_escape_string($conn, $_POST["materi_id"]);
 	$dir = "materi";
 
-		$sql2 = "SELECT * FROM materi WHERE id = '$materi_id'";
-		$result = $conn->query($sql2);
-		if ($result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$file = $row['file'];
-			}
+	$sql2 = "SELECT * FROM materi WHERE id = '$materi_id'";
+	$result = $conn->query($sql2);
+	if ($result->num_rows > 0) {
+		while ($row = $result->fetch_assoc()) {
+			$file = $row['file'];
 		}
+	}
 
-		if(unlink($dir.'/'.$file)){
-			$sql = "DELETE FROM materi WHERE id = '$materi_id'"; 
-			mysqli_query($conn,$sql);
-			echo '<script type="text/javascript">alert("Berhasil Menghapus Materi"); </script>';
-			echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
-		}
+	if(unlink($dir.'/'.$file)){
+		$sql = "DELETE FROM materi WHERE id = '$materi_id'"; 
+		mysqli_query($conn,$sql);
+		echo '<script type="text/javascript">alert("Berhasil Menghapus Materi"); </script>';
+		echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
+	}
 
 	break;
 
@@ -141,10 +141,8 @@ switch ($act) {
 			$sql = "INSERT INTO user_has_tugas (user_id, tugas_id, file, tgl_diupload)
 			VALUES ('$user_id','$tugas_id','$file_name', '$tgldibuat')";
 			if (mysqli_query($conn, $sql)) {
-
 				echo '<script type="text/javascript">alert("Berhasil Upload Tugas"); </script>';
 				echo '<script type="text/javascript"> window.location = "tugas.php?id=' . $tugas_id . '" </script>';
-				
 			} else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 			}
@@ -270,8 +268,69 @@ switch ($act) {
 	header('Content-Length: ' . filesize($zip_file));
 	readfile($zip_file);
 	unlink($zip_file);
-
 	break;
 
+	case 'add_matpel':
+	$nama_pelajaran = mysqli_real_escape_string($conn, $_POST["nama_matpel"]);
+
+	$sql = "INSERT INTO matpel (nama_pelajaran)
+	VALUES ('$nama_pelajaran')";
+	if (mysqli_query($conn, $sql)) {
+		$sql2 = "SELECT id FROM matpel ORDER BY id DESC LIMIT 1";
+		$result = $conn->query($sql2);
+		if ($result->num_rows > 0) {
+			while ($row = $result->fetch_assoc()) {
+				$matpel_id = $row['id'];
+			}
+		} 
+		$sql3 = "INSERT INTO matpel_has_week (matpel_id, week_id, title, description)
+		VALUES 
+		('$matpel_id', '1', '',''),
+		('$matpel_id', '2', '',''),
+		('$matpel_id', '3', '',''),
+		('$matpel_id', '4', '',''),
+		('$matpel_id', '5', '',''),
+		('$matpel_id', '6', '',''),
+		('$matpel_id', '7', '',''),
+		('$matpel_id', '8', '',''),
+		('$matpel_id', '9', '',''),
+		('$matpel_id', '10', '',''),
+		('$matpel_id', '11', '',''),
+		('$matpel_id', '12', '',''),
+		('$matpel_id', '13', '',''),
+		('$matpel_id', '14', '','')";
+		
+		if (mysqli_query($conn, $sql3)) {
+			echo '<script type="text/javascript">alert("Berhasil menambah matpel baru"); </script>';
+			echo '<script type="text/javascript"> window.location = "master_matpel.php" </script>';
+		} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
+	}
+	break;
+
+	case 'edit_matpel':
+	$matpel_id = mysqli_real_escape_string($conn, $_POST["matpel_id"]);
+	$nama_pelajaran = mysqli_real_escape_string($conn, $_POST["nama_matpel"]);
+	$sql = "UPDATE matpel SET nama_pelajaran = '$nama_pelajaran' WHERE id = '$matpel_id'";
+	if (mysqli_query($conn, $sql)) {
+		echo '<script type="text/javascript">alert("Berhasil Mengupdate Nama Pelajaran"); </script>';
+		echo '<script type="text/javascript"> window.location = "master_matpel.php" </script>';
+	}
+	break;
+
+	case 'delete_matpel':
+	$matpel_id = mysqli_real_escape_string($conn, $_POST["matpel_id"]);
+	$sql = "DELETE FROM matpel_has_week WHERE matpel_id = '$matpel_id'";
+	if (mysqli_query($conn, $sql)) {
+		$sql2 = "DELETE FROM matpel WHERE id = '$matpel_id'";
+		if (mysqli_query($conn, $sql2)) {
+			echo '<script type="text/javascript">alert("Berhasil menghapus matpel"); </script>';
+			echo '<script type="text/javascript"> window.location = "master_matpel.php" </script>';
+		}
+	} else {
+		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+	}	
+	break;
 }
 ?>
