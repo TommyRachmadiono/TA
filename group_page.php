@@ -1,5 +1,3 @@
-<!-- <script type='text/javascript'>alert('coba');</script> -->
-
 <?php
 session_start();
 include 'config/connectdb.php';
@@ -91,24 +89,24 @@ if (isset($_GET["id"])) {
                         $_SESSION['count'] ++;
                         ?>
                         <!-- BEGIN: MODAL DELETE STATUS -->
-                    <div class="modal fade" id="modalDeleteStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content c-square">
-                                <div class="modal-body">
-                                    <h3 class="c-font-24 c-font-sbold">Are you sure want to delete this status ?</h3>
-                                    <div class="form-group">
-                                        <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
-                                        <form method="POST" action="postingController.php" style="display: inline-block;">
-                                            <input type="hidden" name="act" value="delete_status">
-                                            <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
-                                            <button class="btn btn-info" > Delete</button>
-                                        </form>
+                        <div class="modal fade" id="modalDeleteStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content c-square">
+                                    <div class="modal-body">
+                                        <h3 class="c-font-24 c-font-sbold">Are you sure want to delete this status ?</h3>
+                                        <div class="form-group">
+                                            <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                                            <form method="POST" action="postingController.php" style="display: inline-block;">
+                                                <input type="hidden" name="act" value="delete_status">
+                                                <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
+                                                <button class="btn btn-info" > Delete</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- END: MODAL DELETE STATUS -->
+                        <!-- END: MODAL DELETE STATUS -->
                         <div class="panel panel-warning">
                             <div class="panel-heading">
                                 <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto'] ?>">
@@ -117,10 +115,12 @@ if (isset($_GET["id"])) {
                                         <span class="anchorjs-icon"></span>
                                     </a>
                                 </h3>
-                                <?php if($_SESSION["login"] == true) { 
-                                if($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') { ?>
-                            <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>"><i class="fa fa-close"></i></a>
-                            <?php }} ?>
+                                <?php if ($_SESSION["login"] == true) {
+                                    if ($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') {
+                                        ?>
+                                        <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>"><i class="fa fa-close"></i></a>
+                <?php }
+            } ?>
                             </div>
                             <div class="panel-body" style="word-wrap: break-word;"> 
                                 <p> <?php echo nl2br($row['isi']) ?> </p>
@@ -140,7 +140,8 @@ if (isset($_GET["id"])) {
                                                 </a>
                                             </div>
                 <?php }
-            } ?>
+            }
+            ?>
                                 </div>
                                 <hr style="margin: 0; padding-top: 10px;">
 
@@ -155,7 +156,7 @@ if (isset($_GET["id"])) {
                                                 <button value="<?php echo $idpostingan ?>" class="unlike btn btn-default" style="width: 100%;"> 
                                                     <i class="fa fa-thumbs-o-down"></i>Unlike
                                                 </button>
-            <?php } else { ?>
+                                            <?php } else { ?>
                                                 <button value="<?php echo $idpostingan ?>" class="like btn btn-default" style="width: 100%;"> 
                                                     <i class="fa fa-thumbs-o-up"></i>Like
                                                 </button>
@@ -189,7 +190,7 @@ if (isset($_GET["id"])) {
                                     <div style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
                                         <div id="isikomen<?php echo $idpostingan; ?>">
                                             <?php
-                                            $sql2 = "SELECT u.id,u.nama, k.idkomentar,k.isi FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan";
+                                            $sql2 = "SELECT u.foto, u.id,u.nama, k.idkomentar,k.isi FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan";
                                             $result2 = $conn->query($sql2);
 
                                             if ($result2->num_rows > 0) {
@@ -243,10 +244,10 @@ if (isset($_GET["id"])) {
                                                                                     <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Cancel</button>
                                                                                     <button class="btn btn-info" >Update</button>
                                                                                 </form>
-                        <?php
-                        }
-                    }
-                    ?>
+                                                                                <?php
+                                                                            }
+                                                                        }
+                                                                        ?>
 
                                                                     </div>
                                                                 </div>
@@ -254,10 +255,10 @@ if (isset($_GET["id"])) {
                                                         </div>
                                                     </div>
                                                     <!-- END: MODAL EDIT COMMENT -->
-                    <?php
-                }
-            }
-            ?>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
                                         </div>
                                         <!-- INPUT TYPE KOMEN DAN BUTTON KOMEN DISINI -->
                                         <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php">
@@ -275,13 +276,13 @@ if (isset($_GET["id"])) {
                                 </section>
                             </div>
                         </div>
-                        <?php
-                    }
-                    ?>
+            <?php
+        }
+        ?>
                     <div id="postterakhir" lastID = <?php echo $lastID; ?> groupID=<?php echo $group_id; ?> act="datapage" style="display: none;""><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
 
-    <?php } else {
-        ?>
+                <?php } else {
+                    ?>
                     <div id="postterakhir" lastID="0" groupID="" act=""><h>BELOM ADA KONTEN</h></div>
     <?php } ?>
             </div>

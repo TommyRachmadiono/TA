@@ -9,8 +9,8 @@ switch ($act) {
 	$title = mysqli_real_escape_string($conn, $_POST["title"]);
 
 	$user_id = $_COOKIE['user_id'];
-	$file_name = basename($tglupload . $_FILES["file"]["name"]);
 	$tglupload = date('YmdHis');
+	$file_name = basename($tglupload . $_FILES["file"]["name"]);
 	$target_dir = "images/gallery/";
 	$target_file = $target_dir . $tglupload . $_FILES['file']['name'];
 	$uploadOk = 1;
@@ -26,7 +26,7 @@ switch ($act) {
 	} else {
 		if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
 			$sql = "INSERT INTO gallery (title, file, user_id)
-			VALUES ('$$title', '$file_name', '$user_id')";
+			VALUES ('$title', '$file_name', '$user_id')";
 			if (mysqli_query($conn, $sql)) {
 				echo '<script type="text/javascript">alert("Berhasil menambahkan foto gallery"); </script>';
 				echo '<script type="text/javascript"> window.location = "gallery.php" </script>';
@@ -38,24 +38,22 @@ switch ($act) {
 			echo '<script type="text/javascript">alert("Sorry there was an error uploading your file")</script>';
 		}
 	}
-}
+	break;
 
-break;
-
-case 'edit_photo':
+	case 'edit_photo':
 		# code...
-break;
+	break;
 
-case 'delete_photo':
-$gallery_id = mysqli_real_escape_string($conn, $_POST["gallery_id"]);
-$sql = "DELETE FROM gallery WHERE id = '$gallery_id'";
-if(mysqli_query($conn,$sql)) {
-	echo '<script type="text/javascript">alert("Berhasil menghapus foto gallery"); </script>';
-	echo '<script type="text/javascript"> window.location = "gallery.php" </script>';
-} else {
-	echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-break;
+	case 'delete_photo':
+	$gallery_id = mysqli_real_escape_string($conn, $_POST["gallery_id"]);
+	$sql = "DELETE FROM gallery WHERE id = '$gallery_id'";
+	if(mysqli_query($conn,$sql)) {
+		echo '<script type="text/javascript">alert("Berhasil menghapus foto gallery"); </script>';
+		echo '<script type="text/javascript"> window.location = "gallery.php" </script>';
+	} else {
+		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+	}
+	break;
 
 }
 ?>

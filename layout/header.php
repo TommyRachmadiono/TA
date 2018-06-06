@@ -52,6 +52,13 @@
 </head>
 
 <?php
+if(isset($_SESSION['login'])){
+    if($_SESSION['login'] == true){
+        include 'config/connectdb.php';
+        $user_id = $_COOKIE['user_id'];
+    }
+}
+
 $menuHome = '';
 $menuGallery = '';
 $menuCalendar = '';
@@ -115,184 +122,158 @@ if (isset($_COOKIE["login"])) {
                                 <?php
                                 if ($_SESSION["login"] == true) {
                                     ?>
-                                <li <?php echo $menuGallery; ?>>
-                                    <a href="gallery.php" class="c-link dropdown-toggle">Gallery    
-                                    </a>
-                                </li>
-                                
-                                <li <?php echo $menuCalendar; ?>>
-                                    <a href="event_calendar.php" class="c-link dropdown-toggle">Event Calendar    
-                                    </a>
-                                </li>
-
-                                <li <?php echo $menuStudentAchievement; ?>>
-                                    <a href="student_achievement.php" class="c-link dropdown-toggle">Student Achievements
-                                        
-                                    </a>
-                                </li>
-                                <?php } ?>
-
-                                <?php
-                                if ($_SESSION["login"] == false) {
-                                    ?>
-                                    <li>
-                                        <a href="#" class="c-link dropdown-toggle" data-toggle="modal" data-target="#login-form">Log In
-                                            <i class="glyphicon glyphicon-log-in"> </i>
+                                    <li <?php echo $menuGallery; ?>>
+                                        <a href="gallery.php" class="c-link dropdown-toggle">Gallery    
                                         </a>
                                     </li>
-                                    <?php } elseif ($_SESSION["login"] == true) { ?>
-                                    <li class="c-menu-type-classic">
-                                        <a href="#" class="c-link dropdown-toggle" >
-                                            <?php echo 'Welcome' . ", " . $_COOKIE["username"] ?>
-                                            <span class="c-arrow c-toggler"></span>
+
+                                    <li <?php echo $menuCalendar; ?>>
+                                        <a href="event_calendar.php" class="c-link dropdown-toggle">Event Calendar    
                                         </a>
-                                        <ul class="dropdown-menu c-menu-type-classic c-pull-right">
-                                            <?php if($_COOKIE['role'] == 'admin')  { ?>
-                                            <li>
-                                                <a href="master_user.php" class="c-link dropdown-toggle">User <i class="fa fa-user"></i> </a>
-                                            </li>
-                                            <li>
-                                                <a href="master_matpel.php" class="c-link dropdown-toggle">Mata Pelajaran <i class="fa fa-book"></i> </a>
-                                            </li>
-                                            <li>
-                                                <a href="relasi_user_matpel.php" class="c-link dropdown-toggle">Relasi User Matpel <i class="fa fa-user-plus"></i> </a>
-                                            </li>
-                                            <?php } ?>
-                                            <li>
-                                                <a href="#" class="c-link dropdown-toggle"  data-toggle="modal" data-target="#modalLogout">Log Out
-                                                    <i class="glyphicon glyphicon-log-out"> </i>
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </li>
 
-                                <li class="c-cart-toggler-wrapper">
-                                    <a href="#" class="c-btn-icon c-cart-toggler">
-                                        <i class="fa fa-bell"></i>
-                                        <span class="c-cart-number c-theme-bg">2</span>
-                                    </a>
-                                </li>
+                                    <li <?php echo $menuStudentAchievement; ?>>
+                                        <a href="student_achievement.php" class="c-link dropdown-toggle">Student Achievements
+
+                                        </a>
+                                    </li>
+
                                     <?php } ?>
 
-                                </ul>
-                            </nav>
-                            <!-- END: MEGA MENU -->
-                            <!-- END: LAYOUT/HEADERS/MEGA-MENU -->
-                            <!-- END: HOR NAV -->
-                        </div>
-                        <div class="c-cart-menu">
-                        <div class="c-cart-menu-title">
-                            <p class="c-cart-menu-float-l c-font-sbold">Notification</p>
-                        </div>
-                        <ul class="c-cart-menu-items">
-                            <li>
-                                <div class="c-cart-menu-close">
-                                    <a href="#" class="c-theme-link">×</a>
-                                </div>
-                                <img src="assets/base/img/content/shop2/24.jpg" />
-                                <div class="c-cart-menu-content">
-                                    <p>1 x
-                                        <span class="c-item-price c-theme-font">$30</span>
-                                    </p>
-                                    <a href="shop-product-details-2.html" class="c-item-name c-font-sbold">Winter Coat</a>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="c-cart-menu-close">
-                                    <a href="#" class="c-theme-link">×</a>
-                                </div>
-                                <img src="assets/base/img/content/shop2/12.jpg" />
-                                <div class="c-cart-menu-content">
-                                    <p>1 x
-                                        <span class="c-item-price c-theme-font">$30</span>
-                                    </p>
-                                    <a href="shop-product-details.html" class="c-item-name c-font-sbold">Sports Wear</a>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="c-cart-menu-footer">
-                            <a href="#" class="btn btn-md c-btn c-btn-square c-btn-grey-3 c-font-white c-font-bold c-center c-font-uppercase">View Cart</a>
-                            <a href="#" class="btn btn-md c-btn c-btn-square c-theme-btn c-font-white c-font-bold c-center c-font-uppercase">Checkout</a>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                
-            </header>
-            <!-- END: HEADER -->
-            <!-- END: LAYOUT/HEADERS/HEADER-1 -->
+                                    <?php
+                                    if ($_SESSION["login"] == false) {
+                                        ?>
+                                        <li>
+                                            <a href="#" class="c-link dropdown-toggle" data-toggle="modal" data-target="#login-form">Log In
+                                                <i class="glyphicon glyphicon-log-in"> </i>
+                                            </a>
+                                        </li>
+                                        <?php } elseif ($_SESSION["login"] == true) { ?>
+                                        <li class="c-menu-type-classic">
+                                            <a href="#" class="c-link dropdown-toggle" >
+                                                <?php echo 'Welcome' . ", " . $_COOKIE["username"] ?>
+                                                <span class="c-arrow c-toggler"></span>
+                                            </a>
+                                            <ul class="dropdown-menu c-menu-type-classic c-pull-right">
+                                                <?php if($_COOKIE['role'] == 'admin')  { ?>
+                                                <li>
+                                                    <a href="master_user.php" class="c-link dropdown-toggle">User <i class="fa fa-user"></i> </a>
+                                                </li>
+                                                <li>
+                                                    <a href="master_matpel.php" class="c-link dropdown-toggle">Mata Pelajaran <i class="fa fa-book"></i> </a>
+                                                </li>
+                                                <li>
+                                                    <a href="relasi_user_matpel.php" class="c-link dropdown-toggle">Relasi User Matpel <i class="fa fa-user-plus"></i> </a>
+                                                </li>
+                                                <?php } ?>
+                                                <li>
+                                                    <a href="#" class="c-link dropdown-toggle"  data-toggle="modal" data-target="#modalLogout">Log Out
+                                                        <i class="glyphicon glyphicon-log-out"> </i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="inbox.php" class="c-link dropdown-toggle">
+                                                <i class="fa fa-envelope"></i>
+                                                <?php 
+                                                $sql2 = "SELECT SUM(n_number) as notifikasi FROM notification WHERE id_penerima = '$user_id'";
+                                                $result2 = $conn->query($sql2);
+                                                if ($result2->num_rows > 0) { 
+                                                    while ($row2 = $result2->fetch_assoc()) {
+                                                        if($row2['notifikasi'] != NULL){ ?>
+                                                        <span class="badge"><?php echo $row2['notifikasi']; ?></span>
+                                                        <?php  } else { ?>
+                                                        <span class="badge">0</span>
+                                                        <?php  }}}
+                                                        ?>    
+                                                    </a>
+                                                </li>
+                                                <?php } ?>
 
-            <!-- BEGIN: CONTENT/USER/FORGET-PASSWORD-FORM -->
-            <div class="modal fade c-content-login-form" id="forget-password-form" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content c-square">
-                        <div class="modal-header c-no-border">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <h1 class="c-font-24 c-font-sbold">Password Recovery</h1>
-                            <p>To recover your password please contact the administration.</p>
-                            <p>You can reach us by e-mailing to : example@mail.sch.id</p> 
-                            <p>Please write the detail of your problem (error message, warning message, etc) for getting better support.</p>
-
-                        </div>
-                        <div class="modal-footer c-no-border">
-
-                            <a href="javascript:;" data-toggle="modal" data-target="#login-form" data-dismiss="modal" class="btn c-btn-dark-1 btn c-btn-uppercase c-btn-bold c-btn-slim c-btn-border-2x c-btn-square c-btn-signup">Back to Login!</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END: CONTENT/USER/FORGET-PASSWORD-FORM -->
-
-            <!-- BEGIN: CONTENT/USER/LOGIN-FORM -->
-            <div class="modal fade c-content-login-form" id="login-form" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content c-square">
-                        <div class="modal-header c-no-border">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <h3 class="c-font-24 c-font-sbold">Good Day!</h3>
-                            <p>Let's make today a great day!</p>
-                            <form action="login.php" method="POST" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label for="username" class="hide">Username</label>
-                                    <input type="text" class="form-control input-lg c-square" id="username" placeholder="Username" name="username" required="Input your username"> </div>
-                                    <div class="form-group">
-                                        <label for="login-password" class="hide">Password</label>
-                                        <input type="password" class="form-control input-lg c-square" id="login-password" placeholder="Password" name="password" required="Input your password"> </div>
-
-                                        <div class="form-group">
-                                            <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login">Login</button>
-                                            <a href="javascript:;" data-toggle="modal" data-target="#forget-password-form" data-dismiss="modal" class="c-btn-forgot">Forgot Your Password ?</a>
-                                        </div>
-                                    </form>
+                                            </ul>
+                                        </nav>
+                                        <!-- END: MEGA MENU -->
+                                        <!-- END: LAYOUT/HEADERS/MEGA-MENU -->
+                                        <!-- END: HOR NAV -->
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- END: CONTENT/USER/LOGIN-FORM -->
 
-                    <!-- BEGIN: CONTENT/USER/LOGOUT-FORM -->
-                    <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content c-square">
-                                <div class="modal-body">
-                                    <h3 class="c-font-24 c-font-sbold">Are you sure want to logout ?</h3>
-                                    <div class="form-group">
-                                        <button  data-dismiss="modal"  class="btn btn-danger">Cancel</button>
-                                        <a href="logout.php"> <button class="btn btn-info" > Logout</button></a>
+                        </header>
+                        <!-- END: HEADER -->
+                        <!-- END: LAYOUT/HEADERS/HEADER-1 -->
+
+                        <!-- BEGIN: CONTENT/USER/FORGET-PASSWORD-FORM -->
+                        <div class="modal fade c-content-login-form" id="forget-password-form" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content c-square">
+                                    <div class="modal-header c-no-border">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h1 class="c-font-24 c-font-sbold">Password Recovery</h1>
+                                        <p>To recover your password please contact the administration.</p>
+                                        <p>You can reach us by e-mailing to : example@mail.sch.id</p> 
+                                        <p>Please write the detail of your problem (error message, warning message, etc) for getting better support.</p>
+
+                                    </div>
+                                    <div class="modal-footer c-no-border">
+
+                                        <a href="javascript:;" data-toggle="modal" data-target="#login-form" data-dismiss="modal" class="btn c-btn-dark-1 btn c-btn-uppercase c-btn-bold c-btn-slim c-btn-border-2x c-btn-square c-btn-signup">Back to Login!</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-        <!-- END: CONTENT/USER/LOGOUT-FORM -->
+                        <!-- END: CONTENT/USER/FORGET-PASSWORD-FORM -->
+
+                        <!-- BEGIN: CONTENT/USER/LOGIN-FORM -->
+                        <div class="modal fade c-content-login-form" id="login-form" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content c-square">
+                                    <div class="modal-header c-no-border">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3 class="c-font-24 c-font-sbold">Good Day!</h3>
+                                        <p>Let's make today a great day!</p>
+                                        <form action="login.php" method="POST" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label for="username" class="hide">Username</label>
+                                                <input type="text" class="form-control input-lg c-square" id="username" placeholder="Username" name="username" required="Input your username"> </div>
+                                                <div class="form-group">
+                                                    <label for="login-password" class="hide">Password</label>
+                                                    <input type="password" class="form-control input-lg c-square" id="login-password" placeholder="Password" name="password" required="Input your password"> </div>
+
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login">Login</button>
+                                                        <a href="javascript:;" data-toggle="modal" data-target="#forget-password-form" data-dismiss="modal" class="c-btn-forgot">Forgot Your Password ?</a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END: CONTENT/USER/LOGIN-FORM -->
+
+                                <!-- BEGIN: CONTENT/USER/LOGOUT-FORM -->
+                                <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content c-square">
+                                            <div class="modal-body">
+                                                <h3 class="c-font-24 c-font-sbold">Are you sure want to logout ?</h3>
+                                                <div class="form-group">
+                                                    <button  data-dismiss="modal"  class="btn btn-danger">Cancel</button>
+                                                    <a href="logout.php"> <button class="btn btn-info" > Logout</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END: CONTENT/USER/LOGOUT-FORM -->
 
 
-        

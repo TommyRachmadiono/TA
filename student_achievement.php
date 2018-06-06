@@ -3,6 +3,7 @@ session_start();
 
 $_SESSION['menuHeader'] = 'studentAchievement';
 include_once 'layout/header.php';
+include 'config/connectdb.php';
 ?>
 
 <!-- BEGIN: PAGE CONTAINER -->

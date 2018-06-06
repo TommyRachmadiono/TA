@@ -17,11 +17,6 @@ switch ($act) {
         $target_file = $target_dir . $tglupload . $_FILES['file']['name'];
         $uploadOk = 1;
 
-        if (file_exists($target_file)) {
-            echo "Sorry, file already exists.";
-            echo $file_name;
-            $uploadOk = 0;
-        }
             //BATASI FILE CUMAN 5MB
         if ($_FILES["file"]["size"] > 5485760) {
             echo "Sorry, your file is too large.";
@@ -188,12 +183,27 @@ switch ($act) {
 
     case 'delete_status':
     $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
+    $dir = "postingan";
+
+    $sql4 = "SELECT * FROM postingan WHERE idpostingan = '$idpostingan'";
+    $result = $conn->query($sql4);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $file = $row['file'];
+        }
+    }
+
     $sql = "DELETE FROM komentar WHERE postingan_idpostingan = '$idpostingan'"; 
     if(mysqli_query($conn,$sql)) {
         $sql2 = "DELETE FROM `like` WHERE post_id = '$idpostingan'";
         if(mysqli_query($conn,$sql2)) {
             $sql3 = "DELETE FROM postingan WHERE idpostingan = '$idpostingan'"; 
             if(mysqli_query($conn,$sql3)) {
+                if($file != ""){
+                    unlink($dir.'/'.$file);
+                    echo '<script type="text/javascript">alert("Berhasil Menghapus Status"); </script>';
+                    echo '<script type="text/javascript"> window.location = "index.php" </script>';
+                }
                 echo '<script type="text/javascript">alert("Berhasil Menghapus Status"); </script>';
                 echo '<script type="text/javascript"> window.location = "index.php" </script>';
             } else {

@@ -23,6 +23,15 @@ switch ($act) {
 				mkdir('tugas/'.$tugas_id.' '.$namatugas);
 			}
 		}
+
+		$sql3 = "SELECT * FROM kelas";
+		$result2 = $conn->query($sql3);
+		if ($result2->num_rows > 0) {
+			while ($row = $result2->fetch_assoc()) {
+				$kelas = $row['nama_kelas'];
+				mkdir('tugas/'.$tugas_id.' '.$namatugas.'/'.$kelas);
+			}
+		}
 		echo '<script type="text/javascript">alert("Berhasil membuat tugas baru"); </script>';
 		echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
 		
@@ -113,13 +122,14 @@ switch ($act) {
 	$tgldibuat = date("Y/m/d");
 	$tglupload = date("YmdHis");
 	$file_name = basename($tglupload . $_FILES["file"]["name"]);
+	$kelas = $_COOKIE['nama_kelas'];
 
 	$sql = "SELECT * FROM tugas WHERE id = '$tugas_id'";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
 			$namatugas = $row['namatugas'];
-			$path = "tugas/".$tugas_id.' '.$namatugas.'/';
+			$path = "tugas/".$tugas_id.' '.$namatugas.'/'.$kelas.'/';
 			$target_dir = $path;
 
 		}
@@ -213,6 +223,7 @@ switch ($act) {
 	break;
 
 	case 'download_zip':
+	$kelas = mysqli_real_escape_string($conn, $_POST["kelas"]);
 	$tugas_id = mysqli_real_escape_string($conn, $_POST["tugas_id"]);
 	$dir;
 	$zip_file;
@@ -223,7 +234,11 @@ switch ($act) {
 		while ($row = $result->fetch_assoc()) {
 			$namatugas = $row['namatugas'];
 		}
-		$dir = "tugas/".$tugas_id.' '.$namatugas;
+		if($kelas == ""){
+			$dir = "tugas/".$tugas_id.' '.$namatugas;
+		} else {
+			$dir = "tugas/".$tugas_id.' '.$namatugas.'/'.$kelas;
+		}
 		$zip_file = $dir.'.zip';
 	}
 

@@ -5,18 +5,18 @@ include 'config/connectdb.php';
 $username = mysqli_real_escape_string($conn ,$_POST["username"]);
 $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-$sql = "SELECT * FROM `user` WHERE username = '$username' AND password = '$password'";
+$sql = "SELECT u.*, k.nama_kelas FROM user u LEFT JOIN kelas k on u.kelas_id = k.id WHERE username = '$username' AND password = '$password'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
 	while($row = $result->fetch_assoc()) {
-		// print_r($row);
 		
 		$_SESSION['role'] = $row['role'];
 		$_SESSION['nama'] = $row['nama'];
 		$_SESSION['user_id'] = $row['id'];
 		$_SESSION['foto_profil'] = $row['foto'];
+		$_SESSION["nama_kelas"] = $row['nama_kelas'];
 		$_SESSION["login"] = true;
 		$_SESSION["username"] = $username;
 
@@ -25,6 +25,7 @@ if ($result->num_rows > 0) {
 		setcookie("username", $_SESSION["username"], time()+3600);
 		setcookie("foto_profil", $_SESSION["foto_profil"], time()+3600);
 		setcookie("role", $_SESSION["role"], time()+3600);
+		setcookie("nama_kelas", $_SESSION["nama_kelas"], time()+3600);
 
 		echo '<script type="text/javascript">alert("Welcome '. $_SESSION['nama'] . '"); </script>';
 		echo '<script type="text/javascript"> window.location = "index.php" </script>';

@@ -42,11 +42,11 @@ $_SESSION['count'] = 0;
 
             </div>
         </div>
-<?php } ?>
+    <?php } ?>
     <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
     <div class="container">
         <!-- SIDEBAR MENU -->
-<?php include_once 'layout/sidebar_menu.php'; ?>
+        <?php include_once 'layout/sidebar_menu.php'; ?>
 
         <!-- BEGIN: PAGE CONTENT -->
         <div class="c-layout-sidebar-content " id="postlist">
@@ -90,10 +90,12 @@ $_SESSION['count'] = 0;
                                     <span class="anchorjs-icon"></span>
                                 </a>
                             </h3>
-                            <?php if($_SESSION["login"] == true) { 
-                                if($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') { ?>
-                            <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>"><i class="fa fa-close"></i></a>
-                            <?php }} ?>
+                            <?php if ($_SESSION["login"] == true) {
+                                if ($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') {
+                                    ?>
+                                    <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>"><i class="fa fa-close"></i></a>
+            <?php }
+        } ?>
                         </div>
                         <div class="panel-body" style="word-wrap: break-word;"> 
                             <p> <?php echo nl2br($row['isi']) ?> </p> 
@@ -113,11 +115,12 @@ $_SESSION['count'] = 0;
                                             </a>
                                         </div>
             <?php }
-        } ?>
+        }
+        ?>
                             </div>
 
                             <hr style="margin: 0; padding-top: 10px;">
-                                        <?php if ($_SESSION["login"] == true) { ?>
+        <?php if ($_SESSION["login"] == true) { ?>
                                 <!-- ICON LIKE DAN KOMEN DISINI -->
                                 <div class="row" style="width: 100%; padding: 0; margin: 0;">
                                     <div class="col-md-6" style="margin: 0; padding: 0;">
@@ -221,10 +224,10 @@ $_SESSION['count'] = 0;
                                                                                 <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Cancel</button>
                                                                                 <button class="btn btn-info" >Update</button>
                                                                             </form>
-                    <?php
-                    }
-                }
-                ?>
+                                                                            <?php
+                                                                        }
+                                                                    }
+                                                                    ?>
 
                                                                 </div>
                                                             </div>
@@ -232,10 +235,10 @@ $_SESSION['count'] = 0;
                                                     </div>
                                                 </div>
                                                 <!-- END: MODAL EDIT COMMENT -->
-                                            <?php
+                                                <?php
+                                            }
                                         }
-                                    }
-                                    ?>
+                                        ?>
                                     </div>
 
         <?php if ($_SESSION["login"] == true) { ?>
@@ -250,15 +253,15 @@ $_SESSION['count'] = 0;
                                                 </div>
                                             </div>
                                         </form>
-                    <?php } ?>
+        <?php } ?>
                                 </div>
                             </section>
                         </div>
                     </div>
                 <?php } ?>
                 <div id="postterakhir" lastID = <?php echo $lastID; ?> act="dataindex" style="display: none;""><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
-<?php } else {
-    ?>
+            <?php } else {
+                ?>
                 <div id="postterakhir" lastID="0" groupID="" act=""><h>BELOM ADA KONTEN</h></div>
 <?php }
 ?>
@@ -304,8 +307,8 @@ $_SESSION['count'] = 0;
     <!-- END: PAGE CONTAINER -->
 
     <!-- FOOTER -->
-<?php
-include_once 'layout/footer.php';
-?>
+    <?php
+    include_once 'layout/footer.php';
+    ?>
 
 
