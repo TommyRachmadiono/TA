@@ -184,8 +184,9 @@
     <script src="../assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
 
+<script src="assets/plugins/jquery.min.js" type="text/javascript"></script>
 <script src="assets/plugins/jquery-migrate.min.js" type="text/javascript"></script>
-
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="assets/plugins/jquery.easing.min.js" type="text/javascript"></script>
 <script src="assets/plugins/reveal-animate/wow.js" type="text/javascript"></script>
 <script src="assets/base/js/scripts/reveal-animate/reveal-animate.js" type="text/javascript"></script>
@@ -217,6 +218,7 @@
         </script>
         <!-- END: THEME SCRIPTS -->
         <!-- BEGIN: PAGE SCRIPTS -->
+        <script src="assets/base/js/scripts/pages/fullwidth-gallery.js" type="text/javascript"></script>
         <script src="assets/base/js/scripts/revo-slider/slider-4.js" type="text/javascript"></script>
         <script src="assets/plugins/isotope/isotope.pkgd.min.js" type="text/javascript"></script>
         <script src="assets/plugins/isotope/imagesloaded.pkgd.min.js" type="text/javascript"></script>
@@ -283,5 +285,7 @@
                 }
             });
         </script>
+
+
     </body>
     </html>

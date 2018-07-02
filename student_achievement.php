@@ -89,7 +89,7 @@ include 'config/connectdb.php';
         <div id="c-isotope-anchor-1" class="c-content-box c-size-md c-bg-img-center" style="background-image: url(assets/base/img/content/backgrounds/bg-84.jpg)">
             <div class="container">
                 <div class="c-content-title-1">
-                    <h3 class="c-center c-font-uppercase c-font-bold c-font-white">Our Shool Students Achievements</h3>
+                    <h3 class="c-center c-font-uppercase c-font-bold c-font-white">Our Shcool Achievements</h3>
                     <div class="c-line-center c-theme-bg"></div>
                 </div>
                 <div class="c-content-isotope-gallery c-opt-2">

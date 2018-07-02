@@ -34,33 +34,33 @@ if ($_SESSION["login"] == false) {
     <!-- BEGIN: CONTENT/ISOTOPE/GALLERY-2 -->
 
     <?php if ($_COOKIE['role'] == 'admin') { ?>
-        <div style="margin: 2%;">
-            <button data-toggle="modal" data-target="#add-photo" class="btn btn-info">Add New Photo</button>
-            <table id="gallery" class="table table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th style="text-align: center;">ID</th>
-                        <th style="text-align: center;">Title</th>
-                        <th style="text-align: center;">Gambar</th>
-                        <th style="text-align: center;">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $sql2 = "SELECT * FROM gallery";
-                    $result2 = $conn->query($sql2);
-                    if ($result2->num_rows > 0) {
-                        while ($row = $result2->fetch_assoc()) {
-                            ?>
-                            <tr>
-                                <th style="text-align: center;"><?php echo $row['id']; ?></th>
-                                <td style="text-align: center;"><?php echo $row['title']; ?></td>
-                                <td style="text-align: center;"><img src="images/gallery/<?php echo $row['file']; ?>" style="border-radius: 50%; height: 50px;"></td>
-                                <td style="text-align: center;">
-                                    <button class="btn btn-default" data-toggle="modal" data-target="#deleteGallery<?php echo $row['id']; ?>">Delete</button>
-                                </td>
-                            </tr>
-                            <!-- BEGIN: MODAL DELETE GALLERY -->
+    <div style="margin: 2%;">
+        <button data-toggle="modal" data-target="#add-photo" class="btn btn-info">Add New Photo</button>
+        <table id="gallery" class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">ID</th>
+                    <th style="text-align: center;">Title</th>
+                    <th style="text-align: center;">Gambar</th>
+                    <th style="text-align: center;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $sql2 = "SELECT * FROM gallery";
+                $result2 = $conn->query($sql2);
+                if ($result2->num_rows > 0) {
+                    while ($row = $result2->fetch_assoc()) {
+                        ?>
+                        <tr>
+                            <th style="text-align: center;"><?php echo $row['id']; ?></th>
+                            <td style="text-align: center;"><?php echo $row['title']; ?></td>
+                            <td style="text-align: center;"><img src="images/gallery/<?php echo $row['file']; ?>" style="border-radius: 50%; height: 50px;"></td>
+                            <td style="text-align: center;">
+                                <button class="btn btn-default" data-toggle="modal" data-target="#deleteGallery<?php echo $row['id']; ?>">Delete</button>
+                            </td>
+                        </tr>
+                        <!-- BEGIN: MODAL DELETE GALLERY -->
                         <div class="modal fade" id="deleteGallery<?php echo $row['id'] ?>" tabindex="-1" role="dialog">
                             <div class="modal-dialog">
                                 <div class="modal-content c-square">
@@ -83,10 +83,10 @@ if ($_SESSION["login"] == false) {
                     }
                 }
                 ?>
-                </tbody>
-            </table>
-        </div>
-<?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <?php } ?>
 
     <div class="c-content-title-1" id="content_title">
         <h3 class="c-center c-font-uppercase c-font-bold">Gallery</h3>
@@ -98,80 +98,88 @@ if ($_SESSION["login"] == false) {
         <div id="filters-container" class="cbp-l-filters-alignCenter">
             <div data-filter="*" class="cbp-filter-item-active cbp-filter-item"> ALL
                 <div class="cbp-filter-counter"></div>
-            </div>
+            </div> 
         </div>
         <div id="grid-container" class="cbp">
+
             <?php
             $sql = "SELECT * FROM gallery g INNER JOIN user u on g.user_id = u.id";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     ?>
-                    <div class="cbp-item logos">
-                        <a href="images/gallery/<?php echo $row['file']; ?>" class="cbp-caption cbp-lightbox" data-title="<?php echo $row['title']; ?>">
+                    
+                    <div class="cbp-item identity logos">
+                        <a href="images/gallery/<?php echo $row['file'] ?>" class="cbp-caption cbp-lightbox" data-title="Dashboard<br>by Paul Flavius Nechita">
                             <div class="cbp-caption-defaultWrap">
-                                <img src="images/gallery/<?php echo $row['file']; ?>" alt=""> </div>
-                            <div class="cbp-caption-activeWrap">
-                                <div class="cbp-l-caption-alignLeft">
-                                    <div class="cbp-l-caption-body">
-                                        <div class="cbp-l-caption-title"><?php echo $row['title']; ?></div>
-                                        <div class="cbp-l-caption-desc">by <?php echo $row['nama']; ?></div>
+                                <img src="images/gallery/<?php echo $row['file'] ?>" alt=""> </div>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignLeft">
+                                        <div class="cbp-l-caption-body">
+                                            <div class="cbp-l-caption-title">Dashboard</div>
+                                            <div class="cbp-l-caption-desc">by Paul Flavius Nechita</div>
+                                        </div>
                                     </div>
                                 </div>
+                            </a>
+                        </div>
+                        <?php }
+                    }
+                    ?>
+                </div>
+                <div id="loadMore-container" class="cbp-l-loadMore-text">
+                    <a href="ajax/fullwidth-gallery/load-more.html?test=1" class="cbp-l-loadMore-link btn c-btn-square c-btn-border-2x c-btn-dark c-btn-bold c-btn-uppercase">
+                        <span class="cbp-l-loadMore-defaultText">LOAD MORE</span>
+                        <span class="cbp-l-loadMore-loadingText">LOADING...</span>
+                        <span class="cbp-l-loadMore-noMoreLoading">NO MORE WORKS</span>
+                    </a>
+                </div>
+            </div>
+            <!-- END: PAGE CONTENT -->
+
+        </div>
+        <!-- END: PAGE CONTAINER -->
+
+
+
+        <?php
+        include_once 'layout/footer.php';
+        ?>
+
+        <script>
+            var table = $('#gallery').DataTable({
+                lengthChange: false,
+                buttons: ['copy', 'excel', 'pdf', 'colvis']
+            });
+        </script>
+
+        <!-- MODAL ADD PHOTO -->
+        <div class="modal fade c-content-login-form" id="add-photo" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content c-square">
+                    <div class="modal-header c-no-border">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h3 class="c-font-24 c-font-sbold">Add New Photo</h3>
+                        <form action="galleryController.php" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="create-group" class="">Your Photo</label>
+                                <input type="file" class="form-control input-lg c-square" name="file" required=""> 
+
+                                <label for="create-group" class="">Title</label>
+                                <input type="text" class="form-control input-lg c-square" placeholder="Title" name="title" required=""> 
+                                <input type="hidden" name="act" value="add_gallery">
                             </div>
-                        </a>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;">Add</button><br><br>
+                            </div>
+                        </form>
                     </div>
-    <?php }
-}
-?>
-        </div>
-    </div>
-    <!-- END: PAGE CONTENT -->
-    <!-- END: CONTENT/ISOTOPE/GALLERY-2 -->
-    <!-- END: PAGE CONTENT -->
-</div>
-<!-- END: PAGE CONTAINER -->
-
-
-
-<?php
-include_once 'layout/footer.php';
-?>
-<script>
-    var table = $('#gallery').DataTable({
-        lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf', 'colvis']
-    });
-</script>
-
-<!-- MODAL ADD PHOTO -->
-<div class="modal fade c-content-login-form" id="add-photo" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content c-square">
-            <div class="modal-header c-no-border">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h3 class="c-font-24 c-font-sbold">Add New Photo</h3>
-                <form action="galleryController.php" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="create-group" class="">Your Photo</label>
-                        <input type="file" class="form-control input-lg c-square" name="file" required=""> 
-
-                        <label for="create-group" class="">Title</label>
-                        <input type="text" class="form-control input-lg c-square" placeholder="Title" name="title" required=""> 
-                        <input type="hidden" name="act" value="add_gallery">
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;">Add</button><br><br>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- END MODAL ADD PHOTO -->
-<script src="assets/base/js/scripts/pages/fullwidth-gallery.js" type="text/javascript"></script>
+        <!-- END MODAL ADD PHOTO -->
