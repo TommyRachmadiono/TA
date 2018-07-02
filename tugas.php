@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['menuHeader'] = 'tugas';
+$_SESSION['menuHeader'] = 'home';
 include 'config/connectdb.php';
 include_once 'layout/header.php';
 $kelas="";
@@ -151,7 +151,7 @@ if (isset($_GET["id"])) {
                             if (isset($_GET['select-kelas'])) {
                                 $kelas = $_GET['select-kelas'];
                                 if ($kelas != "") {
-                                    $query = mysqli_query($conn, "SELECT uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id' AND k.nama_kelas = '$kelas'") or die(mysqli_error());
+                                    $query = mysqli_query($conn, "SELECT uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id' AND k.id = '$kelas'") or die(mysqli_error());
                                 } else {
                                     $query = mysqli_query($conn, "SELECT uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id'") or die(mysqli_error());
                                 }
@@ -173,7 +173,7 @@ if (isset($_GET["id"])) {
 
                                 <form method="GET" action="tugas.php" enctype="multipart/form-data" style="display: inline-block; margin-left: 2%;">
                                     <input type="hidden" name="id" value="<?php echo $tugas_id; ?>">
-                                    <select name="select-kelas" id="select-kelas" >
+                                    <select name="select-kelas">
                                         <option value="" selected disabled="">-- Select Kelas --</option> 
                                         <option value="">All</option>
                                         <?php
@@ -182,12 +182,13 @@ if (isset($_GET["id"])) {
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
                                                 ?>
-                                                <option value="<?php echo $row['nama_kelas']; ?>"><?php echo $row['nama_kelas']; ?></option>
+                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['nama_kelas']; ?></option>
                                                 <?php
                                             }
                                         }
                                         ?>
                                     </select>
+
                                     <button class="btn btn-info">Select</button>
                                 </form>
 
@@ -205,7 +206,7 @@ if (isset($_GET["id"])) {
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
                                                 ?>
-                                                <option value="<?php echo $row['nama_kelas']; ?>"><?php echo $row['nama_kelas']; ?></option>
+                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['nama_kelas']; ?></option>
                                                 <?php
                                             }
                                         }
@@ -232,7 +233,7 @@ if (isset($_GET["id"])) {
                                     if (isset($_GET['select-kelas'])) {
                                         $kelas = $_GET['select-kelas'];
                                         if ($kelas != "") {
-                                            $sql2 = "SELECT uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id' AND k.nama_kelas = '$kelas'";
+                                            $sql2 = "SELECT uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id' AND k.id = '$kelas'";
                                         } else {
                                             $sql2 = "SELECT uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id'";
                                         }
@@ -340,6 +341,8 @@ include_once 'layout/footer.php';
                         <input type="hidden" name="act" value="penilaian_massal">
                     </div>
                     <div class="form-group">
+                        <input type="hidden" name="kelas" value="<?php echo $kelas; ?>">
+                        <input type="hidden" name="url" value="<?php echo $url; ?>">
                         <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;" name="buat-tugas">Update</button><br><br>
                     </div>
                 </form>

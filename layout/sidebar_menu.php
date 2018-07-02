@@ -39,8 +39,12 @@ $current_time = "$hour:$min";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         ?>
-        <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#invite-member" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
+        <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#invite-member" style="width: 100%; margin-top: 3%;""><button type="button" class="btn btn-default" style="width: 100%;">
             <i class="fa fa-user-plus"> Invite Member</i>
+        </button></a>
+
+        <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#delete-group" style="width: 100%; margin-top: 3%;"><button type="button" class="btn btn-danger" style="width: 100%;">
+            <i class="fa fa-warning"> Disband Group</i>
         </button></a>
         <?php }} ?>
 

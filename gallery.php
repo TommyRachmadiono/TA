@@ -69,8 +69,8 @@ if ($_SESSION["login"] == false) {
                                         <div class="form-group">
                                             <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
                                             <form method="POST" action="galleryController.php" style="display: inline-block;">
-                                                <input type="hidden" name="act" value="delete_user">
-                                                <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
+                                                <input type="hidden" name="act" value="delete_gallery">
+                                                <input type="hidden" name="gallery_id" value="<?php echo $row['id']; ?>">
                                                 <button class="btn btn-info" >Delete</button>
                                             </form>
                                         </div>
@@ -161,12 +161,12 @@ include_once 'layout/footer.php';
                         <input type="file" class="form-control input-lg c-square" name="file" required=""> 
 
                         <label for="create-group" class="">Title</label>
-                        <input type="text" class="form-control input-lg c-square" id="topic_discussion" placeholder="Title" name="title" required=""> 
-                        <input type="hidden" name="act" value="add_photo">
+                        <input type="text" class="form-control input-lg c-square" placeholder="Title" name="title" required=""> 
+                        <input type="hidden" name="act" value="add_gallery">
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;" name="create-group" id="create-group">Add</button><br><br>
+                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;">Add</button><br><br>
                     </div>
                 </form>
             </div>
@@ -174,3 +174,4 @@ include_once 'layout/footer.php';
     </div>
 </div>
 <!-- END MODAL ADD PHOTO -->
+<script src="assets/base/js/scripts/pages/fullwidth-gallery.js" type="text/javascript"></script>

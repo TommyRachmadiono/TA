@@ -32,6 +32,42 @@ if (!empty($_POST["id"])) {
 
                     $_SESSION['count'] ++
                     ?>
+
+                     <!-- BEGIN: MODAL EDIT STATUS -->
+                        <div class="modal fade" id="modalEditStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content c-square">
+                                    <div class="modal-body">
+                                        <h3 class="c-font-24 c-font-sbold">Edit Status</h3>
+                                        <div class="form-group">
+                                            <?php
+                                            $idpostingan = $row['idpostingan'];
+                                            $sql = "SELECT isi FROM postingan WHERE idpostingan = '$idpostingan'";
+                                            $hasil = $conn->query($sql);
+                                            if ($hasil->num_rows > 0) {
+                                                while ($a = $hasil->fetch_assoc()) {
+                                                    ?>
+
+                                                    <form method="POST" action="postingController.php">
+                                                        <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
+                                                        <br>
+                                                        <input type="hidden" name="act" value="edit_status">
+                                                        <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
+                                                        <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Cancel</button>
+                                                        <button class="btn btn-info" >Update</button>
+                                                    </form>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: MODAL EDIT STATUS -->
+
                     <!-- BEGIN: MODAL DELETE STATUS -->
                     <div class="modal fade" id="modalDeleteStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
                         <div class="modal-dialog">
@@ -60,10 +96,21 @@ if (!empty($_POST["id"])) {
                                     <span class="anchorjs-icon"></span>
                                 </a>
                             </h3>
-                            <?php if($_SESSION["login"] == true) { 
-                                if($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') { ?>
-                            <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>"><i class="fa fa-close"></i></a>
-                            <?php }} ?>
+                            <?php if ($_SESSION["login"] == true) {
+                                    if ($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') {
+                                        ?>
+                                        <a href="#" style="float: right; margin-left: 2%;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>">
+                                            <i class="fa fa-close"></i></a>
+                                            <a href="#" style="float: right; margin-top: 2px;" data-toggle="modal" data-target="#modalEditStatus<?php echo $row['idpostingan']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
+                                        <?php }
+                                        if($row['id'] != $_COOKIE['user_id']) { 
+                                        $query = mysqli_query($conn, "SELECT * FROM report WHERE user_id = '$user_id' AND postingan_id = '$idpostingan'"); 
+                                        if (mysqli_num_rows($query) > 0) {
+                                    ?>
+                                        <button value="<?php echo $idpostingan ?>" class="unreport btn btn-danger" style="float: right; margin-top: 0.5%; padding: 0;padding-left: 1%;"><i class="fa fa-flag"></i></button>
+                                    <?php } else { ?>
+                                        <button value="<?php echo $idpostingan ?>" class="report btn btn-danger" style="float: right; margin-top: 0.5%; padding: 0;padding-left: 1%;"><i class="fa fa-flag"></i></button>
+                                    <?php }}} ?>
                         </div>
                         <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <div>
@@ -246,6 +293,42 @@ if (!empty($_POST["id"])) {
 
                     $_SESSION['count'] ++
                     ?>
+
+                     <!-- BEGIN: MODAL EDIT STATUS -->
+                        <div class="modal fade" id="modalEditStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content c-square">
+                                    <div class="modal-body">
+                                        <h3 class="c-font-24 c-font-sbold">Edit Status</h3>
+                                        <div class="form-group">
+                                            <?php
+                                            $idpostingan = $row['idpostingan'];
+                                            $sql = "SELECT isi FROM postingan WHERE idpostingan = '$idpostingan'";
+                                            $hasil = $conn->query($sql);
+                                            if ($hasil->num_rows > 0) {
+                                                while ($a = $hasil->fetch_assoc()) {
+                                                    ?>
+
+                                                    <form method="POST" action="postingController.php">
+                                                        <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
+                                                        <br>
+                                                        <input type="hidden" name="act" value="edit_status">
+                                                        <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
+                                                        <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Cancel</button>
+                                                        <button class="btn btn-info" >Update</button>
+                                                    </form>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: MODAL EDIT STATUS -->
+
                     <!-- BEGIN: MODAL DELETE STATUS -->
                     <div class="modal fade" id="modalDeleteStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
                         <div class="modal-dialog">
@@ -274,10 +357,21 @@ if (!empty($_POST["id"])) {
                                     <span class="anchorjs-icon"></span>
                                 </a>
                             </h3>
-                            <?php if($_SESSION["login"] == true) { 
-                                if($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') { ?>
-                            <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>"><i class="fa fa-close"></i></a>
-                            <?php }} ?>
+                            <?php if ($_SESSION["login"] == true) {
+                                    if ($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') {
+                                        ?>
+                                        <a href="#" style="float: right; margin-left: 2%;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>">
+                                            <i class="fa fa-close"></i></a>
+                                            <a href="#" style="float: right; margin-top: 2px;" data-toggle="modal" data-target="#modalEditStatus<?php echo $row['idpostingan']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
+                                        <?php }
+                                        if($row['id'] != $_COOKIE['user_id']) { 
+                                        $query = mysqli_query($conn, "SELECT * FROM report WHERE user_id = '$user_id' AND postingan_id = '$idpostingan'"); 
+                                        if (mysqli_num_rows($query) > 0) {
+                                    ?>
+                                        <button value="<?php echo $idpostingan ?>" class="unreport btn btn-danger" style="float: right; margin-top: 0.5%; padding: 0;padding-left: 1%;"><i class="fa fa-flag"></i></button>
+                                    <?php } else { ?>
+                                        <button value="<?php echo $idpostingan ?>" class="report btn btn-danger" style="float: right; margin-top: 0.5%; padding: 0;padding-left: 1%;"><i class="fa fa-flag"></i></button>
+                                    <?php }}} ?>
                         </div>
                         <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <div>

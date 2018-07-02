@@ -36,7 +36,56 @@ if($_COOKIE['role'] != 'admin') {
 	<!-- BEGIN: PAGE CONTENT -->
 	<div style="margin: 2%;">
 		<button class="btn btn-info" data-toggle="modal" data-target="#add-matpel">Add New Relasi</button>
-		
+		<table id="relasimatpel" class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th style="text-align: center;">Foto</th>
+					<th style="text-align: center;">Nama</th>
+					<th style="text-align: center;">Mata Pelajaran</th>
+					<th style="text-align: center;">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				$sql2 = "select u.nama,u.foto,m.nama_pelajaran from user u inner join relasi_user_matpel rum ON u.id = rum.user_id INNER JOIN matpel m ON rum.matpel_id = m.id";
+				$result2 = $conn->query($sql2);
+				if ($result2->num_rows > 0) {
+					while ($row = $result2->fetch_assoc()) {
+						?>
+						
+						<tr>
+							<th style="text-align: center;"><img src="images/fotoprofil/<?php echo $row['foto']; ?>" style="border-radius: 50%; height: 50px;"></th>
+							<td style="text-align: center;"><?php echo $row['nama']; ?></td>
+							<td style="text-align: center;"><?php echo $row['nama_pelajaran']; ?></td>
+							<td style="text-align: center;">
+								<button class="btn btn-default" data-toggle="modal" data-target="#deleteGallery<?php echo $row['id']; ?>">Delete</button>
+							</td>
+						</tr>
+						<!-- BEGIN: MODAL DELETE GALLERY -->
+						<div class="modal fade" id="deleteGallery<?php echo $row['id'] ?>" tabindex="-1" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content c-square">
+									<div class="modal-body">
+										<h3 class="c-font-24 c-font-sbold">Are you sure want to delete Photo <?php echo $row['title']; ?></h3>
+										<div class="form-group">
+											<button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
+											<form method="POST" action="galleryController.php" style="display: inline-block;">
+												<input type="hidden" name="act" value="delete_gallery">
+												<input type="hidden" name="gallery_id" value="<?php echo $row['id']; ?>">
+												<button class="btn btn-info" >Delete</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END: MODAL DELETE GALLERY -->
+						<?php
+					}
+				}
+				?>
+			</tbody>
+		</table>
 	</div>
 	<!-- END: PAGE CONTENT -->
 </div>
@@ -46,7 +95,7 @@ if($_COOKIE['role'] != 'admin') {
 include_once 'layout/footer.php';
 ?>
 <script>
-	var table = $('#matpel').DataTable( {
+	var table = $('#relasimatpel').DataTable( {
 		lengthChange: false,
 		buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
 	} );

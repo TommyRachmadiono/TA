@@ -48,10 +48,26 @@ switch ($act) {
 	$result = $conn->query($sql2);
 	if ($result->num_rows > 0) {
 		while ($row = $result->fetch_assoc()) {
-			$path = 'tugas/'.$row['id'].' '.$row['namatugas'];
-			rmdir($path);
+			$dir = 'tugas/'.$row['id'].' '.$row['namatugas'];
 		}
 	}
+
+	//BUAT DELETE SUB-FOLDER + FILE YANG ADA DALAM FOLDER
+	function rrmdir($dir) { 
+		if (is_dir($dir)) { 
+			$objects = scandir($dir); 
+			foreach ($objects as $object) { 
+				if ($object != "." && $object != "..") { 
+					if (is_dir($dir."/".$object))
+						rrmdir($dir."/".$object);
+					else
+						unlink($dir."/".$object); 
+				} 
+			}
+			rmdir($dir); 
+		} 
+	}
+	rrmdir($dir);
 
 	$sql = "DELETE FROM tugas WHERE id = '$tugas_id'";
 	if (mysqli_query($conn, $sql)) {
@@ -119,10 +135,10 @@ switch ($act) {
 	case 'upload_tugas':
 	$tugas_id = mysqli_real_escape_string($conn, $_POST["tugas_id"]);
 	$user_id = $_COOKIE['user_id'];
+	$kelas = $_COOKIE['nama_kelas'];
 	$tgldibuat = date("Y/m/d");
 	$tglupload = date("YmdHis");
 	$file_name = basename($tglupload . $_FILES["file"]["name"]);
-	$kelas = $_COOKIE['nama_kelas'];
 
 	$sql = "SELECT * FROM tugas WHERE id = '$tugas_id'";
 	$result = $conn->query($sql);
@@ -131,7 +147,6 @@ switch ($act) {
 			$namatugas = $row['namatugas'];
 			$path = "tugas/".$tugas_id.' '.$namatugas.'/'.$kelas.'/';
 			$target_dir = $path;
-
 		}
 	}
 	
@@ -210,15 +225,27 @@ switch ($act) {
 	break;
 
 	case 'penilaian_massal':
+	$kelas = mysqli_real_escape_string($conn, $_POST["kelas"]);
 	$nilai = mysqli_real_escape_string($conn, $_POST["nilai"]);
 	$tugas_id = mysqli_real_escape_string($conn, $_POST["tugas_id"]);
+	$url = mysqli_real_escape_string($conn, $_POST["url"]);
 
-	$sql = "UPDATE user_has_tugas SET nilai = '$nilai' WHERE tugas_id = '$tugas_id'";
-	if (mysqli_query($conn, $sql)) {
-		echo '<script type="text/javascript">alert("Berhasil Mengupdate Semua Nilai"); </script>';
-		echo '<script type="text/javascript"> window.location = "tugas.php?id=' . $tugas_id . '" </script>';
+	if($kelas != NULL) {
+		$sql = "UPDATE user_has_tugas uht INNER JOIN user u ON uht.user_id = u.id SET uht.nilai = '$nilai' WHERE uht.tugas_id = '$tugas_id' AND u.kelas_id = $kelas";
+		if (mysqli_query($conn, $sql)) {
+			echo '<script type="text/javascript">alert("Berhasil Mengupdate Semua Nilai"); </script>';
+			echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
+		} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
 	} else {
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		$sql = "UPDATE user_has_tugas SET nilai = '$nilai' WHERE tugas_id = '$tugas_id'";
+		if (mysqli_query($conn, $sql)) {
+			echo '<script type="text/javascript">alert("Berhasil Mengupdate Semua Nilai"); </script>';
+			echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
+		} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
 	}
 	break;
 
@@ -347,5 +374,19 @@ switch ($act) {
 		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 	}	
 	break;
+
+	case 'edit_topik':
+	$matpel_id = mysqli_real_escape_string($conn, $_POST["matpel_id"]);
+	$week_id = mysqli_real_escape_string($conn, $_POST["week_id"]);
+	$title = mysqli_real_escape_string($conn, $_POST["title"]);
+	$description = mysqli_real_escape_string($conn, $_POST["description"]);
+
+	$sql = "UPDATE matpel_has_week SET title = '$title', description = '$description' WHERE matpel_id = '$matpel_id' AND week_id = '$week_id'";
+	if (mysqli_query($conn, $sql)) {
+		echo '<script type="text/javascript">alert("Berhasil Mengupdate Topik dan Deskripsi Week' . $week_id . '") </script>';
+		echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id='.$matpel_id.'" </script>';
+	}
+	break;
+
 }
 ?>

@@ -52,6 +52,7 @@ switch ($act) {
         }
     }
     break;
+
     case 'comment_feeds':
     $comment = mysqli_real_escape_string($conn, $_POST["comment"]);
     $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
@@ -68,6 +69,7 @@ switch ($act) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
     break;
+
     case 'posting_group':
     $isi = mysqli_real_escape_string($conn, $_POST["textarea"]);
     $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
@@ -122,6 +124,7 @@ switch ($act) {
         }
     }
     break;
+
     case 'comment_feeds_group':
     $comment = mysqli_real_escape_string($conn, $_POST["comment"]);
     $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
@@ -138,6 +141,7 @@ switch ($act) {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
     break;
+
     case 'like':
     if (isset($_POST['like'])) {
 
@@ -151,6 +155,7 @@ switch ($act) {
         }
     }
     break;
+
     case 'show_like':
     if (isset($_POST['showlike'])) {
         $id = $_POST['id'];
@@ -212,9 +217,35 @@ switch ($act) {
         } else {
             echo "Error updating record: " . mysqli_error($conn);
         }
-    } else {
-        echo "Error : " . mysqli_error($conn);
     }
     break;
+
+    case 'report':
+    if (isset($_POST['report'])) {
+        $id = $_POST['id'];
+        $user_id = $_COOKIE['user_id'];
+
+        $query = mysqli_query($conn, "SELECT * FROM report WHERE postingan_id='$id' AND user_id = '$user_id'") or die(mysqli_error());
+        if (mysqli_num_rows($query) > 0) {
+            mysqli_query($conn, "DELETE FROM report WHERE user_id = '$user_id' AND post_id='$id'");
+        } else {
+            mysqli_query($conn, "INSERT INTO report (user_id,postingan_id) VALUES ('$user_id', '$id')");
+        }
+    }
+    break;
+
+    case 'edit_status':
+    $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
+    $isi = mysqli_real_escape_string($conn, $_POST["isi"]);
+
+    $sql = "UPDATE postingan SET isi='$isi' WHERE idpostingan='$idpostingan'";
+    if (mysqli_query($conn, $sql)) {
+        echo '<script type="text/javascript">alert("Berhasil Mengubah Status"); </script>';
+        echo '<script type="text/javascript"> window.location = "index.php" </script>';
+    } else {
+        echo "Error updating record: " . mysqli_error($conn);
+    }
+    break;
+
 }
 ?>

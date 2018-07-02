@@ -13,7 +13,7 @@ switch ($act) {
 
 	$sql = "INSERT INTO grup (topik_grup, user_id, tgl_dibuat)
 	VALUES ('$topic_discussion', '$user_id', '$tgl_dibuat')";
-		if ($conn->query($sql) === TRUE) {
+	if ($conn->query($sql) === TRUE) {
 		$query = "SELECT * FROM `grup` order by id DESC LIMIT 1";
 		$result = $conn->query($query);
 		if ($result->num_rows > 0) {
@@ -32,17 +32,43 @@ switch ($act) {
 	}
 	break;
 
-	case 'invite_member':
-		$member_id = $_POST['member_id'];
-		$group_id = $_POST['group_id'];
-		$tgl_join = date("Y/m/d");
+	case 'delete_group':
+	$grup_id = $_POST['grup_id'];
+	$sql = "DELETE FROM grup WHERE id = '$grup_id'";
+	if($conn->query($sql) === TRUE) {
+		echo '<script type="text/javascript">alert("Berhasil menghapus grup"); </script>';
+		echo '<script type="text/javascript"> window.location = "index.php" </script>';
+	}  else {
+		echo "Error: " . $sql . "<br>" . $conn->error;
+	}
+	break;
 
-		$sql = "INSERT INTO anggota (grup_id, user_id, tgl_join) 
-		VALUES ('$group_id', '$member_id', '$tgl_join')";
-		if($conn->query($sql) === TRUE) {
-			echo '<script type="text/javascript">alert("User '. $member_id . ' has been invited to group"); </script>';
-			echo '<script type="text/javascript"> window.location = "group_page.php?id=' . $group_id . '" </script>';
-		} 
+	case 'invite_member':
+	$member_id = $_POST['member_id'];
+	$group_id = $_POST['group_id'];
+	$tgl_join = date("Y/m/d");
+
+	$sql = "INSERT INTO anggota (grup_id, user_id, tgl_join) 
+	VALUES ('$group_id', '$member_id', '$tgl_join')";
+	if($conn->query($sql) === TRUE) {
+		echo '<script type="text/javascript">alert("User '. $member_id . ' has been invited to group"); </script>';
+		echo '<script type="text/javascript"> window.location = "group_page.php?id=' . $group_id . '" </script>';
+	}  else {
+		echo "Error: " . $sql . "<br>" . $conn->error;
+	}
+	break;
+
+	case 'kick_member':
+	$member_id = $_POST['member_id'];
+	$group_id = $_POST['group_id'];
+
+	$sql = "DELETE FROM anggota WHERE grup_id = '$group_id' AND user_id = '$member_id'";
+	if($conn->query($sql) === TRUE) {
+		echo '<script type="text/javascript">alert("Berhasil mengeluarkan user '.$member_id.' dari grup"); </script>';
+		echo '<script type="text/javascript"> window.location = "group_page.php?id=' . $group_id . '" </script>';
+	}  else {
+		echo "Error: " . $sql . "<br>" . $conn->error;
+	}
 	break;
 }
 ?>

@@ -26,6 +26,31 @@
 </div>
 <!-- END MODAL CREATE GROUP -->
 
+<!-- MODAL DISBAND GROUP -->
+<div class="modal fade c-content-login-form" id="delete-group" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content c-square">
+            <div class="modal-header c-no-border">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="c-font-24 c-font-sbold">Are you sure to disband this group?</h3>
+                
+                <button  data-dismiss="modal"  class="btn btn-danger" style="margin-top: 2%;">Cancel</button>
+                <form action="groupController.php" method="POST" style="display: inline-block;">
+                    <input type="hidden" name="act" value="delete_group">
+                    <input type="hidden" name="grup_id" value="<?php echo $group_id ?>">
+                    <button class="btn btn-info" style="vertical-align: top !important; margin-top: 0;"> Disband</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL DISBAND GROUP -->
+
 <!-- MODAL INVITE MEMBER -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" id="invite-member" role="dialog" style="margin-top: 5%;">
     <div class="modal-dialog">
@@ -91,11 +116,17 @@
                                 <th style="text-align: center;">User ID</th>
                                 <th style="text-align: center;">Nama User</th>
                                 <th style="text-align: center;">Username</th>
+                                <?php 
+                                $sql = "SELECT * FROM user u INNER JOIN grup g on u.id = g.user_id WHERE u.id = $user_id AND g.id=$group_id";
+                                $result = $conn->query($sql);
+                                if ($result->num_rows > 0) { ?>
+                                <th style="text-align: center;">Action</th>
+                                <?php } ?>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            $query = mysqli_query($conn, "SELECT u.id, u.nama, u.username FROM user u INNER JOIN anggota a on u.id=a.user_id WHERE a.grup_id=$group_id") or die(mysqli_error());
+                            $query = mysqli_query($conn, "SELECT u.id, u.nama, u.username FROM user u INNER JOIN anggota a on u.id=a.user_id WHERE a.grup_id=$group_id AND u.id != $user_id") or die(mysqli_error());
                             if (mysqli_num_rows($query) > 0) {
                                 while ($row = mysqli_fetch_assoc($query)) {
                                     ?>
@@ -103,6 +134,19 @@
                                         <th style="text-align: center;"><?php echo $row['id'] ?></th>
                                         <td style="text-align: center;"><?php echo $row['nama'] ?></td>
                                         <td style="text-align: center;"><?php echo $row['username'] ?></td>
+                                        <?php 
+                                        $sql = "SELECT * FROM user u INNER JOIN grup g on u.id = g.user_id WHERE u.id = $user_id AND g.id=$group_id";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) { ?>
+                                        <td style="text-align: center;">
+                                            <form action="groupController.php" method="POST">
+                                                <input type="hidden" value="kick_member" name="act">
+                                                <input type="hidden" value="<?php echo $row['id'] ?>" name="member_id">
+                                                <input type="hidden" value="<?php echo $group_id; ?>" name="group_id">
+                                                <button class="btn btn-danger">Kick</button>
+                                            </form>
+                                        </td>
+                                        <?php } ?>
                                     </tr>
                                     <?php }
                                 }

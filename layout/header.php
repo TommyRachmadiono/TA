@@ -58,6 +58,7 @@ if(isset($_SESSION['login'])){
         $user_id = $_COOKIE['user_id'];
     }
 }
+$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 $menuHome = '';
 $menuGallery = '';
@@ -164,6 +165,9 @@ if (isset($_COOKIE["login"])) {
                                                 </li>
                                                 <li>
                                                     <a href="relasi_user_matpel.php" class="c-link dropdown-toggle">Relasi User Matpel <i class="fa fa-user-plus"></i> </a>
+                                                </li>
+                                                <li>
+                                                    <a href="report.php" class="c-link dropdown-toggle">Report <i class="fa fa-warning"></i> </a>
                                                 </li>
                                                 <?php } ?>
                                                 <li>
