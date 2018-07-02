@@ -137,6 +137,28 @@ if(mysqli_query($conn,$sql)) {
 }
 break;
 
+case 'update_relasi':
+$url = mysqli_real_escape_string($conn, $_POST["url"]);
+$user_id = mysqli_real_escape_string($conn, $_POST["user_id"]);
+
+$sql = "DELETE FROM relasi_user_matpel WHERE user_id = '$user_id'";
+if(mysqli_query($conn,$sql)) {
+	foreach ($_POST['matpel'] as $matpel_id) {
+		$sql2 = "INSERT INTO relasi_user_matpel (user_id, matpel_id)
+		VALUES ('$user_id', '$matpel_id')";
+		if (mysqli_query($conn, $sql2)) {
+			echo '<script type="text/javascript">alert("matpel id '.$matpel_id.'"); </script>';
+		} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		}
+	}
+	echo '<script type="text/javascript">alert("Berhasil edit relasi"); </script>';
+	echo '<script type="text/javascript"> window.location = "'.$url.'" </script>';
+} else {
+	echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+break;
+
 }
 
 ?>
