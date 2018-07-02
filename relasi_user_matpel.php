@@ -47,6 +47,7 @@ if($_COOKIE['role'] != 'admin') {
 			</thead>
 			<tbody>
 				<?php
+				//QUERY SELECT * FROM RELASI USER MATPEL DISTICT USER
 				$sql2 = "select u.nama,u.foto,m.nama_pelajaran from user u inner join relasi_user_matpel rum ON u.id = rum.user_id INNER JOIN matpel m ON rum.matpel_id = m.id";
 				$result2 = $conn->query($sql2);
 				if ($result2->num_rows > 0) {
@@ -56,7 +57,14 @@ if($_COOKIE['role'] != 'admin') {
 						<tr>
 							<th style="text-align: center;"><img src="images/fotoprofil/<?php echo $row['foto']; ?>" style="border-radius: 50%; height: 50px;"></th>
 							<td style="text-align: center;"><?php echo $row['nama']; ?></td>
-							<td style="text-align: center;"><?php echo $row['nama_pelajaran']; ?></td>
+							<td style="text-align: center;"><?php 
+
+							// echo $row['nama_pelajaran']; 
+							//QUERY select * from user inner join relasi_user_matpel on user.id = relasi_user_matpel.user_id INNER JOIN matpel on relasi_user_matpel.matpel_id = matpel.id WHERE user.id= (USER)
+							//di while terus di echo
+
+
+							?></td>
 							<td style="text-align: center;">
 								<button class="btn btn-default" data-toggle="modal" data-target="#deleteGallery<?php echo $row['id']; ?>">Delete</button>
 							</td>
