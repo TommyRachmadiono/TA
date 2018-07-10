@@ -52,12 +52,20 @@
 </head>
 
 <?php
-if(isset($_SESSION['login'])){
-    if($_SESSION['login'] == true){
-        include 'config/connectdb.php';
-        $user_id = $_COOKIE['user_id'];
-    }
+if (isset($_COOKIE["login"])) {
+    $_SESSION["login"] = $_COOKIE["login"];
+} else {
+    $_SESSION["login"] = false;
 }
+
+if($_SESSION['login'] == true){
+    echo $_SESSION['login'];
+    include 'config/connectdb.php';
+    $user_id = $_COOKIE['user_id'];
+} else {
+        //do nothing
+}
+
 $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 $menuHome = '';
@@ -78,11 +86,7 @@ if (isset($_SESSION['menuHeader'])) {
         $menuStudentAchievement = 'class="c-active"';
     }
 }
-if (isset($_COOKIE["login"])) {
-    $_SESSION["login"] = $_COOKIE["login"];
-} else {
-    $_SESSION["login"] = false;
-}
+
 ?>
 
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed">

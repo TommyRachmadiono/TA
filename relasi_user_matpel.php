@@ -70,12 +70,12 @@ if($_COOKIE['role'] != 'admin') {
 				if (isset($_GET['select-role'])) {
                     $role = $_GET['select-role'];
                     if ($role != "") {
-                        $sql2 = "select distinct u.id as u_id, u.role, u.nama,u.foto from user u inner join relasi_user_matpel rum ON u.id = rum.user_id WHERE role = '$role'";
+                        $sql2 = "select distinct u.id as u_id, u.role, u.nama,u.foto from user u left join relasi_user_matpel rum ON u.id = rum.user_id WHERE u.role = '$role'";
                     } else {
-                       $sql2 = "select distinct u.id as u_id, u.role, u.nama,u.foto from user u inner join relasi_user_matpel rum ON u.id = rum.user_id";
+                       $sql2 = "select distinct u.id as u_id, u.role, u.nama,u.foto from user u left join relasi_user_matpel rum ON u.id = rum.user_id WHERE NOT (role ='admin' OR role = 'ortu')";
                     }
                 } else {
-                    $sql2 = "select distinct u.id as u_id, u.role, u.nama,u.foto from user u inner join relasi_user_matpel rum ON u.id = rum.user_id";
+                    $sql2 = "select distinct u.id as u_id, u.role, u.nama,u.foto from user u left join relasi_user_matpel rum ON u.id = rum.user_id WHERE NOT (role ='admin' OR role = 'ortu')";
                 }
 				
 				$result2 = $conn->query($sql2);

@@ -6,8 +6,8 @@ unset($_SESSION["username"]);
 setcookie("login", true, time()-1);
 setcookie("user_id", true, time()-1);
 setcookie("username", true, time()-1);
-setcookie(("role"), true, time()-1);
-setcookie(("nama_kelas"), true, time()-1);
+setcookie("role", true, time()-1);
+setcookie("nama_kelas", true, time()-1);
 
 session_unset(); 
 session_destroy();

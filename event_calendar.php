@@ -117,8 +117,6 @@ if ($_SESSION["login"] == false) {
 <!-- END MODAL CREATE EVENT -->
 
 <!-- MODAL DETAIL EVENT -->
-
-<!-- END MODAL DETAIL EVENT -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" id="detail-event" role="dialog" style="margin-top: 5%;">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content c-square">
@@ -153,13 +151,11 @@ if ($_SESSION["login"] == false) {
 																<td style="text-align: center;"><?php echo $row['description']; ?></td>
 																<td style="text-align: center;"><?php echo $row['start_date']; ?></td>
 																<td style="text-align: center;"><?php echo $row['end_date']; ?></td>
-																<?php if($_SESSION['role']=='guru'){ ?>
+																<?php if($_COOKIE['role']=='guru' || $_COOKIE['role']=='admin'){ ?>
 																<td style="text-align: center;">
 
-																	<form action="#" method="POST">
-																		<input type="hidden" value="invite_member" name="act">
-
-																		<input type="hidden" value="" name="">
+																	<form action="delete_event.php" method="POST">
+																		<input type="hidden" value="<?php echo $row['id']; ?>" name="event_id">
 																		<button class="btn btn-default">Delete</button>
 																	</form>
 																</td>
@@ -174,7 +170,7 @@ if ($_SESSION["login"] == false) {
 									</div>
 								</div>
 							</div>
-
+<!-- END MODAL DETAIL EVENT -->
 							<script>
 								var table = $('#example3').DataTable( {
 									lengthChange: false,

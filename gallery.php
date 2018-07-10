@@ -131,7 +131,7 @@ if ($_SESSION["login"] == false) {
                     <a href="ajax/fullwidth-gallery/load-more.html?test=1" class="cbp-l-loadMore-link btn c-btn-square c-btn-border-2x c-btn-dark c-btn-bold c-btn-uppercase">
                         <span class="cbp-l-loadMore-defaultText">LOAD MORE</span>
                         <span class="cbp-l-loadMore-loadingText">LOADING...</span>
-                        <span class="cbp-l-loadMore-noMoreLoading">NO MORE WORKS</span>
+                        <span class="cbp-l-loadMore-noMoreLoading">NO MORE PHOTO</span>
                     </a>
                 </div>
             </div>
@@ -168,7 +168,7 @@ if ($_SESSION["login"] == false) {
                             <div class="form-group">
                                 <label for="create-group" class="">Your Photo</label>
                                 <input type="file" class="form-control input-lg c-square" name="file" required=""> 
-
+                                <span class="help-block">For better experience use <b>600x600</b> photo</span>
                                 <label for="create-group" class="">Title</label>
                                 <input type="text" class="form-control input-lg c-square" placeholder="Title" name="title" required=""> 
                                 <input type="hidden" name="act" value="add_gallery">

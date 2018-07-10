@@ -33,7 +33,8 @@ if ($_SESSION["login"] == false) {
 		<table id="tabel-report" class="table table-hover table-bordered">
 			<thead>
 				<tr>
-					<th style="text-align: center;">ID Postingan</th>
+					<th style="text-align: center;">ID</th>
+					<th style="text-align: center;">File</th>
 					<th style="text-align: center;">Postingan</th>
 					<th style="text-align: center;">Jumlah Report</th>
 					<th style="text-align: center;">Action</th>
@@ -42,14 +43,27 @@ if ($_SESSION["login"] == false) {
 			<tbody>
 				<?php
 
-				$sql = "SELECT r.postingan_id as id, SUM(r.postingan_id) as Jumlah_Report, p.isi FROM report r INNER JOIN postingan p on r.postingan_id = p.idpostingan";
+				$sql = "SELECT p.file,r.postingan_id as id, COUNT(r.postingan_id) as Jumlah_Report, p.isi FROM report r INNER JOIN postingan p on r.postingan_id = p.idpostingan GROUP BY r.postingan_id";
 				$result = $conn->query($sql);
 				if ($result->num_rows > 0) {
 					while ($row = $result->fetch_assoc()) {
 						if($row['Jumlah_Report'] != NULL) {
+						$file = $row['file'];
 						?>
 						<tr>
 							<td style="text-align: center;"><?php echo $row['id']; ?></td>
+							<?php
+							if (!empty($file)) { 
+							$info = pathinfo($file);
+                            $ext = $info['extension'];
+                            if ($ext == "jpg" || $ext == "png" || $ext == "jpeg") {
+							?>
+							<td style="text-align: center;"><img src="postingan/<?php echo $file; ?>" style="height: 100px; width: 250px;"></td>
+							<?php } else { ?>
+							<td style="text-align: center;"><a href="postingan/<?php echo $file ?>" download=""><?php echo $file ?></a></td>
+							<?php }} else { ?>
+							<td style="text-align: center;">Tidak Ada Attachment</td>
+							<?php } ?>
 							<td style="text-align: center;"><?php echo $row['isi']; ?></td>
 							<td style="text-align: center;"><?php echo $row['Jumlah_Report']; ?></td>
 							<td style="text-align: center;">

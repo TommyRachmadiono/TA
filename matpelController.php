@@ -129,7 +129,6 @@ switch ($act) {
 		echo '<script type="text/javascript">alert("Berhasil Menghapus Materi"); </script>';
 		echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
 	}
-
 	break;
 
 	case 'upload_tugas':
