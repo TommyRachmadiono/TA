@@ -195,7 +195,7 @@ $_SESSION['count'] = 0;
                                     </div>
 
                                     <div class="col-md-6" style="margin: 0; padding: 0;">
-                                        <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $_SESSION['count'] ?>').focus(); return false;">
+                                        <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $_SESSION['count'] ?>').getElementsByClassName('txtkomen')[0].focus()">
                                             <button class="btn btn-default" style="width: 100%;">         
                                                 <i class="fa fa-comment-o"></i>Komentar
                                             </button></div>
@@ -301,10 +301,13 @@ $_SESSION['count'] = 0;
                                         <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php" id="posting_komentar">
                                             <div class="row">
                                                 <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
-
                                                     <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
                                                     <input type="hidden" name="act" value="comment_feeds">
-                                                    <input type="text" placeholder="Tuliskan komentar anda" class="form-control" id="komen<?php echo $_SESSION['count'] ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
+                                                    
+                                                    <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
+                                                    <textarea name="comment" id="txtareakomen"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
+                                                   </div>
+                                                   <input type="submit" name="submit" id="submit" style="display: none;">
                                                 </div>
                                             </div>
                                         </form>

@@ -27,7 +27,7 @@ if (isset($_GET["id"])) {
 
     <div class="c-layout-page">
         <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
-        <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold" style="background-color: cyan;">
+        <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold" style="background-color: cyan; padding-bottom: 2.3%;">
             <div class="container">
                 <div class="c-page-title c-pull-left">
                     <img style="border-width: 3px; border-style: solid; border-color: black; height: 180px; margin-left: 15%; border-radius: 50%; width: 190px;" src="images/fotoprofil/<?php echo $_COOKIE['foto_profil'] ?>">
@@ -66,7 +66,7 @@ if (isset($_GET["id"])) {
                     <form method="POST" action="postingController.php" enctype="multipart/form-data" id="posting_status">
                         <input type="hidden" name="act" value="posting_group">
                         <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
-                        <textarea class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="What's on your mind?"></textarea>
+                        <textarea class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="Apa yang anda pikirkan?"></textarea>
                         <input type="submit" value="KIRIM" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
 
                         <button id="btnfile" type="button" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%;">
@@ -218,7 +218,7 @@ if (isset($_GET["id"])) {
                                     </div>
 
                                     <div class="col-md-6" style="margin: 0; padding: 0;">
-                                        <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $_SESSION['count'] ?>').focus(); return false;">
+                                        <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $_SESSION['count'] ?>').getElementsByClassName('txtkomen')[0].focus()">
                                             <button class="btn btn-default" style="width: 100%;">         
                                                 <i class="fa fa-comment-o"></i>Komentar
                                             </button></div>
@@ -323,7 +323,10 @@ if (isset($_GET["id"])) {
                                                     <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
                                                     <input type="hidden" name="act" value="comment_feeds_group">
                                                     <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
-                                                    <input type="text" placeholder="Write a comment" class="form-control" id="komen<?php echo $_SESSION['count'] ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
+                                                    
+                                                    <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
+                                                    <textarea name="comment" id="txtareakomen"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
+                                                   </div>
 
                                                 </div>
                                             </div>
@@ -339,7 +342,7 @@ if (isset($_GET["id"])) {
 
                 <?php } else {
                     ?>
-                    <div id="postterakhir" lastID="0" groupID="" act=""><h>BELOM ADA KONTEN</h></div>
+                    <div id="postterakhir" lastID="0" groupID="" act=""><h>Belum Ada Postingan</h></div>
                 <?php } ?>
             </div>
 

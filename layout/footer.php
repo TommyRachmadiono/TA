@@ -1,90 +1,90 @@
 <!-- BEGIN: LAYOUT/FOOTERS/FOOTER-5 -->
 <footer class="c-layout-footer c-layout-footer-3 c-bg-dark">
-            <div class="c-prefooter">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="c-container c-first">
-                                <div class="c-content-title-1">
-                                    <h3 class="c-font-uppercase c-font-bold c-font-white">Sekolah X Surabaya
-                                        
-                                    </h3>
-                                    <div class="c-line-left hide"></div>
-                                    <p class="c-text"> Sekolah X merupakan sekolah favorit di daerah surabaya X. Bergabunglah bersama kami dan raihlah prestasi. Kami sangat mengapresiasi bakat dan minat peserta didik.</p>
-                                </div>
-                                <ul class="c-links">
-                                    <li>
-                                        <a href="index.php">Home</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Galeri</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Kalendar Kegiatan</a>
-                                    </li>
-                                    <li>
-                                        <a href="contactUs.php">Prestasi Sekolah</a>
-                                    </li>
-                                </ul>
-                            </div>
+    <div class="c-prefooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="c-container c-first">
+                        <div class="c-content-title-1">
+                            <h3 class="c-font-uppercase c-font-bold c-font-white">Sekolah X Surabaya
+
+                            </h3>
+                            <div class="c-line-left hide"></div>
+                            <p class="c-text"> Sekolah X merupakan sekolah favorit di daerah surabaya X. Bergabunglah bersama kami dan raihlah prestasi. Kami sangat mengapresiasi bakat dan minat peserta didik.</p>
                         </div>
-                        
-                        
-                        <div class="col-md-9">
-                            <div class="c-container c-last">
-                                <div class="c-content-title-1">
-                                    <h3 class="c-font-uppercase c-font-bold c-font-white">Temukan Kami</h3>
-                                    <div class="c-line-left hide"></div>
-                                    <p> Kami memberikan kebebasan kepada anda untuk bertanya lebih lanjut mengenai informasi penggunaan aplikasi ini. Jika mengalami kesulitan dalam menggunakan aplikasi ini silahkan kontak kami melalui alamat yang ada. Saran dan kritik anda sangat berarti untuk kami.</p>
-                                </div>
-                                <ul class="c-socials">
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-social-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-social-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-social-youtube"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-social-tumblr"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul class="c-address">
-                                    <li>
-                                        <i class="icon-pointer c-theme-font"></i> <a class="c-font-white" href="https://www.google.co.id/maps/place/Excellent+Education/@-7.4454015,112.6968461,16.38z/data=!4m5!3m4!1s0x2dd7e14166305759:0x6d4f9a7543bcc7a7!8m2!3d-7.446423!4d112.695589">
-                                        Tenggilis Mejoyo – 5, RT 00, RW 00, Kel. X, Surabaya, Jawa Timur</a></li>
-                                    <li class="c-font-white">
-                                        <i class="icon-call-end c-theme-font"></i> 0812-0000-0000 (HP) / WhatsApp: 0838-0000-0000</li>
+                        <ul class="c-links">
+                            <li>
+                                <a href="index.php">Home</a>
+                            </li>
+                            <li>
+                                <a href="#">Galeri</a>
+                            </li>
+                            <li>
+                                <a href="#">Kalendar Kegiatan</a>
+                            </li>
+                            <li>
+                                <a href="contactUs.php">Prestasi Sekolah</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="col-md-9">
+                    <div class="c-container c-last">
+                        <div class="c-content-title-1">
+                            <h3 class="c-font-uppercase c-font-bold c-font-white">Temukan Kami</h3>
+                            <div class="c-line-left hide"></div>
+                            <p> Kami memberikan kebebasan kepada anda untuk bertanya lebih lanjut mengenai informasi penggunaan aplikasi ini. Jika mengalami kesulitan dalam menggunakan aplikasi ini silahkan kontak kami melalui alamat yang ada. Saran dan kritik anda sangat berarti untuk kami.</p>
+                        </div>
+                        <ul class="c-socials">
+                            <li>
+                                <a href="#">
+                                    <i class="icon-social-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-social-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-social-youtube"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-social-tumblr"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="c-address">
+                            <li>
+                                <i class="icon-pointer c-theme-font"></i> <a class="c-font-white" href="https://www.google.co.id/maps/place/Excellent+Education/@-7.4454015,112.6968461,16.38z/data=!4m5!3m4!1s0x2dd7e14166305759:0x6d4f9a7543bcc7a7!8m2!3d-7.446423!4d112.695589">
+                                Tenggilis Mejoyo – 5, RT 00, RW 00, Kel. X, Surabaya, Jawa Timur</a></li>
+                                <li class="c-font-white">
+                                    <i class="icon-call-end c-theme-font"></i> 0812-0000-0000 (HP) / WhatsApp: 0838-0000-0000</li>
                                     <li class="c-font-white">
                                         <i class="icon-envelope c-theme-font"></i> mail@example.com</li>
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="c-postfooter c-bg-dark-2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12 c-col">
-                            <p class="c-copyright c-font-grey">2018 © TOMMY
-                                <span class="c-font-grey-3">All Rights Reserved.</span>
-                            </p>
+                <div class="c-postfooter c-bg-dark-2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 c-col">
+                                <p class="c-copyright c-font-grey">2018 © TOMMY
+                                    <span class="c-font-grey-3">All Rights Reserved.</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
 
 
             <!-- END: LAYOUT/FOOTERS/FOOTER-5 -->
@@ -169,39 +169,49 @@
             });
         </script> -->
 
-        <script>
-            var table = $('#example').DataTable( {
-                lengthChange: false,
-                buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
-            } );
-            var table = $('#example2').DataTable( {
-                lengthChange: false,
-                buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
-            } );
+        <script type="text/javascript">
+         function submitOnEnter(event){
+            if(event.which === 13 && !event.shiftKey){
+                event.target.form.dispatchEvent(new Event("submit", {cancelable: true}));
+        event.preventDefault(); // Prevents the addition of a new line in the text field (not needed in a lot of cases)
+    }
+}
+document.getElementById("txtareakomen").addEventListener("keydown", submitOnEnter);
+</script>
 
-        </script>
+<script>
+    var table = $('#example').DataTable( {
+        lengthChange: false,
+        buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+    } );
+    var table = $('#example2').DataTable( {
+        lengthChange: false,
+        buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+    } );
 
-        <!-- INI SCRIPT BUAT UPLOAD FILE -->
-        <script>
-            $('#btnfile').click(function(){
-                $('#file').trigger('click');
-            });
+</script>
 
-            $('input[type="file"]').change(function() {
-                if ($(this).val()) {
-                    error = false;
+<!-- INI SCRIPT BUAT UPLOAD FILE -->
+<script>
+    $('#btnfile').click(function(){
+        $('#file').trigger('click');
+    });
 
-                    var filename = $(this).val();
+    $('input[type="file"]').change(function() {
+        if ($(this).val()) {
+            error = false;
 
-                    $(this).closest('.posting').find('.file-name').html(filename);
+            var filename = $(this).val();
 
-                    if (error) {
-                        parent.addClass('error').prepend.after('<div class="alert alert-error">' + error + '</div>');
-                    }
-                }
-            });
-        </script>
+            $(this).closest('.posting').find('.file-name').html(filename);
+
+            if (error) {
+                parent.addClass('error').prepend.after('<div class="alert alert-error">' + error + '</div>');
+            }
+        }
+    });
+</script>
 
 
-    </body>
-    </html>
+</body>
+</html>

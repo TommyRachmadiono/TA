@@ -32,7 +32,6 @@ $("#posting_komentar").submit(function(event){
     });
 });
 
-
 // setTimeout(function()
 // {
 //     $.ajax({

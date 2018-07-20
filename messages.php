@@ -76,6 +76,7 @@ if (mysqli_query($conn, $query)) {
         </div>
     </div>
     <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-3 -->
+    
     <div style="margin-left: 10%;margin-right: 10%; margin-top: 2%;">
         <?php
         $sql = "SELECT * FROM conversation_reply cr INNER JOIN user u on cr.fk_id_pengirim = u.id WHERE fk_c_id = '$c_id' ORDER BY time asc";

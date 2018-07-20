@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2018 at 04:44 PM
+-- Generation Time: Jul 20, 2018 at 06:28 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `achievement` (
   `id` int(11) NOT NULL,
   `title` varchar(50) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `description` varchar(1000) DEFAULT NULL,
   `file` varchar(255) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -41,16 +41,12 @@ CREATE TABLE `achievement` (
 --
 
 INSERT INTO `achievement` (`id`, `title`, `description`, `file`, `user_id`) VALUES
-(1, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '1.jpg', 1),
-(2, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '2.jpg', 1),
-(3, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '3.jpg', 1),
-(4, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '4.jpg', 1),
-(5, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '5.jpg', 1),
-(6, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '6.jpg', 1),
-(7, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '7.jpg', 1),
-(8, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '8.jpg', 1),
-(9, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '9.jpg', 1),
-(10, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '10.jpg', 1);
+(1, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\nLorem ipsum dolor sit amet, cons', 'a1.jpg', 1),
+(2, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, co', 'a2.jpg', 1),
+(3, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, co', 'a3.jpg', 1),
+(4, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, co', 'a4.jpg', 1),
+(5, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, co', 'a5.jpg', 1),
+(6, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, co', 'a6.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -69,8 +65,7 @@ CREATE TABLE `anggota` (
 --
 
 INSERT INTO `anggota` (`grup_id`, `user_id`, `tgl_join`) VALUES
-(2, 2, '2018-06-26'),
-(2, 3, '2018-06-26');
+(1, 39, '2018-07-15');
 
 -- --------------------------------------------------------
 
@@ -84,6 +79,14 @@ CREATE TABLE `conversation` (
   `id_penerima` int(11) NOT NULL,
   `time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `conversation`
+--
+
+INSERT INTO `conversation` (`c_id`, `id_pengirim`, `id_penerima`, `time`) VALUES
+(9, 39, 29, '2018-07-11 18:23:40'),
+(11, 39, 30, '2018-07-12 08:57:41');
 
 -- --------------------------------------------------------
 
@@ -100,6 +103,16 @@ CREATE TABLE `conversation_reply` (
   `seen` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `conversation_reply`
+--
+
+INSERT INTO `conversation_reply` (`cr_id`, `reply`, `fk_id_pengirim`, `time`, `fk_c_id`, `seen`) VALUES
+(1, 'Putra/i anda mendapatkan nilai 55 dari tugas Tugas Week 1 pada pelajaran Matematika.', 39, '2018-07-11 18:23:40', 9, 1),
+(2, 'Putra/i anda mendapatkan nilai 100 dari tugas <b>Tugas Week 1</b> pada pelajaran <b>Matematika</b>.', 39, '2018-07-11 18:28:20', 9, 1),
+(3, 'Putra/i anda mendapatkan nilai 88 dari tugas <b>Tugas Week 1</b> pada pelajaran <b>Matematika</b>.', 39, '2018-07-11 18:29:52', 9, 0),
+(6, 'Putra/i anda mendapatkan nilai 32 dari tugas <b>Tugas Week 1</b> pada pelajaran <b>Matematika</b>.', 39, '2018-07-12 08:57:41', 11, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -109,12 +122,19 @@ CREATE TABLE `conversation_reply` (
 CREATE TABLE `events` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `description` varchar(500) DEFAULT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
   `created` date NOT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `title`, `description`, `start_date`, `end_date`, `created`, `user_id`) VALUES
+(1, 'Event Sekolah', '', '2018-07-15', '2018-07-15', '2018-07-15', 1);
 
 -- --------------------------------------------------------
 
@@ -134,16 +154,15 @@ CREATE TABLE `gallery` (
 --
 
 INSERT INTO `gallery` (`id`, `title`, `file`, `user_id`) VALUES
-(1, 'Lorem Ipsum', '1.jpg', 1),
-(2, 'Lorem Ipsum', '2.jpg', 1),
-(3, 'Lorem Ipsum', '3.jpg', 1),
-(4, 'Lorem Ipsum', '4.jpg', 1),
-(5, 'Lorem Ipsum', '5.jpg', 1),
-(6, 'Lorem Ipsum', '6.jpg', 1),
-(7, 'Lorem Ipsum', '01.jpg', 1),
-(8, 'Lorem Ipsum', '02.jpg', 1),
-(9, 'Lorem Ipsum', '03.jpg', 1),
-(10, 'Lorem Ipsum', '04.jpg', 1);
+(1, 'Lorem Ipsum', 's1.jpg', 1),
+(2, 'Lorem Ipsum', 's2.jpg', 1),
+(3, 'Lorem Ipsum', 's3.jpg', 1),
+(4, 'Lorem Ipsum', 's4.jpg', 1),
+(5, 'Lorem Ipsum', 's5.jpg', 1),
+(6, 'Lorem Ipsum', 's6.jpg', 1),
+(7, 'Lorem Ipsum', 's7.jpg', 1),
+(9, 'Lorem Ipsum', 's9.jpg', 1),
+(10, 'Lorem Ipsum', 's10.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -163,7 +182,7 @@ CREATE TABLE `grup` (
 --
 
 INSERT INTO `grup` (`id`, `topik_grup`, `user_id`, `tgl_dibuat`) VALUES
-(2, 'New', 2, '2018-06-26');
+(1, 'groupKu', 39, '2018-07-15');
 
 -- --------------------------------------------------------
 
@@ -182,7 +201,10 @@ CREATE TABLE `kelas` (
 
 INSERT INTO `kelas` (`id`, `nama_kelas`) VALUES
 (1, '10 IPA 1'),
-(2, '10 IPA 2');
+(2, '10 IPA 2'),
+(3, '10 IPS 1'),
+(4, '10 IPS 2'),
+(5, '11 IPA 1');
 
 -- --------------------------------------------------------
 
@@ -202,8 +224,14 @@ CREATE TABLE `komentar` (
 --
 
 INSERT INTO `komentar` (`idkomentar`, `isi`, `user_id`, `postingan_idpostingan`) VALUES
-(1, 'HEHEHE', 3, 2),
-(2, 'a', 1, 2);
+(8, 'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet', 39, 3),
+(9, 'hmm', 39, 7),
+(14, 'ad', 1, 3),
+(15, 'asd', 1, 24),
+(16, 'oke', 39, 4),
+(48, 'ad', 39, 25),
+(51, 'asd', 10, 30),
+(59, 'hehehe', 39, 29);
 
 -- --------------------------------------------------------
 
@@ -324,6 +352,14 @@ CREATE TABLE `notification` (
   `id_penerima` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `c_id`, `n_number`, `id_penerima`) VALUES
+(1, 9, 1, 29),
+(3, 11, 1, 30);
+
 -- --------------------------------------------------------
 
 --
@@ -344,7 +380,15 @@ CREATE TABLE `postingan` (
 --
 
 INSERT INTO `postingan` (`idpostingan`, `isi`, `tgldiposting`, `user_id`, `grup_id`, `file`) VALUES
-(2, 'hmm\r\nhmm', '2018-06-26', 1, NULL, NULL);
+(3, 'Posting foto', '2018-07-12', 9, NULL, '20180712085257Chrysanthemum.jpg'),
+(4, 'testing testing testing testingtesting testitesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testing\r\n', '2018-07-15', 39, 1, '20180715102635Chrysanthemum.jpg'),
+(6, 'teststststs', '2018-07-15', 1, NULL, '2018071511130609_latihan BPMN multi user.docx'),
+(7, 'lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum', '2018-07-15', 1, NULL, '20180715111319[BAGAS31] Jamu-Sublime.rar'),
+(24, 'tesssss', '2018-07-16', 9, NULL, NULL),
+(25, 'Posting tes\r\nhehe', '2018-07-20', 39, NULL, NULL),
+(29, 'hehe', '2018-07-20', 39, 1, NULL),
+(30, 'asdas\r\nasdas\r\n', '2018-07-20', 10, NULL, NULL),
+(31, 'testes', '2018-07-20', 39, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -362,12 +406,41 @@ CREATE TABLE `relasi_user_matpel` (
 --
 
 INSERT INTO `relasi_user_matpel` (`user_id`, `matpel_id`) VALUES
-(2, 2),
-(2, 3),
-(2, 4),
-(3, 2),
-(5, 2),
-(6, 2);
+(1, 2),
+(9, 4),
+(10, 2),
+(10, 3),
+(10, 4),
+(11, 2),
+(11, 3),
+(11, 4),
+(12, 2),
+(12, 3),
+(12, 4),
+(13, 2),
+(13, 3),
+(13, 4),
+(14, 2),
+(14, 3),
+(14, 4),
+(15, 2),
+(15, 3),
+(15, 4),
+(16, 2),
+(16, 3),
+(16, 4),
+(17, 2),
+(17, 3),
+(17, 4),
+(18, 2),
+(18, 3),
+(18, 4),
+(39, 2),
+(39, 3),
+(39, 4),
+(40, 2),
+(40, 3),
+(40, 4);
 
 -- --------------------------------------------------------
 
@@ -379,6 +452,13 @@ CREATE TABLE `report` (
   `user_id` int(11) NOT NULL,
   `postingan_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `report`
+--
+
+INSERT INTO `report` (`user_id`, `postingan_id`) VALUES
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -398,7 +478,7 @@ CREATE TABLE `tugas` (
 --
 
 INSERT INTO `tugas` (`id`, `namatugas`, `matpel_id`, `week_id`) VALUES
-(1, 'TUGAS MTK', 2, 1);
+(2, 'Tugas Week 1', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -423,11 +503,28 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `nama`, `username`, `password`, `role`, `foto`, `kelas_id`, `ortu_id`) VALUES
 (1, 'admin', 'admin', 'admin', 'admin', 'people1.png', NULL, NULL),
-(2, 'Guru AAA', 'guru', '123456', 'guru', 'people7.png', NULL, NULL),
-(3, 'Murid XYZ', 'murid', '123456', 'murid', 'people3.png', 1, 4),
-(4, 'Ortu X', 'ortu', '123456', 'ortu', 'people8.png', NULL, NULL),
-(5, 'Tommy R', 'tommyr', '123456', 'murid', 'people2.png', 1, NULL),
-(6, 'coba', 'coba', '123456', 'murid', 'people8.png', 2, NULL);
+(9, 'Murid 1', 'murid1', '123456', 'murid', 'people3.png', 1, 29),
+(10, 'Murid 2', 'murid2', '123456', 'murid', 'people5.png', 1, 30),
+(11, 'Murid 3', 'murid3', '123456', 'murid', 'people9.png', 2, 31),
+(12, 'Murid 4', 'murid4', '123456', 'murid', 'people10.png', 2, 32),
+(13, 'Murid 5', 'murid5', '123456', 'murid', 'people11.png', 3, 33),
+(14, 'Murid 6', 'murid6', '123456', 'murid', 'people12.png', 3, 34),
+(15, 'Murid 7', 'murid7', '123456', 'murid', 'people14.png', 4, 35),
+(16, 'Murid 8', 'murid8', '123456', 'murid', 'people15.png', 4, 36),
+(17, 'Murid 9', 'murid9', '123456', 'murid', 'people19.png', 5, 37),
+(18, 'Murid 10', 'murid10', '123456', 'murid', 'people20.png', 5, 38),
+(29, 'Ortu 1', 'ortu1', '123456', 'ortu', NULL, NULL, NULL),
+(30, 'Ortu 2', 'ortu2', '123456', 'ortu', NULL, NULL, NULL),
+(31, 'Ortu 3', 'ortu3', '123456', 'ortu', NULL, NULL, NULL),
+(32, 'Ortu 4', 'ortu4', '123456', 'ortu', NULL, NULL, NULL),
+(33, 'Ortu 5', 'ortu5', '123456', 'ortu', NULL, NULL, NULL),
+(34, 'Ortu 6', 'ortu6', '123456', 'ortu', NULL, NULL, NULL),
+(35, 'Ortu 7', 'ortu7', '123456', 'ortu', NULL, NULL, NULL),
+(36, 'Ortu 8', 'ortu8', '123456', 'ortu', NULL, NULL, NULL),
+(37, 'Ortu 9', 'ortu9', '123456', 'ortu', NULL, NULL, NULL),
+(38, 'Ortu 10', 'ortu10', '123456', 'ortu', NULL, NULL, NULL),
+(39, 'Guru 1', 'guru1', '123456', 'guru', 'people18.png', NULL, NULL),
+(40, 'Guru 2', 'guru2', '123456', 'guru', 'people22.png', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -448,9 +545,12 @@ CREATE TABLE `user_has_tugas` (
 --
 
 INSERT INTO `user_has_tugas` (`user_id`, `tugas_id`, `file`, `tgl_diupload`, `nilai`) VALUES
-(3, 1, '20180628104315Hydrangeas.jpg', '2018-06-28', 55),
-(5, 1, '20180628104126Desert.jpg', '2018-06-28', 55),
-(6, 1, '20180628113812Tulips.jpg', '2018-06-28', 80);
+(9, 2, '20180711105210Chrysanthemum.jpg', '2018-07-11', 88),
+(10, 2, '20180711105237Koala.jpg', '2018-07-11', 32),
+(11, 2, '20180711105257Desert.jpg', '2018-07-11', NULL),
+(12, 2, '20180711105316Hydrangeas.jpg', '2018-07-11', NULL),
+(13, 2, '20180711105334Penguins.jpg', '2018-07-11', NULL),
+(14, 2, '20180711105353Jellyfish.jpg', '2018-07-11', NULL);
 
 -- --------------------------------------------------------
 
@@ -654,22 +754,22 @@ ALTER TABLE `week`
 -- AUTO_INCREMENT for table `achievement`
 --
 ALTER TABLE `achievement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `conversation`
 --
 ALTER TABLE `conversation`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `conversation_reply`
 --
 ALTER TABLE `conversation_reply`
-  MODIFY `cr_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `gallery`
 --
@@ -679,17 +779,17 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `grup`
 --
 ALTER TABLE `grup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 --
 -- AUTO_INCREMENT for table `materi`
 --
@@ -704,22 +804,22 @@ ALTER TABLE `matpel`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `postingan`
 --
 ALTER TABLE `postingan`
-  MODIFY `idpostingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idpostingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT for table `week`
 --

@@ -11,6 +11,7 @@ if (!empty($_POST["id"])) {
 //Limit on data display
     $showLimit = 5;
     $sisadata;
+    $user_id = $_COOKIE['user_id'];
 
     switch ($act) {
         case 'datapage':
@@ -118,11 +119,27 @@ if (!empty($_POST["id"])) {
                             }
                             ?>
                         </div>
-                        <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
+                        <div class="panel-body" style="word-wrap: break-word;"> 
+                            <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <div>
-                                <?php if (!empty($row['file'])) { ?>
-                                    <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
-                                <?php } ?>
+                                <?php
+                                if (!empty($row['file'])) {
+                                    $file = $row['file'];
+                                    $info = pathinfo($file);
+                                    $ext = $info['extension'];
+                                    if ($ext == "jpg" || $ext == "png" || $ext == "jpeg") {
+                                        ?>
+                                        <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
+                                    <?php } else { ?>
+                                        <div class="fa fa-hover">
+                                            <a href="postingan/<?php echo $file ?>" download> <i class="fa fa-file-o"></i>
+                                                <?php echo $file ?>
+                                            </a>
+                                        </div>
+                                        <?php
+                                    }
+                                }
+                                ?>
                             </div>
                             <hr style="margin: 0; padding-top: 10px;">
 
@@ -148,7 +165,7 @@ if (!empty($_POST["id"])) {
                                     </div>
 
                                     <div class="col-md-6" style="margin: 0; padding: 0;">
-                                        <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $_SESSION['count'] ?>').focus(); return false;">
+                                        <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $_SESSION['count'] ?>').getElementsByClassName('txtkomen')[0].focus()">
                                             <button class="btn btn-default" style="width: 100%;">         
                                                 <i class="fa fa-comment-o"></i>Komentar
                                             </button></div>
@@ -253,11 +270,11 @@ if (!empty($_POST["id"])) {
                                         <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php" id="posting_komentar">
                                             <div class="row">
                                                 <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
-
                                                     <input type="hidden" name="idpostingan" value="<?php echo $postID ?>">
                                                     <input type="hidden" name="act" value="comment_feeds">
-                                                    <input type="text" placeholder="Tuliskan komentar anda" class="form-control" id="komen<?php echo $_SESSION['count'] ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
-
+                                                    <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
+                                                    <textarea name="comment" id="txtareakomen"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
+                                                   </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -390,11 +407,27 @@ if (!empty($_POST["id"])) {
                             }
                             ?>
                         </div>
-                        <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
+                        <div class="panel-body" style="word-wrap: break-word;"> 
+                            <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <div>
-                                <?php if (!empty($row['file'])) { ?>
-                                    <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
-                                <?php } ?>
+                                <?php
+                                if (!empty($row['file'])) {
+                                    $file = $row['file'];
+                                    $info = pathinfo($file);
+                                    $ext = $info['extension'];
+                                    if ($ext == "jpg" || $ext == "png" || $ext == "jpeg") {
+                                        ?>
+                                        <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
+                                    <?php } else { ?>
+                                        <div class="fa fa-hover">
+                                            <a href="postingan/<?php echo $file ?>" download> <i class="fa fa-file-o"></i>
+                                                <?php echo $file ?>
+                                            </a>
+                                        </div>
+                                        <?php
+                                    }
+                                }
+                                ?>
                             </div>
                             <hr style="margin: 0; padding-top: 10px;">
 
@@ -420,7 +453,7 @@ if (!empty($_POST["id"])) {
                                     </div>
 
                                     <div class="col-md-6" style="margin: 0; padding: 0;">
-                                        <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $_SESSION['count'] ?>').focus(); return false;">
+                                        <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $_SESSION['count'] ?>').getElementsByClassName('txtkomen')[0].focus()">
                                             <button class="btn btn-default" style="width: 100%;">         
                                                 <i class="fa fa-comment-o"></i>Komentar
                                             </button></div>
@@ -524,10 +557,11 @@ if (!empty($_POST["id"])) {
                                         <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php" id="posting_komentar">
                                             <div class="row">
                                                 <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
-
                                                     <input type="hidden" name="idpostingan" value="<?php echo $postID ?>">
                                                     <input type="hidden" name="act" value="comment_feeds">
-                                                    <input type="text" placeholder="Tuliskan komentar anda" class="form-control" id="komen<?php echo $_SESSION['count'] ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;"> 
+                                                    <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
+                                                    <textarea name="comment" id="txtareakomen"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
+                                                   </div>
                                                 </div>
                                             </div>
                                         </form>
