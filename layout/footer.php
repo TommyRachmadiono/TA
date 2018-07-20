@@ -1,177 +1,92 @@
 <!-- BEGIN: LAYOUT/FOOTERS/FOOTER-5 -->
-<a name="footer"></a>
 <footer class="c-layout-footer c-layout-footer-3 c-bg-dark">
-    <div class="c-prefooter">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="c-container c-first">
-                        <div class="c-content-title-1">
-                            <h3 class="c-font-uppercase c-font-bold c-font-white">TUGAS AKHIR
-                            </h3>
-                            <div class="c-line-left hide"></div>
-                            <p class="c-text"> Learning beyond the class room. Accessible through any gadgets, anytime and anywhere.</p>
-                        </div>
-                        <ul class="c-links">
-                            <li>
-                                <a href="index.php">Home</a>
-                            </li>
-                            <li>
-                                <a href="event_calendar.php">Event Calendar</a>
-                            </li>
-                            <li>
-                                <a href="student_achievement.php">Student Achievements</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="c-container">
-                        <div class="c-content-title-1">
-                            <h3 class="c-font-uppercase c-font-bold c-font-white">Latest Posts</h3>
-                            <div class="c-line-left hide"></div>
-                        </div>
-                        <div class="c-blog">
-                            <div class="c-post">
-                                <div class="c-post-img">
-                                    <img src="assets/base/img/content/stock/9.jpg" alt="" class="img-responsive" />
+            <div class="c-prefooter">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="c-container c-first">
+                                <div class="c-content-title-1">
+                                    <h3 class="c-font-uppercase c-font-bold c-font-white">Sekolah X Surabaya
+                                        
+                                    </h3>
+                                    <div class="c-line-left hide"></div>
+                                    <p class="c-text"> Sekolah X merupakan sekolah favorit di daerah surabaya X. Bergabunglah bersama kami dan raihlah prestasi. Kami sangat mengapresiasi bakat dan minat peserta didik.</p>
                                 </div>
-                                <div class="c-post-content">
-                                    <h4 class="c-post-title">
-                                        <a href="#">Ready to Launch</a>
-                                    </h4>
-                                    <p class="c-text">Lorem ipsum dolor sit amet ipsum sit, consectetuer adipiscing elit sit amet</p>
-                                </div>
-                            </div>
-                            <div class="c-post c-last">
-                                <div class="c-post-img">
-                                    <img src="assets/base/img/content/stock/14.jpg" alt="" class="img-responsive" />
-                                </div>
-                                <div class="c-post-content">
-                                    <h4 class="c-post-title">
-                                        <a href="#">Dedicated Support</a>
-                                    </h4>
-                                    <p class="c-text">Lorem ipsum dolor ipsum sit ipsum amet, consectetuer sit adipiscing elit ipsum elit elit ipsum elit</p>
-                                </div>
-                            </div>
-                            <a href="#" class="btn btn-md c-btn-border-1x c-theme-btn c-btn-uppercase c-btn-square c-btn-bold c-read-more hide">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="c-container">
-                        <div class="c-content-title-1">
-                            <h3 class="c-font-uppercase c-font-bold c-font-white">Latest Works</h3>
-                            <div class="c-line-left hide"></div>
-                        </div>
-                        <ul class="c-works">
-                            <li class="c-first">
-                                <a href="#">
-                                    <img src="assets/base/img/content/stock/015.jpg" alt="" class="img-responsive" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="assets/base/img/content/stock/012.jpg" class="img-responsive" alt="" />
-                                </a>
-                            </li>
-                            <li class="c-last">
-                                <a href="#">
-                                    <img src="assets/base/img/content/stock/12.jpg" alt="" class="img-responsive" />
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="c-works">
-                            <li class="c-first">
-                                <a href="#">
-                                    <img src="assets/base/img/content/stock/014.jpg" class="img-responsive" alt="" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="assets/base/img/content/stock/011.jpg" class="img-responsive" alt="" />
-                                </a>
-                            </li>
-                            <li class="c-last">
-                                <a href="#">
-                                    <img src="assets/base/img/content/stock/15.jpg" class="img-responsive" alt="" />
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="c-works">
-                            <li class="c-first">
-                                <a href="#">
-                                    <img src="assets/base/img/content/stock/015.jpg" class="img-responsive" alt="" />
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <img src="assets/base/img/content/stock/013.jpg" class="img-responsive" alt="" />
-                                </a>
-                            </li>
-                            <li class="c-last">
-                                <a href="#">
-                                    <img src="assets/base/img/content/stock/13.jpg" class="img-responsive" alt="" />
-                                </a>
-                            </li>
-                        </ul>
-                        <a href="#" class="btn btn-md c-btn-border-1x c-theme-btn c-btn-uppercase c-btn-square c-btn-bold c-read-more hide">View More</a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="c-container c-last">
-                        <div class="c-content-title-1">
-                            <h3 class="c-font-uppercase c-font-bold c-font-white">Find us</h3>
-                            <div class="c-line-left hide"></div>
-                            <p>Leave us a message</p>
-                        </div>
-                        <ul class="c-socials">
-                            <li>
-                                <a href="#">
-                                    <i class="icon-social-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icon-social-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icon-social-youtube"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icon-social-tumblr"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="c-address">
-                            <li>
-                                <i class="icon-pointer c-theme-font"></i><b> One Boulevard, Beverly Hills</b></li>
-                                <li>
-                                    <i class="icon-call-end c-theme-font"></i><b> +1800 1234 5678</b></li>
+                                <ul class="c-links">
                                     <li>
-                                        <i class="icon-envelope c-theme-font"></i><b> email@example.com</b></li>
-                                    </ul>
+                                        <a href="index.php">Home</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Galeri</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Kalendar Kegiatan</a>
+                                    </li>
+                                    <li>
+                                        <a href="contactUs.php">Prestasi Sekolah</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="col-md-9">
+                            <div class="c-container c-last">
+                                <div class="c-content-title-1">
+                                    <h3 class="c-font-uppercase c-font-bold c-font-white">Temukan Kami</h3>
+                                    <div class="c-line-left hide"></div>
+                                    <p> Kami memberikan kebebasan kepada anda untuk bertanya lebih lanjut mengenai informasi penggunaan aplikasi ini. Jika mengalami kesulitan dalam menggunakan aplikasi ini silahkan kontak kami melalui alamat yang ada. Saran dan kritik anda sangat berarti untuk kami.</p>
                                 </div>
+                                <ul class="c-socials">
+                                    <li>
+                                        <a href="#">
+                                            <i class="icon-social-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="icon-social-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="icon-social-youtube"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="icon-social-tumblr"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="c-address">
+                                    <li>
+                                        <i class="icon-pointer c-theme-font"></i> <a class="c-font-white" href="https://www.google.co.id/maps/place/Excellent+Education/@-7.4454015,112.6968461,16.38z/data=!4m5!3m4!1s0x2dd7e14166305759:0x6d4f9a7543bcc7a7!8m2!3d-7.446423!4d112.695589">
+                                        Tenggilis Mejoyo – 5, RT 00, RW 00, Kel. X, Surabaya, Jawa Timur</a></li>
+                                    <li class="c-font-white">
+                                        <i class="icon-call-end c-theme-font"></i> 0812-0000-0000 (HP) / WhatsApp: 0838-0000-0000</li>
+                                    <li class="c-font-white">
+                                        <i class="icon-envelope c-theme-font"></i> mail@example.com</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="c-postfooter">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12 c-col">
-                                <p class="c-copyright c-font-grey">2015 &copy; JANGO
-                                    <span class="c-font-grey-3">All Rights Reserved.</span>
-                                </p>
-                            </div>
+            </div>
+            <div class="c-postfooter c-bg-dark-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 c-col">
+                            <p class="c-copyright c-font-grey">2018 © TOMMY
+                                <span class="c-font-grey-3">All Rights Reserved.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
-            </footer>
+            </div>
+        </footer>
+
+
             <!-- END: LAYOUT/FOOTERS/FOOTER-5 -->
             <!-- BEGIN: LAYOUT/FOOTERS/GO2TOP -->
             <div class="c-layout-go2top">
@@ -230,6 +145,7 @@
         <!-- END: PAGE SCRIPTS -->
         <!-- END: LAYOUT/BASE/BOTTOM -->
 
+        <script src="js/posting.js" type="text/javascript"></script>
         <script src="js/report.js" type="text/javascript"></script>
         <script src="js/like.js" type="text/javascript"></script>
         <script src="js/scroll_feeds.js" type="text/javascript"></script>
@@ -247,11 +163,11 @@
         <script type="text/javascript" src="js/events.js"></script>
         
         <!-- INI BIAR KALO REFRESH BALIK KE TOP PAGE -->
-        <script type="text/javascript">
+       <!--  <script type="text/javascript">
             $(window).on('beforeunload', function(){
                 $(window).scrollTop(0);
             });
-        </script>
+        </script> -->
 
         <script>
             var table = $('#example').DataTable( {

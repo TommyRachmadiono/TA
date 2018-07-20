@@ -13,8 +13,8 @@ $current_time = "$hour:$min";
 <div class="c-layout-sidebar-menu c-theme ">
     <!-- BEGIN: LAYOUT/SIDEBARS/SIDEBAR-MENU-1 -->
     <div class="c-sidebar-menu-toggler">
-        <h3 class="c-title c-font-uppercase c-font-bold">Navigation</h3>
-        <a href="javascript:;" class="c-content-toggler" data-toggle="collapse" data-target="#sidebar-menu-1, #sidebar-menu-2, #createGroup">
+        <h3 class="c-title c-font-uppercase c-font-bold">Navigasi</h3>
+        <a href="javascript:;" class="c-content-toggler" data-toggle="collapse" data-target="#sidebar-menu-1, #sidebar-menu-2, #createGroup" aria-expanded="true">
             <span class="c-line"></span>
             <span class="c-line"></span>
             <span class="c-line"></span>
@@ -24,14 +24,14 @@ $current_time = "$hour:$min";
 
     <?php if ($_SESSION["login"] == true) { ?>
     <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#create-group" style="width: 100%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
-        <i class="icon-bubbles">Create Group</i>
+        <i class="icon-bubbles">Buat Grup</i>
     </button></a>
     <?php } ?>
 
     <?php if($_SESSION["menuHeader"] == 'group_page') { ?>
 
     <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#show-member" style="width: 100%; margin-top: 3%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
-        <i class="fa fa-eye"> Show Member</i>
+        <i class="fa fa-eye"> Tampilkan Anggota</i>
     </button></a>
 
     <?php
@@ -40,11 +40,11 @@ $current_time = "$hour:$min";
     if ($result->num_rows > 0) {
         ?>
         <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#invite-member" style="width: 100%; margin-top: 3%;""><button type="button" class="btn btn-default" style="width: 100%;">
-            <i class="fa fa-user-plus"> Invite Member</i>
+            <i class="fa fa-user-plus"> Undang Anggota</i>
         </button></a>
 
         <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#delete-group" style="width: 100%; margin-top: 3%;"><button type="button" class="btn btn-danger" style="width: 100%;">
-            <i class="fa fa-warning"> Disband Group</i>
+            <i class="fa fa-warning"> Bubarkan Grup</i>
         </button></a>
         <?php }} ?>
 
@@ -53,7 +53,7 @@ $current_time = "$hour:$min";
         if ($_SESSION["login"] == true) { ?>
         <ul class="c-sidebar-menu collapse " id="sidebar-menu-1" style="margin-top: 7%;">
             <li class="c-active">
-                <a class="c-toggler">My Groups
+                <a class="c-toggler">Grup Saya
                     <span class="c-arrow"></span>
                 </a>
                 <?php    $user_id = $_COOKIE['user_id'];
@@ -113,9 +113,9 @@ $current_time = "$hour:$min";
 
                     <div class="c-padding-20 c-margin-t-0 c-bg-grey-1 c-bg-img-bottom-right" style="background-image:url(assets/base/img/content/misc/feedback_box_2.png)">
                         <div class="c-content-title-1 c-margin-t-20">
-                            <h3 class="c-font-uppercase c-font-bold">Have a question?</h3>
+                            <h3 class="c-font-uppercase c-font-bold">Ingin menanyakan sesuatu?</h3>
                             <div class="c-line-left"></div>
-                            <p class="c-font-thin">Ask your questions away and let our dedicated customer service help you look through our FAQs to get your questions answered!</p>
+                            <p class="c-font-thin">Silahkan mengirimkan pertanyaan anda melalui email <b>example@mail.com</b> atau langsung datang ke alamat kami di <b>Lorem Ipsum Dolor Sit Amet</b>, Surabaya</p>
                         </div>
                     </div>
 

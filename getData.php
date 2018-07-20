@@ -33,53 +33,53 @@ if (!empty($_POST["id"])) {
                     $_SESSION['count'] ++
                     ?>
 
-                     <!-- BEGIN: MODAL EDIT STATUS -->
-                        <div class="modal fade" id="modalEditStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content c-square">
-                                    <div class="modal-body">
-                                        <h3 class="c-font-24 c-font-sbold">Edit Status</h3>
-                                        <div class="form-group">
-                                            <?php
-                                            $idpostingan = $row['idpostingan'];
-                                            $sql = "SELECT isi FROM postingan WHERE idpostingan = '$idpostingan'";
-                                            $hasil = $conn->query($sql);
-                                            if ($hasil->num_rows > 0) {
-                                                while ($a = $hasil->fetch_assoc()) {
-                                                    ?>
+                    <!-- BEGIN: MODAL EDIT STATUS -->
+                    <div class="modal fade" id="modalEditStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content c-square">
+                                <div class="modal-body">
+                                    <h3 class="c-font-24 c-font-sbold">Ubah postingan</h3>
+                                    <div class="form-group">
+                                        <?php
+                                        $idpostingan = $row['idpostingan'];
+                                        $sql = "SELECT isi FROM postingan WHERE idpostingan = '$idpostingan'";
+                                        $hasil = $conn->query($sql);
+                                        if ($hasil->num_rows > 0) {
+                                            while ($a = $hasil->fetch_assoc()) {
+                                                ?>
 
-                                                    <form method="POST" action="postingController.php">
-                                                        <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
-                                                        <br>
-                                                        <input type="hidden" name="act" value="edit_status">
-                                                        <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
-                                                        <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Cancel</button>
-                                                        <button class="btn btn-info" >Update</button>
-                                                    </form>
-                                                    <?php
-                                                }
+                                                <form method="POST" action="postingController.php">
+                                                    <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
+                                                    <br>
+                                                    <input type="hidden" name="act" value="edit_status">
+                                                    <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
+                                                    <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
+                                                    <button class="btn btn-info" >Perbarui</button>
+                                                </form>
+                                                <?php
                                             }
-                                            ?>
+                                        }
+                                        ?>
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- END: MODAL EDIT STATUS -->
+                    </div>
+                    <!-- END: MODAL EDIT STATUS -->
 
                     <!-- BEGIN: MODAL DELETE STATUS -->
                     <div class="modal fade" id="modalDeleteStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content c-square">
                                 <div class="modal-body">
-                                    <h3 class="c-font-24 c-font-sbold">Are you sure want to delete this status ?</h3>
+                                    <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus postingan ini ?</h3>
                                     <div class="form-group">
-                                        <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                                        <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                         <form method="POST" action="postingController.php" style="display: inline-block;">
                                             <input type="hidden" name="act" value="delete_status">
                                             <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
-                                            <button class="btn btn-info" > Delete</button>
+                                            <button class="btn btn-info" > Hapus</button>
                                         </form>
                                     </div>
                                 </div>
@@ -88,34 +88,40 @@ if (!empty($_POST["id"])) {
                     </div>
                     <!-- END: MODAL DELETE STATUS -->
 
-                    <div class="panel panel-warning">
+                    <div class="panel panel-warning" id="status_postingan">
                         <div class="panel-heading" >
-                            <img style="border-width: 3px; border-style: solid; border-color: black; display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto'] ?>">
+                            <img style="border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto'] ?>">
                             <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
                                 <a class="anchorjs-link" href="#panel-title">
                                     <span class="anchorjs-icon"></span>
                                 </a>
                             </h3>
-                            <?php if ($_SESSION["login"] == true) {
-                                    if ($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') {
-                                        ?>
-                                        <a href="#" style="float: right; margin-left: 2%;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>">
-                                            <i class="fa fa-close"></i></a>
-                                            <a href="#" style="float: right; margin-top: 2px;" data-toggle="modal" data-target="#modalEditStatus<?php echo $row['idpostingan']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
-                                        <?php }
-                                        if($row['id'] != $_COOKIE['user_id']) { 
-                                        $query = mysqli_query($conn, "SELECT * FROM report WHERE user_id = '$user_id' AND postingan_id = '$idpostingan'"); 
-                                        if (mysqli_num_rows($query) > 0) {
+                            <?php
+                            if ($_SESSION["login"] == true) {
+                                if ($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') {
                                     ?>
+                                    <a href="#" style="float: right; margin-left: 2%;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>">
+                                        <i class="fa fa-close"></i></a>
+                                    <a href="#" style="float: right; margin-top: 2px; margin-left: 1.5%;" data-toggle="modal" data-target="#modalEditStatus<?php echo $row['idpostingan']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
+                                    <?php
+                                }
+                                if ($row['id'] != $_COOKIE['user_id']) {
+                                    $query = mysqli_query($conn, "SELECT * FROM report WHERE user_id = '$user_id' AND postingan_id = '$idpostingan'");
+                                    if (mysqli_num_rows($query) > 0) {
+                                        ?>
                                         <button value="<?php echo $idpostingan ?>" class="unreport btn btn-danger" style="float: right; margin-top: 0.5%; padding: 0;padding-left: 1%;"><i class="fa fa-flag"></i></button>
                                     <?php } else { ?>
                                         <button value="<?php echo $idpostingan ?>" class="report btn btn-danger" style="float: right; margin-top: 0.5%; padding: 0;padding-left: 1%;"><i class="fa fa-flag"></i></button>
-                                    <?php }}} ?>
+                                        <?php
+                                    }
+                                }
+                            }
+                            ?>
                         </div>
                         <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <div>
-                                <?php if(!empty($row['file'])) { ?>
-                                <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
+                                <?php if (!empty($row['file'])) { ?>
+                                    <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
                                 <?php } ?>
                             </div>
                             <hr style="margin: 0; padding-top: 10px;">
@@ -131,11 +137,11 @@ if (!empty($_POST["id"])) {
                                             if (mysqli_num_rows($query1) > 0) {
                                                 ?>
                                                 <button value="<?php echo $postID ?>" class="unlike btn btn-default" style="width: 100%;"> 
-                                                    <i class="fa fa-thumbs-o-down"></i>Unlike
+                                                    <i class="fa fa-thumbs-o-down"></i>Batal Suka
                                                 </button>
                                             <?php } else { ?>
                                                 <button value="<?php echo $postID ?>" class="like btn btn-default" style="width: 100%;"> 
-                                                    <i class="fa fa-thumbs-o-up"></i>Like
+                                                    <i class="fa fa-thumbs-o-up"></i>Suka
                                                 </button>
                                             <?php } ?>
                                         </div>
@@ -144,7 +150,7 @@ if (!empty($_POST["id"])) {
                                     <div class="col-md-6" style="margin: 0; padding: 0;">
                                         <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $_SESSION['count'] ?>').focus(); return false;">
                                             <button class="btn btn-default" style="width: 100%;">         
-                                                <i class="fa fa-comment-o"></i>Comment
+                                                <i class="fa fa-comment-o"></i>Komentar
                                             </button></div>
                                     </div>
                                 </div> 
@@ -158,7 +164,7 @@ if (!empty($_POST["id"])) {
                                     $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $postID");
                                     echo mysqli_num_rows($query2);
                                     ?>
-                                </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>Show / Hide Komentar</div>
+                                </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 28%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>Tampilan / Sembunyikan Komentar</div>
                                 <hr style="margin: 0;">
                             </div>
 
@@ -166,86 +172,91 @@ if (!empty($_POST["id"])) {
                                 <!-- ISI DARI KOMEN MASUK DISINI -->
                                 <div style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
                                     <div id="isikomen<?php echo $postID; ?>">
-                                    <?php
-                                    $sql2 = "SELECT u.id,u.nama, k.isi,k.idkomentar, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $postID";
-                                    $result2 = $conn->query($sql2);
-
-                                    if ($result2->num_rows > 0) {
-                                        // output data of each row
-                                        while ($row2 = $result2->fetch_assoc()) {
-                                            ?> 
-                                                
-                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row2['foto'] ?>">
-                                                    <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
-                                                    <?php if ($_SESSION["login"] == true && $row2['id'] == $user_id) { ?>
-                                                <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>
-                                                <a href="#" style="float: right; margin-right: 2%;" data-toggle="modal" data-target="#modalEditKomen<?php echo $row2['idkomentar']; ?>"><span class="glyphicon glyphicon-edit"></span></a>
-                                                <?php } ?>
-                                              
-                                                    <p style="margin-top: 1.5%; "><?php echo nl2br($row2['isi']); ?></p>
-                                            <!-- BEGIN: MODAL DELETE COMMENT -->
-                    <div class="modal fade" id="modalDeleteKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content c-square">
-                                <div class="modal-body">
-                                    <h3 class="c-font-24 c-font-sbold">Are you sure want to delete this comment ?</h3>
-                                    <div class="form-group">
-                                        <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
-                                        <form method="POST" action="#" style="display: inline-block;">
-                                        <button class="btn btn-info" > Delete</button>
-                                    </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-        <!-- END: MODAL DELETE COMMENT -->
-        <!-- BEGIN: MODAL EDIT COMMENT -->
-                    <div class="modal fade" id="modalEditKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content c-square">
-                                <div class="modal-body">
-                                    <h3 class="c-font-24 c-font-sbold">Edit This Comment</h3>
-                                    <div class="form-group">
                                         <?php
-                                        $idkomen = $row2['idkomentar'];
-                                        $sql = "SELECT isi FROM komentar WHERE idkomentar = '$idkomen'";
-                                        $result3 = $conn->query($sql);
-                                        if ($result3->num_rows > 0) {
-                                        while ($row = $result3->fetch_assoc()) { ?>
-                                       
-                                        <form method="POST" action="postingController.php">
-                                             <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
-                                             <br>
-                                             <input type="hidden" name="act" value="edit_komentar">
-                                            <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
-                                             <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Cancel</button>
-                                            <button class="btn btn-info" >Update</button>
-                                    </form>
-                                       <?php }
-                                        }  
-                                        ?>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-        <!-- END: MODAL EDIT COMMENT -->
-                                            <?php
+                                        $sql2 = "SELECT u.id,u.nama, k.isi,k.idkomentar, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $postID";
+                                        $result2 = $conn->query($sql2);
+
+                                        if ($result2->num_rows > 0) {
+                                            // output data of each row
+                                            while ($row2 = $result2->fetch_assoc()) {
+                                                ?> 
+
+                                                <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row2['foto'] ?>">
+                                                <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
+                                                <?php if ($_SESSION["login"] == true && $row2['id'] == $user_id) { ?>
+                                                    <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>
+                                                    <a href="#" style="float: right; margin-right: 2%;" data-toggle="modal" data-target="#modalEditKomen<?php echo $row2['idkomentar']; ?>"><span class="glyphicon glyphicon-edit"></span></a>
+                                                <?php } ?>
+
+                                                <p style="margin-top: 1.5%; "><?php echo nl2br($row2['isi']); ?></p>
+                                                <!-- BEGIN: MODAL DELETE COMMENT -->
+                                                <div class="modal fade" id="modalDeleteKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content c-square">
+                                                            <div class="modal-body">
+                                                                <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus komentar ini ?</h3>
+                                                                <div class="form-group">
+                                                                    <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
+                                                                    <form method="POST" action="postingController.php" style="display: inline-block;">
+                                                                        <input type="hidden" name="act" value="delete_komentar">
+                                                                        <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                                        <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
+                                                                        <button class="btn btn-info" > Hapus</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END: MODAL DELETE COMMENT -->
+                                                <!-- BEGIN: MODAL EDIT COMMENT -->
+                                                <div class="modal fade" id="modalEditKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content c-square">
+                                                            <div class="modal-body">
+                                                                <h3 class="c-font-24 c-font-sbold">Ubah komentar</h3>
+                                                                <div class="form-group">
+                                                                    <?php
+                                                                    $idkomen = $row2['idkomentar'];
+                                                                    $sql = "SELECT isi FROM komentar WHERE idkomentar = '$idkomen'";
+                                                                    $result3 = $conn->query($sql);
+                                                                    if ($result3->num_rows > 0) {
+                                                                        while ($row = $result3->fetch_assoc()) {
+                                                                            ?>
+
+                                                                            <form method="POST" action="postingController.php">
+                                                                                <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
+                                                                                <br>
+                                                                                <input type="hidden" name="act" value="edit_komentar">
+                                                                                <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
+                                                                                <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
+                                                                                <button class="btn btn-info" >Perbarui</button>
+                                                                            </form>
+                                                                            <?php
+                                                                        }
+                                                                    }
+                                                                    ?>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END: MODAL EDIT COMMENT -->
+                                                <?php
+                                            }
                                         }
-                                    }
-                                    ?>
-                                </div>
+                                        ?>
+                                    </div>
                                     <?php if ($_SESSION["login"] == true) { ?>
                                         <!-- INPUT TYPE KOMEN DAN BUTTON KOMEN DISINI -->
-                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php">
+                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php" id="posting_komentar">
                                             <div class="row">
                                                 <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
 
                                                     <input type="hidden" name="idpostingan" value="<?php echo $postID ?>">
                                                     <input type="hidden" name="act" value="comment_feeds">
-                                                    <input type="text" placeholder="Write a comment" class="form-control" id="komen<?php echo $_SESSION['count'] ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
+                                                    <input type="text" placeholder="Tuliskan komentar anda" class="form-control" id="komen<?php echo $_SESSION['count'] ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;">
 
                                                 </div>
                                             </div>
@@ -262,12 +273,12 @@ if (!empty($_POST["id"])) {
                     ?>
                     <div id="postterakhir" lastID="<?php echo $postID; ?>" groupID="<?php echo $group_id; ?>" act="datapage" style="display: none;"><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
                 <?php } else { ?>
-                    <div id="postterakhir" lastID="0" groupID="" act=""><h>abis bis bis</h></div>
+                    <div id="postterakhir" lastID="0" groupID="" act=""><h>Tidak Ada Postingan Lagi</h></div>
                     <?php
                 }
             } else {
                 ?>
-                <div id="postterakhir" lastID="0" groupID="" act=""><h>abis bis bis</h></div>
+                <div id="postterakhir" lastID="0" groupID="" act=""><h>Tidak Ada Postingan Lagi</h></div>
                 <?php
             }
             break;
@@ -281,7 +292,7 @@ if (!empty($_POST["id"])) {
                     $sisadata = $row['num_rows'];
                 }
             } else {
-                echo '<h2>BELUM ADA KONTEN</h2';
+                echo '<h2>Belum Ada Postingan</h2';
             }
 
             $queryloadposting = "SELECT * FROM postingan p INNER JOIN user u on p.user_id=u.id WHERE idpostingan < $lastID AND ISNULL(p.grup_id) ORDER BY idpostingan DESC LIMIT $showLimit";
@@ -294,53 +305,53 @@ if (!empty($_POST["id"])) {
                     $_SESSION['count'] ++
                     ?>
 
-                     <!-- BEGIN: MODAL EDIT STATUS -->
-                        <div class="modal fade" id="modalEditStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content c-square">
-                                    <div class="modal-body">
-                                        <h3 class="c-font-24 c-font-sbold">Edit Status</h3>
-                                        <div class="form-group">
-                                            <?php
-                                            $idpostingan = $row['idpostingan'];
-                                            $sql = "SELECT isi FROM postingan WHERE idpostingan = '$idpostingan'";
-                                            $hasil = $conn->query($sql);
-                                            if ($hasil->num_rows > 0) {
-                                                while ($a = $hasil->fetch_assoc()) {
-                                                    ?>
+                    <!-- BEGIN: MODAL EDIT STATUS -->
+                    <div class="modal fade" id="modalEditStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content c-square">
+                                <div class="modal-body">
+                                    <h3 class="c-font-24 c-font-sbold">Ubah postingan</h3>
+                                    <div class="form-group">
+                                        <?php
+                                        $idpostingan = $row['idpostingan'];
+                                        $sql = "SELECT isi FROM postingan WHERE idpostingan = '$idpostingan'";
+                                        $hasil = $conn->query($sql);
+                                        if ($hasil->num_rows > 0) {
+                                            while ($a = $hasil->fetch_assoc()) {
+                                                ?>
 
-                                                    <form method="POST" action="postingController.php">
-                                                        <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
-                                                        <br>
-                                                        <input type="hidden" name="act" value="edit_status">
-                                                        <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
-                                                        <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Cancel</button>
-                                                        <button class="btn btn-info" >Update</button>
-                                                    </form>
-                                                    <?php
-                                                }
+                                                <form method="POST" action="postingController.php">
+                                                    <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
+                                                    <br>
+                                                    <input type="hidden" name="act" value="edit_status">
+                                                    <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
+                                                    <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
+                                                    <button class="btn btn-info" >Perbarui</button>
+                                                </form>
+                                                <?php
                                             }
-                                            ?>
+                                        }
+                                        ?>
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- END: MODAL EDIT STATUS -->
+                    </div>
+                    <!-- END: MODAL EDIT STATUS -->
 
                     <!-- BEGIN: MODAL DELETE STATUS -->
                     <div class="modal fade" id="modalDeleteStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content c-square">
                                 <div class="modal-body">
-                                    <h3 class="c-font-24 c-font-sbold">Are you sure want to delete this status ?</h3>
+                                    <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus postingan ini ?</h3>
                                     <div class="form-group">
-                                        <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                                        <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                         <form method="POST" action="postingController.php" style="display: inline-block;">
                                             <input type="hidden" name="act" value="delete_status">
                                             <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
-                                            <button class="btn btn-info" > Delete</button>
+                                            <button class="btn btn-info" > Hapus</button>
                                         </form>
                                     </div>
                                 </div>
@@ -348,35 +359,41 @@ if (!empty($_POST["id"])) {
                         </div>
                     </div>
                     <!-- END: MODAL DELETE STATUS -->
-                    
-                    <div class="panel panel-warning">
+
+                    <div class="panel panel-warning" id="status_postingan">
                         <div class="panel-heading" >
-                            <img style="border-width: 3px; border-style: solid; border-color: black; display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto'] ?>">
+                            <img style="border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto'] ?>">
                             <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
                                 <a class="anchorjs-link" href="#panel-title">
                                     <span class="anchorjs-icon"></span>
                                 </a>
                             </h3>
-                            <?php if ($_SESSION["login"] == true) {
-                                    if ($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') {
-                                        ?>
-                                        <a href="#" style="float: right; margin-left: 2%;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>">
-                                            <i class="fa fa-close"></i></a>
-                                            <a href="#" style="float: right; margin-top: 2px;" data-toggle="modal" data-target="#modalEditStatus<?php echo $row['idpostingan']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
-                                        <?php }
-                                        if($row['id'] != $_COOKIE['user_id']) { 
-                                        $query = mysqli_query($conn, "SELECT * FROM report WHERE user_id = '$user_id' AND postingan_id = '$idpostingan'"); 
-                                        if (mysqli_num_rows($query) > 0) {
+                            <?php
+                            if ($_SESSION["login"] == true) {
+                                if ($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') {
                                     ?>
+                                    <a href="#" style="float: right; margin-left: 2%;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>">
+                                        <i class="fa fa-close"></i></a>
+                                    <a href="#" style="float: right; margin-top: 2px; margin-left: 1.5%;" data-toggle="modal" data-target="#modalEditStatus<?php echo $row['idpostingan']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
+                                    <?php
+                                }
+                                if ($row['id'] != $_COOKIE['user_id']) {
+                                    $query = mysqli_query($conn, "SELECT * FROM report WHERE user_id = '$user_id' AND postingan_id = '$idpostingan'");
+                                    if (mysqli_num_rows($query) > 0) {
+                                        ?>
                                         <button value="<?php echo $idpostingan ?>" class="unreport btn btn-danger" style="float: right; margin-top: 0.5%; padding: 0;padding-left: 1%;"><i class="fa fa-flag"></i></button>
                                     <?php } else { ?>
                                         <button value="<?php echo $idpostingan ?>" class="report btn btn-danger" style="float: right; margin-top: 0.5%; padding: 0;padding-left: 1%;"><i class="fa fa-flag"></i></button>
-                                    <?php }}} ?>
+                                        <?php
+                                    }
+                                }
+                            }
+                            ?>
                         </div>
                         <div class="panel-body"> <p> <?php echo nl2br($row['isi']) ?> </p> 
                             <div>
-                                <?php if(!empty($row['file'])) { ?>
-                                <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
+                                <?php if (!empty($row['file'])) { ?>
+                                    <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
                                 <?php } ?>
                             </div>
                             <hr style="margin: 0; padding-top: 10px;">
@@ -387,16 +404,16 @@ if (!empty($_POST["id"])) {
                                     <div class="col-md-6" style="margin: 0; padding: 0;">
                                         <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;">
                                             <?php
-                                            $user_id = $_SESSION['user_id'];
+                                            $user_id = $_COOKIE['user_id'];
                                             $query1 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $postID AND user_id = $user_id");
                                             if (mysqli_num_rows($query1) > 0) {
                                                 ?>
                                                 <button value="<?php echo $postID ?>" class="unlike btn btn-default" style="width: 100%;"> 
-                                                    <i class="fa fa-thumbs-o-down"></i>Unlike
+                                                    <i class="fa fa-thumbs-o-down"></i>Batal Suka
                                                 </button>
                                             <?php } else { ?>
                                                 <button value="<?php echo $postID ?>" class="like btn btn-default" style="width: 100%;"> 
-                                                    <i class="fa fa-thumbs-o-up"></i>Like
+                                                    <i class="fa fa-thumbs-o-up"></i>Suka
                                                 </button>
                                             <?php } ?>
                                         </div>
@@ -405,7 +422,7 @@ if (!empty($_POST["id"])) {
                                     <div class="col-md-6" style="margin: 0; padding: 0;">
                                         <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $_SESSION['count'] ?>').focus(); return false;">
                                             <button class="btn btn-default" style="width: 100%;">         
-                                                <i class="fa fa-comment-o"></i>Comment
+                                                <i class="fa fa-comment-o"></i>Komentar
                                             </button></div>
                                     </div>
                                 </div> 
@@ -419,7 +436,7 @@ if (!empty($_POST["id"])) {
                                     $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $postID");
                                     echo mysqli_num_rows($query2);
                                     ?>
-                                </span><div id="loadkomen<?php echo $postID; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $postID; ?>').slideToggle();";>Show / Hide Komentar</div>
+                                </span><div id="loadkomen<?php echo $postID; ?>" style="display: inline; margin-left: 28%;" onclick="$('#isikomen<?php echo $postID; ?>').slideToggle();";>Tampilkan / Sembunyikan Komentar</div>
                                 <hr style="margin: 0;">
                             </div>
 
@@ -427,87 +444,90 @@ if (!empty($_POST["id"])) {
                                 <!-- ISI DARI KOMEN MASUK DISINI -->
                                 <div style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
                                     <div id="isikomen<?php echo $postID; ?>">
-                                    <?php
-                                    $sql2 = "SELECT u.id,u.nama, k.isi,k.idkomentar, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $postID";
-                                    $result2 = $conn->query($sql2);
-
-                                    if ($result2->num_rows > 0) {
-                                        // output data of each row
-                                        while ($row2 = $result2->fetch_assoc()) {
-                                            ?> 
-                                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row2['foto'] ?>">
-                                                    <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
-                                                    <?php if ($_SESSION["login"] == true && $row2['id'] == $user_id) { ?>
-                                                <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>
-                                                <a href="#" style="float: right; margin-right: 2%;" data-toggle="modal" data-target="#modalEditKomen<?php echo $row2['idkomentar']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
-                                                <?php } ?>
-                                                    <p style="margin-top: 1.5%; "><?php echo nl2br($row2['isi']); ?></p>
-                                                
-                                                    <!-- BEGIN: MODAL DELETE COMMENT -->
-                    <div class="modal fade" id="modalDeleteKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content c-square">
-                                <div class="modal-body">
-                                    <h3 class="c-font-24 c-font-sbold">Are you sure want to delete this comment ?</h3>
-                                    <div class="form-group">
-                                        <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
-                                        <form method="POST" action="postingController.php" style="display: inline-block;">
-                                            <input type="hidden" name="act" value="delete_komentar">
-                                            <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
-                                        <button class="btn btn-info" > Delete</button>
-                                    </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-        <!-- END: MODAL DELETE COMMENT -->
-        <!-- BEGIN: MODAL EDIT COMMENT -->
-                    <div class="modal fade" id="modalEditKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content c-square">
-                                <div class="modal-body">
-                                    <h3 class="c-font-24 c-font-sbold">Edit This Comment</h3>
-                                    <div class="form-group">
                                         <?php
-                                        $idkomen = $row2['idkomentar'];
-                                        $sql = "SELECT isi FROM komentar WHERE idkomentar = '$idkomen'";
-                                        $result3 = $conn->query($sql);
-                                        if ($result3->num_rows > 0) {
-                                        while ($row = $result3->fetch_assoc()) { ?>
-                                       
-                                        <form method="POST" action="postingController.php">
-                                             <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
-                                             <br>
-                                             <input type="hidden" name="act" value="edit_komentar">
-                                            <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
-                                             <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Cancel</button>
-                                            <button class="btn btn-info" >Update</button>
-                                    </form>
-                                       <?php }
-                                        }  
-                                        ?>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-        <!-- END: MODAL EDIT COMMENT -->
-                                            <?php
+                                        $sql2 = "SELECT u.id,u.nama, k.isi,k.idkomentar, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $postID";
+                                        $result2 = $conn->query($sql2);
+
+                                        if ($result2->num_rows > 0) {
+                                            // output data of each row
+                                            while ($row2 = $result2->fetch_assoc()) {
+                                                ?> 
+                                                <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row2['foto'] ?>">
+                                                <h3 style="display: inline;"><?php echo $row2['nama'] ?></h3>
+                                                <?php if ($_SESSION["login"] == true && $row2['id'] == $user_id) { ?>
+                                                    <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>
+                                                    <a href="#" style="float: right; margin-right: 2%;" data-toggle="modal" data-target="#modalEditKomen<?php echo $row2['idkomentar']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
+                                                <?php } ?>
+                                                <p style="margin-top: 1.5%; "><?php echo nl2br($row2['isi']); ?></p>
+
+                                                <!-- BEGIN: MODAL DELETE COMMENT -->
+                                                <div class="modal fade" id="modalDeleteKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content c-square">
+                                                            <div class="modal-body">
+                                                                <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus komentar ini ?</h3>
+                                                                <div class="form-group">
+                                                                    <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
+                                                                    <form method="POST" action="postingController.php" style="display: inline-block;">
+                                                                        <input type="hidden" name="act" value="delete_komentar">
+                                                                        <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                                        <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
+                                                                        <button class="btn btn-info" > Hapus</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END: MODAL DELETE COMMENT -->
+                                                <!-- BEGIN: MODAL EDIT COMMENT -->
+                                                <div class="modal fade" id="modalEditKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content c-square">
+                                                            <div class="modal-body">
+                                                                <h3 class="c-font-24 c-font-sbold">Ubah komentar</h3>
+                                                                <div class="form-group">
+                                                                    <?php
+                                                                    $idkomen = $row2['idkomentar'];
+                                                                    $sql = "SELECT isi FROM komentar WHERE idkomentar = '$idkomen'";
+                                                                    $result3 = $conn->query($sql);
+                                                                    if ($result3->num_rows > 0) {
+                                                                        while ($row = $result3->fetch_assoc()) {
+                                                                            ?>
+
+                                                                            <form method="POST" action="postingController.php">
+                                                                                <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
+                                                                                <br>
+                                                                                <input type="hidden" name="act" value="edit_komentar">
+                                                                                <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
+                                                                                <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
+                                                                                <button class="btn btn-info" >Perbarui</button>
+                                                                            </form>
+                                                                            <?php
+                                                                        }
+                                                                    }
+                                                                    ?>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END: MODAL EDIT COMMENT -->
+                                                <?php
+                                            }
                                         }
-                                    }
-                                    ?>
-                                </div>
+                                        ?>
+                                    </div>
                                     <?php if ($_SESSION["login"] == true) { ?>
                                         <!-- INPUT TYPE KOMEN DAN BUTTON KOMEN DISINI -->
-                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php">
+                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php" id="posting_komentar">
                                             <div class="row">
                                                 <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
 
                                                     <input type="hidden" name="idpostingan" value="<?php echo $postID ?>">
                                                     <input type="hidden" name="act" value="comment_feeds">
-                                                    <input type="text" placeholder="Write a comment" class="form-control" id="komen<?php echo $_SESSION['count'] ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;"> 
+                                                    <input type="text" placeholder="Tuliskan komentar anda" class="form-control" id="komen<?php echo $_SESSION['count'] ?>" name="comment" style="width: 96%; margin-right: 2%; margin-left: 2%;"> 
                                                 </div>
                                             </div>
                                         </form>
@@ -523,12 +543,12 @@ if (!empty($_POST["id"])) {
                     ?>
                     <div id="postterakhir" lastID="<?php echo $postID; ?>" act="dataindex" style="display: none;"><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
                 <?php } else { ?>
-                    <div id="postterakhir" lastID="0" act=""><h>abis bis bis</h></div>
+                    <div id="postterakhir" lastID="0" act=""><h>Tidak Ada Postingan Lagi</h></div>
                     <?php
                 }
             } else {
                 ?>
-                <div id="postterakhir" lastID="0" act=""><h>abis bis bis</h></div>
+                <div id="postterakhir" lastID="0" act=""><h>Tidak Ada Postingan Lagi</h></div>
                 <?php
             }
             break;

@@ -7,16 +7,15 @@ if ($_SESSION["login"] == false) {
     echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';
     echo '<script type="text/javascript"> window.location = "index.php" </script>';
 }
-
 ?>
 
 <!-- BEGIN: PAGE CONTAINER -->
 <div class="c-layout-page">
     <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
-    <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold">
+    <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold" style="background-color: cyan;">
         <div class="container">
             <div class="c-page-title c-pull-left">
-                <h3 class="c-font-uppercase c-font-sbold">Admin Page</h3>
+                <h3 class="c-font-uppercase c-font-sbold">Halaman Admin</h3>
             </div>
             <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
                 <li>
@@ -32,11 +31,11 @@ if ($_SESSION["login"] == false) {
     <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
     <!-- BEGIN: PAGE CONTENT -->
     <div style="margin: 2%;">
-        <button class="btn btn-info" data-toggle="modal" data-target="#add-user" style="vertical-align: top !important; margin-bottom: 2%;">Add New User</button>
+        <button class="btn btn-info" data-toggle="modal" data-target="#add-user" style="vertical-align: top !important; margin-bottom: 2%;">Tambah User Baru</button>
         <form action="master_user.php" method="GET" style="display: inline-block; margin-left: 2%;">
-            <label style="display: inline;">Select Role</label>
+            <label style="display: inline;">Pilih Role</label>
             <select name="select-role" id="select-role" >
-                <option value="" selected disabled="">-- Select Role --</option> 
+                <option value="" selected disabled="">-- Pilih Role --</option> 
                 <option value="">All</option>
                 <?php
                 $sql = "select distinct role from user where NOT role ='admin'";
@@ -50,7 +49,7 @@ if ($_SESSION["login"] == false) {
                 }
                 ?>
             </select>
-            <button class="btn btn-default">Select</button>
+            <button class="btn btn-info">Pilih</button>
         </form>
         <table id="tabel-user" class="table table-hover table-bordered">
             <thead>
@@ -96,8 +95,8 @@ if ($_SESSION["login"] == false) {
                             <td style="text-align: center;"><?php echo $row['nama_kelas']; ?></td>
                             <td style="text-align: center;"><?php echo $row['ortu_id']; ?></td>
                             <td style="text-align: center;">
-                                <button class="btn btn-info" data-toggle="modal" data-target="#editUser<?php echo $row['id'] ?>">Edit</button>
-                                <button class="btn btn-info" data-toggle="modal" data-target="#deleteUser<?php echo $row['id'] ?>">Delete</button>
+                                <button class="btn btn-info" data-toggle="modal" data-target="#editUser<?php echo $row['id'] ?>">Ubah</button>
+                                <button class="btn btn-info" data-toggle="modal" data-target="#deleteUser<?php echo $row['id'] ?>">Hapus</button>
                             </td>
                         </tr>
 
@@ -106,14 +105,14 @@ if ($_SESSION["login"] == false) {
                         <div class="modal-dialog">
                             <div class="modal-content c-square">
                                 <div class="modal-body">
-                                    <h3 class="c-font-24 c-font-sbold">Are you sure want to delete User <?php echo $row['nama']; ?> ?</h3>
+                                    <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus user <?php echo $row['nama']; ?> ?</h3>
                                     <div class="form-group">
-                                        <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                                        <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                         <form method="POST" action="userController.php" style="display: inline-block;">
                                             <input type="hidden" name="act" value="delete_user">
                                             <input type="hidden" name="url" value="<?php echo $url ?>">
                                             <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
-                                            <button class="btn btn-info" >Delete</button>
+                                            <button class="btn btn-info" >Hapus</button>
                                         </form>
                                     </div>
                                 </div>
@@ -130,7 +129,7 @@ if ($_SESSION["login"] == false) {
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                     </button>
-                                    <h4 class="modal-title" id="myLargeModalLabel">Edit User <?php echo $row['nama'] ?></h4>
+                                    <h4 class="modal-title" id="myLargeModalLabel">Ubah User <?php echo $row['nama'] ?></h4>
                                 </div>
                                 <div class="modal-body">
                                     <form action="userController.php" method="POST" enctype="multipart/form-data">
@@ -169,8 +168,10 @@ if ($_SESSION["login"] == false) {
                                                     }
                                                 } else {
                                                     ?>
-                                                    <option selected="" value="<?php echo $row['kelas_id'] ?>"><?php echo $row['nama_kelas'] ?></option>
-                                                    <?php
+                                                    <?php if ($row['kelas_id'] != '') { ?>
+                                                        <option selected="" value="<?php echo $row['kelas_id'] ?>"><?php echo $row['nama_kelas'] ?></option>
+                                                        <?php
+                                                    }
                                                     $sql = "select * from kelas where nama_kelas != '" . $row['nama_kelas'] . "'";
                                                     $result2 = $conn->query($sql);
                                                     if ($result2->num_rows > 0) {
@@ -248,7 +249,7 @@ if ($_SESSION["login"] == false) {
                                             <input type="hidden" name="act" value="edit_user">
                                             <input type="hidden" name="url" value="<?php echo $url ?>">
                                             <button type="reset" class="btn btn-default c-btn-square c-btn-uppercase c-btn-bold" value="Reset">Reset</button>
-                                            <button type="submit" class="btn btn-default c-btn-square c-btn-uppercase c-btn-bold">Submit</button>
+                                            <button type="submit" class="btn btn-default c-btn-square c-btn-uppercase c-btn-bold">Simpan</button>
 
                                         </div>
                                     </form>
@@ -287,11 +288,11 @@ include_once 'layout/footer.php';
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title" id="myLargeModalLabel">Add New User</h4>
+                <h4 class="modal-title" id="myLargeModalLabel">Tambah User Baru</h4>
             </div>
             <div class="modal-body">
                 <div class="c-content-title-1 c-title-md c-margin-b-20 clearfix">
-                    <h3 class="c-center c-font-uppercase c-font-bold">New User</h3>
+                    <h3 class="c-center c-font-uppercase c-font-bold">User Baru</h3>
                     <div class="c-line-center c-theme-bg"></div>
                 </div>
                 <form action="userController.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
@@ -374,7 +375,7 @@ include_once 'layout/footer.php';
                         <div class="col-sm-offset-8 col-md-4">
                             <input type="hidden" name="act" value="add_user">
                             <input type="hidden" name="url" value="<?php echo $url ?>">
-                            <button type="submit" class="btn btn-default c-btn-square c-btn-uppercase c-btn-bold">Submit</button>
+                            <button type="submit" class="btn btn-info c-btn-square c-btn-uppercase c-btn-bold">Tambah</button>
                         </div>
                     </div>
                 </form>

@@ -59,7 +59,6 @@ if (isset($_COOKIE["login"])) {
 }
 
 if($_SESSION['login'] == true){
-    echo $_SESSION['login'];
     include 'config/connectdb.php';
     $user_id = $_COOKIE['user_id'];
 } else {
@@ -99,9 +98,9 @@ if (isset($_SESSION['menuHeader'])) {
                 <div class="c-navbar-wrapper clearfix">
                     <div class="c-brand c-pull-left">
                         <a href="index.php" class="c-logo">
-                            <img src="assets/base/img/layout/logos/logo-3.png" alt="JANGO" class="c-desktop-logo">
-                            <img src="assets/base/img/layout/logos/logo-3.png" alt="JANGO" class="c-desktop-logo-inverse">
-                            <img src="assets/base/img/layout/logos/logo-3.png" alt="JANGO" class="c-mobile-logo"> </a>
+                            <img src="images/logo.png" alt="" class="c-desktop-logo">
+                            <img src="images/logo.png" alt="" class="c-desktop-logo-inverse">
+                            <img src="images/logo.png" alt="" class="c-mobile-logo"> </a>
                             <button class="c-hor-nav-toggler" type="button" data-target=".c-mega-menu">
                                 <span class="c-line"></span>
                                 <span class="c-line"></span>
@@ -120,7 +119,7 @@ if (isset($_SESSION['menuHeader'])) {
                         <nav class="c-mega-menu c-pull-right c-mega-menu-dark c-mega-menu-dark-mobile c-fonts-uppercase c-fonts-bold">
                             <ul class="nav navbar-nav c-theme-nav">
                                 <li <?php echo $menuHome; ?>>
-                                    <a href="index.php" class="c-link dropdown-toggle">Home
+                                    <a href="index.php" class="c-link dropdown-toggle">Beranda
                                     </a>
                                 </li>
 
@@ -128,17 +127,17 @@ if (isset($_SESSION['menuHeader'])) {
                                 if ($_SESSION["login"] == true) {
                                     ?>
                                     <li <?php echo $menuGallery; ?>>
-                                        <a href="gallery.php" class="c-link dropdown-toggle">Gallery    
+                                        <a href="gallery.php" class="c-link dropdown-toggle">Galeri    
                                         </a>
                                     </li>
 
                                     <li <?php echo $menuCalendar; ?>>
-                                        <a href="event_calendar.php" class="c-link dropdown-toggle">Event Calendar    
+                                        <a href="event_calendar.php" class="c-link dropdown-toggle">Kalendar Kegiatan    
                                         </a>
                                     </li>
 
                                     <li <?php echo $menuStudentAchievement; ?>>
-                                        <a href="student_achievement.php" class="c-link dropdown-toggle">Student Achievements
+                                        <a href="student_achievement.php" class="c-link dropdown-toggle">Prestasi Sekolah
 
                                         </a>
                                     </li>
@@ -149,14 +148,14 @@ if (isset($_SESSION['menuHeader'])) {
                                     if ($_SESSION["login"] == false) {
                                         ?>
                                         <li>
-                                            <a href="#" class="c-link dropdown-toggle" data-toggle="modal" data-target="#login-form">Log In
+                                            <a href="#" class="c-link dropdown-toggle" data-toggle="modal" data-target="#login-form">Masuk
                                                 <i class="glyphicon glyphicon-log-in"> </i>
                                             </a>
                                         </li>
                                         <?php } elseif ($_SESSION["login"] == true) { ?>
                                         <li class="c-menu-type-classic">
                                             <a href="#" class="c-link dropdown-toggle" >
-                                                <?php echo 'Welcome' . ", " . $_COOKIE["username"] ?>
+                                                <?php echo 'Selamat Datang' . ", " . $_COOKIE["username"] ?>
                                                 <span class="c-arrow c-toggler"></span>
                                             </a>
                                             <ul class="dropdown-menu c-menu-type-classic c-pull-right">
@@ -175,7 +174,7 @@ if (isset($_SESSION['menuHeader'])) {
                                                 </li>
                                                 <?php } ?>
                                                 <li>
-                                                    <a href="#" class="c-link dropdown-toggle"  data-toggle="modal" data-target="#modalLogout">Log Out
+                                                    <a href="#" class="c-link dropdown-toggle"  data-toggle="modal" data-target="#modalLogout">Keluar
                                                         <i class="glyphicon glyphicon-log-out"> </i>
                                                     </a>
                                                 </li>
@@ -230,7 +229,7 @@ if (isset($_SESSION['menuHeader'])) {
                                     </div>
                                     <div class="modal-footer c-no-border">
 
-                                        <a href="javascript:;" data-toggle="modal" data-target="#login-form" data-dismiss="modal" class="btn c-btn-dark-1 btn c-btn-uppercase c-btn-bold c-btn-slim c-btn-border-2x c-btn-square c-btn-signup">Back to Login!</a>
+                                        <a href="javascript:;" data-toggle="modal" data-target="#login-form" data-dismiss="modal" class="btn c-btn-dark-1 btn c-btn-uppercase c-btn-bold c-btn-slim c-btn-border-2x c-btn-square c-btn-signup">Kembali ke halaman masuk!</a>
                                     </div>
                                 </div>
                             </div>
@@ -247,8 +246,8 @@ if (isset($_SESSION['menuHeader'])) {
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h3 class="c-font-24 c-font-sbold">Good Day!</h3>
-                                        <p>Let's make today a great day!</p>
+                                        <h3 class="c-font-24 c-font-sbold">Selamat Datang!</h3>
+                                        <p>Semoga hari anda menyenangkan!</p>
                                         <form action="login.php" method="POST" enctype="multipart/form-data">
                                             <div class="form-group">
                                                 <label for="username" class="hide">Username</label>
@@ -258,8 +257,8 @@ if (isset($_SESSION['menuHeader'])) {
                                                     <input type="password" class="form-control input-lg c-square" id="login-password" placeholder="Password" name="password" required="Input your password"> </div>
 
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login">Login</button>
-                                                        <a href="javascript:;" data-toggle="modal" data-target="#forget-password-form" data-dismiss="modal" class="c-btn-forgot">Forgot Your Password ?</a>
+                                                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login">Masuk</button>
+                                                        <a href="javascript:;" data-toggle="modal" data-target="#forget-password-form" data-dismiss="modal" class="c-btn-forgot">Lupa Kata Sandi ?</a>
                                                     </div>
                                                 </form>
                                             </div>
@@ -273,10 +272,10 @@ if (isset($_SESSION['menuHeader'])) {
                                     <div class="modal-dialog">
                                         <div class="modal-content c-square">
                                             <div class="modal-body">
-                                                <h3 class="c-font-24 c-font-sbold">Are you sure want to logout ?</h3>
+                                                <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin keluar ?</h3>
                                                 <div class="form-group">
-                                                    <button  data-dismiss="modal"  class="btn btn-danger">Cancel</button>
-                                                    <a href="logout.php"> <button class="btn btn-info" > Logout</button></a>
+                                                    <button  data-dismiss="modal"  class="btn btn-danger">Batal</button>
+                                                    <a href="logout.php"> <button class="btn btn-info" > Keluar</button></a>
                                                 </div>
                                             </div>
                                         </div>

@@ -27,7 +27,7 @@ if (isset($_GET["id"])) {
 
     <div class="c-layout-page">
         <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
-        <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both" style="background-color: lightblue; padding-bottom: 2.7%;">
+        <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold" style="background-color: cyan;">
             <div class="container">
                 <div class="c-page-title c-pull-left">
                     <img style="border-width: 3px; border-style: solid; border-color: black; height: 180px; margin-left: 15%; border-radius: 50%; width: 190px;" src="images/fotoprofil/<?php echo $_COOKIE['foto_profil'] ?>">
@@ -63,18 +63,18 @@ if (isset($_GET["id"])) {
             <!-- BEGIN CONTENT -->
             <div class="c-layout-sidebar-content " id="postlist">
                 <div class="posting" style="margin-bottom: 12%;">
-                    <form method="POST" action="postingController.php" enctype="multipart/form-data">
+                    <form method="POST" action="postingController.php" enctype="multipart/form-data" id="posting_status">
                         <input type="hidden" name="act" value="posting_group">
                         <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
                         <textarea class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="What's on your mind?"></textarea>
-                        <input type="submit" value="POST" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
+                        <input type="submit" value="KIRIM" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
 
                         <button id="btnfile" type="button" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%;">
                             <span class="glyphicon glyphicon-paperclip"></span>
                         </button>
 
                         <input type="file" id="file" name="file" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%; display: none;">
-                        <p class="file-name" style="float: right; margin-top: 2%;">Please select a file <br> max 5mb</p>
+                        <p class="file-name" style="float: right; margin-top: 2%;">Pilih file anda <br> maksimal 5mb</p>
                     </form>
                 </div>
                 <?php
@@ -90,12 +90,12 @@ if (isset($_GET["id"])) {
                         $_SESSION['count'] ++;
                         ?>
 
-                         <!-- BEGIN: MODAL EDIT STATUS -->
+                        <!-- BEGIN: MODAL EDIT STATUS -->
                         <div class="modal fade" id="modalEditStatus<?php echo $row['idpostingan'] ?>" tabindex="-1" role="dialog">
                             <div class="modal-dialog">
                                 <div class="modal-content c-square">
                                     <div class="modal-body">
-                                        <h3 class="c-font-24 c-font-sbold">Edit Status</h3>
+                                        <h3 class="c-font-24 c-font-sbold">Ubah postingan</h3>
                                         <div class="form-group">
                                             <?php
                                             $idpostingan = $row['idpostingan'];
@@ -110,8 +110,8 @@ if (isset($_GET["id"])) {
                                                         <br>
                                                         <input type="hidden" name="act" value="edit_status">
                                                         <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
-                                                        <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Cancel</button>
-                                                        <button class="btn btn-info" >Update</button>
+                                                        <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
+                                                        <button class="btn btn-info" >Perbarui</button>
                                                     </form>
                                                     <?php
                                                 }
@@ -130,13 +130,13 @@ if (isset($_GET["id"])) {
                             <div class="modal-dialog">
                                 <div class="modal-content c-square">
                                     <div class="modal-body">
-                                        <h3 class="c-font-24 c-font-sbold">Are you sure want to delete this status ?</h3>
+                                        <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus postingan ini ?</h3>
                                         <div class="form-group">
-                                            <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                                            <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                             <form method="POST" action="postingController.php" style="display: inline-block;">
                                                 <input type="hidden" name="act" value="delete_status">
                                                 <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
-                                                <button class="btn btn-info" > Delete</button>
+                                                <button class="btn btn-info" > Hapus</button>
                                             </form>
                                         </div>
                                     </div>
@@ -144,7 +144,7 @@ if (isset($_GET["id"])) {
                             </div>
                         </div>
                         <!-- END: MODAL DELETE STATUS -->
-                        <div class="panel panel-warning">
+                        <div class="panel panel-warning" id="status_postingan">
                             <div class="panel-heading">
                                 <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto'] ?>">
                                 <h3 class="panel-title" style="display: inline;"><?php echo $row['nama'] ?>
@@ -152,21 +152,27 @@ if (isset($_GET["id"])) {
                                         <span class="anchorjs-icon"></span>
                                     </a>
                                 </h3>
-                               <?php if ($_SESSION["login"] == true) {
+                                <?php
+                                if ($_SESSION["login"] == true) {
                                     if ($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') {
                                         ?>
                                         <a href="#" style="float: right; margin-left: 2%;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>">
                                             <i class="fa fa-close"></i></a>
-                                            <a href="#" style="float: right; margin-top: 2px;" data-toggle="modal" data-target="#modalEditStatus<?php echo $row['idpostingan']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
-                                        <?php }
-                                        if($row['id'] != $_COOKIE['user_id']) { 
-                                        $query = mysqli_query($conn, "SELECT * FROM report WHERE user_id = '$user_id' AND postingan_id = '$idpostingan'"); 
+                                        <a href="#" style="float: right; margin-top: 2px; margin-left: 1.5%;" data-toggle="modal" data-target="#modalEditStatus<?php echo $row['idpostingan']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
+                                        <?php
+                                    }
+                                    if ($row['id'] != $_COOKIE['user_id']) {
+                                        $query = mysqli_query($conn, "SELECT * FROM report WHERE user_id = '$user_id' AND postingan_id = '$idpostingan'");
                                         if (mysqli_num_rows($query) > 0) {
-                                    ?>
-                                        <button value="<?php echo $idpostingan ?>" class="unreport btn btn-danger" style="float: right; margin-top: 0.5%; padding: 0;padding-left: 1%;"><i class="fa fa-flag"></i></button>
-                                    <?php } else { ?>
-                                        <button value="<?php echo $idpostingan ?>" class="report btn btn-danger" style="float: right; margin-top: 0.5%; padding: 0;padding-left: 1%;"><i class="fa fa-flag"></i></button>
-                                    <?php }}} ?>
+                                            ?>
+                                            <button value="<?php echo $idpostingan ?>" class="unreport btn btn-danger" style="float: right; margin-top: 0.5%; padding: 0;padding-left: 1%;"><i class="fa fa-flag"></i></button>
+                                        <?php } else { ?>
+                                            <button value="<?php echo $idpostingan ?>" class="report btn btn-danger" style="float: right; margin-top: 0.5%; padding: 0;padding-left: 1%;"><i class="fa fa-flag"></i></button>
+                                            <?php
+                                        }
+                                    }
+                                }
+                                ?>
                             </div>
                             <div class="panel-body" style="word-wrap: break-word;"> 
                                 <p> <?php echo nl2br($row['isi']) ?> </p>
@@ -179,15 +185,16 @@ if (isset($_GET["id"])) {
                                         if ($ext == "jpg" || $ext == "png" || $ext == "jpeg") {
                                             ?>
                                             <img src="postingan/<?php echo $row["file"]; ?>" style="width: 65%; height: 250px; display: block; margin: auto;">
-                                                <?php } else { ?>
+                                        <?php } else { ?>
                                             <div class="fa fa-hover">
                                                 <a href="postingan/<?php echo $file ?>" download> <i class="fa fa-file-o"></i>
-                                            <?php echo $file ?>
+                                                    <?php echo $file ?>
                                                 </a>
                                             </div>
-                <?php }
-            }
-            ?>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
                                 </div>
                                 <hr style="margin: 0; padding-top: 10px;">
 
@@ -200,20 +207,20 @@ if (isset($_GET["id"])) {
                                             if (mysqli_num_rows($query1) > 0) {
                                                 ?>
                                                 <button value="<?php echo $idpostingan ?>" class="unlike btn btn-default" style="width: 100%;"> 
-                                                    <i class="fa fa-thumbs-o-down"></i>Unlike
+                                                    <i class="fa fa-thumbs-o-down"></i>Batal Suka
                                                 </button>
                                             <?php } else { ?>
                                                 <button value="<?php echo $idpostingan ?>" class="like btn btn-default" style="width: 100%;"> 
-                                                    <i class="fa fa-thumbs-o-up"></i>Like
+                                                    <i class="fa fa-thumbs-o-up"></i>Suka
                                                 </button>
-            <?php } ?>
+                                            <?php } ?>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6" style="margin: 0; padding: 0;">
                                         <div class="fa-hover col-md-6 filter-icon" style="text-align: center; width: 100%;" onclick="document.getElementById('komen<?php echo $_SESSION['count'] ?>').focus(); return false;">
                                             <button class="btn btn-default" style="width: 100%;">         
-                                                <i class="fa fa-comment-o"></i>Comment
+                                                <i class="fa fa-comment-o"></i>Komentar
                                             </button></div>
                                     </div>
                                 </div>
@@ -227,7 +234,7 @@ if (isset($_GET["id"])) {
                                         $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $idpostingan");
                                         echo mysqli_num_rows($query2);
                                         ?>
-                                    </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 35%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>Show / Hide Komentar</div>
+                                    </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 28%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>Tampilakan / Sembunyikan Komentar</div>
                                     <hr style="margin: 0;">
                                 </div>
 
@@ -248,18 +255,21 @@ if (isset($_GET["id"])) {
                                                     <?php if ($_SESSION["login"] == true && $row2['id'] == $user_id) { ?>
                                                         <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>
                                                         <a href="#" style="float: right; margin-right: 2%;" data-toggle="modal" data-target="#modalEditKomen<?php echo $row2['idkomentar']; ?>"><span class="glyphicon glyphicon-edit"></span></a>
-                    <?php } ?>
+                                                    <?php } ?>
                                                     <p style="margin-top: 1.5%;margin-bottom: 2%;"><?php echo nl2br($row2['isi']) ?></p>
                                                     <!-- BEGIN: MODAL DELETE COMMENT -->
-                                                    <div class="modal fade" id="modalDeleteKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="modalDeleteKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content c-square">
                                                                 <div class="modal-body">
-                                                                    <h3 class="c-font-24 c-font-sbold">Are you sure want to delete this comment ?</h3>
+                                                                    <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus komentar ini ?</h3>
                                                                     <div class="form-group">
-                                                                        <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
-                                                                        <form method="POST" action="#" style="display: inline-block;">
-                                                                            <button class="btn btn-info" > Delete</button>
+                                                                        <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
+                                                                        <form method="POST" action="postingController.php" style="display: inline-block;">
+                                                                            <input type="hidden" name="act" value="delete_komentar">
+                                                                            <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                                            <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
+                                                                            <button class="btn btn-info" > Hapus</button>
                                                                         </form>
                                                                     </div>
                                                                 </div>
@@ -272,7 +282,7 @@ if (isset($_GET["id"])) {
                                                         <div class="modal-dialog">
                                                             <div class="modal-content c-square">
                                                                 <div class="modal-body">
-                                                                    <h3 class="c-font-24 c-font-sbold">Edit This Comment</h3>
+                                                                    <h3 class="c-font-24 c-font-sbold">Ubah komentar</h3>
                                                                     <div class="form-group">
                                                                         <?php
                                                                         $idkomen = $row2['idkomentar'];
@@ -287,8 +297,8 @@ if (isset($_GET["id"])) {
                                                                                     <br>
                                                                                     <input type="hidden" name="act" value="edit_komentar">
                                                                                     <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
-                                                                                    <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Cancel</button>
-                                                                                    <button class="btn btn-info" >Update</button>
+                                                                                    <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
+                                                                                    <button class="btn btn-info" >Perbarui</button>
                                                                                 </form>
                                                                                 <?php
                                                                             }
@@ -307,7 +317,7 @@ if (isset($_GET["id"])) {
                                             ?>
                                         </div>
                                         <!-- INPUT TYPE KOMEN DAN BUTTON KOMEN DISINI -->
-                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php">
+                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php" id="posting_komentar">
                                             <div class="row">
                                                 <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
@@ -322,27 +332,27 @@ if (isset($_GET["id"])) {
                                 </section>
                             </div>
                         </div>
-            <?php
-        }
-        ?>
+                        <?php
+                    }
+                    ?>
                     <div id="postterakhir" lastID = <?php echo $lastID; ?> groupID=<?php echo $group_id; ?> act="datapage" style="display: none;""><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
 
                 <?php } else {
                     ?>
                     <div id="postterakhir" lastID="0" groupID="" act=""><h>BELOM ADA KONTEN</h></div>
-    <?php } ?>
+                <?php } ?>
             </div>
 
             <div class="row">
                 <div class="col-md-3"> </div>
                 <div class="col-md-9">
-                    <button id="btnshowmore" style="width: 100%; margin-bottom: 4%; height: 50px; margin-top: 0;" class="btn btn-danger">SHOW MORE</button>
+                    <button id="btnshowmore" style="width: 100%; margin-bottom: 4%; height: 50px; margin-top: 0;" class="btn btn-danger">Tampilkan Lebih Banyak</button>
                 </div>
             </div>
 
             <!-- END CONTENT -->
         </div>
-    <?php include_once 'layout/modal_group.php' ?>
+        <?php include_once 'layout/modal_group.php' ?>
     </div>
     <?php
 } else {

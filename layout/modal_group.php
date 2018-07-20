@@ -8,16 +8,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h3 class="c-font-24 c-font-sbold">Create New Discussion Group</h3>
+                <h3 class="c-font-24 c-font-sbold">Buat Grup Diskusi Baru</h3>
                 <form action="groupController.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="create-group" class="">Your Group Name</label>
+                        <label for="create-group" class="">Nama Grup</label>
                         <input type="text" class="form-control input-lg c-square" id="topic_discussion" placeholder="Group Name" name="topic_discussion" required=""> 
                         <input type="hidden" name="act" value="create_group">
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;" name="create-group" id="create-group">Create</button><br><br>
+                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;" name="create-group" id="create-group">Buat</button><br><br>
                     </div>
                 </form>
             </div>
@@ -36,13 +36,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h3 class="c-font-24 c-font-sbold">Are you sure to disband this group?</h3>
+                <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin membubarkan grup ini?</h3>
                 
-                <button  data-dismiss="modal"  class="btn btn-danger" style="margin-top: 2%;">Cancel</button>
+                <button  data-dismiss="modal"  class="btn btn-danger" style="margin-top: 2%;">Batal</button>
                 <form action="groupController.php" method="POST" style="display: inline-block;">
                     <input type="hidden" name="act" value="delete_group">
                     <input type="hidden" name="grup_id" value="<?php echo $group_id ?>">
-                    <button class="btn btn-info" style="vertical-align: top !important; margin-top: 0;"> Disband</button>
+                    <button class="btn btn-info" style="vertical-align: top !important; margin-top: 0;"> Bubarkan</button>
                 </form>
 
             </div>
@@ -85,7 +85,7 @@
                                             <input type="hidden" value="invite_member" name="act">
                                             <input type="hidden" value="<?php echo $row['id'] ?>" name="member_id">
                                             <input type="hidden" value="<?php echo $group_id; ?>" name="group_id">
-                                            <button class="btn btn-default">Invite</button>
+                                            <button class="btn btn-default">Undang</button>
                                         </form>
                                     </td>
                                 </tr>

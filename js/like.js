@@ -5,9 +5,9 @@ $(document).ready(function(){
         var $this = $(this);
         $this.toggleClass('like');
         if($this.hasClass('like')){
-            $this.html('<i class="fa fa-thumbs-o-up"></i>Like'); 
+            $this.html('<i class="fa fa-thumbs-o-up"></i>Suka'); 
         } else {
-            $this.html('<i class="fa fa-thumbs-o-down"></i>Unlike');
+            $this.html('<i class="fa fa-thumbs-o-down"></i>Batal Suka');
             $this.addClass("unlike"); 
         }
         $.ajax({
@@ -29,9 +29,9 @@ $(document).ready(function(){
         var $this = $(this);
         $this.toggleClass('unlike');
         if($this.hasClass('unlike')){
-            $this.html('<i class="fa fa-thumbs-o-up"></i>Unlike'); 
+            $this.html('<i class="fa fa-thumbs-o-up"></i>Batal Suka'); 
         } else {
-            $this.html('<i class="fa fa-thumbs-o-up"></i>Like');
+            $this.html('<i class="fa fa-thumbs-o-up"></i>Suka');
             $this.addClass("like"); 
         }
         $.ajax({
