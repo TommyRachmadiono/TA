@@ -298,7 +298,7 @@ $_SESSION['count'] = 0;
 
                                     <?php if ($_SESSION["login"] == true) { ?>
                                         <!-- INPUT TYPE KOMEN DAN BUTTON KOMEN DISINI -->
-                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php" id="posting_komentar<?php echo $idpostingan;?>">
+                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php" id="posting_komentar<?php echo $idpostingan ?>">
                                             <div class="row">
                                                 <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
@@ -317,8 +317,43 @@ $_SESSION['count'] = 0;
                         </div>
                     </div>
                     <script>
-    document.getElementById("txtareakomen<?php echo $idpostingan; ?>").addEventListener("keydown", submitOnEnter);
-    </script>
+                        $(document).ready(function() {
+var val = $.trim($("#txtareakomen<?php echo $idpostingan ?>").val());
+$("#posting_komentar<?php echo $idpostingan ?>").submit(function(event){
+    event.preventDefault(); //prevent default action 
+    var post_url = $(this).attr("action"); //get form action url
+    var request_method = $(this).attr("method"); //get form GET/POST method
+    var form_data = new FormData(this); //Creates new FormData object
+    
+
+        $.ajax({
+        url : post_url,
+        type: request_method,
+        data : form_data,
+        contentType: false,
+        cache: false,
+        processData:false
+    }).done(function(response){ //
+        $("#comment").html(response);
+    });
+    
+    
+});
+    $('#txtareakomen<?php echo $idpostingan ?>').keyup(function(event) {
+        if (event.which == 13 && !event.shiftKey) {
+            event.preventDefault();
+            if(val == ''){
+                alert("Komentar tidak boleh kosong");
+                $("#txtareakomen<?php echo $idpostingan ?>").val('');
+            } else {
+                $('#posting_komentar<?php echo $idpostingan ?>').submit();
+                return false; 
+            }
+         }
+    });
+});
+                    </script>
+
                 <?php } ?>
                 <div id="postterakhir" lastID = <?php echo $lastID; ?> act="dataindex" style="display: none;""><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
             <?php } else {
@@ -372,19 +407,3 @@ $_SESSION['count'] = 0;
     include_once 'layout/footer.php';
     ?>
     
-    <script>
-    <?php
-            $sql = "SELECT p.file, p.idpostingan, p.isi, p.tgldiposting, u.nama, u.foto, u.id, u.role FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE ISNULL(p.grup_id) order by p.idpostingan desc LIMIT 5";
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                // output data of each row
-                while ($row = $result->fetch_assoc()) {
-                    $idpostingan = $row['idpostingan'];
-                    ?>
-                    document.getElementById("txtareakomen<?php echo $idpostingan; ?>").addEventListener("keydown", submitOnEnter);
-                    <?php
-                }
-            }
-                    ?>
-    </script>

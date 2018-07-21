@@ -317,7 +317,7 @@ if (isset($_GET["id"])) {
                                             ?>
                                         </div>
                                         <!-- INPUT TYPE KOMEN DAN BUTTON KOMEN DISINI -->
-                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php" id="posting_komentar">
+                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php" id="posting_komentar<?php echo $idpostingan ?>">
                                             <div class="row">
                                                 <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
@@ -325,7 +325,7 @@ if (isset($_GET["id"])) {
                                                     <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
                                                     
                                                     <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
-                                                    <textarea name="comment" id="txtareakomen"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
+                                                    <textarea name="comment" id="txtareakomen<?php echo $idpostingan ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
                                                    </div>
 
                                                 </div>
@@ -335,6 +335,39 @@ if (isset($_GET["id"])) {
                                 </section>
                             </div>
                         </div>
+                        <script>
+                        $(document).ready(function() {
+var val = $.trim($("#txtareakomen<?php echo $idpostingan ?>").val());
+$("#posting_komentar<?php echo $idpostingan ?>").submit(function(event){
+    event.preventDefault(); //prevent default action 
+    var post_url = $(this).attr("action"); //get form action url
+    var request_method = $(this).attr("method"); //get form GET/POST method
+    var form_data = new FormData(this); //Creates new FormData object
+    $.ajax({
+        url : post_url,
+        type: request_method,
+        data : form_data,
+        contentType: false,
+        cache: false,
+        processData:false
+    }).done(function(response){ //
+        $("#comment").html(response);
+    });
+});
+    $('#txtareakomen<?php echo $idpostingan ?>').keyup(function(event) {
+        if (event.which == 13 && !event.shiftKey) {
+            event.preventDefault();
+            if(val == ''){
+                alert("Komentar tidak boleh kosong");
+                $("#txtareakomen<?php echo $idpostingan ?>").val('');
+            } else {
+                $('#posting_komentar<?php echo $idpostingan ?>').submit();
+                return false; 
+            }
+         }
+    });
+});
+                    </script>
                         <?php
                     }
                     ?>

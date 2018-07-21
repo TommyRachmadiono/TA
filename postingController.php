@@ -130,7 +130,7 @@ switch ($act) {
         $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
         $user_id = $_COOKIE['user_id'];
         $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
-
+        
         $sql = "INSERT INTO komentar (isi, user_id, postingan_idpostingan)
     VALUES ('$comment', '$user_id', '$idpostingan')";
 
