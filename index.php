@@ -307,7 +307,7 @@ $_SESSION['count'] = 0;
                                                     <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
                                                     <textarea name="comment" id="txtareakomen<?php echo $idpostingan; ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
                                                    </div>
-                                                   <input type="submit" name="submit" id="submit" style="display: none;">
+                                                   
                                                 </div>
                                             </div>
                                         </form>
