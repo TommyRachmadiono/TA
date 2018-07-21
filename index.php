@@ -298,14 +298,14 @@ $_SESSION['count'] = 0;
 
                                     <?php if ($_SESSION["login"] == true) { ?>
                                         <!-- INPUT TYPE KOMEN DAN BUTTON KOMEN DISINI -->
-                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php" id="posting_komentar">
+                                        <form method="POST" enctype="multipart/form-data" class="form-inline" action="postingController.php" id="posting_komentar<?php echo $idpostingan;?>">
                                             <div class="row">
                                                 <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
                                                     <input type="hidden" name="act" value="comment_feeds">
                                                     
                                                     <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
-                                                    <textarea name="comment" id="txtareakomen"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
+                                                    <textarea name="comment" id="txtareakomen<?php echo $idpostingan; ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
                                                    </div>
                                                    <input type="submit" name="submit" id="submit" style="display: none;">
                                                 </div>
@@ -316,6 +316,9 @@ $_SESSION['count'] = 0;
                             </section>
                         </div>
                     </div>
+                    <script>
+    document.getElementById("txtareakomen<?php echo $idpostingan; ?>").addEventListener("keydown", submitOnEnter);
+    </script>
                 <?php } ?>
                 <div id="postterakhir" lastID = <?php echo $lastID; ?> act="dataindex" style="display: none;""><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
             <?php } else {
@@ -368,5 +371,20 @@ $_SESSION['count'] = 0;
     <?php
     include_once 'layout/footer.php';
     ?>
+    
+    <script>
+    <?php
+            $sql = "SELECT p.file, p.idpostingan, p.isi, p.tgldiposting, u.nama, u.foto, u.id, u.role FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE ISNULL(p.grup_id) order by p.idpostingan desc LIMIT 5";
+            $result = $conn->query($sql);
 
-
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while ($row = $result->fetch_assoc()) {
+                    $idpostingan = $row['idpostingan'];
+                    ?>
+                    document.getElementById("txtareakomen<?php echo $idpostingan; ?>").addEventListener("keydown", submitOnEnter);
+                    <?php
+                }
+            }
+                    ?>
+    </script>

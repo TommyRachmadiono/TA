@@ -176,7 +176,6 @@
         event.preventDefault(); // Prevents the addition of a new line in the text field (not needed in a lot of cases)
     }
 }
-document.getElementById("txtareakomen").addEventListener("keydown", submitOnEnter);
 </script>
 
 <script>
