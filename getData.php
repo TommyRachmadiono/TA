@@ -55,6 +55,7 @@ if (!empty($_POST["id"])) {
                                                     <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                     <br>
                                                     <input type="hidden" name="act" value="edit_status">
+                                                    <input type="hidden" name="url" value="<?php echo $url; ?>">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                                     <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
                                                     <button class="btn btn-info" >Perbarui</button>
@@ -81,6 +82,7 @@ if (!empty($_POST["id"])) {
                                         <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                         <form method="POST" action="postingController.php" style="display: inline-block;">
                                             <input type="hidden" name="act" value="delete_status">
+                                            <input type="hidden" name="url" value="<?php echo $url; ?>">
                                             <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                             <button class="btn btn-info" > Hapus</button>
                                         </form>
@@ -246,6 +248,7 @@ if (!empty($_POST["id"])) {
                                                                             <form method="POST" action="postingController.php">
                                                                                 <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                                                 <br>
+                                                                                <input type="hidden" name="url" value="<?php echo $url ?>">
                                                                                 <input type="hidden" name="act" value="edit_komentar">
                                                                                 <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
                                                                                 <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
@@ -282,13 +285,14 @@ if (!empty($_POST["id"])) {
                                         </form>
                                         <script>
                         $(document).ready(function() {
-var val = $.trim($("#txtareakomen<?php echo $postID ?>").val());
-$("#posting_komentar<?php echo $postID ?>").submit(function(event){
+    $("#posting_komentar<?php echo $postID ?>").submit(function(event){
     event.preventDefault(); //prevent default action 
     var post_url = $(this).attr("action"); //get form action url
     var request_method = $(this).attr("method"); //get form GET/POST method
     var form_data = new FormData(this); //Creates new FormData object
-    $.ajax({
+    
+
+        $.ajax({
         url : post_url,
         type: request_method,
         data : form_data,
@@ -298,11 +302,16 @@ $("#posting_komentar<?php echo $postID ?>").submit(function(event){
     }).done(function(response){ //
         $("#comment").html(response);
     });
+    
+    
 });
-    $('#txtareakomen<?php echo $postID ?>').keyup(function(event) {
+    $('#txtareakomen<?php echo $postID ?>').keydown(function(event) {
+        var val = $("#txtareakomen<?php echo $postID ?>").val();
         if (event.which == 13 && !event.shiftKey) {
             event.preventDefault();
-            if(val == ''){
+            
+            if(val == ""){
+                alert(val);
                 alert("Komentar tidak boleh kosong");
                 $("#txtareakomen<?php echo $postID ?>").val('');
             } else {
@@ -311,6 +320,8 @@ $("#posting_komentar<?php echo $postID ?>").submit(function(event){
             }
          }
     });
+
+
 });
                     </script>
                                     <?php } ?>
@@ -376,6 +387,7 @@ $("#posting_komentar<?php echo $postID ?>").submit(function(event){
                                                     <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                     <br>
                                                     <input type="hidden" name="act" value="edit_status">
+                                                    <input type="hidden" name="url" value="<?php echo $url; ?>">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                                     <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
                                                     <button class="btn btn-info" >Perbarui</button>
@@ -402,6 +414,7 @@ $("#posting_komentar<?php echo $postID ?>").submit(function(event){
                                         <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                         <form method="POST" action="postingController.php" style="display: inline-block;">
                                             <input type="hidden" name="act" value="delete_status">
+                                            <input type="hidden" name="url" value="<?php echo $url; ?>">
                                             <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                             <button class="btn btn-info" > Hapus</button>
                                         </form>
@@ -567,6 +580,7 @@ $("#posting_komentar<?php echo $postID ?>").submit(function(event){
                                                                                 <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                                                 <br>
                                                                                 <input type="hidden" name="act" value="edit_komentar">
+                                                                                <input type="hidden" name="url" value="<?php echo $url ?>">
                                                                                 <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
                                                                                 <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
                                                                                 <button class="btn btn-info" >Perbarui</button>
@@ -600,15 +614,16 @@ $("#posting_komentar<?php echo $postID ?>").submit(function(event){
                                                 </div>
                                             </div>
                                         </form>
-                                        <script>
+                                       <script>
                         $(document).ready(function() {
-var val = $.trim($("#txtareakomen<?php echo $idpostingan ?>").val());
-$("#posting_komentar<?php echo $postID ?>").submit(function(event){
+    $("#posting_komentar<?php echo $postID ?>").submit(function(event){
     event.preventDefault(); //prevent default action 
     var post_url = $(this).attr("action"); //get form action url
     var request_method = $(this).attr("method"); //get form GET/POST method
     var form_data = new FormData(this); //Creates new FormData object
-    $.ajax({
+    
+
+        $.ajax({
         url : post_url,
         type: request_method,
         data : form_data,
@@ -618,11 +633,16 @@ $("#posting_komentar<?php echo $postID ?>").submit(function(event){
     }).done(function(response){ //
         $("#comment").html(response);
     });
+    
+    
 });
-    $('#txtareakomen<?php echo $postID ?>').keyup(function(event) {
+    $('#txtareakomen<?php echo $postID ?>').keydown(function(event) {
+        var val = $("#txtareakomen<?php echo $postID ?>").val();
         if (event.which == 13 && !event.shiftKey) {
             event.preventDefault();
-            if(val == ''){
+            
+            if(val == ""){
+                alert(val);
                 alert("Komentar tidak boleh kosong");
                 $("#txtareakomen<?php echo $postID ?>").val('');
             } else {
@@ -631,6 +651,8 @@ $("#posting_komentar<?php echo $postID ?>").submit(function(event){
             }
          }
     });
+
+
 });
                     </script>
                                     <?php } ?>
