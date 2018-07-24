@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2018 at 06:28 PM
+-- Generation Time: Jul 24, 2018 at 11:54 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -46,7 +46,11 @@ INSERT INTO `achievement` (`id`, `title`, `description`, `file`, `user_id`) VALU
 (3, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, co', 'a3.jpg', 1),
 (4, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, co', 'a4.jpg', 1),
 (5, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, co', 'a5.jpg', 1),
-(6, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, co', 'a6.jpg', 1);
+(6, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\r\n\r\nLorem ipsum dolor sit amet, co', 'a6.jpg', 1),
+(7, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.\r\n\r\nLorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.\r\n\r\nLorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.', 'a7.jpg', 1),
+(8, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.\r\n\r\nLorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.', 'a8.jpg', 1),
+(9, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.\r\n\r\nLorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.', 'a9.jpg', 1),
+(10, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.\r\n\r\nLorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.', 'a10.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -65,7 +69,30 @@ CREATE TABLE `anggota` (
 --
 
 INSERT INTO `anggota` (`grup_id`, `user_id`, `tgl_join`) VALUES
-(1, 39, '2018-07-15');
+(1, 1, '2018-07-24'),
+(2, 1, '2018-07-24'),
+(1, 9, '2018-07-24'),
+(2, 9, '2018-07-24'),
+(1, 10, '2018-07-24'),
+(2, 10, '2018-07-24'),
+(1, 11, '2018-07-24'),
+(2, 11, '2018-07-24'),
+(1, 12, '2018-07-24'),
+(2, 12, '2018-07-24'),
+(1, 13, '2018-07-24'),
+(2, 13, '2018-07-24'),
+(1, 14, '2018-07-24'),
+(2, 14, '2018-07-24'),
+(1, 15, '2018-07-24'),
+(2, 15, '2018-07-24'),
+(1, 16, '2018-07-24'),
+(2, 16, '2018-07-24'),
+(1, 17, '2018-07-24'),
+(2, 17, '2018-07-24'),
+(1, 18, '2018-07-24'),
+(2, 18, '2018-07-24'),
+(1, 39, '2018-07-15'),
+(2, 40, '2018-07-24');
 
 -- --------------------------------------------------------
 
@@ -134,7 +161,8 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `title`, `description`, `start_date`, `end_date`, `created`, `user_id`) VALUES
-(1, 'Event Sekolah', '', '2018-07-15', '2018-07-15', '2018-07-15', 1);
+(1, 'Event Sekolah', '', '2018-07-15', '2018-07-15', '2018-07-15', 1),
+(2, 'Event X', '[Deprecation] Resource requests whose URLs contained both removed whitespace (`\\n`, `\\r`, `\\t`) characters and less-than characters (`<`) are blocked. Please remove newlines and encode less-than characters from places like element attribute values in order to load these resources.', '2018-07-24', '2018-07-24', '2018-07-24', 1);
 
 -- --------------------------------------------------------
 
@@ -182,7 +210,8 @@ CREATE TABLE `grup` (
 --
 
 INSERT INTO `grup` (`id`, `topik_grup`, `user_id`, `tgl_dibuat`) VALUES
-(1, 'groupKu', 39, '2018-07-15');
+(1, 'groupKu', 39, '2018-07-15'),
+(2, 'Kelompok Belajar', 40, '2018-07-24');
 
 -- --------------------------------------------------------
 
@@ -224,14 +253,13 @@ CREATE TABLE `komentar` (
 --
 
 INSERT INTO `komentar` (`idkomentar`, `isi`, `user_id`, `postingan_idpostingan`) VALUES
-(8, 'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit ametlorem ipsum dolor sit amet', 39, 3),
 (9, 'hmm', 39, 7),
-(14, 'ad', 1, 3),
-(15, 'asd', 1, 24),
-(16, 'oke', 39, 4),
-(48, 'ad', 39, 25),
-(51, 'asd', 10, 30),
-(59, 'hehehe', 39, 29);
+(94, 'oke\r\noke\r\noke', 1, 36),
+(96, 'asd', 1, 90),
+(99, 'HAHA', 9, 65),
+(100, 'Lorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.', 9, 7),
+(101, 'nice', 13, 94),
+(102, 'Whoops', 18, 97);
 
 -- --------------------------------------------------------
 
@@ -243,6 +271,15 @@ CREATE TABLE `like` (
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `like`
+--
+
+INSERT INTO `like` (`user_id`, `post_id`) VALUES
+(13, 94),
+(13, 95),
+(16, 97);
 
 -- --------------------------------------------------------
 
@@ -380,15 +417,23 @@ CREATE TABLE `postingan` (
 --
 
 INSERT INTO `postingan` (`idpostingan`, `isi`, `tgldiposting`, `user_id`, `grup_id`, `file`) VALUES
-(3, 'Posting foto', '2018-07-12', 9, NULL, '20180712085257Chrysanthemum.jpg'),
-(4, 'testing testing testing testingtesting testitesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testingtesting testing\r\n', '2018-07-15', 39, 1, '20180715102635Chrysanthemum.jpg'),
-(6, 'teststststs', '2018-07-15', 1, NULL, '2018071511130609_latihan BPMN multi user.docx'),
-(7, 'lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum', '2018-07-15', 1, NULL, '20180715111319[BAGAS31] Jamu-Sublime.rar'),
-(24, 'tesssss', '2018-07-16', 9, NULL, NULL),
-(25, 'Posting tes\r\nhehe', '2018-07-20', 39, NULL, NULL),
-(29, 'hehe', '2018-07-20', 39, 1, NULL),
-(30, 'asdas\r\nasdas\r\n', '2018-07-20', 10, NULL, NULL),
-(31, 'testes', '2018-07-20', 39, NULL, NULL);
+(7, 'HEHE', '2018-07-15', 1, NULL, '20180715111319[BAGAS31] Jamu-Sublime.rar'),
+(33, 'sadaskdosakd', '2018-07-21', 39, 1, '2018072117573009_latihan BPMN multi user.docx'),
+(34, 'asdsa\r\nasdas\r\nasdasd', '2018-07-21', 39, 1, '20180721175741BPMN Proses Penggunaan Line.png'),
+(35, 'HMMMMMMMmmmmmasd', '2018-07-21', 39, 1, '20180721175759CV_TommyRachmadiono_UniversitasSurabaya.pdf'),
+(36, 'aaaa', '2018-07-21', 39, 1, '20180721175827A.jpg'),
+(65, 'Lorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.', '2018-07-24', 40, NULL, NULL),
+(75, 'coba', '2018-07-24', 40, 2, NULL),
+(88, '1', '2018-07-24', 1, 1, NULL),
+(89, '2', '2018-07-24', 1, 1, NULL),
+(90, '3', '2018-07-24', 1, 1, NULL),
+(91, 'asdsadsadsa', '2018-07-24', 1, 2, NULL),
+(92, 'asd', '2018-07-24', 1, 2, NULL),
+(93, 'Lorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.', '2018-07-24', 9, NULL, '20180724112037Jadwal Kuliah Semester 7.xlsx'),
+(94, 'Coba Upload Foto\r\nDi postingan', '2018-07-24', 9, NULL, '20180724112138A.jpg'),
+(95, 'Form XYZ', '2018-07-24', 13, NULL, '2018072411224814081_Form perpanjangan TA.doc'),
+(96, 'Contoh BPMN', '2018-07-24', 13, NULL, '20180724112331BPMN Proses Penggunaan Facebook.png'),
+(97, 'Lorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.\r\n\r\nLorem ipsum dolor sit amet, nam et possim nostrud conclusionemque, nec ea sanctus perpetua, sed fastidii intellegebat id. Id facete phaedrum voluptatibus pri. Ea aeque aliquip detracto eum, eum sonet ignota te. Dicant discere his et. An munere nullam epicurei per.', '2018-07-24', 16, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -452,13 +497,6 @@ CREATE TABLE `report` (
   `user_id` int(11) NOT NULL,
   `postingan_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `report`
---
-
-INSERT INTO `report` (`user_id`, `postingan_id`) VALUES
-(1, 3);
 
 -- --------------------------------------------------------
 
@@ -754,7 +792,7 @@ ALTER TABLE `week`
 -- AUTO_INCREMENT for table `achievement`
 --
 ALTER TABLE `achievement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `conversation`
 --
@@ -769,7 +807,7 @@ ALTER TABLE `conversation_reply`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `gallery`
 --
@@ -779,7 +817,7 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `grup`
 --
 ALTER TABLE `grup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `kelas`
 --
@@ -789,7 +827,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 --
 -- AUTO_INCREMENT for table `materi`
 --
@@ -809,7 +847,7 @@ ALTER TABLE `notification`
 -- AUTO_INCREMENT for table `postingan`
 --
 ALTER TABLE `postingan`
-  MODIFY `idpostingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `idpostingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 --
 -- AUTO_INCREMENT for table `tugas`
 --
