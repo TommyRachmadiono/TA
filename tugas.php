@@ -162,16 +162,17 @@ if (isset($_GET["id"])) {
                             if (mysqli_num_rows($query) > 0) {
                                 ?>
 
-                                <form method="POST" action="matpelController.php" enctype="multipart/form-data" style="display: inline-block;">
+                                <form method="POST" action="matpelController.php" enctype="multipart/form-data" style="float: left;">
                                     <input type="hidden" name="kelas" value="<?php echo $kelas ?>">
                                     <input type="hidden" name="act" value="download_zip">
                                     <input type="hidden" name="tugas_id" value="<?php echo $tugas_id; ?>">
                                     <input type="submit" class="btn btn-info" value="Unduh Semua File" style="display: inline;">
                                 </form>
 
-                                <form method="GET" action="tugas.php" enctype="multipart/form-data" style="display: inline-block; margin-left: 2%;">
+                                <form method="GET" action="tugas.php" enctype="multipart/form-data" style="margin-left: 2%; float: left;" class="form-inline">
                                     <input type="hidden" name="id" value="<?php echo $tugas_id; ?>">
-                                    <select name="select-kelas">
+                                    <div class="form-group">
+                                    <select name="select-kelas" class="form-control">
                                         <option value="" selected disabled="">-- Pilih Kelas --</option> 
                                         <option value="">All</option>
                                         <?php
@@ -188,14 +189,19 @@ if (isset($_GET["id"])) {
                                     </select>
 
                                     <button class="btn btn-info">Pilih</button>
+                                </div>
                                 </form>
 
                             <?php } else { ?>
-                                <button class="btn btn-info" disabled="">Unduh Semua File</button>
+                                <form style="float: left;">
+                                    <button class="btn btn-info" disabled="">Unduh Semua File</button>
+                                </form>
+                                
 
-                                <form method="GET" action="tugas.php" enctype="multipart/form-data" style="display: inline-block; margin-left: 2%;">
+                                <form method="GET" action="tugas.php" enctype="multipart/form-data" style="float: left; margin-left: 2%;" class="form-inline">
                                     <input type="hidden" name="id" value="<?php echo $tugas_id; ?>">
-                                    <select name="select-kelas" id="select-kelas" >
+                                    <div class="form-group">
+                                    <select name="select-kelas" id="select-kelas" class="form-control">
                                         <option value="" selected disabled="">-- Pilih Kelas --</option> 
                                         <option value="">All</option>
                                         <?php
@@ -211,6 +217,7 @@ if (isset($_GET["id"])) {
                                         ?>
                                     </select>
                                     <button class="btn btn-info">Pilih</button>
+                                </div>
                                 </form>
                             <?php } ?>
 

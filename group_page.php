@@ -108,7 +108,7 @@ if (isset($_GET["id"])) {
                                                     <form method="POST" action="postingController.php">
                                                         <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                         <br>
-                                                        <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                        <input type="hidden" name="group_id" value="<?php echo $group_id; ?>">
                                                         <input type="hidden" name="act" value="edit_status">
                                                         <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                                         <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
@@ -135,7 +135,7 @@ if (isset($_GET["id"])) {
                                         <div class="form-group">
                                             <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                             <form method="POST" action="postingController.php" style="display: inline-block;">
-                                                <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
                                                 <input type="hidden" name="act" value="delete_status">
                                                 <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                                 <button class="btn btn-info" > Hapus</button>
@@ -146,6 +146,7 @@ if (isset($_GET["id"])) {
                             </div>
                         </div>
                         <!-- END: MODAL DELETE STATUS -->
+
                         <div class="panel panel-warning" id="status_postingan">
                             <div class="panel-heading">
                                 <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto'] ?>">
@@ -269,7 +270,7 @@ if (isset($_GET["id"])) {
                                                                         <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                                                         <form method="POST" action="postingController.php" style="display: inline-block;">
                                                                             <input type="hidden" name="act" value="delete_komentar">
-                                                                            <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                                            <input type="hidden" name="group_id" value="<?php echo $group_id; ?>">
                                                                             <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
                                                                             <button class="btn btn-info" > Hapus</button>
                                                                         </form>
@@ -298,7 +299,7 @@ if (isset($_GET["id"])) {
                                                                                     <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                                                     <br>
                                                                                     <input type="hidden" name="act" value="edit_komentar">
-                                                                                    <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                                                    <input type="hidden" name="group_id" value="<?php echo $group_id; ?>">
                                                                                     <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
                                                                                     <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
                                                                                     <button class="btn btn-info" >Perbarui</button>

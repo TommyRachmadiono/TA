@@ -36,9 +36,10 @@ if ($_COOKIE['role'] != 'admin') {
     <!-- BEGIN: PAGE CONTENT -->
     <div style="margin: 2%;">
         <!-- <button class="btn btn-info" data-toggle="modal" data-target="#add-matpel">Add New Relasi</button> -->
-        <form action="relasi_user_matpel.php" method="GET" style="display: inline-block; margin-left: 2%;">
+        <form action="relasi_user_matpel.php" method="GET" style="margin-left: 2%;" class="form-inline">
             <label style="display: inline;">Pilih Role</label>
-            <select name="select-role" id="select-role" >
+            <div class="form-group">
+            <select name="select-role" id="select-role" class="form-control">
                 <option value="" selected disabled="">-- Pilih Role --</option> 
                 <option value="">All</option>
                 <?php
@@ -54,6 +55,7 @@ if ($_COOKIE['role'] != 'admin') {
                 ?>
             </select>
             <button class="btn btn-info">Pilih</button>
+        </div>
         </form>
         <table id="relasimatpel" class="table table-hover table-bordered">
             <thead>

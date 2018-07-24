@@ -50,12 +50,11 @@ if (!empty($_POST["id"])) {
                                         if ($hasil->num_rows > 0) {
                                             while ($a = $hasil->fetch_assoc()) {
                                                 ?>
-
                                                 <form method="POST" action="postingController.php">
                                                     <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                     <br>
                                                     <input type="hidden" name="act" value="edit_status">
-                                                    <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                    <input type="hidden" name="group_id" value="<?php echo $group_id; ?>">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                                     <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
                                                     <button class="btn btn-info" >Perbarui</button>
@@ -82,7 +81,7 @@ if (!empty($_POST["id"])) {
                                         <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                         <form method="POST" action="postingController.php" style="display: inline-block;">
                                             <input type="hidden" name="act" value="delete_status">
-                                            <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                            <input type="hidden" name="group_id" value="<?php echo $group_id; ?>">
                                             <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                             <button class="btn btn-info" > Hapus</button>
                                         </form>
@@ -220,7 +219,7 @@ if (!empty($_POST["id"])) {
                                                                     <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                                                     <form method="POST" action="postingController.php" style="display: inline-block;">
                                                                         <input type="hidden" name="act" value="delete_komentar">
-                                                                        <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                                        <input type="hidden" name="group_id" value="<?php echo $group_id; ?>">
                                                                         <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
                                                                         <button class="btn btn-info" > Hapus</button>
                                                                     </form>
@@ -248,7 +247,7 @@ if (!empty($_POST["id"])) {
                                                                             <form method="POST" action="postingController.php">
                                                                                 <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                                                 <br>
-                                                                                <input type="hidden" name="url" value="<?php echo $url ?>">
+                                                                                <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
                                                                                 <input type="hidden" name="act" value="edit_komentar">
                                                                                 <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
                                                                                 <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
@@ -276,7 +275,8 @@ if (!empty($_POST["id"])) {
                                             <div class="row">
                                                 <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $postID ?>">
-                                                    <input type="hidden" name="act" value="comment_feeds">
+                                                    <input type="hidden" name="act" value="comment_feeds_group">
+                                                    <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
                                                     <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
                                                     <textarea name="comment" id="txtareakomen<?php echo $postID ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
                                                    </div>
@@ -387,7 +387,7 @@ if (!empty($_POST["id"])) {
                                                     <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                     <br>
                                                     <input type="hidden" name="act" value="edit_status">
-                                                    <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                    <input type="hidden" name="group_id" value="NULL">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                                     <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
                                                     <button class="btn btn-info" >Perbarui</button>
@@ -414,7 +414,7 @@ if (!empty($_POST["id"])) {
                                         <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                         <form method="POST" action="postingController.php" style="display: inline-block;">
                                             <input type="hidden" name="act" value="delete_status">
-                                            <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                            <input type="hidden" name="group_id" value="NULL">
                                             <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                             <button class="btn btn-info" > Hapus</button>
                                         </form>
@@ -551,7 +551,7 @@ if (!empty($_POST["id"])) {
                                                                     <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                                                     <form method="POST" action="postingController.php" style="display: inline-block;">
                                                                         <input type="hidden" name="act" value="delete_komentar">
-                                                                        <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                                        <input type="hidden" name="group_id" value="NULL">
                                                                         <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
                                                                         <button class="btn btn-info" > Hapus</button>
                                                                     </form>
@@ -580,7 +580,7 @@ if (!empty($_POST["id"])) {
                                                                                 <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                                                 <br>
                                                                                 <input type="hidden" name="act" value="edit_komentar">
-                                                                                <input type="hidden" name="url" value="<?php echo $url ?>">
+                                                                                <input type="hidden" name="group_id" value="NULL">
                                                                                 <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
                                                                                 <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
                                                                                 <button class="btn btn-info" >Perbarui</button>

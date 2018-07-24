@@ -165,31 +165,42 @@ switch ($act) {
     break;
 
     case 'delete_komentar':
-    $url = mysqli_real_escape_string($conn, $_POST["url"]);
+    $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
     $idkomentar = mysqli_real_escape_string($conn, $_POST["idkomentar"]);
     $sql = "DELETE FROM komentar WHERE idkomentar = '$idkomentar'";
+    
     if (mysqli_query($conn, $sql)) {
-        echo '<script type="text/javascript">alert("Berhasil Menghapus Komentar"); </script>';
-        echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
+        if($group_id != "NULL"){
+            echo '<script type="text/javascript">alert("Berhasil Menghapus Komentar"); </script>';
+            echo '<script type="text/javascript"> window.location = "group_page.php?id=' . $group_id . '" </script>';
+        } else {
+            echo '<script type="text/javascript">alert("Berhasil Menghapus Komentar"); </script>';
+            echo '<script type="text/javascript"> window.location = "index.php" </script>';
+        }
     }
     break;
 
     case 'edit_komentar':
     $idkomentar = mysqli_real_escape_string($conn, $_POST["idkomentar"]);
     $isikomen = mysqli_real_escape_string($conn, $_POST["komentar"]);
-    $url = mysqli_real_escape_string($conn, $_POST["url"]);
+    $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
 
     $sql = "UPDATE komentar SET isi='$isikomen' WHERE idkomentar='$idkomentar'";
     if (mysqli_query($conn, $sql)) {
-        echo '<script type="text/javascript">alert("Berhasil Mengubah Komentar"); </script>';
-        echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
+        if($group_id != "NULL"){
+            echo '<script type="text/javascript">alert("Berhasil Mengubah Komentar"); </script>';
+            echo '<script type="text/javascript"> window.location = "group_page.php?id=' . $group_id . '" </script>';
+        } else {
+            echo '<script type="text/javascript">alert("Berhasil Mengubah Komentar"); </script>';
+            echo '<script type="text/javascript"> window.location = "index.php" </script>';
+        }
     } else {
         echo "Error updating record: " . mysqli_error($conn);
     }
     break;
 
     case 'delete_status':
-    $url = mysqli_real_escape_string($conn, $_POST["url"]);
+    $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
     $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
     $dir = "postingan";
 
@@ -209,11 +220,21 @@ switch ($act) {
             if (mysqli_query($conn, $sql3)) {
                 if ($file != "") {
                     unlink($dir . '/' . $file);
-                    echo '<script type="text/javascript">alert("Berhasil Menghapus Status"); </script>';
-                    echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
+                    if($group_id != "NULL"){
+                        echo '<script type="text/javascript">alert("Berhasil Menghapus Status"); </script>';
+                        echo '<script type="text/javascript"> window.location = "group_page.php?id=' . $group_id . '" </script>';
+                    } else {
+                        echo '<script type="text/javascript">alert("Berhasil Menghapus Status"); </script>';
+                        echo '<script type="text/javascript"> window.location = "index.php" </script>';
+                    }
                 }
-                echo '<script type="text/javascript">alert("Berhasil Menghapus Status"); </script>';
-                echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
+                if($group_id != "NULL"){
+                    echo '<script type="text/javascript">alert("Berhasil Menghapus Status"); </script>';
+                    echo '<script type="text/javascript"> window.location = "group_page.php?id=' . $group_id . '" </script>';
+                } else {
+                    echo '<script type="text/javascript">alert("Berhasil Menghapus Status"); </script>';
+                    echo '<script type="text/javascript"> window.location = "index.php" </script>';
+                }
             } else {
                 echo "Error : " . mysqli_error($conn);
             }
@@ -240,13 +261,18 @@ switch ($act) {
     case 'edit_status':
     $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
     $isi = mysqli_real_escape_string($conn, $_POST["isi"]);
-    $url = mysqli_real_escape_string($conn, $_POST["url"]);
+    $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
 
     $sql = "UPDATE postingan SET isi='$isi' WHERE idpostingan='$idpostingan'";
     if (mysqli_query($conn, $sql)) {
-        echo '<script type="text/javascript">alert("Berhasil Mengubah Status"); </script>';
+        if($group_id != "NULL"){
+            echo '<script type="text/javascript">alert("Berhasil Mengubah Status"); </script>';
+            echo '<script type="text/javascript"> window.location = "group_page.php?id=' . $group_id . '" </script>';
+        } else {
+            echo '<script type="text/javascript">alert("Berhasil Mengubah Status"); </script>';
+            echo '<script type="text/javascript"> window.location = "index.php" </script>';
+        }
         
-        echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
     } else {
         echo "Error updating record: " . mysqli_error($conn);
     }

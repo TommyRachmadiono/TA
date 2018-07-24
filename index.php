@@ -83,7 +83,7 @@ $_SESSION['count'] = 0;
                                                 <form method="POST" action="postingController.php">
                                                     <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                     <br>
-                                                    <input type="hidden" name="url" value="<?php echo $url ?>">
+                                                    <input type="hidden" name="group_id" value="NULL">
                                                     <input type="hidden" name="act" value="edit_status">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                                     <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
@@ -110,7 +110,7 @@ $_SESSION['count'] = 0;
                                     <div class="form-group">
                                         <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                         <form method="POST" action="postingController.php" style="display: inline-block;">
-                                            <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                            <input type="hidden" name="group_id" value="NULL">
                                             <input type="hidden" name="act" value="delete_status">
                                             <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                             <button class="btn btn-info" > Hapus</button>
@@ -247,7 +247,7 @@ $_SESSION['count'] = 0;
                                                                     <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                                                     <form method="POST" action="postingController.php" style="display: inline-block;">
                                                                         <input type="hidden" name="act" value="delete_komentar">
-                                                                        <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                                        <input type="hidden" name="group_id" value="NULL">
                                                                         <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
                                                                         <button class="btn btn-info" > Hapus</button>
                                                                     </form>
@@ -276,7 +276,7 @@ $_SESSION['count'] = 0;
                                                                             <form method="POST" action="postingController.php">
                                                                                 <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                                                 <br>
-                                                                                <input type="hidden" name="url" value="<?php echo $url; ?>">
+                                                                                <input type="hidden" name="group_id" value="NULL">
                                                                                 <input type="hidden" name="act" value="edit_komentar">
                                                                                 <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
                                                                                 <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
@@ -372,12 +372,11 @@ $_SESSION['count'] = 0;
         </div>
 
         <div class="row">
-            <div class="col-md-3"> </div>
-            <div class="col-md-9">
-                <button id="btnshowmore" style="width: 100%; margin-bottom: 4%; height: 50px; margin-top: 0;" class="btn btn-danger">Tampilkan Lebih Banyak</button>
+                <div class="col-md-3"> </div>
+                <div class="col-md-9">
+                    <button id="btnshowmore" style="width: 100%; margin-bottom: 4%; height: 50px; margin-top: 0;" class="btn btn-danger">Tampilkan Lebih Banyak</button>
+                </div>
             </div>
-
-        </div>
         <!-- END: PAGE CONTENT -->
 
         <!-- MODAL CREATE GROUP -->
