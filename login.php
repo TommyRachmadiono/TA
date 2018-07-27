@@ -3,8 +3,8 @@
 session_start();
 include 'config/connectdb.php';
 
-$username = mysqli_real_escape_string($conn, $_POST["username"]);
-$password = mysqli_real_escape_string($conn, $_POST['password']);
+$username = strtolower(mysqli_real_escape_string($conn, $_POST["username"])); 
+$password = strtolower(mysqli_real_escape_string($conn, $_POST['password']));
 
 $sql = "SELECT u.*, k.nama_kelas FROM user u LEFT JOIN kelas k on u.kelas_id = k.id WHERE username = '$username' AND password = '$password'";
 $result = $conn->query($sql);

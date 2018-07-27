@@ -40,7 +40,8 @@ if ($_COOKIE['role'] != 'admin') {
                 <tr>
                     <th style="text-align: center;">ID</th>
                     <th style="text-align: center;">Nama Mata Pelajaran</th>
-                    <th style="text-align: center;">Action</th>
+                    <th style="text-align: center;">Jenjang</th>
+                    <th style="text-align: center;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,6 +54,7 @@ if ($_COOKIE['role'] != 'admin') {
                         <tr>
                             <th style="text-align: center;"><?php echo $row['id']; ?></th>
                             <td style="text-align: center;"><?php echo $row['nama_pelajaran']; ?></td>
+                            <td style="text-align: center;"><?php echo $row['jenjang_id'] ?></td>
                             <td style="text-align: center;">
                                 <button class="btn btn-info" data-toggle="modal" data-target="#editMatpel<?php echo $row['id'] ?>">Ubah</button>
                                 <button class="btn btn-info" data-toggle="modal" data-target="#deleteMatpel<?php echo $row['id'] ?>">Hapus</button>
@@ -151,11 +153,26 @@ include_once 'layout/footer.php';
                 <h3 class="c-font-24 c-font-sbold">Tambah Mata Pelajaran Baru</h3>
                 <form action="matpelController.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="create-group" class="">Nama Matpel</label>
+                        <label for="" class="">Nama Matpel</label>
                         <input type="text" class="form-control input-lg c-square" id="nama_matpel" placeholder="Nama Matpel" name="nama_matpel" required=""> 
                         <input type="hidden" name="act" value="add_matpel">
                     </div>
-
+                    <div class="form-group">
+                        <label class="">Pilih Jenjang</label>
+                        <select name="jenjang" class="form-control c-square input-lg" required="">
+                            <option value="">--Pilih Jenjang--</option>
+                            <?php 
+                            $sql = "SELECT * FROM jenjang";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                            ?>
+                            <option value="<?php echo $row['id'] ?>"><?php echo $row['nama_jenjang'] ?></option>
+                            <?php 
+                        }}
+                            ?>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;" name="create-group" id="create-group">Tambah</button><br><br>
                     </div>

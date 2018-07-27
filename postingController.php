@@ -56,15 +56,39 @@ switch ($act) {
     case 'comment_feeds':
     $comment = mysqli_real_escape_string($conn, $_POST["comment"]);
     $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
+    $time = date("Y-m-d H:i:s");
     $user_id = $_COOKIE['user_id'];
+
+    $s2 = "SELECT * FROM user where id = '$user_id'";
+    $r2 = $conn->query($s2);
+    if($r2->num_rows>0){
+        while ($row = $r2->fetch_assoc()) {
+            $nama = $row['nama'];
+        }
+    }
+
+    $nama_notif = $nama." mengomentari postingan anda";
+    $s = "SELECT * FROM postingan where idpostingan = '$idpostingan'";
+    $r = $conn->query($s);
+    if($r->num_rows > 0){
+        while ($row = $r->fetch_assoc()) {
+            $id_penerima = $row['user_id'];
+        }
+    }
 
     $sql = "INSERT INTO komentar (isi, user_id, postingan_idpostingan)
     VALUES ('$comment', '$user_id', '$idpostingan')";
-
     if (mysqli_query($conn, $sql)) {
+        if($user_id != $id_penerima) {
+            $query = "INSERT INTO notif_socmed (nama_notif, idpostingan, id_penerima, time) VALUES ('$nama_notif', '$idpostingan', '$id_penerima', '$time')";
+            if(mysqli_query($conn, $query)){
+                echo '<script type="text/javascript">alert("Berhasil menambahkan komentar"); </script>';
+                echo '<script type="text/javascript"> window.location = "index.php" </script>';
+            } else
+            echo "Error: " . $query . "<br>" . mysqli_error($conn);
+        }
         echo '<script type="text/javascript">alert("Berhasil menambahkan komentar"); </script>';
         echo '<script type="text/javascript"> window.location = "index.php" </script>';
-        $conn->close();
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
@@ -126,15 +150,40 @@ switch ($act) {
     break;
 
     case 'comment_feeds_group':
+    $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
     $comment = mysqli_real_escape_string($conn, $_POST["comment"]);
     $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
+    $time = date("Y-m-d H:i:s");
     $user_id = $_COOKIE['user_id'];
-    $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
+
+    $s2 = "SELECT * FROM user where id = '$user_id'";
+    $r2 = $conn->query($s2);
+    if($r2->num_rows>0){
+        while ($row = $r2->fetch_assoc()) {
+            $nama = $row['nama'];
+        }
+    }
+
+    $nama_notif = $nama." mengomentari postingan anda";
+    $s = "SELECT * FROM postingan where idpostingan = '$idpostingan'";
+    $r = $conn->query($s);
+    if($r->num_rows > 0){
+        while ($row = $r->fetch_assoc()) {
+            $id_penerima = $row['user_id'];
+        }
+    }
 
     $sql = "INSERT INTO komentar (isi, user_id, postingan_idpostingan)
     VALUES ('$comment', '$user_id', '$idpostingan')";
-
     if (mysqli_query($conn, $sql)) {
+        if($user_id != $id_penerima) {
+            $query = "INSERT INTO notif_socmed (nama_notif, idpostingan, id_penerima, time) VALUES ('$nama_notif', '$idpostingan', '$id_penerima', '$time')";
+            if(mysqli_query($conn, $query)){
+                echo '<script type="text/javascript">alert("Berhasil menambahkan komentar"); </script>';
+                echo '<script type="text/javascript"> window.location = "group_page.php?id=' . $group_id . '" </script>';
+            } else
+            echo "Error: " . $query . "<br>" . mysqli_error($conn);
+        }
         echo '<script type="text/javascript">alert("Berhasil menambahkan komentar"); </script>';
         echo '<script type="text/javascript"> window.location = "group_page.php?id=' . $group_id . '" </script>';
     } else {
@@ -168,7 +217,7 @@ switch ($act) {
     $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
     $idkomentar = mysqli_real_escape_string($conn, $_POST["idkomentar"]);
     $sql = "DELETE FROM komentar WHERE idkomentar = '$idkomentar'";
-    
+
     if (mysqli_query($conn, $sql)) {
         if($group_id != "NULL"){
             echo '<script type="text/javascript">alert("Berhasil Menghapus Komentar"); </script>';
@@ -272,7 +321,7 @@ switch ($act) {
             echo '<script type="text/javascript">alert("Berhasil Mengubah Status"); </script>';
             echo '<script type="text/javascript"> window.location = "index.php" </script>';
         }
-        
+
     } else {
         echo "Error updating record: " . mysqli_error($conn);
     }

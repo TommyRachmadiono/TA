@@ -196,6 +196,25 @@ if (isset($_SESSION['menuHeader'])) {
                                                         ?>    
                                                     </a>
                                                 </li>
+
+                                                <li>
+                                                    <a href="#" class="c-link dropdown-toggle" data-toggle="modal" data-target="#notif">
+                                                        <i class="fa fa-bell"></i>
+                                                        <?php 
+                                                        $query = "SELECT COUNT(id_penerima) as notifikasi FROM `notif_socmed` WHERE id_penerima = '$user_id'";
+                                                        $hasil = $conn->query($query);
+                                                        if ($hasil->num_rows > 0) {
+                                                            while ($row = $hasil->fetch_assoc()) { ?>
+                                                            <span class="badge"><?php echo $row['notifikasi']; ?></span>   
+                                                            <?php      
+                                                        }
+                                                    } else {
+                                                        ?>
+                                                        <span class="badge">0</span>
+                                                        <?php } 
+                                                        ?>
+                                                    </a>
+                                                </li>
                                                 <?php } ?>
 
                                             </ul>
@@ -221,10 +240,10 @@ if (isset($_SESSION['menuHeader'])) {
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h1 class="c-font-24 c-font-sbold">Password Recovery</h1>
-                                        <p>To recover your password please contact the administration.</p>
-                                        <p>You can reach us by e-mailing to : example@mail.sch.id</p> 
-                                        <p>Please write the detail of your problem (error message, warning message, etc) for getting better support.</p>
+                                        <h1 class="c-font-24 c-font-sbold">Pemulihan Kata Sandi</h1>
+                                        <p>Untuk memulihkan kata sandi anda silahkan hubungi admin yang bertugas.</p>
+                                        <p>Anda bisa mengirimkan pesan ke email kami : example@mail.sch.id</p> 
+                                        <p>Tolong tuliskan detail masalah anda (pesan error, masalah yang dihadapi, dll) untuk mendapatkan bantuan yang dibutuhkan.</p>
 
                                     </div>
                                     <div class="modal-footer c-no-border">
@@ -283,4 +302,67 @@ if (isset($_SESSION['menuHeader'])) {
                                 </div>
                                 <!-- END: CONTENT/USER/LOGOUT-FORM -->
 
+                                <!-- MODAL NOTIFIKASI -->
+                                <div id="notif" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" style="overflow-y: initial !important">
+                                        <div class="modal-content c-square">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">Notifikasi</h4>
+                                            </div>
+                                            <div class="modal-body" style="height: 500px; overflow-y: auto;">
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
+                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                                <!-- END MODAL NOTIFIKASI -->
 

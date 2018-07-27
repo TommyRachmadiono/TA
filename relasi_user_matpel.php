@@ -85,6 +85,9 @@ if ($_COOKIE['role'] != 'admin') {
                 if ($result2->num_rows > 0) {
                     while ($row = $result2->fetch_assoc()) {
                         $iduser = $row['u_id'];
+                        $kelas = $row['nama_kelas'];
+                        $strkelas = substr($kelas, 0,2);
+
                         ?>
 
                         <tr>
@@ -119,9 +122,16 @@ if ($_COOKIE['role'] != 'admin') {
                             <div class="modal-content c-square">
                                 <div class="modal-body">
                                     <h3 class="c-font-24 c-font-sbold">Mata Pelajaran Yang Diambil <?php echo $row['nama']; ?></h3>
-                                    <form method="POST" action="userController.php" style="display: inline-block;">
+                                    <form method="POST" action="userController.php" style="display: inline;">
                                         <?php
-                                        $query = "SELECT * from matpel";
+                                        if($strkelas == "10")
+                                        $query = "SELECT * from matpel where jenjang_id = '1'";
+                                        elseif($strkelas == "11")
+                                        $query = "SELECT * from matpel where jenjang_id = '2'";
+                                        elseif($strkelas == "12")
+                                        $query = "SELECT * from matpel where jenjang_id = '3'";
+                                        else
+                                        $query = "SELECT * FROM matpel";   
                                         $hasil = $conn->query($query);
                                         if ($hasil->num_rows > 0) {
                                             while ($a = $hasil->fetch_assoc()) {

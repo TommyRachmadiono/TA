@@ -3,6 +3,11 @@ session_start();
 $_SESSION['menuHeader'] = 'studentAchievement';
 include_once 'layout/header.php';
 include 'config/connectdb.php';
+
+if ($_SESSION["login"] == false) {
+    echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';
+    echo '<script type="text/javascript"> window.location = "index.php" </script>';
+}
 ?>
 
 <!-- BEGIN: PAGE CONTAINER -->

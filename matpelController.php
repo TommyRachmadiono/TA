@@ -369,9 +369,10 @@ switch ($act) {
 
     case 'add_matpel':
         $nama_pelajaran = mysqli_real_escape_string($conn, $_POST["nama_matpel"]);
+        $jenjang_id = mysqli_real_escape_string($conn, $_POST["jenjang"]);
 
-        $sql = "INSERT INTO matpel (nama_pelajaran)
-	VALUES ('$nama_pelajaran')";
+        $sql = "INSERT INTO matpel (nama_pelajaran, jenjang_id)
+	VALUES ('$nama_pelajaran', '$jenjang_id')";
         if (mysqli_query($conn, $sql)) {
             $sql2 = "SELECT id FROM matpel ORDER BY id DESC LIMIT 1";
             $result = $conn->query($sql2);

@@ -346,9 +346,7 @@ $_SESSION['count'] = 0;
         var val = $("#txtareakomen<?php echo $idpostingan ?>").val();
         if (event.which == 13 && !event.shiftKey) {
             event.preventDefault();
-            
             if(val == ""){
-                alert(val);
                 alert("Komentar tidak boleh kosong");
                 $("#txtareakomen<?php echo $idpostingan ?>").val('');
             } else {

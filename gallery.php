@@ -111,9 +111,11 @@ if ($_SESSION["login"] == false) {
                         ?>
 
                         <div class="cbp-item identity logos">
-                            <a href="images/gallery/<?php echo $row['file'] ?>" class="cbp-caption cbp-lightbox" data-title="<?php echo $row['title'] ?><br>by Paul Flavius Nechita">
-                                <div class="cbp-caption-defaultWrap">
-                                    <img src="images/gallery/<?php echo $row['file'] ?>" alt=""> </div>
+                            <a href="images/gallery/<?php echo $row['file'] ?>" class="cbp-caption c-content-isotope-overlay c-ilightbox-image-2" data-title="<?php echo $row['title'] ?>" data-caption="TEST">
+
+                                <div class="cbp-caption-defaultWrap" data-caption="<h4><?php echo $row['title'] ?>">
+                                    <img src="images/gallery/<?php echo $row['file'] ?>" alt=""> 
+                                </div>
                                 <div class="cbp-caption-activeWrap">
                                     <div class="cbp-l-caption-alignLeft">
                                         <div class="cbp-l-caption-body">
