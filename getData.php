@@ -278,7 +278,7 @@ if (!empty($_POST["id"])) {
                                                     <input type="hidden" name="act" value="comment_feeds_group">
                                                     <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
                                                     <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
-                                                    <textarea name="comment" id="txtareakomen<?php echo $postID ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
+                                                    <textarea name="comment" id="txtareakomen<?php echo $postID ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda"></textarea>
                                                    </div>
                                                 </div>
                                             </div>
@@ -609,7 +609,7 @@ if (!empty($_POST["id"])) {
                                                     <input type="hidden" name="idpostingan" value="<?php echo $postID ?>">
                                                     <input type="hidden" name="act" value="comment_feeds">
                                                     <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
-                                                    <textarea name="comment" id="txtareakomen<?php echo $postID ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
+                                                    <textarea name="comment" id="txtareakomen<?php echo $postID ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda"></textarea>
                                                    </div>
                                                 </div>
                                             </div>

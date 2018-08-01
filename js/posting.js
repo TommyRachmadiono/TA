@@ -1,4 +1,5 @@
-$("#posting_status").submit(function(event){
+$(document).ready(function(){
+    $("#posting_status").submit(function(event){
     event.preventDefault(); //prevent default action 
     var post_url = $(this).attr("action"); //get form action url
     var request_method = $(this).attr("method"); //get form GET/POST method
@@ -14,16 +15,7 @@ $("#posting_status").submit(function(event){
         $("#status_postingan").html(response);
     });
 });
+});
 
 
-// setTimeout(function()
-// {
-//     $.ajax({
-//         type: "POST",
-//         url: "getdata.php",
-//         data: "action=get&type=29",
-//         success: function(arg){
-//             // do something
-//         }
-//     });
-// }, 1000); // This will "refresh" every 1 second
+

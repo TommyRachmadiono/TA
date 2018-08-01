@@ -138,7 +138,6 @@ if (isset($_SESSION['menuHeader'])) {
 
                                     <li <?php echo $menuStudentAchievement; ?>>
                                         <a href="student_achievement.php" class="c-link dropdown-toggle">Prestasi Sekolah
-
                                         </a>
                                     </li>
 
@@ -201,11 +200,11 @@ if (isset($_SESSION['menuHeader'])) {
                                                     <a href="#" class="c-link dropdown-toggle" data-toggle="modal" data-target="#notif">
                                                         <i class="fa fa-bell"></i>
                                                         <?php 
-                                                        $query = "SELECT COUNT(id_penerima) as notifikasi FROM `notif_socmed` WHERE id_penerima = '$user_id'";
+                                                        $query = "SELECT COUNT(id_penerima) as notifikasi FROM `notif_socmed` WHERE id_penerima = '$user_id' AND seen = 0";
                                                         $hasil = $conn->query($query);
                                                         if ($hasil->num_rows > 0) {
                                                             while ($row = $hasil->fetch_assoc()) { ?>
-                                                            <span class="badge"><?php echo $row['notifikasi']; ?></span>   
+                                                            <span id="showNotifSocmed" class="badge"><?php echo $row['notifikasi']; ?></span>   
                                                             <?php      
                                                         }
                                                     } else {
@@ -310,54 +309,22 @@ if (isset($_SESSION['menuHeader'])) {
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">×</span>
                                                 </button>
-                                                <h4 class="modal-title" id="myModalLabel">Notifikasi</h4>
+                                                <h4 class="modal-title" id="myModalLabel">Pemberitahuan</h4>
                                             </div>
                                             <div class="modal-body" style="height: 500px; overflow-y: auto;">
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
+                                                <?php 
+                                                $query = "SELECT * FROM `notif_socmed` WHERE id_penerima = '$user_id' ORDER BY id desc";
+                                                        $hasil = $conn->query($query);
+                                                        if ($hasil->num_rows > 0) {
+                                                            while ($row = $hasil->fetch_assoc()) {
+                                                ?>
+                                                <div class="alert alert-info" role="alert">
+                                                    <a class="c-font-slim" href="postingan.php?id=<?php echo $row['idpostingan'] ?>"><?php echo $row['nama_notif'] ?></a>.
+                                                    <h4 style="margin-top: 1%; padding-bottom: 0;"><?php echo $row['time'] ?></h4>
                                                 </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
-                                                <div class="alert alert-info" role="alert"> Heads up! This alert needs
-                                                    <a class="c-font-slim" href="#">your attention, but it's not super important</a>.
-                                                </div>
+                                                <?php }} else { ?>
+                                                <h1>TIDAK ADA NOTIFIKASI</h1>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                         <!-- /.modal-content -->

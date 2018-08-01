@@ -4,56 +4,49 @@ session_start();
 include 'config/connectdb.php';
 $_SESSION['menuHeader'] = 'home';
 include_once 'layout/header.php';
-$_SESSION['count'] = 0;
+
+if ($_SESSION["login"] == false) {
+    echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';
+    echo '<script type="text/javascript"> window.location = "index.php" </script>';
+}
+
+$user_id = $_COOKIE['user_id'];
+
+if (isset($_GET["id"])) {
+    $postingan_id = $_GET["id"];
+    $sql = "SELECT * FROM postingan WHERE idpostingan = '$postingan_id'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $grup_id = $row['grup_id'];
+        if ($grup_id != NULL) {
+            $sql2 = "SELECT * FROM grup g INNER JOIN anggota a on g.id = a.grup_id WHERE a.grup_id = '$grup_id' AND a.user_id = '$user_id'";
+            $result = $conn->query($sql);
+            if ($result->num_rows == 0) {
+                echo '<script type="text/javascript">alert("Postingan ini berada dalam suatu grup dan anda bukan anggota didalam grup tersebut."); </script>';
+                echo '<script type="text/javascript"> window.location = "index.php" </script>';
+            }
+        }
+    } else {
+        echo '<script type="text/javascript">alert("Tidak ada postingan dengan ID tersebut."); </script>';
+        echo '<script type="text/javascript"> window.location = "index.php" </script>';
+    }
+} else {
+    echo '<script type="text/javascript">alert("Jangan maenan url"); </script>';
+    echo '<script type="text/javascript"> window.location = "index.php" </script>';
+}
 ?>
 
 <!-- BEGIN: PAGE CONTAINER -->
-<div class="c-layout-page">
-
-    <?php
-    if ($_SESSION["login"] == true) {
-        $user_id = $_COOKIE['user_id'];
-        ?>
-        <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
-        <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold" style="background-color: cyan;">
-            <div class="container" style="margin-bottom: 0;">
-                <div class="c-page-title c-pull-left" style=" margin-bottom:0;">
-                    <img style="border-width: 3px; border-style: solid; border-color: black; height: 180px; margin-left: 15%; width: 190px; border-radius: 50%;" src="images/fotoprofil/<?php echo $_COOKIE['foto_profil'] ?>">
-                </div>
-                <div>
-                    <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular" style="width: 74%; margin-top: 0; margin-bottom: 0;">
-                        <li style="width: 100%; margin-bottom: 0;">
-                            <div class="posting">
-                                <form method="POST" action="postingController.php" enctype="multipart/form-data" id="posting_status">
-                                    <input type="hidden" name="act" value="posting_feeds">
-                                    <textarea required="" class="form-control" name="textarea" autofocus="autofocus" rows="3" style="font-size: 20px; resize: none;" placeholder="Apa yang anda pikirkan?"></textarea>
-                                    <input type="submit" value="KIRIM" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0;">
-
-                                    <button id="btnfile" type="button" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%;">
-                                        <span class="glyphicon glyphicon-paperclip"></span>
-                                    </button>
-
-                                    <input type="file" id="file" name="file" class="btn btn-primary btn-lg" style="float: right; margin-top: 2%; margin-bottom: 0; margin-left: 2%; margin-right: 2%; display: none;">
-                                    <p class="file-name" style="float: right; margin-top: 2%;">Pilih file anda <br> maksimal 5mb</p>
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    <?php } ?>
-    <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+<div class="c-layout-page" style="margin-top: 10%;">
 
     <div class="container">
         <!-- SIDEBAR MENU -->
         <?php include_once 'layout/sidebar_menu.php'; ?>
 
         <!-- BEGIN: PAGE CONTENT -->
-        <div class="c-layout-sidebar-content " id="postlist">
+        <div class="c-layout-sidebar-content">
             <?php
-            $sql = "SELECT p.file, p.idpostingan, p.isi, p.tgldiposting, u.nama, u.foto, u.id, u.role FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE ISNULL(p.grup_id) order by p.idpostingan desc LIMIT 5";
+            $sql = "SELECT p.file, p.idpostingan, p.isi, p.tgldiposting, u.nama, u.foto, u.id, u.role FROM postingan p INNER JOIN user u on p.user_id = u.id WHERE p.idpostingan = '$postingan_id'";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -83,8 +76,8 @@ $_SESSION['count'] = 0;
                                                 <form method="POST" action="postingController.php">
                                                     <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                     <br>
-                                                    <input type="hidden" name="group_id" value="NULL">
-                                                    <input type="hidden" name="act" value="edit_status">
+                                                    
+                                                    <input type="hidden" name="act" value="edit_status_detail">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                                     <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
                                                     <button class="btn btn-info" >Perbarui</button>
@@ -246,8 +239,8 @@ $_SESSION['count'] = 0;
                                                                 <div class="form-group">
                                                                     <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                                                     <form method="POST" action="postingController.php" style="display: inline-block;">
-                                                                        <input type="hidden" name="act" value="delete_komentar">
-                                                                        <input type="hidden" name="group_id" value="NULL">
+                                                                        <input type="hidden" name="act" value="delete_komentar_detail">
+                                                                        <input type="hidden" name="idpostingan" value="<?php echo $postingan_id ?>">
                                                                         <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
                                                                         <button class="btn btn-info" > Hapus</button>
                                                                     </form>
@@ -276,8 +269,8 @@ $_SESSION['count'] = 0;
                                                                             <form method="POST" action="postingController.php">
                                                                                 <textarea rows="3" name="komentar" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                                                 <br>
-                                                                                <input type="hidden" name="group_id" value="NULL">
-                                                                                <input type="hidden" name="act" value="edit_komentar">
+                                                                                <input type="hidden" name="idpostingan" value="<?php echo $postingan_id ?>">
+                                                                                <input type="hidden" name="act" value="edit_komentar_detail">
                                                                                 <input type="hidden" name="idkomentar" value="<?php echo $row2['idkomentar']; ?>">
                                                                                 <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
                                                                                 <button class="btn btn-info" >Perbarui</button>
@@ -305,7 +298,7 @@ $_SESSION['count'] = 0;
                                             <div class="row">
                                                 <div class="form-group input-group-lg" style="margin-bottom: 2%; margin-top: 2%; width: 100%;">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $idpostingan ?>">
-                                                    <input type="hidden" name="act" value="comment_feeds">
+                                                    <input type="hidden" name="act" value="komentar_detail">
 
                                                     <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
                                                         <textarea name="comment" id="txtareakomen<?php echo $idpostingan; ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda"></textarea>
@@ -355,25 +348,12 @@ $_SESSION['count'] = 0;
                                     }
                                 }
                             });
-
-
                         });
                     </script>
-
-                <?php } ?>
-                <div id="postterakhir" lastID = <?php echo $lastID; ?> act="dataindex" style="display: none;""><h>LOADING . . .(last id = <?php echo $lastID; ?>)</h></div>
-            <?php } else {
-                ?>
-                <div id="postterakhir" lastID="0" groupID="" act=""><h>Belum Ada Postingan</h></div>
-            <?php }
+                    <?php
+                }
+            }
             ?>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3"> </div>
-            <div class="col-md-9">
-                <button id="btnshowmore" style="width: 100%; margin-bottom: 4%; height: 50px; margin-top: 0;" class="btn btn-danger">Tampilkan Lebih Banyak</button>
-            </div>
         </div>
         <!-- END: PAGE CONTENT -->
 
@@ -411,4 +391,3 @@ $_SESSION['count'] = 0;
     <?php
     include_once 'layout/footer.php';
     ?>
-    

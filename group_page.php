@@ -23,6 +23,7 @@ if (isset($_GET["id"])) {
         echo '<script type="text/javascript">alert("Kamu bukan anggota grup ini"); </script>';
         echo '<script type="text/javascript"> window.location = "index.php" </script>';
     }
+}
     ?>
 
     <div class="c-layout-page">
@@ -329,7 +330,7 @@ if (isset($_GET["id"])) {
                                                     <input type="hidden" name="group_id" value="<?php echo $group_id ?>">
                                                     
                                                     <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
-                                                    <textarea name="comment" id="txtareakomen<?php echo $idpostingan ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda" autofocus></textarea>
+                                                    <textarea name="comment" id="txtareakomen<?php echo $idpostingan ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda"></textarea>
                                                    </div>
 
                                                 </div>

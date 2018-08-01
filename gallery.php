@@ -1,9 +1,8 @@
 <?php
 session_start();
-
 $_SESSION['menuHeader'] = 'gallery';
-include_once 'layout/header.php';
 include 'config/connectdb.php';
+include_once 'layout/header.php';
 
 if ($_SESSION["login"] == false) {
     echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';
@@ -111,7 +110,7 @@ if ($_SESSION["login"] == false) {
                         ?>
 
                         <div class="cbp-item identity logos">
-                            <a href="images/gallery/<?php echo $row['file'] ?>" class="cbp-caption c-content-isotope-overlay c-ilightbox-image-2" data-title="<?php echo $row['title'] ?>" data-caption="TEST">
+                            <a href="images/gallery/<?php echo $row['file'] ?>" class="cbp-caption c-content-isotope-overlay c-ilightbox-image-2" data-title="<?php echo $row['title'] ?>" data-caption="<?php echo nl2br($row['description']) ?>">
 
                                 <div class="cbp-caption-defaultWrap" data-caption="<h4><?php echo $row['title'] ?>">
                                     <img src="images/gallery/<?php echo $row['file'] ?>" alt=""> 
@@ -168,14 +167,16 @@ include_once 'layout/footer.php';
                 </button>
             </div>
             <div class="modal-body">
-                <h3 class="c-font-24 c-font-sbold">Add New Photo</h3>
+                <h3 class="c-font-24 c-font-sbold">Tambahkan Foto Baru</h3>
                 <form action="galleryController.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="create-group" class="">Your Photo</label>
+                        <label for="create-group" class="">Foto</label>
                         <input type="file" class="form-control input-lg c-square" name="file" required=""> 
-                        <span class="help-block">For better experience use <b>600x600</b> photo</span>
-                        <label for="create-group" class="">Title</label>
+                        <span class="help-block">Untuk hasil yang maksimal gunakan <b>600x600</b> foto</span>
+                        <label for="create-group" class="">Judul</label>
                         <input type="text" class="form-control input-lg c-square" placeholder="Title" name="title" required=""> 
+                        <label class="">Deskripsi</label>
+                        <textarea name="description" placeholder="Write the description (max 1000 character)" class="form-control input-lg c-square" rows="3" style="font-size: 17px; resize: none;" maxlength="1000"></textarea>
                         <input type="hidden" name="act" value="add_gallery">
                     </div>
 

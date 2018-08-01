@@ -1,8 +1,8 @@
 <?php
 session_start();
 $_SESSION['menuHeader'] = 'studentAchievement';
-include_once 'layout/header.php';
 include 'config/connectdb.php';
+include_once 'layout/header.php';
 
 if ($_SESSION["login"] == false) {
     echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';
@@ -158,8 +158,9 @@ include_once 'layout/footer.php';
                         <input type="file" class="form-control input-lg c-square" name="file" required=""> 
                         <span class="help-block">Untuk hasil yang maksimal gunakan <b>800x800</b> foto</span>
                         <label for="create-group" class="">Judul</label>
-                        <input type="text" class="form-control input-lg c-square" placeholder="Title" name="title" required=""><label class="">Deskripsi</label>
-                        <textarea name="description" placeholder="Write the description (max 255 character)" class="form-control input-lg c-square" rows="3" style="font-size: 17px; resize: none;" maxlength="255"></textarea>
+                        <input type="text" class="form-control input-lg c-square" placeholder="Title" name="title" required="">
+                        <label class="">Deskripsi</label>
+                        <textarea name="description" placeholder="Write the description (max 1000 character)" class="form-control input-lg c-square" rows="3" style="font-size: 17px; resize: none;" maxlength="1000"></textarea>
                         <input type="hidden" name="act" value="add_achievement">
                     </div>
 

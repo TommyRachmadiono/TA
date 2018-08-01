@@ -1,8 +1,8 @@
 <?php
 session_start();
 $_SESSION['menuHeader'] = 'home';
-include_once 'layout/header.php';
 include 'config/connectdb.php';
+include_once 'layout/header.php';
 
 if ($_SESSION["login"] == false) {
     echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';
@@ -16,16 +16,16 @@ $user_id = $_COOKIE['user_id'];
     <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold">
         <div class="container">
             <div class="c-page-title c-pull-left">
-                <h3 class="c-font-uppercase c-font-sbold">Inbox</h3>
-                <h4 class="">Read and send message to your friends</h4>
+                <h3 class="c-font-uppercase c-font-sbold">Kotak Masuk</h3>
+                <h4 class="">Baca dan kirim pesan dengan teman anda</h4>
             </div>
             <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
                 <li>
-                    <a href="index.php">Home</a>
+                    <a href="index.php">Beranda</a>
                 </li>
                 <li>/</li>
                 <li>
-                    <a href="inbox.php">Inbox</a>
+                    <a href="inbox.php">Kotak Masuk</a>
                 </li>
             </ul>
         </div>
@@ -33,7 +33,7 @@ $user_id = $_COOKIE['user_id'];
     <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-3 -->
     <!-- BEGIN: PAGE CONTENT -->
     <div style="margin-left: 2%; margin-top: 2%;">
-        <button class="btn btn-info" data-toggle="modal" data-target="#conversation">Start Conversation</button>
+        <button class="btn btn-info" data-toggle="modal" data-target="#conversation">Mulai Percakapan</button>
     </div>
 
     <div class="panel panel-info" style="margin: 2%;">
@@ -46,9 +46,9 @@ $user_id = $_COOKIE['user_id'];
                     while ($row2 = $result2->fetch_assoc()) {
                         if ($row2['notifikasi'] != NULL) {
                             ?>
-                            Messages (<?php echo $row2['notifikasi']; ?> Messages)
+                            Pesan (<?php echo $row2['notifikasi']; ?> Pesan)
                         <?php } else { ?>
-                            Messages (0 Messages)
+                            Pesan (0 Pesan)
                         <?php }
                     }
                 }
@@ -79,13 +79,13 @@ $user_id = $_COOKIE['user_id'];
                                     <div class="modal-dialog">
                                         <div class="modal-content c-square">
                                             <div class="modal-body">
-                                                <h3 class="c-font-24 c-font-sbold">Are you sure want to delete this conversation ?</h3>
+                                                <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus percakapn ini ?</h3>
                                                 <div class="form-group">
-                                                    <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                                                    <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                                     <form method="POST" action="messagesController.php" style="display: inline-block;">
                                                         <input type="hidden" name="act" value="delete_conversation">
                                                         <input type="hidden" name="idconversation" value="<?php echo $row['c_id']; ?>">
-                                                        <button class="btn btn-info" > Delete</button>
+                                                        <button class="btn btn-info" > Hapus</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -106,10 +106,10 @@ $user_id = $_COOKIE['user_id'];
                                                 if ($result3->num_rows > 0) {
                                                     while ($row3 = $result3->fetch_assoc()) {
                                                         ?>
-                                                        <span class="badge"><?php echo $row3['notifikasi'] ?> New messages</span>
+                                                        <span class="badge"><?php echo $row3['notifikasi'] ?> Pesan baru</span>
                         <?php }
                     } else { ?>
-                                                    <span class="badge">0 New messages</span>
+                                                    <span class="badge">0 Pesan Baru</span>
                     <?php } ?>
                                             </h3> 
                                         </div>
@@ -118,7 +118,7 @@ $user_id = $_COOKIE['user_id'];
                                         <h2><?php echo $i['reply']; ?></h2>
                                         <h3 class="panel-title" style="display: inline;"><span class="glyphicon glyphicon-time"></span> <?php echo $row['time']; ?>
                                         </h3> 
-                                        <button class="btn btn-info" style="display: inline;" data-toggle="modal" data-target="#modalDeleteConversation<?php echo $row['c_id']; ?>">Delete Message</button>
+                                        <button class="btn btn-info" style="display: inline;" data-toggle="modal" data-target="#modalDeleteConversation<?php echo $row['c_id']; ?>">Hapus Percakapan</button>
                                     </div>
                                 </div>
 
@@ -137,13 +137,13 @@ $user_id = $_COOKIE['user_id'];
                                     <div class="modal-dialog">
                                         <div class="modal-content c-square">
                                             <div class="modal-body">
-                                                <h3 class="c-font-24 c-font-sbold">Are you sure want to delete this conversation ?</h3>
+                                                <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus percakapan ini ?</h3>
                                                 <div class="form-group">
-                                                    <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                                                    <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
                                                     <form method="POST" action="messagesController.php" style="display: inline-block;">
                                                         <input type="hidden" name="act" value="delete_conversation">
                                                         <input type="hidden" name="idconversation" value="<?php echo $row['c_id']; ?>">
-                                                        <button class="btn btn-info" > Delete</button>
+                                                        <button class="btn btn-info" > Hapus</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -164,10 +164,10 @@ $user_id = $_COOKIE['user_id'];
                                                 if ($result4->num_rows > 0) {
                                                     while ($row4 = $result4->fetch_assoc()) {
                                                         ?>
-                                                        <span class="badge"><?php echo $row4['notifikasi']; ?> New messages</span>
+                                                        <span class="badge"><?php echo $row4['notifikasi']; ?> Pesan baru</span>
                         <?php }
                     } else { ?>
-                                                    <span class="badge">0 New messages</span>
+                                                    <span class="badge">0 Pesan baru</span>
                     <?php } ?>
                                             </h3>
                                         </div>
@@ -176,7 +176,7 @@ $user_id = $_COOKIE['user_id'];
                                         <h2><?php echo $i['reply']; ?></h2> 
                                         <h3 class="panel-title" style="display: inline;"><span class="glyphicon glyphicon-time"></span> <?php echo $row['time']; ?>
                                         </h3> 
-                                        <button class="btn btn-info" style="display: inline;" data-toggle="modal" data-target="#modalDeleteConversation<?php echo $row['c_id']; ?>">Delete Message</button>
+                                        <button class="btn btn-info" style="display: inline;" data-toggle="modal" data-target="#modalDeleteConversation<?php echo $row['c_id']; ?>">Hapus Percakapan</button>
                                     </div>
                                 </div>
 
@@ -185,7 +185,7 @@ $user_id = $_COOKIE['user_id'];
         }
     }
 } else { ?>
-                You dont have any conversation yet. Start messaging and you will see them here.
+                Anda tidak mempunyai percakapan dengan siapapun. Mulailah mengirim pesan dan percakapan anda akan muncul disini.
 <?php } ?>
         </div>
     </div>
@@ -204,15 +204,15 @@ include_once 'layout/footer.php';
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Start New Conversation</h4>
+                <h4 class="modal-title" id="myModalLabel">Mulai percakapan baru</h4>
             </div>
             <form action="messagesController.php" method="POST" class="form-horizontal">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="inputPassword3" class="col-md-4 control-label">With</label>
+                        <label for="inputPassword3" class="col-md-4 control-label">Dengan</label>
                         <div class="col-md-6">
                             <select name="penerima" class="form-control  c-square c-theme" required="">
-                                <option value="" selected="">-- Select User --</option>
+                                <option value="" selected="">-- Pilih User --</option>
 <?php
 $user_id = $_SESSION['user_id'];
 $sql3 = "SELECT * FROM user where id != '$user_id'";
@@ -227,15 +227,15 @@ if ($result3->num_rows > 0) {
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="" class="col-md-4 control-label">Say Something</label>
+                        <label for="" class="col-md-4 control-label">Katakan Sesuatu</label>
                         <div class="col-md-6">
-                            <input type="text" name="reply" style="border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;" placeholder="   Greets your friends" required="">
+                            <input type="text" name="reply" style="border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;" placeholder="   sapa teman anda" required="">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="act" value="add_conversation">
-                    <button type="submit" class="btn c-theme-btn c-btn-square c-btn-bold c-btn-uppercase">Add</button>
+                    <button type="submit" class="btn c-theme-btn c-btn-square c-btn-bold c-btn-uppercase">Tambah</button>
                 </div>
             </form>
         </div>

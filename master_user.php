@@ -1,7 +1,8 @@
 <?php
 session_start();
-include_once 'layout/header.php';
+$_SESSION['menuHeader'] = 'home';
 include 'config/connectdb.php';
+include_once 'layout/header.php';
 
 if ($_SESSION["login"] == false) {
     echo '<script type="text/javascript">alert("Silahkan login terlebih dahulu"); </script>';

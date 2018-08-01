@@ -7,6 +7,7 @@ $act = $_POST["act"];
 switch ($act) {
 	case 'add_gallery':
 	$title = mysqli_real_escape_string($conn, $_POST["title"]);
+	$description = mysqli_real_escape_string($conn, $_POST["description"]);
 
 	$user_id = $_COOKIE['user_id'];
 	$tglupload = date('YmdHis');
@@ -25,8 +26,8 @@ switch ($act) {
     // if everything is ok, try to upload file
 	} else {
 		if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-			$sql = "INSERT INTO gallery (title, file, user_id)
-			VALUES ('$title', '$file_name', '$user_id')";
+			$sql = "INSERT INTO gallery (title, description, file, user_id)
+			VALUES ('$title', '$description', '$file_name', '$user_id')";
 			if (mysqli_query($conn, $sql)) {
 				echo '<script type="text/javascript">alert("Berhasil menambahkan foto gallery"); </script>';
 				echo '<script type="text/javascript"> window.location = "gallery.php" </script>';

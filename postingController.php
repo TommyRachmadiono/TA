@@ -79,10 +79,19 @@ switch ($act) {
     $sql = "INSERT INTO komentar (isi, user_id, postingan_idpostingan)
     VALUES ('$comment', '$user_id', '$idpostingan')";
     if (mysqli_query($conn, $sql)) {
+
+        $s3 = "SELECT * FROM komentar where user_id = '$user_id' ORDER BY idkomentar desc LIMIT 1";
+        $r3 = $conn->query($s3);
+        if($r3->num_rows>0){
+            while ($row = $r3->fetch_assoc()) {
+                $idkomentar = $row['idkomentar'];
+            }
+        }
+
         if($user_id != $id_penerima) {
-            $query = "INSERT INTO notif_socmed (nama_notif, idpostingan, id_penerima, time) VALUES ('$nama_notif', '$idpostingan', '$id_penerima', '$time')";
+            $query = "INSERT INTO notif_socmed (nama_notif, idpostingan, id_penerima, time, seen, idkomentar) VALUES ('$nama_notif', '$idpostingan', '$id_penerima', '$time', '0', '$idkomentar')";
             if(mysqli_query($conn, $query)){
-                echo '<script type="text/javascript">alert("Berhasil menambahkan komentar"); </script>';
+
                 echo '<script type="text/javascript"> window.location = "index.php" </script>';
             } else
             echo "Error: " . $query . "<br>" . mysqli_error($conn);
@@ -176,8 +185,17 @@ switch ($act) {
     $sql = "INSERT INTO komentar (isi, user_id, postingan_idpostingan)
     VALUES ('$comment', '$user_id', '$idpostingan')";
     if (mysqli_query($conn, $sql)) {
+
+        $s3 = "SELECT * FROM komentar where user_id = '$user_id' ORDER BY idkomentar desc LIMIT 1";
+        $r3 = $conn->query($s3);
+        if($r3->num_rows>0){
+            while ($row = $r3->fetch_assoc()) {
+                $idkomentar = $row['idkomentar'];
+            }
+        }
+
         if($user_id != $id_penerima) {
-            $query = "INSERT INTO notif_socmed (nama_notif, idpostingan, id_penerima, time) VALUES ('$nama_notif', '$idpostingan', '$id_penerima', '$time')";
+            $query = "INSERT INTO notif_socmed (nama_notif, idpostingan, id_penerima, time, seen) VALUES ('$nama_notif', '$idpostingan', '$id_penerima', '$time', '0')";
             if(mysqli_query($conn, $query)){
                 echo '<script type="text/javascript">alert("Berhasil menambahkan komentar"); </script>';
                 echo '<script type="text/javascript"> window.location = "group_page.php?id=' . $group_id . '" </script>';
@@ -195,12 +213,39 @@ switch ($act) {
     if (isset($_POST['like'])) {
 
         $id = $_POST['id'];
+        $time = date("Y-m-d H:i:s");
+        $user_id = $_COOKIE['user_id'];
+
+        $s2 = "SELECT * FROM user where id = '$user_id'";
+        $r2 = $conn->query($s2);
+        if($r2->num_rows>0){
+            while ($row = $r2->fetch_assoc()) {
+                $nama = $row['nama'];
+            }
+        }
+
         $query = mysqli_query($conn, "select * from `like` where post_id='$id' and user_id='" . $_COOKIE['user_id'] . "'") or die(mysqli_error());
 
         if (mysqli_num_rows($query) > 0) {
+            //DELETE LIKE + HAPUS NOTIF
             mysqli_query($conn, "delete from `like` where user_id='" . $_COOKIE['user_id'] . "' and post_id='$id'");
+            mysqli_query($conn, "DELETE FROM notif_socmed WHERE idpostingan = '$id' AND nama_notif like '%$nama menyukai%'");
         } else {
+            //INSERT LIKE + NOTIF
             mysqli_query($conn, "insert into `like` (user_id,post_id) values ('" . $_COOKIE['user_id'] . "', '$id')");
+
+            $nama_notif = $nama." menyukai postingan anda";
+            $s = "SELECT * FROM postingan where idpostingan = '$id'";
+            $r = $conn->query($s);
+            if($r->num_rows > 0){
+                while ($row = $r->fetch_assoc()) {
+                    $id_penerima = $row['user_id'];
+                }
+            }
+
+            if($user_id != $id_penerima) {
+                $query = mysqli_query($conn, "INSERT INTO notif_socmed (nama_notif, idpostingan, id_penerima, time, seen) VALUES ('$nama_notif', '$id', '$id_penerima', '$time', '0')");
+            }
         }
     }
     break;
@@ -211,6 +256,12 @@ switch ($act) {
         $query2 = mysqli_query($conn, "select * from `like` where post_id='$id'");
         echo mysqli_num_rows($query2);
     }
+    break;
+
+    case 'show_notif_socmed':
+    $id = $_POST['id'];
+    $query = mysqli_query($conn, "SELECT COUNT(id_penerima) as notifikasi FROM `notif_socmed` WHERE id_penerima = '$id' AND seen = 0");
+    echo mysqli_query($query);
     break;
 
     case 'delete_komentar':
@@ -327,5 +378,94 @@ switch ($act) {
     }
     break;
 
+    case 'edit_status_detail':
+    $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
+    $isi = mysqli_real_escape_string($conn, $_POST["isi"]);
+
+    $sql = "UPDATE postingan SET isi='$isi' WHERE idpostingan='$idpostingan'";
+    if (mysqli_query($conn, $sql)) {
+        echo '<script type="text/javascript">alert("Berhasil Mengubah Status"); </script>';
+        echo '<script type="text/javascript"> window.location = "postingan.php?id=' . $idpostingan . '" </script>';
+    } else {
+        echo "Error updating record: " . mysqli_error($conn);
+    }
+    break;
+
+    case 'delete_komentar_detail':
+    $idkomentar = mysqli_real_escape_string($conn, $_POST["idkomentar"]);
+    $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
+
+    $sql = "DELETE FROM komentar WHERE idkomentar = '$idkomentar'";
+    if (mysqli_query($conn, $sql)) {
+        echo '<script type="text/javascript">alert("Berhasil Menghapus Komentar"); </script>';
+        echo '<script type="text/javascript"> window.location = "postingan.php?id=' . $idpostingan . '" </script>';
+    }
+    break;
+
+    case 'edit_komentar_detail':
+    $idkomentar = mysqli_real_escape_string($conn, $_POST["idkomentar"]);
+    $isikomen = mysqli_real_escape_string($conn, $_POST["komentar"]);
+    $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
+
+    $sql = "UPDATE komentar SET isi='$isikomen' WHERE idkomentar='$idkomentar'";
+    if (mysqli_query($conn, $sql)) {
+        echo '<script type="text/javascript">alert("Berhasil Mengubah Komentar"); </script>';
+        echo '<script type="text/javascript"> window.location = "postingan.php?id=' . $idpostingan . '" </script>';    
+    } else {
+        echo "Error updating record: " . mysqli_error($conn);
+    }
+    break;
+
+    case 'komentar_detail':
+    $group_id = mysqli_real_escape_string($conn, $_POST["group_id"]);
+    $comment = mysqli_real_escape_string($conn, $_POST["comment"]);
+    $idpostingan = mysqli_real_escape_string($conn, $_POST["idpostingan"]);
+    $time = date("Y-m-d H:i:s");
+    $user_id = $_COOKIE['user_id'];
+
+    $s2 = "SELECT * FROM user where id = '$user_id'";
+    $r2 = $conn->query($s2);
+    if($r2->num_rows>0){
+        while ($row = $r2->fetch_assoc()) {
+            $nama = $row['nama'];
+        }
+    }
+
+    $nama_notif = $nama." mengomentari postingan anda";
+    $s = "SELECT * FROM postingan where idpostingan = '$idpostingan'";
+    $r = $conn->query($s);
+    if($r->num_rows > 0){
+        while ($row = $r->fetch_assoc()) {
+            $id_penerima = $row['user_id'];
+        }
+    }
+
+    $sql = "INSERT INTO komentar (isi, user_id, postingan_idpostingan)
+    VALUES ('$comment', '$user_id', '$idpostingan')";
+    if (mysqli_query($conn, $sql)) {
+
+        $s3 = "SELECT * FROM komentar where user_id = '$user_id' ORDER BY idkomentar desc LIMIT 1";
+        $r3 = $conn->query($s3);
+        if($r3->num_rows>0){
+            while ($row = $r3->fetch_assoc()) {
+                $idkomentar = $row['idkomentar'];
+            }
+        }
+
+        if($user_id != $id_penerima) {
+            $query = "INSERT INTO notif_socmed (nama_notif, idpostingan, id_penerima, time, seen) VALUES ('$nama_notif', '$idpostingan', '$id_penerima', '$time', '0')";
+            if(mysqli_query($conn, $query)){
+                echo '<script type="text/javascript">alert("Berhasil menambahkan komentar"); </script>';
+                echo '<script type="text/javascript"> window.location = "postingan.php?id=' . $idpostingan . '" </script>';
+            } else
+            echo "Error: " . $query . "<br>" . mysqli_error($conn);
+        }
+        echo '<script type="text/javascript">alert("Berhasil menambahkan komentar"); </script>';
+        echo '<script type="text/javascript"> window.location = "postingan.php?id=' . $idpostingan . '" </script>';
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+    break;
 }
+
 ?>

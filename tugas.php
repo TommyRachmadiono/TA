@@ -176,7 +176,20 @@ if (isset($_GET["id"])) {
                                         <option value="" selected disabled="">-- Pilih Kelas --</option> 
                                         <option value="">All</option>
                                         <?php
-                                        $sql = "select * from kelas";
+                                        $query = "select * from matpel where id = '$matpel_id'";
+                                        $hasil = $conn->query($query);
+                                        if ($hasil->num_rows >0) {
+                                            while ($r = $hasil->fetch_assoc()) {
+                                                $jenjang_id = $r['jenjang_id'];
+                                            }
+                                        }
+
+                                        if($jenjang_id == '1')
+                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10%'";
+                                        elseif($jenjang_id == '2')
+                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11%'";
+                                        elseif($jenjang_id == '3')
+                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12%'";
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
@@ -201,11 +214,24 @@ if (isset($_GET["id"])) {
                                 <form method="GET" action="tugas.php" enctype="multipart/form-data" style="float: left; margin-left: 2%;" class="form-inline">
                                     <input type="hidden" name="id" value="<?php echo $tugas_id; ?>">
                                     <div class="form-group">
-                                    <select name="select-kelas" id="select-kelas" class="form-control">
+                                    <select name="select-kelas" id="select-kelas" class="form-control" disabled="">
                                         <option value="" selected disabled="">-- Pilih Kelas --</option> 
                                         <option value="">All</option>
                                         <?php
-                                        $sql = "select * from kelas";
+                                        $query = "select * from matpel where id = '$matpel_id'";
+                                        $hasil = $conn->query($query);
+                                        if ($hasil->num_rows >0) {
+                                            while ($r = $hasil->fetch_assoc()) {
+                                                $jenjang_id = $r['jenjang_id'];
+                                            }
+                                        }
+
+                                        if($jenjang_id == '1')
+                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10%'";
+                                        elseif($jenjang_id == '2')
+                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11%'";
+                                        elseif($jenjang_id == '3')
+                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12%'";
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
@@ -216,7 +242,7 @@ if (isset($_GET["id"])) {
                                         }
                                         ?>
                                     </select>
-                                    <button class="btn btn-info">Pilih</button>
+                                    <button class="btn btn-info" disabled="">Pilih</button>
                                 </div>
                                 </form>
                             <?php } ?>
