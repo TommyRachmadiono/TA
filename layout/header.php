@@ -197,7 +197,7 @@ if (isset($_SESSION['menuHeader'])) {
                                                 </li>
 
                                                 <li>
-                                                    <a href="#" class="c-link dropdown-toggle" data-toggle="modal" data-target="#notif">
+                                                    <a href="#" class="c-link dropdown-toggle" data-toggle="modal" data-target="#notif" onclick='asyncNotif();'>
                                                         <i class="fa fa-bell"></i>
                                                         <?php 
                                                         $query = "SELECT COUNT(id_penerima) as notifikasi FROM `notif_socmed` WHERE id_penerima = '$user_id' AND seen = 0";
@@ -215,6 +215,17 @@ if (isset($_SESSION['menuHeader'])) {
                                                     </a>
                                                 </li>
                                                 <?php } ?>
+
+                                                <script type="text/javascript">
+                                                    function asyncNotif(){
+                                                        $.post("async_dummy.php", 
+                                                            { inputan1: "anuanu", inputan2: "enaena" })
+                                                            .done(function( data ) {
+                                                            alert(data);
+                                                            $("#showNotifSocmed").text("3");
+                                                        });
+                                                    }
+                                                </script>
 
                                             </ul>
                                         </nav>
