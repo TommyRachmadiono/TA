@@ -43,17 +43,8 @@ if ($_COOKIE['role'] != 'admin') {
             <select name="select-role" id="select-role" class="form-control">
                 <option value="" selected disabled="">-- Pilih Role --</option> 
                 <option value="">All</option>
-                <?php
-                $sql = "select distinct role from user where NOT (role ='admin' OR role = 'ortu')";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        ?>
-                        <option value="<?php echo $row['role']; ?>"><?php echo $row['role']; ?></option>
-                        <?php
-                    }
-                }
-                ?>
+                <option value="murid">murid</option>
+                <option value="guru">guru</option>
             </select>
             <button class="btn btn-info">Pilih</button>
         </div>
@@ -74,12 +65,12 @@ if ($_COOKIE['role'] != 'admin') {
                 if (isset($_GET['select-role'])) {
                     $role = $_GET['select-role'];
                     if ($role != "") {
-                        $sql2 = "select distinct u.id as u_id, u.role, u.nama,u.foto, k.nama_kelas from user u left join relasi_user_matpel rum ON u.id = rum.user_id LEFT JOIN kelas k on k.id = u.kelas_id WHERE u.role = '$role'";
+                        $sql2 = "SELECT distinct u.id as u_id, u.role, u.nama,u.foto, k.nama_kelas from user u left join relasi_user_matpel rum ON u.id = rum.user_id LEFT JOIN kelas k on k.id = u.kelas_id WHERE u.role = '$role'";
                     } else {
-                        $sql2 = "select distinct u.id as u_id, u.role, u.nama,u.foto, k.nama_kelas from user u left join relasi_user_matpel rum ON u.id = rum.user_id LEFT JOIN kelas k on k.id = u.kelas_id WHERE NOT (role = 'ortu')";
+                        $sql2 = "SELECT distinct u.id as u_id, u.role, u.nama,u.foto, k.nama_kelas from user u left join relasi_user_matpel rum ON u.id = rum.user_id LEFT JOIN kelas k on k.id = u.kelas_id WHERE NOT (role = 'ortu') ORDER BY role ASC";
                     }
                 } else {
-                    $sql2 = "select distinct u.id as u_id, u.role, u.nama,u.foto, k.nama_kelas from user u left join relasi_user_matpel rum ON u.id = rum.user_id LEFT JOIN kelas k on k.id = u.kelas_id WHERE NOT (role = 'ortu')";
+                    $sql2 = "SELECT distinct u.id as u_id, u.role, u.nama,u.foto, k.nama_kelas from user u left join relasi_user_matpel rum ON u.id = rum.user_id LEFT JOIN kelas k on k.id = u.kelas_id WHERE NOT (role = 'ortu') ORDER BY role ASC";
                 }
 
                 $result2 = $conn->query($sql2);
@@ -88,7 +79,7 @@ if ($_COOKIE['role'] != 'admin') {
                         $iduser = $row['u_id'];
                         $kelas = $row['nama_kelas'];
                         $strkelas = substr($kelas, 0,2);
-
+                        $role = $row['role'];
                         ?>
 
                         <tr>
@@ -131,8 +122,10 @@ if ($_COOKIE['role'] != 'admin') {
                                         $query = "SELECT * from matpel where jenjang_id = '2'";
                                         elseif($strkelas == "12")
                                         $query = "SELECT * from matpel where jenjang_id = '3'";
+                                        elseif($role == "guru")
+                                        $query = "SELECT * FROM matpel";
                                         else
-                                        $query = "SELECT * FROM matpel";   
+                                        $query = "SELECT * FROM user where role = 'tuhan'";  
                                         $hasil = $conn->query($query);
                                         if ($hasil->num_rows > 0) {
                                             while ($a = $hasil->fetch_assoc()) {
@@ -151,7 +144,10 @@ if ($_COOKIE['role'] != 'admin') {
                                                     </div>
                                                 <?php }
                                             }
-                                        } ?>
+                                        } else { ?>
+                                        <br>
+                                            <h1><b>KELASNYA DIPILIH DULU</b></h1>
+                                        <?php } ?>
                                         <div class="form-group">
                                             <input type="hidden" name="url" value="<?php echo $url; ?>">
                                             <input type="hidden" name="act" value="update_relasi">
@@ -184,6 +180,10 @@ include_once 'layout/footer.php';
 <script>
     var table = $('#relasimatpel').DataTable({
         lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf', 'colvis']
+        ordering: true,
+        order: [[3, 'asc']],
+        stateSave: true,
     });
+    //BUAT NGE-ORDER BY KOLOM 4 (INDEXING DARI 0) (ROLE) ASC. SOALNYA KALO PAKE QUERY DATATABLE NYA GAK MAU NGE-SORT
+    // table.order([ 2, 'asc' ],[ 3, 'asc' ]).draw();
 </script>

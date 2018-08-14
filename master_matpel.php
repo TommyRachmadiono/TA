@@ -138,7 +138,9 @@ include_once 'layout/footer.php';
 <script>
     var table = $('#matpel').DataTable({
         lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf', 'colvis']
+        ordering: true,
+        order: [[1, 'asc']],
+        stateSave: true,
     });
 </script>
 

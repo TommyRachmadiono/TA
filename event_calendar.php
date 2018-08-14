@@ -73,10 +73,9 @@ if ($_SESSION["login"] == false) {
     </div>	
 </div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-<script type="text/javascript" src="js/calendar.js"></script>
-<script type="text/javascript" src="js/events.js"></script>
+
 <?php include_once 'layout/footer.php'; ?>
+
 
 <!-- MODAL CREATE EVENT -->
 <div class="modal fade bs-example-modal-lg" id="create-event" tabindex="-1" role="dialog" style="margin-top: 5%;">
@@ -119,14 +118,10 @@ if ($_SESSION["login"] == false) {
 <div class="modal fade bs-example-modal-lg" tabindex="-1" id="detail-event" role="dialog" style="margin-top: 5%;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content c-square">
-            <div class="modal-header c-no-border">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table id="example3" class="table table-hover table-bordered " width="100%;">
+                    <table id="kalendar" class="table table-hover table-bordered " width="100%;">
                         <thead>
                             <tr>
                                 <th style="text-align: center; "><b>Nama Event</th>
@@ -134,7 +129,7 @@ if ($_SESSION["login"] == false) {
                                 <th style="text-align: center;"><b>Tanggal Mulai</th>
                                 <th style="text-align: center;"><b>Tanggal Selesai</th>
                                 <?php if ($_SESSION['login'] == true) {
-                                    if ($_SESSION['role'] == 'guru') {
+                                    if ($_SESSION['role'] == 'guru' || $_SESSION['role'] == 'admin') {
                                         ?>
                                         <th style="text-align: center;"><b>Aksi</th>
     <?php }
@@ -174,10 +169,10 @@ if ($_SESSION["login"] == false) {
     </div>
 </div>
 <!-- END MODAL DETAIL EVENT -->
+
 <script>
-    var table = $('#example3').DataTable({
+    var table = $('#kalendar').DataTable({
         lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf', 'colvis']
     });
 
     function bukamodal() {

@@ -166,14 +166,10 @@ if (isset($_GET["id"])) {
                         ?>
 
                         <!-- MODAL EDIT TOPIK -->
-                        <div class="modal fade c-content-login-form" id="modalTopik<?php echo $week_id; ?>" role="dialog">
-                            <div class="modal-dialog">
+                        <div class="modal fade c-content" id="modalTopik<?php echo $week_id; ?>" role="dialog">
+                            <div class="modal-dialog modal-lg">
                                 <div class="modal-content c-square">
-                                    <div class="modal-header c-no-border">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
+                                    
                                     <div class="modal-body">
                                         <h3 class="c-font-24 c-font-sbold">Edit Topik & Deskripsi Week <?php echo $week_id; ?></h3>
                                         <form action="matpelController.php" method="POST" enctype="multipart/form-data">
@@ -186,8 +182,8 @@ if (isset($_GET["id"])) {
                                                     <div class="form-group">
                                                         <label class="">Topik</label>
                                                         <input type="text" class="form-control input-lg c-square" placeholder="Title" name="title" required="" value="<?php echo $row4['title'] ?>">
-                                                        <label class="">Description</label>
-                                                        <textarea name="description" placeholder="Write the description (max 255 character)" class="form-control input-lg c-square" rows="3" style="font-size: 17px; resize: none;" maxlength="255"><?php echo $row4['description']; ?></textarea>
+                                                        <label class="">Deskripsi</label>
+                                                        <textarea name="description" placeholder="Ketikkan deskripsi (maksimal 500 karakter)" class="form-control input-lg c-square" rows="3" style="font-size: 17px; resize: none;" maxlength="500"><?php echo $row4['description']; ?></textarea>
                                                         <input type="hidden" name="matpel_id" value="<?php echo $matpel_id ?>">
                                                         <input type="hidden" name="week_id" value="<?php echo $week_id ?>">
                                                         <input type="hidden" name="act" value="edit_topik">
@@ -216,8 +212,9 @@ if (isset($_GET["id"])) {
                                         <span class="anchorjs-icon"></span>
                                     </a>
                                 </h3>
-                                <p><?php echo $row['description'] ?></p>
+                                
                             </div>
+                            <p style="margin-left: 2%;margin-right: 2%;margin-top: 1%;"><?php echo $row['description'] ?></p>
             <?php if ($_COOKIE['role'] == 'guru') { ?>
                                 <div class="" style="margin: 2%; margin-bottom: 0;">
                                     <form action="matpelController.php" method="POST" enctype="multipart/form-data">
@@ -329,6 +326,6 @@ if (isset($_GET["id"])) {
 ?>
 
 <?php
-include_once './layout/footer.php';
+include_once 'layout/footer.php';
 ?>
 

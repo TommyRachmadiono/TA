@@ -12,18 +12,18 @@ $current_time = "$hour:$min";
 
 <div class="c-layout-sidebar-menu c-theme ">
     <!-- BEGIN: LAYOUT/SIDEBARS/SIDEBAR-MENU-1 -->
-    <div class="c-sidebar-menu-toggler">
+    <!-- <div class="c-sidebar-menu-toggler">
         <h3 class="c-title c-font-uppercase c-font-bold">Navigasi</h3>
         <a href="javascript:;" class="c-content-toggler" data-toggle="collapse" data-target="#sidebar-menu-1, #sidebar-menu-2, #createGroup" aria-expanded="true">
             <span class="c-line"></span>
             <span class="c-line"></span>
             <span class="c-line"></span>
         </a>
-    </div>
+    </div> -->
 
 
     <?php if ($_SESSION["login"] == true) { ?>
-    <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#create-group" style="width: 100%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%;">
+    <a class="c-sidebar-menu" data-toggle="modal" data-target="#create-group" style="width: 100%;" id="createGroup"><button type="button" class="btn btn-default" style="width: 100%; margin-top: 1%;">
         <i class="icon-bubbles">Buat Grup</i>
     </button></a>
     <?php } ?>
@@ -46,12 +46,27 @@ $current_time = "$hour:$min";
         <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#delete-group" style="width: 100%; margin-top: 3%;"><button type="button" class="btn btn-danger" style="width: 100%;">
             <i class="fa fa-warning"> Bubarkan Grup</i>
         </button></a>
-        <?php }} ?>
+        <?php } else { ?>
 
-        
+        <a class="c-sidebar-menu collapse" data-toggle="modal" data-target="#exit-group" style="width: 100%; margin-top: 3%;"><button type="button" class="btn btn-danger" style="width: 100%;">
+            <i class="fa fa-warning"> Keluar Grup</i>
+        </button></a>
+
+       <?php }} ?>
+
+        <div class="panel panel-primary" style="margin-top: 10.5%;">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-time"></span> Clock
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            Server : <?php echo $current_time; ?>
+                        </div>
+                    </div>
+
         <?php
         if ($_SESSION["login"] == true) { ?>
-        <ul class="c-sidebar-menu collapse " id="sidebar-menu-1" style="margin-top: 7%;">
+        <ul class="c-sidebar-menu" id="sidebar-menu-1" style="margin-top: 7%;">
             <li class="c-active">
                 <a class="c-toggler">Grup Saya
                     <span class="c-arrow"></span>
@@ -75,11 +90,9 @@ $current_time = "$hour:$min";
             <br>
             <?php } ?>
 
-
-
             <?php 
-            if ($_SESSION["login"] == true) { ?>
-            <ul class="c-sidebar-menu collapse " id="sidebar-menu-2" style="margin-bottom: 10%;">
+            if ($_SESSION["login"] == true && $_COOKIE['role'] != 'ortu') { ?>
+            <ul class="c-sidebar-menu" id="sidebar-menu-2" style="margin-bottom: 10%;">
              <li class="c-active">
                 <a class="c-toggler">Mata Pelajaran
                     <span class="c-arrow"></span>
@@ -100,16 +113,6 @@ $current_time = "$hour:$min";
                         </li>
                     </ul>
                     <?php } ?>
-
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><span class="glyphicon glyphicon-time"></span> Clock
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            Server : <?php echo $current_time; ?>
-                        </div>
-                    </div>
 
                     <div class="c-padding-20 c-margin-t-0 c-bg-grey-1 c-bg-img-bottom-right" style="background-image:url(assets/base/img/content/misc/feedback_box_2.png)">
                         <div class="c-content-title-1 c-margin-t-20">

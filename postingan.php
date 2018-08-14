@@ -14,14 +14,20 @@ $user_id = $_COOKIE['user_id'];
 
 if (isset($_GET["id"])) {
     $postingan_id = $_GET["id"];
+
     $sql = "SELECT * FROM postingan WHERE idpostingan = '$postingan_id'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
-        $grup_id = $row['grup_id'];
-        if ($grup_id != NULL) {
+        while ($row = $result->fetch_assoc()) {
+            $grup_id = $row['grup_id'];
+        }
+//        echo '<script type="text/javascript">alert(' . $grup_id . '); </script>';
+        if ($grup_id != "") {
             $sql2 = "SELECT * FROM grup g INNER JOIN anggota a on g.id = a.grup_id WHERE a.grup_id = '$grup_id' AND a.user_id = '$user_id'";
-            $result = $conn->query($sql);
-            if ($result->num_rows == 0) {
+            $result2 = $conn->query($sql2);
+            if ($result2->num_rows > 0) {
+                echo '<script type="text/javascript">alert("AAAAAAAAAAAAAAAAAAAAAA"); </script>';
+            } else {
                 echo '<script type="text/javascript">alert("Postingan ini berada dalam suatu grup dan anda bukan anggota didalam grup tersebut."); </script>';
                 echo '<script type="text/javascript"> window.location = "index.php" </script>';
             }
@@ -76,7 +82,7 @@ if (isset($_GET["id"])) {
                                                 <form method="POST" action="postingController.php">
                                                     <textarea rows="3" name="isi" value="<?php echo $row['isi'] ?>" class="form-control c-square c-theme active" style="resize: none; width: 80%;" required><?php echo $row['isi'] ?></textarea>
                                                     <br>
-                                                    
+
                                                     <input type="hidden" name="act" value="edit_status_detail">
                                                     <input type="hidden" name="idpostingan" value="<?php echo $row['idpostingan']; ?>">
                                                     <button  data-dismiss="modal" class="btn btn-danger" onclick="self.close();">Batal</button>
@@ -215,7 +221,7 @@ if (isset($_GET["id"])) {
                                 <div style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%; padding-bottom: 0.5%;">
                                     <div id="isikomen<?php echo $idpostingan; ?>">
                                         <?php
-                                        $sql2 = "SELECT u.id,u.nama, k.isi,k.idkomentar, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan ORDER BY k.idkomentar asc";
+                                        $sql2 = "SELECT u.id,u.nama, k.*, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $idpostingan ORDER BY k.idkomentar asc";
                                         $result2 = $conn->query($sql2);
 
                                         if ($result2->num_rows > 0) {
@@ -228,7 +234,27 @@ if (isset($_GET["id"])) {
                                                     <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>
                                                     <a href="#" style="float: right; margin-right: 2%;" data-toggle="modal" data-target="#modalEditKomen<?php echo $row2['idkomentar']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
                                                 <?php } ?>
-                                                <p style="margin-top: 1.5%; margin-bottom: 2%;"><?php echo nl2br($row2['isi']); ?></p>
+                                                <p style="margin-top: 1%; margin-bottom: 2%;"><?php echo nl2br($row2['isi']); ?></p>
+                                                <div>    
+                                                    <?php
+                                                    if (!empty($row2['file'])) {
+                                                        $file = $row2['file'];
+                                                        $info = pathinfo($file);
+                                                        $ext = $info['extension'];
+                                                        if ($ext == "jpg" || $ext == "png" || $ext == "jpeg") {
+                                                            ?>
+                                                            <img src="komentar/<?php echo $row2["file"]; ?>" style="width: 96%; height: 250px; display: block; margin: auto; margin-bottom: 2%;">
+                                                        <?php } else { ?>
+                                                            <div class="fa fa-hover" style="margin: auto; display: block;">
+                                                                <a href="komen/<?php echo $file ?>" download> <i class="fa fa-file-o"></i>
+                                                                    <?php echo $file ?>
+                                                                </a>
+                                                            </div> <br>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </div>
 
                                                 <!-- BEGIN: MODAL DELETE COMMENT -->
                                                 <div class="modal fade" id="modalDeleteKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">

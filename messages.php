@@ -57,7 +57,7 @@ if (mysqli_query($conn, $query)) {
                         <div class="c-page-title c-pull-left">
                             <img src="images/fotoprofil/<?php echo $row2['foto_penerima']; ?>" style="display: inline; border-radius: 50%; height: 100px;">
                             &nbsp;<h4 style="display: inline;"><?php echo $row2['nama_penerima']; ?></h4>
-                            <span class="help-block">this is conversation between you and <b><?php echo $row2['nama_penerima'] ?></b></span>
+                            <span class="help-block">Ruangan ini berisi percakapan anda dengan <b><?php echo $row2['nama_penerima'] ?></b></span>
                         </div>
                         <?php
                     }
@@ -66,11 +66,11 @@ if (mysqli_query($conn, $query)) {
             ?>
             <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
                 <li>
-                    <a href="index.php">Home</a>
+                    <a href="index.php">Beranda</a>
                 </li>
                 <li>/</li>
                 <li>
-                    <a href="inbox.php">Inbox</a>
+                    <a href="inbox.php">Kotak Masuk</a>
                 </li>
             </ul>
         </div>
@@ -78,31 +78,32 @@ if (mysqli_query($conn, $query)) {
     <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-3 -->
     
     <div style="margin-left: 10%;margin-right: 10%; margin-top: 2%;">
-        <?php
-        $sql = "SELECT * FROM conversation_reply cr INNER JOIN user u on cr.fk_id_pengirim = u.id WHERE fk_c_id = '$c_id' ORDER BY time asc";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                ?>
-                <div style="margin-bottom: 2%;">
-                    <img src="images/fotoprofil/<?php echo $row['foto'] ?>" style="display: inline; border-radius: 50%; height: 70px; width: 80px;">
-                    <h2 style="display: inline;"><b><?php echo $row['nama'] ?></b></h2>
-                    <h3 class="panel-title" style="float: right; margin-right: 2%;"><span class="glyphicon glyphicon-time"></span> <?php echo $row['time'] ?>
-                    </h3>
-                    <h3 style=""><?php echo $row['reply'] ?></h3>
-                    <hr style="height:1px;border:none;color:#333;background-color:#333;">
-                </div>
-                <?php
+        <div id="scroll" style="overflow-y:scroll; overflow-x:hidden; height:400px; word-wrap: break-word; margin-bottom: 3%;">
+            <?php
+            $sql = "SELECT * FROM conversation_reply cr INNER JOIN user u on cr.fk_id_pengirim = u.id WHERE fk_c_id = '$c_id' ORDER BY time asc";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    ?>
+                    <div style="margin-bottom: 2%;">
+                        <img src="images/fotoprofil/<?php echo $row['foto'] ?>" style="display: inline; border-radius: 50%; height: 70px; width: 80px;">
+                        <h2 style="display: inline;"><b><?php echo $row['nama'] ?></b></h2>
+                        <h3 class="panel-title" style="float: right; margin-right: 2%;"><span class="glyphicon glyphicon-time"></span> <?php echo $row['time'] ?>
+                        </h3>
+                        <h3 style=""><?php echo nl2br($row['reply']) ?></h3>
+                        <hr style="height:2px;border:none;color:#333;background-color:#333;">
+                    </div>
+                    <?php
+                }
             }
-        }
-        ?>
-
+            ?>
+        </div>
         <form method="POST" action="messagesController.php">
-            <textarea required="" class="form-control" name="reply" rows="2" style="font-size: 17px; resize: none;" placeholder="Write a reply. . ."></textarea>
+            <textarea required="" class="form-control" name="reply" rows="2" style="font-size: 17px; resize: none;" placeholder="Ketikkan sesuatu untuk membalas pesan . . ."></textarea>
             <input type="hidden" name="id_lawan" value="<?php echo $id_lawan; ?>">
             <input type="hidden" name="c_id" value="<?php echo $c_id ?>">
             <input type="hidden" name="act" value="add_reply">
-            <button type="submit" class="btn btn-info" style="float: right; margin-top: 2%; margin-bottom: 3%;">Send Message</button>
+            <button type="submit" class="btn btn-info" style="float: right; margin-top: 1%; margin-bottom: 3%;">Kirim Pesan</button>
         </form>
     </div>
 </div>
@@ -110,3 +111,8 @@ if (mysqli_query($conn, $query)) {
 <?php
 include_once 'layout/footer.php';
 ?>
+
+<script type="text/javascript">
+    var scrollDiv = document.getElementById("scroll");
+    scrollDiv.scrollTop = scrollDiv.scrollHeight;
+</script>

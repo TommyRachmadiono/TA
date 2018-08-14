@@ -193,7 +193,7 @@ if (!empty($_POST["id"])) {
                                 <div style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
                                     <div id="isikomen<?php echo $postID; ?>">
                                         <?php
-                                        $sql2 = "SELECT u.id,u.nama, k.isi,k.idkomentar, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $postID";
+                                        $sql2 = "SELECT u.id,u.nama, k.*, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $postID";
                                         $result2 = $conn->query($sql2);
 
                                         if ($result2->num_rows > 0) {
@@ -207,8 +207,28 @@ if (!empty($_POST["id"])) {
                                                     <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>
                                                     <a href="#" style="float: right; margin-right: 2%;" data-toggle="modal" data-target="#modalEditKomen<?php echo $row2['idkomentar']; ?>"><span class="glyphicon glyphicon-edit"></span></a>
                                                 <?php } ?>
+                                            <p style="margin-top: 1%; margin-bottom: 2%;"><?php echo nl2br($row2['isi']); ?></p>
+                                            <div>    
+                                <?php
+                                if (!empty($row2['file'])) {
+                                    $file = $row2['file'];
+                                    $info = pathinfo($file);
+                                    $ext = $info['extension'];
+                                    if ($ext == "jpg" || $ext == "png" || $ext == "jpeg") {
+                                        ?>
+                                        <img src="komentar/<?php echo $row2["file"]; ?>" style="width: 96%; height: 250px; display: block; margin: auto; margin-bottom: 2%;">
+                                    <?php } else { ?>
+                                        <div class="fa fa-hover" style="margin: auto; display: block;">
+                                            <a href="komen/<?php echo $file ?>" download> <i class="fa fa-file-o"></i>
+                                                <?php echo $file ?>
+                                            </a>
+                                        </div> <br>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
 
-                                                <p style="margin-top: 1.5%; "><?php echo nl2br($row2['isi']); ?></p>
                                                 <!-- BEGIN: MODAL DELETE COMMENT -->
                                                 <div class="modal fade" id="modalDeleteKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
                                                     <div class="modal-dialog">
@@ -280,6 +300,14 @@ if (!empty($_POST["id"])) {
                                                     <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
                                                     <textarea name="comment" id="txtareakomen<?php echo $postID ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda"></textarea>
                                                    </div>
+                                                   <div style="position:relative; margin-top: 1%; margin-left: 2%;">
+        <a class='btn btn-primary' href='javascript:;'>
+            Pilih File (Maksimal 5MB)
+            <input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file" onchange='$("#upload-file-info<?php echo $postID ?>").html($(this).val());'>
+        </a>
+        &nbsp;
+        <span class='label label-info' id="upload-file-info<?php echo $postID ?>"></span>
+    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -526,7 +554,7 @@ if (!empty($_POST["id"])) {
                                 <div style="background-color: #f7f7f7; padding-left: 2%; padding-top: 2%; padding-right: 2%;">
                                     <div id="isikomen<?php echo $postID; ?>">
                                         <?php
-                                        $sql2 = "SELECT u.id,u.nama, k.isi,k.idkomentar, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $postID";
+                                        $sql2 = "SELECT u.id,u.nama, k.*, u.foto FROM komentar k inner join postingan p on k.postingan_idpostingan = p.idpostingan inner join user u on k.user_id = u.id WHERE k.postingan_idpostingan = $postID";
                                         $result2 = $conn->query($sql2);
 
                                         if ($result2->num_rows > 0) {
@@ -539,7 +567,27 @@ if (!empty($_POST["id"])) {
                                                     <a href="#" style="float: right;" data-toggle="modal" data-target="#modalDeleteKomen<?php echo $row2['idkomentar']; ?>"><i class="fa fa-close"></i></a>
                                                     <a href="#" style="float: right; margin-right: 2%;" data-toggle="modal" data-target="#modalEditKomen<?php echo $row2['idkomentar']; ?>"><i class="glyphicon glyphicon-edit"></i></a>
                                                 <?php } ?>
-                                                <p style="margin-top: 1.5%; "><?php echo nl2br($row2['isi']); ?></p>
+                                            <p style="margin-top: 1%; margin-bottom: 2%;"><?php echo nl2br($row2['isi']); ?></p>
+                                            <div>    
+                                <?php
+                                if (!empty($row2['file'])) {
+                                    $file = $row2['file'];
+                                    $info = pathinfo($file);
+                                    $ext = $info['extension'];
+                                    if ($ext == "jpg" || $ext == "png" || $ext == "jpeg") {
+                                        ?>
+                                        <img src="komentar/<?php echo $row2["file"]; ?>" style="width: 96%; height: 250px; display: block; margin: auto; margin-bottom: 2%;">
+                                    <?php } else { ?>
+                                        <div class="fa fa-hover" style="margin: auto; display: block;">
+                                            <a href="komen/<?php echo $file ?>" download> <i class="fa fa-file-o"></i>
+                                                <?php echo $file ?>
+                                            </a>
+                                        </div> <br>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
 
                                                 <!-- BEGIN: MODAL DELETE COMMENT -->
                                                 <div class="modal fade" id="modalDeleteKomen<?php echo $row2['idkomentar'] ?>" tabindex="-1" role="dialog">
@@ -611,6 +659,14 @@ if (!empty($_POST["id"])) {
                                                     <div tabindex="-1" id="komen<?php echo $_SESSION['count'] ?>" style="margin-left: 2%;margin-right: 2%;">
                                                     <textarea name="comment" id="txtareakomen<?php echo $postID ?>"  class="form-control txtkomen" rows="2" style="font-size: 15px; resize: none; width: 100%;" placeholder="Tuliskan komentar anda"></textarea>
                                                    </div>
+                                                   <div style="position:relative; margin-top: 1%; margin-left: 2%;">
+        <a class='btn btn-primary' href='javascript:;'>
+            Pilih File (Maksimal 5MB)
+            <input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file" onchange='$("#upload-file-info<?php echo $postID ?>").html($(this).val());'>
+        </a>
+        &nbsp;
+        <span class='label label-info' id="upload-file-info<?php echo $postID ?>"></span>
+    </div>
                                                 </div>
                                             </div>
                                         </form>

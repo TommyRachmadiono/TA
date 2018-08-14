@@ -45,13 +45,15 @@
     <link rel="stylesheet" type="text/css" href="assets/DataTables/css/buttons.bootstrap.min.css">
 
     
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> -->
     <script src="assets/plugins/jquery.min.js" type="text/javascript"></script>
     <script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="css/calendar.css">
 </head>
 
 <?php
+date_default_timezone_set("Asia/Jakarta");
+
 if (isset($_COOKIE["login"])) {
     $_SESSION["login"] = $_COOKIE["login"];
 } else {
@@ -166,6 +168,9 @@ if (isset($_SESSION['menuHeader'])) {
                                                     <a href="master_matpel.php" class="c-link dropdown-toggle">Mata Pelajaran <i class="fa fa-book"></i> </a>
                                                 </li>
                                                 <li>
+                                                    <a href="master_kelas.php" class="c-link dropdown-toggle">Kelas <i class="fa fa-home"></i> </a>
+                                                </li>
+                                                <li>
                                                     <a href="relasi_user_matpel.php" class="c-link dropdown-toggle">Relasi User Matpel <i class="fa fa-user-plus"></i> </a>
                                                 </li>
                                                 <li>
@@ -217,12 +222,13 @@ if (isset($_SESSION['menuHeader'])) {
                                                 <?php } ?>
 
                                                 <script type="text/javascript">
+                                                    var iduser = <?php echo $user_id ?>;
                                                     function asyncNotif(){
-                                                        $.post("async_dummy.php", 
-                                                            { inputan1: "anuanu", inputan2: "enaena" })
+                                                        $.post("reset_notif.php", 
+                                                            { user_id: iduser })
                                                             .done(function( data ) {
-                                                            alert(data);
-                                                            $("#showNotifSocmed").text("3");
+                                                            
+                                                            $("#showNotifSocmed").text(0);
                                                         });
                                                     }
                                                 </script>

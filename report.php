@@ -34,15 +34,16 @@ if ($_SESSION["login"] == false) {
             <thead>
                 <tr>
                     <th style="text-align: center;">ID</th>
+                    <th style="text-align: center;">Diposting Oleh</th>
                     <th style="text-align: center;">File</th>
                     <th style="text-align: center;">Postingan</th>
                     <th style="text-align: center;">Jumlah Report</th>
-                    <th style="text-align: center;">Action</th>
+                    <th style="text-align: center;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $sql = "SELECT p.file,r.postingan_id as id, COUNT(r.postingan_id) as Jumlah_Report, p.isi FROM report r INNER JOIN postingan p on r.postingan_id = p.idpostingan GROUP BY r.postingan_id";
+                $sql = "SELECT u.nama,p.file,r.postingan_id as id, COUNT(r.postingan_id) as Jumlah_Report, p.isi FROM report r INNER JOIN postingan p on r.postingan_id = p.idpostingan INNER JOIN user u on u.id = p.user_id GROUP BY r.postingan_id";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
@@ -51,6 +52,7 @@ if ($_SESSION["login"] == false) {
                             ?>
                             <tr>
                                 <td style="text-align: center;"><?php echo $row['id']; ?></td>
+                                <td style="text-align: center;"><?php echo $row['nama'] ?></td>
                                 <?php
                                 if (!empty($file)) {
                                     $info = pathinfo($file);

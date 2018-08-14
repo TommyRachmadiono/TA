@@ -40,28 +40,28 @@
                         <ul class="c-socials">
                             <li>
                                 <a href="#">
-                                    <i class="icon-social-facebook"></i>
+                                    <i class="fa fa-facebook-square"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <i class="icon-social-twitter"></i>
+                                    <i class="fa fa-twitter"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <i class="icon-social-youtube"></i>
+                                    <i class="fa fa-youtube-play"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <i class="icon-social-tumblr"></i>
+                                    <i class="fa fa-instagram"></i>
                                 </a>
                             </li>
                         </ul>
                         <ul class="c-address">
                             <li>
-                                <i class="icon-pointer c-theme-font"></i> <a class="c-font-white" href="https://www.google.co.id/maps/place/Excellent+Education/@-7.4454015,112.6968461,16.38z/data=!4m5!3m4!1s0x2dd7e14166305759:0x6d4f9a7543bcc7a7!8m2!3d-7.446423!4d112.695589">
+                                <i class="icon-pointer c-theme-font"></i> <a class="c-font-white" href="https://www.google.co.id/maps">
                                 Tenggilis Mejoyo – 5, RT 00, RW 00, Kel. X, Surabaya, Jawa Timur</a></li>
                                 <li class="c-font-white">
                                     <i class="icon-call-end c-theme-font"></i> 0812-0000-0000 (HP) / WhatsApp: 0838-0000-0000</li>
@@ -173,16 +173,20 @@
 <script>
     var table = $('#example').DataTable( {
         lengthChange: false,
-        buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+        ordering: true,
+        order: [[2, 'asc']],
+        stateSave: true,
     } );
     var table = $('#example2').DataTable( {
         lengthChange: false,
-        buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+        ordering: true,
+        order: [[2, 'asc']],
+        stateSave: true,
     } );
 
 </script>
 
-<!-- INI SCRIPT BUAT UPLOAD FILE -->
+<!-- INI SCRIPT BUAT UPLOAD FILE ATTACHMENT POSTINGAN -->
 <script>
     $('#btnfile').click(function(){
         $('#file').trigger('click');

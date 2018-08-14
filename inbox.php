@@ -46,9 +46,9 @@ $user_id = $_COOKIE['user_id'];
                     while ($row2 = $result2->fetch_assoc()) {
                         if ($row2['notifikasi'] != NULL) {
                             ?>
-                            Pesan (<?php echo $row2['notifikasi']; ?> Pesan)
+                            Pesan (<?php echo $row2['notifikasi']; ?> Pesan Baru)
                         <?php } else { ?>
-                            Pesan (0 Pesan)
+                            Pesan (0 Pesan Baru)
                         <?php }
                     }
                 }
@@ -229,7 +229,7 @@ if ($result3->num_rows > 0) {
                     <div class="form-group">
                         <label for="" class="col-md-4 control-label">Katakan Sesuatu</label>
                         <div class="col-md-6">
-                            <input type="text" name="reply" style="border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%;" placeholder="   sapa teman anda" required="">
+                            <input type="text" name="reply" style="border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%; padding-left: 2%;" placeholder=" Katakan sesuatu" required="">
                         </div>
                     </div>
                 </div>

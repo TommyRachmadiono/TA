@@ -27,18 +27,13 @@
 <!-- END MODAL CREATE GROUP -->
 
 <!-- MODAL DISBAND GROUP -->
-<div class="modal fade c-content-login-form" id="delete-group" role="dialog">
+<div class="modal fade" id="delete-group" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content c-square">
-            <div class="modal-header c-no-border">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
             <div class="modal-body">
                 <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin membubarkan grup ini?</h3>
                 
-                <button  data-dismiss="modal"  class="btn btn-danger" style="margin-top: 2%;">Batal</button>
+                <button  data-dismiss="modal"  class="btn btn-danger" style="margin-top: 1.4%;">Batal</button>
                 <form action="groupController.php" method="POST" style="display: inline-block;">
                     <input type="hidden" name="act" value="delete_group">
                     <input type="hidden" name="grup_id" value="<?php echo $group_id ?>">
@@ -51,23 +46,39 @@
 </div>
 <!-- END MODAL DISBAND GROUP -->
 
-<!-- MODAL INVITE MEMBER -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" id="invite-member" role="dialog" style="margin-top: 5%;">
+<!-- MODAL EXIT GROUP -->
+<div class="modal fade" id="exit-group" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content c-square">
-            <div class="modal-header c-no-border">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
             <div class="modal-body">
-                <table id="example" class="table table-hover table-bordered" width="100%;">
+                <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin keluar dari group ini ?</h3>
+                <div class="form-group">
+                    <button  data-dismiss="modal"  class="btn btn-danger" style="margin-top: 1.4%;">Batal</button>
+                    <form action="groupController.php" method="POST" style="display: inline-block;">
+                        <input type="hidden" name="act" value="exit_group">
+                        <input type="hidden" name="grup_id" value="<?php echo $group_id ?>">
+                        <button class="btn btn-info" style="vertical-align: top !important; margin-top: 0;"> Keluar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL EXIT GROUP -->
+
+<!-- MODAL INVITE MEMBER -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="invite-member" role="dialog" style="margin-top: 5%;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content c-square">
+            
+            <div class="modal-body" style="overflow-y: hidden;">
+                <table id="example" class="table table-hover table-bordered">
                     <thead>
                         <tr>
                             <th style="text-align: center;">User ID</th>
                             <th style="text-align: center;">Nama User</th>
                             <th style="text-align: center;">Username</th>
-                            <th style="text-align: center;">Action</th>
+                            <th style="text-align: center;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,7 +113,7 @@
 
     <!-- MODAL SHOW MEMBER -->
     <div class="modal fade bs-example-modal-lg" tabindex="-1" id="show-member" role="dialog" style="margin-top: 5%;">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content c-square">
                 <div class="modal-header c-no-border">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -120,7 +131,7 @@
                                 $sql = "SELECT * FROM user u INNER JOIN grup g on u.id = g.user_id WHERE u.id = $user_id AND g.id=$group_id";
                                 $result = $conn->query($sql);
                                 if ($result->num_rows > 0) { ?>
-                                <th style="text-align: center;">Action</th>
+                                <th style="text-align: center;">Aksi</th>
                                 <?php } ?>
                             </tr>
                         </thead>
@@ -143,7 +154,7 @@
                                                 <input type="hidden" value="kick_member" name="act">
                                                 <input type="hidden" value="<?php echo $row['id'] ?>" name="member_id">
                                                 <input type="hidden" value="<?php echo $group_id; ?>" name="group_id">
-                                                <button class="btn btn-danger">Kick</button>
+                                                <button class="btn btn-danger">Keluarkan</button>
                                             </form>
                                         </td>
                                         <?php } ?>

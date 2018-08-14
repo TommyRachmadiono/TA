@@ -1,6 +1,7 @@
 <?php
 session_start();
 $_SESSION['menuHeader'] = 'home';
+$_SESSION['menuAdmin'] = 'user';
 include 'config/connectdb.php';
 include_once 'layout/header.php';
 
@@ -32,27 +33,19 @@ if ($_SESSION["login"] == false) {
     <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-1 -->
     <!-- BEGIN: PAGE CONTENT -->
     <div style="margin: 2%;">
-        <button class="btn btn-info" data-toggle="modal" data-target="#add-user" style="vertical-align: top !important; margin-bottom: 2%; float: left;">Tambah User Baru</button>
-        <form action="master_user.php" method="GET" style="float: left; margin-left: 2%;" class="form-inline">
+        <button class="btn btn-info" data-toggle="modal" data-target="#add-user" style="margin-bottom: 2%; margin-left: 2%;">Tambah User Baru</button>
+        <form action="master_user.php" method="GET" style=" margin-left: 2%;" class="form-inline">
             <label style="display: inline;">Pilih Role</label>
             <div class="form-group">
-            <select name="select-role" id="select-role" class="form-control">
-                <option value="" selected disabled="">-- Pilih Role --</option> 
-                <option value="">All</option>
-                <?php
-                $sql = "select distinct role from user where NOT role ='admin'";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        ?>
-                        <option value="<?php echo $row['role']; ?>"><?php echo $row['role']; ?></option>
-                        <?php
-                    }
-                }
-                ?>
-            </select>
-            <button class="btn btn-info">Pilih</button>
-        </div>
+                <select name="select-role" id="select-role" class="form-control" st>
+                    <option value="" selected disabled="">-- Pilih Role --</option> 
+                    <option value="">All</option>
+                    <option value="murid">murid</option>
+                    <option value="guru">guru</option>
+                    <option value="ortu">ortu</option>
+                </select>
+                <button class="btn btn-info">Pilih</button>
+            </div>
         </form>
         <table id="tabel-user" class="table table-hover table-bordered">
             <thead>
@@ -64,8 +57,8 @@ if ($_SESSION["login"] == false) {
                     <th style="text-align: center;">Password</th>
                     <th style="text-align: center;">Role</th>
                     <th style="text-align: center;">Kelas</th>
-                    <th style="text-align: center;">Ortu ID</th>
-                    <th style="text-align: center;">Action</th>
+                    <th style="text-align: center;">Nama Ortu</th>
+                    <th style="text-align: center;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,10 +68,10 @@ if ($_SESSION["login"] == false) {
                     if ($role != "") {
                         $sql = "SELECT u.*, k.nama_kelas FROM `user` u left JOIN kelas k on u.kelas_id = k.id WHERE role = '$role' AND NOT role = 'admin'";
                     } else {
-                        $sql = "SELECT u.*, k.nama_kelas FROM `user` u left JOIN kelas k on u.kelas_id = k.id WHERE NOT role = 'admin'";
+                        $sql = "SELECT u.*, k.nama_kelas FROM `user` u left JOIN kelas k on u.kelas_id = k.id WHERE NOT role = 'admin' ORDER BY role ASC";
                     }
                 } else {
-                    $sql = "SELECT u.*, k.nama_kelas FROM `user` u left JOIN kelas k on u.kelas_id = k.id WHERE NOT role = 'admin'";
+                    $sql = "SELECT u.*, k.nama_kelas FROM `user` u left JOIN kelas k on u.kelas_id = k.id WHERE NOT role = 'admin' ORDER BY role ASC";
                 }
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
@@ -96,7 +89,17 @@ if ($_SESSION["login"] == false) {
                             <td style="text-align: center;"><?php echo $row['password']; ?></td>
                             <td style="text-align: center;"><?php echo $row['role']; ?></td>
                             <td style="text-align: center;"><?php echo $row['nama_kelas']; ?></td>
-                            <td style="text-align: center;"><?php echo $row['ortu_id']; ?></td>
+                            <td style="text-align: center;">
+                                <?php 
+                                $s = "SELECT nama FROM user WHERE id = '$ortu_id'";
+                                $h = $conn->query($s);
+                                if ($h->num_rows > 0) {
+                                    while ($r = $h->fetch_assoc()) {
+                                        echo $r['nama'];
+                                    }
+                                }
+                                ?>
+                            </td>
                             <td style="text-align: center;">
                                 <button class="btn btn-info" data-toggle="modal" data-target="#editUser<?php echo $row['id'] ?>">Ubah</button>
                                 <button class="btn btn-info" data-toggle="modal" data-target="#deleteUser<?php echo $row['id'] ?>">Hapus</button>
@@ -104,60 +107,60 @@ if ($_SESSION["login"] == false) {
                         </tr>
 
                         <!-- BEGIN: MODAL DELETE USER -->
-                    <div class="modal fade" id="deleteUser<?php echo $row['id'] ?>" tabindex="-1" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content c-square">
-                                <div class="modal-body">
-                                    <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus user <?php echo $row['nama']; ?> ?</h3>
-                                    <div class="form-group">
-                                        <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
-                                        <form method="POST" action="userController.php" style="display: inline-block;">
-                                            <input type="hidden" name="act" value="delete_user">
-                                            <input type="hidden" name="url" value="<?php echo $url ?>">
-                                            <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
-                                            <button class="btn btn-info" >Hapus</button>
-                                        </form>
+                        <div class="modal fade" id="deleteUser<?php echo $row['id'] ?>" tabindex="-1" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content c-square">
+                                    <div class="modal-body">
+                                        <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus user <?php echo $row['nama']; ?> ?</h3>
+                                        <div class="form-group">
+                                            <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
+                                            <form method="POST" action="userController.php" style="display: inline-block;">
+                                                <input type="hidden" name="act" value="delete_user">
+                                                <input type="hidden" name="url" value="<?php echo $url ?>">
+                                                <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
+                                                <button class="btn btn-info" >Hapus</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- END: MODAL DELETE USER -->
+                        <!-- END: MODAL DELETE USER -->
 
-                    <!-- BEGIN: MODAL EDIT USER -->
-                    <div id="editUser<?php echo $row['id'] ?>" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content c-square">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                    <h4 class="modal-title" id="myLargeModalLabel">Ubah User <?php echo $row['nama'] ?></h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="userController.php" method="POST" enctype="multipart/form-data">
+                        <!-- BEGIN: MODAL EDIT USER -->
+                        <div id="editUser<?php echo $row['id'] ?>" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content c-square">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <h4 class="modal-title" id="myLargeModalLabel">Ubah User <?php echo $row['nama'] ?></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="userController.php" method="POST" enctype="multipart/form-data">
 
-                                        <div class="form-group">
-                                            <label class="col-md-3">Nama</label>
-                                            <input type="text" style="width: 60%;" name="nama" value="<?php echo $row['nama'] ?>">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3">Username</label>
-                                            <input type="text" style="width: 60%;"  name="username" disabled="" value="<?php echo $row['username'] ?>">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3">Password</label>
-                                            <input type="text" style="width: 60%;"  name="password" value="<?php echo $row['password'] ?>">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3">Role</label>
-                                            <input type="text" style="width: 60%;"  name="role" disabled="" value="<?php echo $row['role'] ?>">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3">Kelas</label>
-                                            <select name="select-kelas">
-                                                <option value="NULL" selected="">--Pilih Kelas--</option>
-                                                <?php if ($row['role'] == 'guru' || $row['role'] == 'ortu') { ?>
+                                            <div class="form-group">
+                                                <label class="col-md-3">Nama</label>
+                                                <input type="text" style="width: 60%;" name="nama" value="<?php echo $row['nama'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3">Username</label>
+                                                <input type="text" style="width: 60%;"  name="username" disabled="" value="<?php echo $row['username'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3">Password</label>
+                                                <input type="text" style="width: 60%;"  name="password" value="<?php echo $row['password'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3">Role</label>
+                                                <input type="text" style="width: 60%;"  name="role" disabled="" value="<?php echo $row['role'] ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3">Kelas</label>
+                                                <select name="select-kelas">
+                                                    <option value="NULL" selected="">--Pilih Kelas--</option>
+                                                    <?php if ($row['role'] == 'guru' || $row['role'] == 'ortu') { ?>
 
                                                     <?php
                                                     $sql = "select * from kelas where nama_kelas != '" . $row['nama_kelas'] . "'";
@@ -172,73 +175,73 @@ if ($_SESSION["login"] == false) {
                                                 } else {
                                                     ?>
                                                     <?php if ($row['kelas_id'] != '') { ?>
-                                                        <option selected="" value="<?php echo $row['kelas_id'] ?>"><?php echo $row['nama_kelas'] ?></option>
+                                                    <option selected="" value="<?php echo $row['kelas_id'] ?>"><?php echo $row['nama_kelas'] ?></option>
+                                                    <?php
+                                                }
+                                                $sql = "select * from kelas where nama_kelas != '" . $row['nama_kelas'] . "'";
+                                                $result2 = $conn->query($sql);
+                                                if ($result2->num_rows > 0) {
+                                                    while ($row = $result2->fetch_assoc()) {
+                                                        ?>
+                                                        <option value="<?php echo $row['id']; ?>"><?php echo $row['nama_kelas']; ?></option>
                                                         <?php
                                                     }
-                                                    $sql = "select * from kelas where nama_kelas != '" . $row['nama_kelas'] . "'";
-                                                    $result2 = $conn->query($sql);
-                                                    if ($result2->num_rows > 0) {
-                                                        while ($row = $result2->fetch_assoc()) {
-                                                            ?>
-                                                            <option value="<?php echo $row['id']; ?>"><?php echo $row['nama_kelas']; ?></option>
-                                                            <?php
-                                                        }
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3">Ortu</label>
+
+                                        <select name="select-ortu">
+                                            <option value="NULL">-- Pilih Orang Tua --</option>
+                                            <?php
+                                            if ($role == 'guru' || $role == 'ortu') {
+                                                $sql = "select * from user where id = '$ortu_id' AND role = 'ortu'";
+                                                $hasil = $conn->query($sql);
+                                                if ($hasil->num_rows > 0) {
+                                                    while ($a = $hasil->fetch_assoc()) {
+                                                        ?>
+                                                        <option disabled="" value="<?php echo $a['id'] ?>"><?php echo $a['nama'] ?></option>
+                                                        <?php
                                                     }
                                                 }
                                                 ?>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3">Ortu</label>
 
-                                            <select name="select-ortu">
-                                                <option value="NULL">-- Pilih Orang Tua --</option>
                                                 <?php
-                                                if ($role == 'guru' || $role == 'ortu') {
-                                                    $sql = "select * from user where id = '$ortu_id' AND role = 'ortu'";
-                                                    $hasil = $conn->query($sql);
-                                                    if ($hasil->num_rows > 0) {
-                                                        while ($a = $hasil->fetch_assoc()) {
-                                                            ?>
-                                                            <option disabled="" value="<?php echo $a['id'] ?>"><?php echo $a['nama'] ?></option>
-                                                            <?php
-                                                        }
+                                                $sql = "select * from user where id != '$ortu_id' AND role = 'ortu'";
+                                                $hasil2 = $conn->query($sql);
+                                                if ($hasil2->num_rows > 0) {
+                                                    while ($b = $hasil2->fetch_assoc()) {
+                                                        ?>
+                                                        <option disabled="" value="<?php echo $b['id'] ?>"><?php echo $b['nama'] ?></option>
+                                                        <?php
                                                     }
-                                                    ?>
+                                                }
+                                            } else {
+                                                $sql = "select * from user where id = '$ortu_id' AND role = 'ortu'";
+                                                $hasil = $conn->query($sql);
+                                                if ($hasil->num_rows > 0) {
+                                                    while ($a = $hasil->fetch_assoc()) {
+                                                        ?>
+                                                        <option selected="" value="<?php echo $a['id'] ?>"><?php echo $a['nama'] ?></option>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
 
-                                                    <?php
-                                                    $sql = "select * from user where id != '$ortu_id' AND role = 'ortu'";
-                                                    $hasil2 = $conn->query($sql);
-                                                    if ($hasil2->num_rows > 0) {
-                                                        while ($b = $hasil2->fetch_assoc()) {
-                                                            ?>
-                                                            <option disabled="" value="<?php echo $b['id'] ?>"><?php echo $b['nama'] ?></option>
-                                                            <?php
-                                                        }
+                                                <?php
+                                                $sql = "select * from user where id != '$ortu_id' AND role = 'ortu'";
+                                                $hasil2 = $conn->query($sql);
+                                                if ($hasil2->num_rows > 0) {
+                                                    while ($b = $hasil2->fetch_assoc()) {
+                                                        ?>
+                                                        <option value="<?php echo $b['id'] ?>"><?php echo $b['nama'] ?></option>
+                                                        <?php
                                                     }
-                                                } else {
-                                                    $sql = "select * from user where id = '$ortu_id' AND role = 'ortu'";
-                                                    $hasil = $conn->query($sql);
-                                                    if ($hasil->num_rows > 0) {
-                                                        while ($a = $hasil->fetch_assoc()) {
-                                                            ?>
-                                                            <option selected="" value="<?php echo $a['id'] ?>"><?php echo $a['nama'] ?></option>
-                                                            <?php
-                                                        }
-                                                    }
-                                                    ?>
-
-                                                    <?php
-                                                    $sql = "select * from user where id != '$ortu_id' AND role = 'ortu'";
-                                                    $hasil2 = $conn->query($sql);
-                                                    if ($hasil2->num_rows > 0) {
-                                                        while ($b = $hasil2->fetch_assoc()) {
-                                                            ?>
-                                                            <option value="<?php echo $b['id'] ?>"><?php echo $b['nama'] ?></option>
-                                                            <?php
-                                                        }
-                                                    }
-                                                    ?>
+                                                }
+                                                ?>
 
                                                 <?php } ?>
                                             </select>
@@ -266,10 +269,10 @@ if ($_SESSION["login"] == false) {
                 }
             }
             ?>
-            </tbody>
-        </table>
-    </div>
-    <!-- END: PAGE CONTENT -->
+        </tbody>
+    </table>
+</div>
+<!-- END: PAGE CONTENT -->
 </div>
 <!-- END: PAGE CONTAINER -->
 <?php
@@ -279,8 +282,12 @@ include_once 'layout/footer.php';
 <script>
     var table = $('#tabel-user').DataTable({
         lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf', 'colvis']
+        ordering: true,
+        order: [[5, 'asc']],
+        stateSave: true,
     });
+    //BUAT NGE-ORDER BY KOLOM 5 (INDEXING DARI 0) (ROLE) ASC. SOALNYA KALO PAKE QUERY DATATABLE NYA GAK MAU NGE-SORT
+    // table.order( [ 5, 'asc' ] ).draw();
 </script>
 
 <!-- MODAL ADD USER -->
@@ -371,7 +378,7 @@ include_once 'layout/footer.php';
                     <div class="form-group">
                         <label class="col-md-4 control-label">Foto</label>
                         <div class="col-md-6">
-                            <input class="form-control  c-square c-theme input-lg" type="file" name="file" required=""> 
+                            <input class="form-control  c-square c-theme input-lg" type="file" name="file"> 
                         </div>
                     </div>
                     <div class="form-group">

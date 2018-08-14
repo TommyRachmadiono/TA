@@ -1,5 +1,5 @@
-$(document).ready(function(){
-    $("#posting_status").submit(function(event){
+
+$("#posting_status").submit(function(event){
     event.preventDefault(); //prevent default action 
     var post_url = $(this).attr("action"); //get form action url
     var request_method = $(this).attr("method"); //get form GET/POST method
@@ -12,10 +12,8 @@ $(document).ready(function(){
         cache: false,
         processData:false
     }).done(function(response){ //
-        $("#status_postingan").html(response);
+        window.location.reload();
     });
 });
-});
-
 
 
