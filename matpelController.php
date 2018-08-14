@@ -147,6 +147,12 @@ if ($_SESSION['login'] == true) {
             while ($row = $result->fetch_assoc()) {
                 $namatugas = $row['namatugas'];
                 $path = "tugas/" . $tugas_id . ' ' . $namatugas . '/' . $kelas . '/';
+                $a = "tugas/" . $tugas_id . ' ' . $namatugas . '/' . $kelas;
+                $b = "tugas/" . $tugas_id . ' ' . $namatugas;
+                if(!is_dir($a)) {
+                    mkdir($b);
+                    mkdir($a);
+                }
                 $target_dir = $path;
             }
         }

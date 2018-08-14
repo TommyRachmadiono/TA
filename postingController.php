@@ -15,6 +15,8 @@ if ($_SESSION['login'] == true) {
             $file_name = basename($tglupload . $_FILES["file"]["name"]);
 
             if ($_FILES["file"]["size"] != 0) {
+                if(!is_dir("postingan"))
+                    mkdir("postingan");
                 $target_dir = "postingan/";
                 $target_file = $target_dir . $tglupload . $_FILES['file']['name'];
                 $uploadOk = 1;
@@ -81,6 +83,8 @@ if ($_SESSION['login'] == true) {
             }
 
             if ($_FILES["file"]["size"] != 0) {
+                if(!is_dir("komentar"))
+                    mkdir("komentar");
                 $target_dir = "komentar/";
                 $target_file = $target_dir . $tglupload . $_FILES['file']['name'];
                 $uploadOk = 1;
@@ -158,6 +162,8 @@ if ($_SESSION['login'] == true) {
             $file_name = basename($tglupload . $_FILES["file"]["name"]);
 
             if ($_FILES["file"]["size"] != 0) {
+                if(!is_dir("postingan"))
+                    mkdir("postingan");
                 $target_dir = "postingan/";
                 $target_file = $target_dir . $tglupload . basename($_FILES["file"]["name"]);
                 $uploadOk = 1;
@@ -231,6 +237,8 @@ if ($_SESSION['login'] == true) {
             }
 
             if ($_FILES["file"]["size"] != 0) {
+                if(!is_dir("komentar"))
+                    mkdir("komentar");
                 $target_dir = "komentar/";
                 $target_file = $target_dir . $tglupload . $_FILES['file']['name'];
                 $uploadOk = 1;
@@ -550,6 +558,8 @@ if ($_SESSION['login'] == true) {
             }
 
             if ($_FILES["file"]["size"] != 0) {
+                if(!is_dir("komentar"))
+                    mkdir("komentar");
                 $target_dir = "komentar/";
                 $target_file = $target_dir . $tglupload . $_FILES['file']['name'];
                 $uploadOk = 1;

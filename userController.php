@@ -19,6 +19,8 @@ if ($_SESSION['login'] == true) {
         $file_name = basename($tglupload . $_FILES["file"]["name"]);
 
         if ($_FILES["file"]["size"] != 0) {
+            if(!is_dir("images/fotoprofil"))
+                    mkdir("images/fotoprofil");
             $target_dir = "images/fotoprofil/";
             $target_file = $target_dir . $tglupload . $_FILES['file']['name'];
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));

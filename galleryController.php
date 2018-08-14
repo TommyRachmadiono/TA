@@ -14,6 +14,8 @@ if ($_SESSION['login'] == true) {
             $user_id = $_COOKIE['user_id'];
             $tglupload = date('YmdHis');
             $file_name = basename($tglupload . $_FILES["file"]["name"]);
+            if(!is_dir("images/gallery"))
+                    mkdir("images/gallery");
             $target_dir = "images/gallery/";
             $target_file = $target_dir . $tglupload . $_FILES['file']['name'];
             $uploadOk = 1;
@@ -73,6 +75,8 @@ if ($_SESSION['login'] == true) {
             $user_id = $_COOKIE['user_id'];
             $tglupload = date('YmdHis');
             $file_name = basename($tglupload . $_FILES["file"]["name"]);
+            if(!is_dir("images/achievements"))
+                    mkdir("images/achievements");
             $target_dir = "images/achievements/";
             $target_file = $target_dir . $tglupload . $_FILES['file']['name'];
             $uploadOk = 1;
