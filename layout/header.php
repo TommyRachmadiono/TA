@@ -49,6 +49,10 @@
     <script src="assets/plugins/jquery.min.js" type="text/javascript"></script>
     <script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="css/calendar.css">
+
+    <!-- SELECT2 -->
+    <link rel="stylesheet" type="text/css" href="assets/select2/css/select2.css">
+    <link rel="stylesheet" type="text/css" href="assets/select2/css/select2.min.css">
 </head>
 
 <?php

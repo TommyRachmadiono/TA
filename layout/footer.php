@@ -145,10 +145,7 @@
         <!-- END: PAGE SCRIPTS -->
         <!-- END: LAYOUT/BASE/BOTTOM -->
 
-        <script src="js/posting.js" type="text/javascript"></script>
-        <script src="js/report.js" type="text/javascript"></script>
-        <script src="js/like.js" type="text/javascript"></script>
-        <script src="js/scroll_feeds.js" type="text/javascript"></script>
+        
 
         <script src="assets/DataTables/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="assets/DataTables/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
@@ -161,6 +158,17 @@
         <script type="text/javascript" src="js/underscore-min.js"></script>
         <script type="text/javascript" src="js/calendar.js"></script>
         <script type="text/javascript" src="js/events.js"></script>
+
+        <script src="js/posting.js" type="text/javascript"></script>
+        <script src="js/report.js" type="text/javascript"></script>
+        <script src="js/like.js" type="text/javascript"></script>
+        <script src="js/scroll_feeds.js" type="text/javascript"></script>
+        
+        <!-- SCRIPT SELECT2 -->
+        <!-- <script type="text/javascript" src="assets/select2/js/select2.full.js"></script>
+        <script type="text/javascript" src="assets/select2/js/select2.full.min.js"></script> -->
+        <script type="text/javascript" src="assets/select2/js/select2.js"></script>
+        <script type="text/javascript" src="assets/select2/js/select2.min.js"></script>
         
         <!-- INI BIAR KALO REFRESH BALIK KE TOP PAGE -->
        <!--  <script type="text/javascript">

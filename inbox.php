@@ -99,97 +99,97 @@ $user_id = $_COOKIE['user_id'];
                                         <div class="panel-heading">
                                             <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto_penerima'] ?>">
                                             <h3 class="panel-title" style="display: inline;"><?php echo $row['nama_penerima'] ?>
-                                                <span class="anchorjs-icon"></span>
-                                                <?php
-                                                $sql4 = "SELECT n_number as notifikasi FROM notification WHERE id_penerima = '$user_id' AND c_id = '$c_id'";
-                                                $result3 = $conn->query($sql4);
-                                                if ($result3->num_rows > 0) {
-                                                    while ($row3 = $result3->fetch_assoc()) {
-                                                        ?>
-                                                        <span class="badge"><?php echo $row3['notifikasi'] ?> Pesan baru</span>
-                        <?php }
-                    } else { ?>
-                                                    <span class="badge">0 Pesan Baru</span>
-                    <?php } ?>
-                                            </h3> 
-                                        </div>
-                                    </a>
-                                    <div class="panel-body" style="padding-top: 0;"> 
-                                        <h2><?php echo $i['reply']; ?></h2>
-                                        <h3 class="panel-title" style="display: inline;"><span class="glyphicon glyphicon-time"></span> <?php echo $row['time']; ?>
+                                            <span class="anchorjs-icon"></span>
+                                            <?php
+                                            $sql4 = "SELECT n_number as notifikasi FROM notification WHERE id_penerima = '$user_id' AND c_id = '$c_id'";
+                                            $result3 = $conn->query($sql4);
+                                            if ($result3->num_rows > 0) {
+                                                while ($row3 = $result3->fetch_assoc()) {
+                                                    ?>
+                                                    <span class="badge"><?php echo $row3['notifikasi'] ?> Pesan baru</span>
+                                                <?php }
+                                            } else { ?>
+                                                <span class="badge">0 Pesan Baru</span>
+                                            <?php } ?>
                                         </h3> 
-                                        <button class="btn btn-info" style="display: inline;" data-toggle="modal" data-target="#modalDeleteConversation<?php echo $row['c_id']; ?>">Hapus Percakapan</button>
                                     </div>
-                                </div>
+                                </a>
+                                <div class="panel-body" style="padding-top: 0;"> 
+                                    <h2><?php echo $i['reply']; ?></h2>
+                                    <h3 class="panel-title" style="display: inline;"><span class="glyphicon glyphicon-time"></span> <?php echo $row['time']; ?>
+                                </h3> 
+                                <button class="btn btn-info" style="display: inline;" data-toggle="modal" data-target="#modalDeleteConversation<?php echo $row['c_id']; ?>">Hapus Percakapan</button>
+                            </div>
+                        </div>
 
-                            <?php
-                            }
-                        }
-                    } else {
-                        $query = "SELECT c.*, cr.* FROM conversation c INNER JOIN conversation_reply cr ON cr.fk_c_id = c.c_id where c.id_pengirim = '$id_pengirim' AND c.id_penerima = '$user_id' ORDER BY cr.time DESC limit 1";
-                        $hasil = $conn->query($query);
-                        if ($hasil->num_rows > 0) {
-                            while ($i = $hasil->fetch_assoc()) {
-                                ?>
+                        <?php
+                    }
+                }
+            } else {
+                $query = "SELECT c.*, cr.* FROM conversation c INNER JOIN conversation_reply cr ON cr.fk_c_id = c.c_id where c.id_pengirim = '$id_pengirim' AND c.id_penerima = '$user_id' ORDER BY cr.time DESC limit 1";
+                $hasil = $conn->query($query);
+                if ($hasil->num_rows > 0) {
+                    while ($i = $hasil->fetch_assoc()) {
+                        ?>
 
-                                <!-- BEGIN: MODAL DELETE CONVERSATION -->
-                                <div class="modal fade" id="modalDeleteConversation<?php echo $row['c_id'] ?>" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content c-square">
-                                            <div class="modal-body">
-                                                <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus percakapan ini ?</h3>
-                                                <div class="form-group">
-                                                    <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
-                                                    <form method="POST" action="messagesController.php" style="display: inline-block;">
-                                                        <input type="hidden" name="act" value="delete_conversation">
-                                                        <input type="hidden" name="idconversation" value="<?php echo $row['c_id']; ?>">
-                                                        <button class="btn btn-info" > Hapus</button>
-                                                    </form>
-                                                </div>
-                                            </div>
+                        <!-- BEGIN: MODAL DELETE CONVERSATION -->
+                        <div class="modal fade" id="modalDeleteConversation<?php echo $row['c_id'] ?>" tabindex="-1" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content c-square">
+                                    <div class="modal-body">
+                                        <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus percakapan ini ?</h3>
+                                        <div class="form-group">
+                                            <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
+                                            <form method="POST" action="messagesController.php" style="display: inline-block;">
+                                                <input type="hidden" name="act" value="delete_conversation">
+                                                <input type="hidden" name="idconversation" value="<?php echo $row['c_id']; ?>">
+                                                <button class="btn btn-info" > Hapus</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- END: MODAL DELETE CONVERSATION -->
+                            </div>
+                        </div>
+                        <!-- END: MODAL DELETE CONVERSATION -->
 
-                                <div class="panel panel-warning">
-                                    <a href="messages.php?conversation_id=<?php echo $row['c_id']; ?>">	
-                                        <div class="panel-heading">
-                                            <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto_pengirim'] ?>">
-                                            <h3 class="panel-title" style="display: inline;"><?php echo $row['nama_pengirim'] ?>
-                                                <span class="anchorjs-icon"></span>
-                                                <?php
-                                                $sql5 = "SELECT n_number as notifikasi FROM notification WHERE id_penerima = '$user_id' AND c_id = '$c_id'";
-                                                $result4 = $conn->query($sql5);
-                                                if ($result4->num_rows > 0) {
-                                                    while ($row4 = $result4->fetch_assoc()) {
-                                                        ?>
-                                                        <span class="badge"><?php echo $row4['notifikasi']; ?> Pesan baru</span>
-                        <?php }
-                    } else { ?>
-                                                    <span class="badge">0 Pesan baru</span>
-                    <?php } ?>
-                                            </h3>
-                                        </div>
-                                    </a>
-                                    <div class="panel-body" style="padding-top: 0"> 
-                                        <h2><?php echo $i['reply']; ?></h2> 
-                                        <h3 class="panel-title" style="display: inline;"><span class="glyphicon glyphicon-time"></span> <?php echo $row['time']; ?>
-                                        </h3> 
-                                        <button class="btn btn-info" style="display: inline;" data-toggle="modal" data-target="#modalDeleteConversation<?php echo $row['c_id']; ?>">Hapus Percakapan</button>
-                                    </div>
-                                </div>
+                        <div class="panel panel-warning">
+                            <a href="messages.php?conversation_id=<?php echo $row['c_id']; ?>">	
+                                <div class="panel-heading">
+                                    <img style="display: inline; border-radius: 50%; height: 40px;" src="images/fotoprofil/<?php echo $row['foto_pengirim'] ?>">
+                                    <h3 class="panel-title" style="display: inline;"><?php echo $row['nama_pengirim'] ?>
+                                    <span class="anchorjs-icon"></span>
+                                    <?php
+                                    $sql5 = "SELECT n_number as notifikasi FROM notification WHERE id_penerima = '$user_id' AND c_id = '$c_id'";
+                                    $result4 = $conn->query($sql5);
+                                    if ($result4->num_rows > 0) {
+                                        while ($row4 = $result4->fetch_assoc()) {
+                                            ?>
+                                            <span class="badge"><?php echo $row4['notifikasi']; ?> Pesan baru</span>
+                                        <?php }
+                                    } else { ?>
+                                        <span class="badge">0 Pesan baru</span>
+                                    <?php } ?>
+                                </h3>
+                            </div>
+                        </a>
+                        <div class="panel-body" style="padding-top: 0"> 
+                            <h2><?php echo $i['reply']; ?></h2> 
+                            <h3 class="panel-title" style="display: inline;"><span class="glyphicon glyphicon-time"></span> <?php echo $row['time']; ?>
+                        </h3> 
+                        <button class="btn btn-info" style="display: inline;" data-toggle="modal" data-target="#modalDeleteConversation<?php echo $row['c_id']; ?>">Hapus Percakapan</button>
+                    </div>
+                </div>
 
-                <?php }
-            }
+            <?php }
         }
     }
+}
 } else { ?>
-                Anda tidak mempunyai percakapan dengan siapapun. Mulailah mengirim pesan dan percakapan anda akan muncul disini.
+    Anda tidak mempunyai percakapan dengan siapapun. Mulailah mengirim pesan dan percakapan anda akan muncul disini.
 <?php } ?>
-        </div>
-    </div>
-    <!-- END: PAGE CONTENT -->
+</div>
+</div>
+<!-- END: PAGE CONTENT -->
 </div>
 <!-- END: PAGE CONTAINER -->
 
@@ -198,7 +198,7 @@ include_once 'layout/footer.php';
 ?>
 
 <div id="conversation" class="modal fade in" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content c-square">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -208,22 +208,26 @@ include_once 'layout/footer.php';
             </div>
             <form action="messagesController.php" method="POST" class="form-horizontal">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-md-4 control-label">Dengan</label>
-                        <div class="col-md-6">
-                            <select name="penerima" class="form-control  c-square c-theme" required="">
-                                <option value="" selected="">-- Pilih User --</option>
-<?php
-$user_id = $_SESSION['user_id'];
-$sql3 = "SELECT * FROM user where id != '$user_id'";
-$result3 = $conn->query($sql3);
-if ($result3->num_rows > 0) {
-    while ($row3 = $result3->fetch_assoc()) {
-        ?>
-                                        <option value="<?php echo $row3['id'] ?>"><?php echo $row3['nama']; ?></option>
-    <?php }
-} ?>
-                            </select>
+                    <div class="row">
+                        <div class="form-group">
+
+                            <label class="col-md-4 control-label">Dengan</label>
+                            <div class="col-md-6">
+                                <select id="myselect2" name="penerima" class="form-control" required="" data-placeholder="Pilih Penerima" style="width: 98%;">
+                                    <option value="" selected=""></option>
+                                    <?php
+                                    $user_id = $_SESSION['user_id'];
+                                    $sql3 = "SELECT * FROM user where id != '$user_id'";
+                                    $result3 = $conn->query($sql3);
+                                    if ($result3->num_rows > 0) {
+                                        while ($row3 = $result3->fetch_assoc()) {
+                                            ?>
+                                            <option value="<?php echo $row3['id'] ?>"><?php echo $row3['nama']; ?></option>
+                                        <?php }
+                                    } ?>
+                                </select>
+                            </div>
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -241,3 +245,12 @@ if ($result3->num_rows > 0) {
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $("#myselect2").select2({
+            dropdownParent: $('#conversation')
+        });
+    });
+</script>

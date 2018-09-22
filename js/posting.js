@@ -1,5 +1,5 @@
-
-$("#posting_status").submit(function(event){
+$(document).ready(function() {
+    $("#posting_status").submit(function(event){
     event.preventDefault(); //prevent default action 
     var post_url = $(this).attr("action"); //get form action url
     var request_method = $(this).attr("method"); //get form GET/POST method
@@ -15,5 +15,4 @@ $("#posting_status").submit(function(event){
         window.location.reload();
     });
 });
-
-
+});
