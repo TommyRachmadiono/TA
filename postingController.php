@@ -23,33 +23,33 @@ if ($_SESSION['login'] == true) {
 
                 //BATASI FILE CUMAN 5MB
                 if ($_FILES["file"]["size"] > 5485760) {
-                    echo "Sorry, your file is too large.";
+                    echo 'File anda terlalu besar';
                     $uploadOk = 0;
                 }
-                if ($uploadOk == 0) {
-                    echo "Sorry, your file was not uploaded.";
+                if ($uploadOk === 0) {
+                    echo ', Gagal Posting Status';
                     // if everything is ok, try to upload file
                 } else {
                     if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
                         $sql = "INSERT INTO postingan (isi, tgldiposting, user_id,file)
                     VALUES ('$isi', '$tgldiposting', '$user_id','$file_name')";
                         if (mysqli_query($conn, $sql)) {
-                            echo '<script type="text/javascript">alert("Berhasil posting status"); </script>';
-                            echo '<script type="text/javascript"> window.location = "index.php" </script>';
+                            
+                            // echo '<script type="text/javascript"> window.location = "index.php" </script>';
                             $conn->close();
                         } else {
                             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
                         }
                     } else {
-                        echo '<script type="text/javascript">alert("Sorry there was an error uploading your file")</script>';
+                        echo "Sorry there was an error uploading your file";
                     }
                 }
             } else {
                 $sql = "INSERT INTO postingan (isi, tgldiposting, user_id)
             VALUES ('$isi', '$tgldiposting', '$user_id')";
                 if (mysqli_query($conn, $sql)) {
-                    echo '<script type="text/javascript">alert("Berhasil posting status"); </script>';
-                    echo '<script type="text/javascript"> window.location = "index.php" </script>';
+                    echo "Berhasil posting status";
+                    // echo '<script type="text/javascript"> window.location = "index.php" </script>';
                     $conn->close();
                 } else {
                     echo "Error: " . $sql . "<br>" . mysqli_error($conn);

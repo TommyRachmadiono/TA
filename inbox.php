@@ -248,7 +248,6 @@ include_once 'layout/footer.php';
 
 <script type="text/javascript">
     $(document).ready(function() {
-
         $("#myselect2").select2({
             dropdownParent: $('#conversation')
         });

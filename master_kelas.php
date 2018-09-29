@@ -60,29 +60,29 @@ if ($_COOKIE['role'] != 'admin') {
                             </td>
                         </tr>
 
-                    <!-- BEGIN: MODAL DELETE MATPEL -->
-                    <div class="modal fade" id="deleteKelas<?php echo $row['id'] ?>" tabindex="-1" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content c-square">
-                                <div class="modal-body">
-                                    <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus Kelas <?php echo $row['nama_kelas']; ?> ?</h3>
-                                    <div class="form-group">
-                                        <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
-                                        <form method="POST" action="kelasController.php" style="display: inline-block;">
-                                            <input type="hidden" name="act" value="delete_kelas">
-                                            <input type="hidden" name="kelas_id" value="<?php echo $row['id']; ?>">
-                                            <button class="btn btn-info" > Hapus</button>
-                                        </form>
+                        <!-- BEGIN: MODAL DELETE MATPEL -->
+                        <div class="modal fade" id="deleteKelas<?php echo $row['id'] ?>" tabindex="-1" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content c-square">
+                                    <div class="modal-body">
+                                        <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus Kelas <?php echo $row['nama_kelas']; ?> ?</h3>
+                                        <div class="form-group">
+                                            <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
+                                            <form method="POST" action="kelasController.php" style="display: inline-block;">
+                                                <input type="hidden" name="act" value="delete_kelas">
+                                                <input type="hidden" name="kelas_id" value="<?php echo $row['id']; ?>">
+                                                <button class="btn btn-info" > Hapus</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- END: MODAL DELETE MATPEL -->
-                    <?php
+                        <!-- END: MODAL DELETE MATPEL -->
+                        <?php
+                    }
                 }
-            }
-            ?>
+                ?>
             </tbody>
         </table>
     </div>
@@ -110,12 +110,28 @@ include_once 'layout/footer.php';
                 <h3 class="c-font-24 c-font-sbold">Tambah Kelas Baru</h3>
                 <form action="kelasController.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="" class="">Nama Kelas</label>
-                        <input type="text" class="form-control input-lg c-square" id="nama_kelas" placeholder="Nama Kelas" name="nama_kelas" required=""> 
-                        <span class="help-block">Nama kelas depannya wajib <b>10 / 11 / 12</b> diikuti spasi lalu nama kelasnya</span>
-                        <input type="hidden" name="act" value="add_kelas">
+                        <label for="control-label" class="">Jenjang Kelas</label>
+                        <select class="form-control" required="" name="jenjang_kelas">
+                            <option value="">--Pilih Jenjang--</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
                     </div>
                     <div class="form-group">
+                        <label class="control-label">Jurusan</label>
+                        <select class="form-control" required="" name="jurusan">
+                            <option value="">--Pilih Jurusan--</option>
+                            <option value="IPA">IPA</option>
+                            <option value="IPS">IPS</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Nama Kelas</label>
+                        <input type="text" class="form-control input-lg c-square" id="nama_kelas" placeholder="Nama Kelas" name="nama_kelas" required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" name="act" value="add_kelas">
                         <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;">Tambah</button><br><br>
                     </div>
                 </form>

@@ -13,6 +13,7 @@ $(document).ready(function() {
         processData:false
     }).done(function(response){ //
         window.location.reload();
+        alert(response);
     });
 });
 });

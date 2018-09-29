@@ -8,10 +8,15 @@ if ($_SESSION['login'] == true) {
 
 	switch ($act) {
 		case 'add_kelas':
+		$jenjang_kelas = mysqli_real_escape_string($conn, $_POST["jenjang_kelas"]);
+		$jurusan = mysqli_real_escape_string($conn, $_POST["jurusan"]);
 		$nama_kelas = mysqli_real_escape_string($conn, $_POST["nama_kelas"]);
 
+		$kelas = $jenjang_kelas . ' ' . $jurusan . ' ' . $nama_kelas;
+		// echo $kelas;
+
 		$sql = "INSERT INTO kelas (nama_kelas)
-		VALUES ('$nama_kelas')";
+		VALUES ('$kelas')";
 		if (mysqli_query($conn, $sql)) {
 
 			$query = "SELECT * FROM tugas";
@@ -25,9 +30,6 @@ if ($_SESSION['login'] == true) {
 
 			mkdir('tugas/' . $tugas_id . ' ' . $namatugas . '/' . $nama_kelas);
 			echo '<script type="text/javascript">alert("Berhasil menambah kelas baru"); </script>';
-			echo '<script type="text/javascript"> window.location = "master_kelas.php" </script>';
-		} else {
-			echo '<script type="text/javascript">alert("Nama kelas tidak boleh sama"); </script>';
 			echo '<script type="text/javascript"> window.location = "master_kelas.php" </script>';
 		}
 		break;
@@ -77,10 +79,11 @@ if ($_SESSION['login'] == true) {
 			echo '<script type="text/javascript">alert("Berhasil Menghapus kelas"); </script>';
 			echo '<script type="text/javascript"> window.location = "master_kelas.php" </script>';
 		} else {
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 		}
 		break;
 	}
+	
 } else {
 	echo '<script type="text/javascript">alert("Silahkan Login Terlebih Dahulu"); </script>';
 	echo '<script type="text/javascript"> window.location = "index.php" </script>';
