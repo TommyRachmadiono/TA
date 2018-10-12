@@ -43,6 +43,7 @@ if ($_COOKIE['role'] != 'admin') {
                     <th style="text-align: center;">ID</th>
                     <th style="text-align: center;">Nama Mata Pelajaran</th>
                     <th style="text-align: center;">Jenjang</th>
+                    <th style="text-align: center;">Jurusan</th>
                     <th style="text-align: center;">Aksi</th>
                 </tr>
             </thead>
@@ -57,9 +58,10 @@ if ($_COOKIE['role'] != 'admin') {
                             <th style="text-align: center;"><?php echo $row['id']; ?></th>
                             <td style="text-align: center;"><?php echo $row['nama_pelajaran']; ?></td>
                             <td style="text-align: center;"><?php echo $row['jenjang_id'] ?></td>
+                            <td style="text-align: center;"><?php echo $row['jurusan'] ?></td>
                             <td style="text-align: center;">
                                 <button class="btn btn-info" data-toggle="modal" data-target="#editMatpel<?php echo $row['id'] ?>">Ubah</button>
-                                <button class="btn btn-info" data-toggle="modal" data-target="#deleteMatpel<?php echo $row['id'] ?>">Hapus</button>
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#deleteMatpel<?php echo $row['id'] ?>">Hapus</button>
                             </td>
                         </tr>
                         <!-- MODAL EDIT MATPEL -->
@@ -83,7 +85,14 @@ if ($_COOKIE['role'] != 'admin') {
                                             <form action="matpelController.php" method="POST" enctype="multipart/form-data">
                                                 <div class="form-group">
                                                     <label for="" class="">Nama Matpel</label>
-                                                    <input type="text" class="form-control input-lg c-square" placeholder="Nama Matpel" name="nama_matpel" required="" value="<?php echo $row2['nama_pelajaran'] ?>"> 
+                                                    <input type="text" class="form-control input-lg c-square" placeholder="Nama Matpel" name="nama_matpel" required="" value="<?php echo $row2['nama_pelajaran'] ?>">
+
+                                                     <label for="" class="">Jenjang</label>
+                                                    <input type="text" class="form-control input-lg c-square" name="jenjang"  value="<?php echo $row2['jenjang_id'] ?>" readonly>
+
+                                                    <label for="" class="">Jurusan</label>
+                                                    <input type="text" class="form-control input-lg c-square" name="jurusan" value="<?php echo $row2['jurusan'] ?>" readonly>
+
                                                     <input type="hidden" name="matpel_id" value="<?php echo $row['id']; ?>">
                                                     <input type="hidden" name="act" value="edit_matpel">
                                                 </div>
@@ -139,46 +148,48 @@ include_once 'layout/footer.php';
     var table = $('#matpel').DataTable({
         lengthChange: false,
         ordering: true,
-        order: [[1, 'asc']],
+        order: [[2, 'asc']],
         stateSave: true,
     });
 </script>
 
 <!-- MODAL ADD NEW MATPEL -->
-<div class="modal fade c-content-login-form" id="add-matpel" role="dialog">
+<div class="modal fade" id="add-matpel" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content c-square">
-            <div class="modal-header c-no-border">
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">×</span>
                 </button>
+                <h4 class="modal-title">Tambah Mata Pelajaran Baru</h4>
             </div>
             <div class="modal-body">
-                <h3 class="c-font-24 c-font-sbold">Tambah Mata Pelajaran Baru</h3>
+                
                 <form action="matpelController.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="" class="">Nama Matpel</label>
+                        <label for="" class="control-label">Nama Matpel</label>
                         <input type="text" class="form-control input-lg c-square" id="nama_matpel" placeholder="Nama Matpel" name="nama_matpel" required=""> 
                         <input type="hidden" name="act" value="add_matpel">
                     </div>
                     <div class="form-group">
-                        <label class="">Pilih Jenjang</label>
+                        <label class="control-label">Pilih Jenjang</label>
                         <select name="jenjang" class="form-control c-square input-lg" required="">
                             <option value="">--Pilih Jenjang--</option>
-                            <?php 
-                            $sql = "SELECT * FROM jenjang";
-                                    $result = $conn->query($sql);
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                            ?>
-                            <option value="<?php echo $row['id'] ?>"><?php echo $row['nama_jenjang'] ?></option>
-                            <?php 
-                        }}
-                            ?>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;" name="create-group" id="create-group">Tambah</button><br><br>
+                        <label class="control-label">Pilih Jurusan</label>
+                        <select name="jurusan" class="form-control c-square input-lg" required="">
+                            <option value="">--Pilih Jurusan--</option>
+                            <option value="IPA">IPA</option>
+                            <option value="IPS">IPS</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;" id="tambah_matpel">Tambah</button><br><br>
                     </div>
                 </form>
             </div>

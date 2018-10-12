@@ -117,11 +117,11 @@ if ($_COOKIE['role'] != 'admin') {
                                     <form method="POST" action="userController.php" style="display: inline;">
                                         <?php
                                         if($strkelas == "10")
-                                        $query = "SELECT * from matpel where jenjang_id = '1'";
+                                        $query = "SELECT * from matpel where jenjang_id = '10'";
                                         elseif($strkelas == "11")
-                                        $query = "SELECT * from matpel where jenjang_id = '2'";
+                                        $query = "SELECT * from matpel where jenjang_id = '11'";
                                         elseif($strkelas == "12")
-                                        $query = "SELECT * from matpel where jenjang_id = '3'";
+                                        $query = "SELECT * from matpel where jenjang_id = '12'";
                                         elseif($role == "guru")
                                         $query = "SELECT * FROM matpel";
                                         else

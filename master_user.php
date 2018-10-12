@@ -102,7 +102,7 @@ if ($_SESSION["login"] == false) {
                             </td>
                             <td style="text-align: center;">
                                 <button class="btn btn-info" data-toggle="modal" data-target="#editUser<?php echo $row['id'] ?>">Ubah</button>
-                                <button class="btn btn-info" data-toggle="modal" data-target="#deleteUser<?php echo $row['id'] ?>">Hapus</button>
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#deleteUser<?php echo $row['id'] ?>">Hapus</button>
                             </td>
                         </tr>
 
@@ -142,137 +142,137 @@ if ($_SESSION["login"] == false) {
 
                                             <div class="form-group">
                                                 <label class="col-md-3">Nama</label>
-                                                <input type="text" style="width: 60%;" name="nama" value="<?php echo $row['nama'] ?>">
+                                                <input type="text" class="form-control" style="width: 60%;" name="nama" value="<?php echo $row['nama'] ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-3">Username</label>
-                                                <input type="text" style="width: 60%;"  name="username" disabled="" value="<?php echo $row['username'] ?>">
+                                                <input type="text" class="form-control" style="width: 60%;"  name="username" disabled="" value="<?php echo $row['username'] ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-3">Password</label>
-                                                <input type="text" style="width: 60%;"  name="password" value="<?php echo $row['password'] ?>">
+                                                <input type="text" class="form-control" style="width: 60%;"  name="password" value="<?php echo $row['password'] ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-3">Role</label>
-                                                <input type="text" style="width: 60%;"  name="role" disabled="" value="<?php echo $row['role'] ?>">
+                                                <input type="text" class="form-control" style="width: 60%;"  name="role" disabled="" value="<?php echo $row['role'] ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-3">Kelas</label>
-                                                <select name="select-kelas">
+                                                <select name="select-kelas" class="form-control" style="width: 60%;">
                                                     <option value="NULL" selected="">--Pilih Kelas--</option>
                                                     <?php if ($row['role'] == 'guru' || $row['role'] == 'ortu') { ?>
 
-                                                    <?php
-                                                    $sql = "select * from kelas where nama_kelas != '" . $row['nama_kelas'] . "'";
-                                                    $result2 = $conn->query($sql);
-                                                    if ($result2->num_rows > 0) {
-                                                        while ($row = $result2->fetch_assoc()) {
-                                                            ?>
-                                                            <option disabled="" value="<?php echo $row['id']; ?>"><?php echo $row['nama_kelas']; ?></option>
+                                                        <?php
+                                                        $sql = "select * from kelas where nama_kelas != '" . $row['nama_kelas'] . "'";
+                                                        $result2 = $conn->query($sql);
+                                                        if ($result2->num_rows > 0) {
+                                                            while ($row = $result2->fetch_assoc()) {
+                                                                ?>
+                                                                <option disabled="" value="<?php echo $row['id']; ?>"><?php echo $row['nama_kelas']; ?></option>
+                                                                <?php
+                                                            }
+                                                        }
+                                                    } else {
+                                                        ?>
+                                                        <?php if ($row['kelas_id'] != '') { ?>
+                                                            <option selected="" value="<?php echo $row['kelas_id'] ?>"><?php echo $row['nama_kelas'] ?></option>
                                                             <?php
                                                         }
+                                                        $sql = "select * from kelas where nama_kelas != '" . $row['nama_kelas'] . "'";
+                                                        $result2 = $conn->query($sql);
+                                                        if ($result2->num_rows > 0) {
+                                                            while ($row = $result2->fetch_assoc()) {
+                                                                ?>
+                                                                <option value="<?php echo $row['id']; ?>"><?php echo $row['nama_kelas']; ?></option>
+                                                                <?php
+                                                            }
+                                                        }
                                                     }
-                                                } else {
                                                     ?>
-                                                    <?php if ($row['kelas_id'] != '') { ?>
-                                                    <option selected="" value="<?php echo $row['kelas_id'] ?>"><?php echo $row['nama_kelas'] ?></option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3">Ortu</label>
+
+                                                <select name="select-ortu" class="form-control" style="width: 60%;">
+                                                    <option value="NULL">-- Pilih Orang Tua --</option>
                                                     <?php
-                                                }
-                                                $sql = "select * from kelas where nama_kelas != '" . $row['nama_kelas'] . "'";
-                                                $result2 = $conn->query($sql);
-                                                if ($result2->num_rows > 0) {
-                                                    while ($row = $result2->fetch_assoc()) {
+                                                    if ($role == 'guru' || $role == 'ortu') {
+                                                        $sql = "select * from user where id = '$ortu_id' AND role = 'ortu'";
+                                                        $hasil = $conn->query($sql);
+                                                        if ($hasil->num_rows > 0) {
+                                                            while ($a = $hasil->fetch_assoc()) {
+                                                                ?>
+                                                                <option disabled="" value="<?php echo $a['id'] ?>"><?php echo $a['nama'] ?></option>
+                                                                <?php
+                                                            }
+                                                        }
                                                         ?>
-                                                        <option value="<?php echo $row['id']; ?>"><?php echo $row['nama_kelas']; ?></option>
+
                                                         <?php
-                                                    }
-                                                }
-                                            }
-                                            ?>
-                                        </select>
+                                                        $sql = "select * from user where id != '$ortu_id' AND role = 'ortu'";
+                                                        $hasil2 = $conn->query($sql);
+                                                        if ($hasil2->num_rows > 0) {
+                                                            while ($b = $hasil2->fetch_assoc()) {
+                                                                ?>
+                                                                <option disabled="" value="<?php echo $b['id'] ?>"><?php echo $b['nama'] ?></option>
+                                                                <?php
+                                                            }
+                                                        }
+                                                    } else {
+                                                        $sql = "select * from user where id = '$ortu_id' AND role = 'ortu'";
+                                                        $hasil = $conn->query($sql);
+                                                        if ($hasil->num_rows > 0) {
+                                                            while ($a = $hasil->fetch_assoc()) {
+                                                                ?>
+                                                                <option selected="" value="<?php echo $a['id'] ?>"><?php echo $a['nama'] ?></option>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+
+                                                        <?php
+                                                        $sql = "select * from user where id != '$ortu_id' AND role = 'ortu'";
+                                                        $hasil2 = $conn->query($sql);
+                                                        if ($hasil2->num_rows > 0) {
+                                                            while ($b = $hasil2->fetch_assoc()) {
+                                                                ?>
+                                                                <option value="<?php echo $b['id'] ?>"><?php echo $b['nama'] ?></option>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3">Foto</label>
+                                                <input type="file" style="width: 60%;"  name="file">
+                                            </div>
+                                            <div class="form-group" style="text-align: right;">
+                                                <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                                                <input type="hidden" name="act" value="edit_user">
+                                                <input type="hidden" name="url" value="<?php echo $url ?>">
+                                                <button type="reset" class="btn btn-warning c-btn-square c-btn-uppercase c-btn-bold" value="Reset">Reset</button>
+                                                <button type="submit" class="btn btn-info c-btn-square c-btn-uppercase c-btn-bold">Simpan</button>
+
+                                            </div>
+                                        </form>
+
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3">Ortu</label>
-
-                                        <select name="select-ortu">
-                                            <option value="NULL">-- Pilih Orang Tua --</option>
-                                            <?php
-                                            if ($role == 'guru' || $role == 'ortu') {
-                                                $sql = "select * from user where id = '$ortu_id' AND role = 'ortu'";
-                                                $hasil = $conn->query($sql);
-                                                if ($hasil->num_rows > 0) {
-                                                    while ($a = $hasil->fetch_assoc()) {
-                                                        ?>
-                                                        <option disabled="" value="<?php echo $a['id'] ?>"><?php echo $a['nama'] ?></option>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-
-                                                <?php
-                                                $sql = "select * from user where id != '$ortu_id' AND role = 'ortu'";
-                                                $hasil2 = $conn->query($sql);
-                                                if ($hasil2->num_rows > 0) {
-                                                    while ($b = $hasil2->fetch_assoc()) {
-                                                        ?>
-                                                        <option disabled="" value="<?php echo $b['id'] ?>"><?php echo $b['nama'] ?></option>
-                                                        <?php
-                                                    }
-                                                }
-                                            } else {
-                                                $sql = "select * from user where id = '$ortu_id' AND role = 'ortu'";
-                                                $hasil = $conn->query($sql);
-                                                if ($hasil->num_rows > 0) {
-                                                    while ($a = $hasil->fetch_assoc()) {
-                                                        ?>
-                                                        <option selected="" value="<?php echo $a['id'] ?>"><?php echo $a['nama'] ?></option>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-
-                                                <?php
-                                                $sql = "select * from user where id != '$ortu_id' AND role = 'ortu'";
-                                                $hasil2 = $conn->query($sql);
-                                                if ($hasil2->num_rows > 0) {
-                                                    while ($b = $hasil2->fetch_assoc()) {
-                                                        ?>
-                                                        <option value="<?php echo $b['id'] ?>"><?php echo $b['nama'] ?></option>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-3">Foto</label>
-                                            <input type="file" style="width: 60%;"  name="file">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
-                                            <input type="hidden" name="act" value="edit_user">
-                                            <input type="hidden" name="url" value="<?php echo $url ?>">
-                                            <button type="reset" class="btn btn-default c-btn-square c-btn-uppercase c-btn-bold" value="Reset">Reset</button>
-                                            <button type="submit" class="btn btn-default c-btn-square c-btn-uppercase c-btn-bold">Simpan</button>
-
-                                        </div>
-                                    </form>
-
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- END: MODAL EDIT USER -->
-                    <?php
+                        <!-- END: MODAL EDIT USER -->
+                        <?php
+                    }
                 }
-            }
-            ?>
-        </tbody>
-    </table>
-</div>
-<!-- END: PAGE CONTENT -->
+                ?>
+            </tbody>
+        </table>
+    </div>
+    <!-- END: PAGE CONTENT -->
 </div>
 <!-- END: PAGE CONTAINER -->
 <?php
@@ -301,10 +301,7 @@ include_once 'layout/footer.php';
                 <h4 class="modal-title" id="myLargeModalLabel">Tambah User Baru</h4>
             </div>
             <div class="modal-body">
-                <div class="c-content-title-1 c-title-md c-margin-b-20 clearfix">
-                    <h3 class="c-center c-font-uppercase c-font-bold">User Baru</h3>
-                    <div class="c-line-center c-theme-bg"></div>
-                </div>
+
                 <form action="userController.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
                     <div class="form-group">
                         <label class="col-md-4 control-label">Nama</label>
@@ -327,7 +324,7 @@ include_once 'layout/footer.php';
                     <div class="form-group">
                         <label class="col-md-4 control-label">Role</label>
                         <div class="col-md-6">
-                            <select name="role" class="form-control  c-square c-theme input-lg" required="">
+                            <select id="select-role" name="role" class="form-control  c-square c-theme input-lg" required="">
                                 <option value="" disabled selected>-- Select Role --</option>
                                 <option value="murid">murid</option>
                                 <option value="guru">guru</option>
@@ -338,7 +335,7 @@ include_once 'layout/footer.php';
                     <div class="form-group">
                         <label class="col-md-4 control-label">Kelas</label>
                         <div class="col-md-6">
-                            <select name="kelas" class="form-control  c-square c-theme input-lg">
+                            <select id="select-kelas" name="kelas" class="form-control  c-square c-theme input-lg">
                                 <option value="NULL" selected>-- Select Kelas --</option> 
                                 <?php
                                 $sql = "select * from kelas";
@@ -358,7 +355,7 @@ include_once 'layout/footer.php';
                     <div class="form-group">
                         <label class="col-md-4 control-label">Orang Tua</label>
                         <div class="col-md-6">
-                            <select name="ortu" class="form-control  c-square c-theme input-lg">
+                            <select id="select-ortu" name="ortu" class="form-control  c-square c-theme input-lg">
                                 <option value="NULL" selected>-- Select Ortu --</option> 
                                 <?php
                                 $sql = "select * from user WHERE ISNULL(ortu_id) AND role NOT IN('guru','admin','murid')";
@@ -395,3 +392,14 @@ include_once 'layout/footer.php';
 </div>
 <!-- END MODAL ADD USER -->
 
+<!-- <script type="text/javascript">
+    $('#select-role').change(function(){
+        if($('#select-role').val == 'murid') {
+            ('#select-ortu').show();
+            ('#select-kelas').show();
+        } else {
+            ('#select-ortu').hide();
+            ('#select-kelas').hide();
+        }
+    });
+</script> -->

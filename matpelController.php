@@ -392,46 +392,58 @@ if ($_SESSION['login'] == true) {
         break;
 
         case 'add_matpel':
-        $nama_pelajaran = mysqli_real_escape_string($conn, $_POST["nama_matpel"]);
+        $nama_pelajaran = mysqli_real_escape_string($conn, ucfirst(strtolower($_POST["nama_matpel"])));
         $jenjang_id = mysqli_real_escape_string($conn, $_POST["jenjang"]);
+        $jurusan = mysqli_real_escape_string($conn, $_POST["jurusan"]);
 
-        $sql = "INSERT INTO matpel (nama_pelajaran, jenjang_id)
-        VALUES ('$nama_pelajaran', '$jenjang_id')";
-        if (mysqli_query($conn, $sql)) {
-            $sql2 = "SELECT id FROM matpel ORDER BY id DESC LIMIT 1";
-            $result = $conn->query($sql2);
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $matpel_id = $row['id'];
+        $query = "SELECT * FROM matpel WHERE nama_pelajaran = '$nama_pelajaran' AND jenjang_id = '$jenjang_id' AND jurusan = '$jurusan'";
+        $hasil = $conn->query($query);
+        if($hasil->num_rows > 0) {
+            echo '<script type="text/javascript">alert("Sudah ada nama pelajaran itu, silahkan cari nama lain") </script>';
+            echo '<script type="text/javascript"> window.location = "master_matpel.php" </script>';
+        } else {
+
+            $sql = "INSERT INTO matpel (nama_pelajaran, jenjang_id, jurusan)
+            VALUES ('$nama_pelajaran', '$jenjang_id', '$jurusan')";
+
+            if (mysqli_query($conn, $sql)) {
+                $sql2 = "SELECT id FROM matpel ORDER BY id DESC LIMIT 1";
+                $result = $conn->query($sql2);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $matpel_id = $row['id'];
+                    }
+                }
+                $sql3 = "INSERT INTO matpel_has_week (matpel_id, week_id, title, description)
+                VALUES 
+                ('$matpel_id', '1', '',''),
+                ('$matpel_id', '2', '',''),
+                ('$matpel_id', '3', '',''),
+                ('$matpel_id', '4', '',''),
+                ('$matpel_id', '5', '',''),
+                ('$matpel_id', '6', '',''),
+                ('$matpel_id', '7', '',''),
+                ('$matpel_id', '8', '',''),
+                ('$matpel_id', '9', '',''),
+                ('$matpel_id', '10', '',''),
+                ('$matpel_id', '11', '',''),
+                ('$matpel_id', '12', '',''),
+                ('$matpel_id', '13', '',''),
+                ('$matpel_id', '14', '','')";
+
+                if (mysqli_query($conn, $sql3)) {
+                    echo '<script type="text/javascript">alert("Berhasil menambah matpel baru") </script>';
+                     // echo '<script type="text/javascript">alert("'.$jenjang_id.'") </script>';
+                     // echo '<script type="text/javascript">alert("'.$nama_pelajaran.'") </script>';
+                     // echo '<script type="text/javascript">alert("'.$jurusan.'") </script>';
+                    echo '<script type="text/javascript"> window.location = "master_matpel.php" </script>';
+                } else {
+                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
                 }
             }
-            $sql3 = "INSERT INTO matpel_has_week (matpel_id, week_id, title, description)
-            VALUES 
-            ('$matpel_id', '1', '',''),
-            ('$matpel_id', '2', '',''),
-            ('$matpel_id', '3', '',''),
-            ('$matpel_id', '4', '',''),
-            ('$matpel_id', '5', '',''),
-            ('$matpel_id', '6', '',''),
-            ('$matpel_id', '7', '',''),
-            ('$matpel_id', '8', '',''),
-            ('$matpel_id', '9', '',''),
-            ('$matpel_id', '10', '',''),
-            ('$matpel_id', '11', '',''),
-            ('$matpel_id', '12', '',''),
-            ('$matpel_id', '13', '',''),
-            ('$matpel_id', '14', '','')";
-
-            if (mysqli_query($conn, $sql3)) {
-                echo '<script type="text/javascript">alert("Berhasil menambah matpel baru"); </script>';
-                echo '<script type="text/javascript"> window.location = "master_matpel.php" </script>';
-            } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-            }
-        } else {
-            echo '<script type="text/javascript">alert("Nama Pelajaran Tidak Boleh Sama"); </script>';
-            echo '<script type="text/javascript"> window.location = "master_matpel.php" </script>';
         }
+
+
 
         break;
 
