@@ -99,7 +99,7 @@ if (isset($_GET["id"])) {
                         </a>
                         <?php
                         $user_id = $_COOKIE['user_id'];
-                        $sql = "SELECT m.id,m.nama_pelajaran FROM relasi_user_matpel r INNER JOIN matpel m on r.matpel_id = m.id WHERE r.user_id = '$user_id'";
+                        $sql = "SELECT m.* FROM relasi_user_matpel r INNER JOIN matpel m on r.matpel_id = m.id WHERE r.user_id = '$user_id' ORDER BY m.jenjang_id";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
@@ -108,7 +108,7 @@ if (isset($_GET["id"])) {
                                 ?>
                             <li>
                                 <a href="mata_pelajaran.php?id=<?php echo $row['id'] ?>">
-                                    <i class="icon-notebook"></i> <?php echo $row['nama_pelajaran']; ?></a>
+                                    <i class="icon-notebook"></i> <?php echo $row['nama_pelajaran'] . ' ' . $row['jenjang_id']; ?></a>
                             </li>
                             <?php
                         }
@@ -269,7 +269,7 @@ if (isset($_GET["id"])) {
                                 if ($result2->num_rows > 0) {
                                     while ($row2 = $result2->fetch_assoc()) {
                                         ?>
-                                        <div class="panel panel-danger">
+                                        <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <form action="matpelController.php" method="POST">
                                                     <a href="tugas.php?id=<?php echo $row2['id']; ?>"><h3 class="panel-title"><h3><?php echo $row2['namatugas']; ?>
@@ -277,7 +277,7 @@ if (isset($_GET["id"])) {
                                                                 <input type="hidden" name="matpel_id" value="$matpel_id">
                                                                 <input type="hidden" name="tugas_id" value="<?php echo $row2['id']; ?>">
                     <?php if ($_COOKIE['role'] == 'guru') { ?>
-                                                                    <button class="btn btn-default" style="float: right;">Hapus</button>
+                                                                    <button class="btn btn-danger" style="float: right;">Hapus</button>
                     <?php } ?>
                                                             </h3></a>
                                                 </form>
@@ -300,7 +300,7 @@ if (isset($_GET["id"])) {
                                             </a>  <?php if ($_COOKIE['role'] == 'guru') { ?>
                                                 <input type="hidden" name="act" value="delete_materi">
                                                 <input type="hidden" name="materi_id" value="<?php echo $row3['id'] ?>">
-                                                <button class="btn btn-default">Hapus</button>
+                                                <button class="btn btn-danger">Hapus</button>
                                             </form>
                                         <?php } ?><br>
 

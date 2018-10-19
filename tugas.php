@@ -101,7 +101,7 @@ if (isset($_GET["id"])) {
                                                 <form action="matpelController.php" method="POST">
                                                     <input type="hidden" name="act" value="delete_tugas_user">
                                                     <input type="hidden" name="tugas_id" value="<?php echo $tugas_id; ?>">
-                                                    <button class="btn btn-info" style="margin-top: 1%; margin-bottom: 0">Hapus</button>
+                                                    <button class="btn btn-danger" style="margin-top: 1%; margin-bottom: 0">Hapus</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -187,15 +187,15 @@ if (isset($_GET["id"])) {
 
                                         if($jenjang_id === '10' && $jurusan === 'IPA')
                                         $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10 IPA%'";
-                                        elseif($jenjang_id == '11' $jurusan === 'IPA')
+                                        elseif($jenjang_id == '11' && $jurusan === 'IPA')
                                         $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11 IPA%'";
-                                        elseif($jenjang_id == '12' $jurusan === 'IPA')
+                                        elseif($jenjang_id == '12' && $jurusan === 'IPA')
                                         $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12 IPA%'";
-                                        elseif($jenjang_id == '10' $jurusan === 'IPS')
+                                        elseif($jenjang_id == '10' && $jurusan === 'IPS')
                                         $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10 IPS%'";
-                                        elseif($jenjang_id == '11' $jurusan === 'IPS')
+                                        elseif($jenjang_id == '11' && $jurusan === 'IPS')
                                         $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11 IPS%'";
-                                        elseif($jenjang_id == '12' $jurusan === 'IPS')
+                                        elseif($jenjang_id == '12' && $jurusan === 'IPS')
                                         $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12 IPS%'";
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
@@ -233,11 +233,11 @@ if (isset($_GET["id"])) {
                                             }
                                         }
 
-                                        if($jenjang_id == '1')
+                                        if($jenjang_id == '10')
                                         $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10%'";
-                                        elseif($jenjang_id == '2')
+                                        elseif($jenjang_id == '11')
                                         $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11%'";
-                                        elseif($jenjang_id == '3')
+                                        elseif($jenjang_id == '12')
                                         $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12%'";
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {

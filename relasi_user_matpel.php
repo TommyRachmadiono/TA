@@ -89,14 +89,14 @@ if ($_COOKIE['role'] != 'admin') {
                             <td style="text-align: center;"><?php echo $row['role']; ?></td>
                             <td style="text-align: center;">
                                 <?php
-                                $sql = "SELECT m.nama_pelajaran from user u inner join relasi_user_matpel rum ON u.id = rum.user_id INNER JOIN matpel m ON rum.matpel_id = m.id WHERE u.id = $iduser";
+                                $sql = "SELECT m.* from user u inner join relasi_user_matpel rum ON u.id = rum.user_id INNER JOIN matpel m ON rum.matpel_id = m.id WHERE u.id = $iduser ORDER BY m.jenjang_id";
                                 $result = $conn->query($sql);
                                 if ($result->num_rows > 0) {
                                     // echo $sql;
                                     while ($row1 = $result->fetch_assoc()) {
                                         ?>
 
-                                        <?php echo $row1['nama_pelajaran'] ?> |
+                                        <?php echo $row1['nama_pelajaran'] . ' ' . $row1['jenjang_id'] ?> |
 
                                     <?php }
                                 } ?>
@@ -117,36 +117,36 @@ if ($_COOKIE['role'] != 'admin') {
                                     <form method="POST" action="userController.php" style="display: inline;">
                                         <?php
                                         if($strkelas == "10")
-                                        $query = "SELECT * from matpel where jenjang_id = '10'";
+                                        $query = "SELECT * from matpel where jenjang_id = '10' ORDER BY jenjang_id";
                                         elseif($strkelas == "11")
-                                        $query = "SELECT * from matpel where jenjang_id = '11'";
+                                        $query = "SELECT * from matpel where jenjang_id = '11' ORDER BY jenjang_id";
                                         elseif($strkelas == "12")
-                                        $query = "SELECT * from matpel where jenjang_id = '12'";
+                                        $query = "SELECT * from matpel where jenjang_id = '12' ORDER BY jenjang_id";
                                         elseif($role == "guru")
-                                        $query = "SELECT * FROM matpel";
-                                        else
-                                        $query = "SELECT * FROM user where role = 'tuhan'";  
+                                        $query = "SELECT * FROM matpel ORDER BY jenjang_id";
+                                        // else
+                                        // $query = "SELECT * FROM user where role = 'tuhan'";  
                                         $hasil = $conn->query($query);
                                         if ($hasil->num_rows > 0) {
                                             while ($a = $hasil->fetch_assoc()) {
                                                 $matpeilid = $a['id'];
 
-                                                $query2 = "SELECT * FROM relasi_user_matpel rum INNER JOIN matpel m on rum.matpel_id = m.id WHERE user_id = $iduser AND m.id = $matpeilid";
+                                                $query2 = "SELECT * FROM relasi_user_matpel rum INNER JOIN matpel m on rum.matpel_id = m.id WHERE user_id = $iduser AND m.id = $matpeilid ORDER BY jenjang_id";
                                                 $hasil2 = $conn->query($query2);
                                                 if ($hasil2->num_rows > 0) {
                                                     ?>
                                                     <div class="checkbox">
-                                                        <label><input checked="" type="checkbox" value="<?php echo $a['id'] ?>" name="matpel[]"><?php echo $a['nama_pelajaran'] ?></label>
+                                                        <label><input checked="" type="checkbox" value="<?php echo $a['id'] ?>" name="matpel[]"><?php echo $a['nama_pelajaran'] . ' ' . $a['jenjang_id'] . ' ' . $a['jurusan'] ?></label>
                                                     </div>
                                                 <?php } else { ?>
                                                     <div class="checkbox">
-                                                        <label><input type="checkbox" value="<?php echo $a['id'] ?>" name="matpel[]"><?php echo $a['nama_pelajaran'] ?></label>
+                                                        <label><input type="checkbox" value="<?php echo $a['id'] ?>" name="matpel[]"><?php echo $a['nama_pelajaran'] . ' ' . $a['jenjang_id'] . ' ' . $a['jurusan'] ?></label>
                                                     </div>
                                                 <?php }
                                             }
                                         } else { ?>
-                                        <br>
-                                            <h1><b>KELASNYA DIPILIH DULU</b></h1>
+                                        <!-- <br>
+                                            <h1><b>KELASNYA DIPILIH DULU</b></h1> -->
                                         <?php } ?>
                                         <div class="form-group">
                                             <input type="hidden" name="url" value="<?php echo $url; ?>">
@@ -181,7 +181,7 @@ include_once 'layout/footer.php';
     var table = $('#relasimatpel').DataTable({
         lengthChange: false,
         ordering: true,
-        order: [[3, 'asc']],
+        order: [[2, 'asc'], [3, 'asc']],
         stateSave: true,
     });
     //BUAT NGE-ORDER BY KOLOM 4 (INDEXING DARI 0) (ROLE) ASC. SOALNYA KALO PAKE QUERY DATATABLE NYA GAK MAU NGE-SORT

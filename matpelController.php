@@ -315,7 +315,9 @@ if ($_SESSION['login'] == true) {
                         echo "Error: " . $sql3 . "<br>" . mysqli_error($conn);
                     }
                 } else {
-                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                    echo '<script type="text/javascript">alert("Berhasil Mengupdate Nilai Tugas"); </script>';
+                    echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
+                    // echo "Error: " . $sql . "<br>" . mysqli_error($conn);
                 }
             }
         } else {
@@ -395,6 +397,7 @@ if ($_SESSION['login'] == true) {
         $nama_pelajaran = mysqli_real_escape_string($conn, ucfirst(strtolower($_POST["nama_matpel"])));
         $jenjang_id = mysqli_real_escape_string($conn, $_POST["jenjang"]);
         $jurusan = mysqli_real_escape_string($conn, $_POST["jurusan"]);
+        $namakelas = $jenjang_id . ' ' . $jurusan;
 
         $query = "SELECT * FROM matpel WHERE nama_pelajaran = '$nama_pelajaran' AND jenjang_id = '$jenjang_id' AND jurusan = '$jurusan'";
         $hasil = $conn->query($query);
@@ -414,6 +417,19 @@ if ($_SESSION['login'] == true) {
                         $matpel_id = $row['id'];
                     }
                 }
+
+                $query2 = "SELECT u.id, k.nama_kelas FROM user u INNER JOIN kelas k on u.kelas_id = k.id WHERE u.role = 'murid' AND k.nama_kelas LIKE '%$namakelas%'";
+                $hasil2 = $conn->query($query2);
+                if ($hasil2->num_rows > 0) {
+                    while ($r = $hasil2->fetch_assoc()) {
+                        $user_id = $r['id'];
+
+                        $query3 = "INSERT INTO relasi_user_matpel (user_id, matpel_id)
+                        VALUES ('$user_id', '$matpel_id')";
+                        mysqli_query($conn, $query3);
+                    }
+                }
+
                 $sql3 = "INSERT INTO matpel_has_week (matpel_id, week_id, title, description)
                 VALUES 
                 ('$matpel_id', '1', '',''),
@@ -442,8 +458,6 @@ if ($_SESSION['login'] == true) {
                 }
             }
         }
-
-
 
         break;
 

@@ -26,6 +26,7 @@ if ($_SESSION['login'] == true) {
                     echo 'File anda terlalu besar';
                     $uploadOk = 0;
                 }
+                
                 if ($uploadOk === 0) {
                     echo ', Gagal Posting Status';
                     // if everything is ok, try to upload file
@@ -34,7 +35,7 @@ if ($_SESSION['login'] == true) {
                         $sql = "INSERT INTO postingan (isi, tgldiposting, user_id,file)
                     VALUES ('$isi', '$tgldiposting', '$user_id','$file_name')";
                         if (mysqli_query($conn, $sql)) {
-                            
+                            echo "Berhasil posting status dengan file";
                             // echo '<script type="text/javascript"> window.location = "index.php" </script>';
                             $conn->close();
                         } else {

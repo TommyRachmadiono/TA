@@ -98,7 +98,7 @@ $current_time = "$hour:$min";
                     <span class="c-arrow"></span>
                 </a>
                 <?php  $user_id = $_COOKIE['user_id'];
-                $sql = "SELECT m.id,m.nama_pelajaran FROM relasi_user_matpel r INNER JOIN matpel m on r.matpel_id = m.id WHERE r.user_id = '$user_id'";
+                $sql = "SELECT m.* FROM relasi_user_matpel r INNER JOIN matpel m on r.matpel_id = m.id WHERE r.user_id = '$user_id' ORDER BY m.jenjang_id";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -107,7 +107,7 @@ $current_time = "$hour:$min";
                         ?>
                         <li>
                             <a href="mata_pelajaran.php?id=<?php echo $row['id'] ?>">
-                                <i class="icon-notebook"></i> <?php echo $row['nama_pelajaran']; ?></a>
+                                <i class="icon-notebook"></i> <?php echo $row['nama_pelajaran'] . ' ' . $row['jenjang_id']; ?></a>
                             </li>
                             <?php } } ?> 
                         </li>
