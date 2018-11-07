@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2018 at 09:55 AM
+-- Generation Time: Nov 01, 2018 at 09:29 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -108,6 +108,13 @@ CREATE TABLE `events` (
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `title`, `description`, `start_date`, `end_date`, `created`, `user_id`) VALUES
+(1, 'asd', 'asd', '2018-10-25', '2018-10-25', '2018-10-25', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -192,6 +199,13 @@ CREATE TABLE `komentar` (
   `postingan_idpostingan` int(11) NOT NULL,
   `file` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `komentar`
+--
+
+INSERT INTO `komentar` (`idkomentar`, `isi`, `user_id`, `postingan_idpostingan`, `file`) VALUES
+(1, 'asd', 14, 11, NULL);
 
 -- --------------------------------------------------------
 
@@ -637,12 +651,6 @@ INSERT INTO `relasi_user_matpel` (`user_id`, `matpel_id`) VALUES
 (12, 30),
 (13, 27),
 (13, 30),
-(14, 25),
-(14, 26),
-(14, 27),
-(14, 28),
-(14, 29),
-(14, 30),
 (15, 10),
 (15, 11),
 (15, 12),
@@ -988,7 +996,7 @@ ALTER TABLE `conversation_reply`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `gallery`
 --
@@ -1008,7 +1016,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `materi`
 --

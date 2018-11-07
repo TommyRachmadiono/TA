@@ -253,6 +253,7 @@ if ($_SESSION["login"] == false) {
                                             <div class="form-group" style="text-align: right;">
                                                 <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                                                 <input type="hidden" name="act" value="edit_user">
+                                                <input type="hidden" name="role" value="<?php echo $role ?>">
                                                 <input type="hidden" name="url" value="<?php echo $url ?>">
                                                 <button type="reset" class="btn btn-warning c-btn-square c-btn-uppercase c-btn-bold" value="Reset">Reset</button>
                                                 <button type="submit" class="btn btn-info c-btn-square c-btn-uppercase c-btn-bold">Simpan</button>
@@ -284,7 +285,7 @@ include_once 'layout/footer.php';
         lengthChange: false,
         ordering: true,
         order: [[5, 'asc']],
-        stateSave: true,
+        stateSave: false,
     });
     //BUAT NGE-ORDER BY KOLOM 5 (INDEXING DARI 0) (ROLE) ASC. SOALNYA KALO PAKE QUERY DATATABLE NYA GAK MAU NGE-SORT
     // table.order( [ 5, 'asc' ] ).draw();
@@ -324,7 +325,7 @@ include_once 'layout/footer.php';
                     <div class="form-group">
                         <label class="col-md-4 control-label">Role</label>
                         <div class="col-md-6">
-                            <select id="select-role" name="role" class="form-control  c-square c-theme input-lg" required="">
+                            <select id="selectRole" name="role" class="form-control  c-square c-theme input-lg" required="">
                                 <option value="" disabled selected>-- Select Role --</option>
                                 <option value="murid">murid</option>
                                 <option value="guru">guru</option>
@@ -335,7 +336,7 @@ include_once 'layout/footer.php';
                     <div class="form-group">
                         <label class="col-md-4 control-label">Kelas</label>
                         <div class="col-md-6">
-                            <select id="select-kelas" name="kelas" class="form-control  c-square c-theme input-lg">
+                            <select id="selectKelas" name="kelas" class="form-control  c-square c-theme input-lg" required="">
                                 <option value="NULL" selected>-- Select Kelas --</option> 
                                 <?php
                                 $sql = "select * from kelas";
@@ -349,13 +350,13 @@ include_once 'layout/footer.php';
                                 }
                                 ?>
                             </select>
-                            <span class="help-block">Select kelas only if role is <b>murid</b></span>
+                            <span class="help-block">Pilih kelas jika role adalah <b>murid</b></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-4 control-label">Orang Tua</label>
                         <div class="col-md-6">
-                            <select id="select-ortu" name="ortu" class="form-control  c-square c-theme input-lg">
+                            <select id="selectOrtu" name="ortu" class="form-control  c-square c-theme input-lg">
                                 <option value="NULL" selected>-- Select Ortu --</option> 
                                 <?php
                                 $sql = "select * from user WHERE ISNULL(ortu_id) AND role NOT IN('guru','admin','murid')";
@@ -369,7 +370,7 @@ include_once 'layout/footer.php';
                                 }
                                 ?>
                             </select>
-                            <span class="help-block">Select ortu only if role is <b>murid</b></span>
+                            <span class="help-block">Pilih ortu jika role adalah <b>murid</b></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -392,14 +393,14 @@ include_once 'layout/footer.php';
 </div>
 <!-- END MODAL ADD USER -->
 
-<!-- <script type="text/javascript">
-    $('#select-role').change(function(){
-        if($('#select-role').val == 'murid') {
-            ('#select-ortu').show();
-            ('#select-kelas').show();
+<script type="text/javascript">
+    $('#selectRole').change(function(){
+        if($('#selectRole').val() === 'murid') {
+            $('#selectOrtu').show();
+            $('#selectKelas').show();
         } else {
-            ('#select-ortu').hide();
-            ('#select-kelas').hide();
+            $('#selectOrtu').hide();
+            $('#selectKelas').hide();
         }
     });
-</script> -->
+</script>

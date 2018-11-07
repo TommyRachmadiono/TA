@@ -12,20 +12,30 @@
                             <div class="c-line-left hide"></div>
                             <p class="c-text"> Sekolah X merupakan sekolah favorit di daerah surabaya X. Bergabunglah bersama kami dan raihlah prestasi. Kami sangat mengapresiasi bakat dan minat peserta didik.</p>
                         </div>
+                        <?php if($_SESSION['login'] === true) { ?>
                         <ul class="c-links">
                             <li>
                                 <a href="index.php">Home</a>
                             </li>
                             <li>
-                                <a href="#">Galeri</a>
+                                <a href="gallery.php">Galeri</a>
                             </li>
                             <li>
-                                <a href="#">Kalendar Kegiatan</a>
+                                <a href="event_calendar.php">Kalendar Kegiatan</a>
                             </li>
                             <li>
-                                <a href="contactUs.php">Prestasi Sekolah</a>
+                                <a href="student_achievement.php">Prestasi Sekolah</a>
                             </li>
                         </ul>
+                    <?php } else { ?>
+                        <ul class="c-links">
+                            <li></li>
+                            <li>
+                                <a href="index.php">Home</a>
+                            </li>
+                            <li></li>
+                        </ul>
+                    <?php } ?>
                     </div>
                 </div>
 
@@ -66,7 +76,7 @@
                                 <li class="c-font-white">
                                     <i class="icon-call-end c-theme-font"></i> 0812-0000-0000 (HP) / WhatsApp: 0838-0000-0000</li>
                                     <li class="c-font-white">
-                                        <i class="icon-envelope c-theme-font"></i> mail@example.com</li>
+                                        <i class="icon-envelope c-theme-font"></i> example@mail.com</li>
                                     </ul>
                                 </div>
                             </div>

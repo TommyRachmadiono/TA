@@ -213,7 +213,15 @@ $_SESSION['count'] = 0;
                                     $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $idpostingan");
                                     echo mysqli_num_rows($query2);
                                     ?> 
-                                </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 28%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>Tampilkan / Sembunyikan Komentar</div>
+                                </span>
+
+                                <?php 
+                                $queryKomen = "SELECT * FROM komentar WHERE postingan_idpostingan = $idpostingan";
+                                $hasilQuery = $conn->query($queryKomen);
+                                if($hasilQuery->num_rows > 0) {
+                                ?>
+                                <div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 28%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>Tampilkan / Sembunyikan Komentar</div>
+                            <?php } ?>
                                 <hr style="margin: 0; height: 5px;">
                             </div>
 

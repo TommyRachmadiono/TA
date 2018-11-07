@@ -184,7 +184,14 @@ if (!empty($_POST["id"])) {
                                     $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $postID");
                                     echo mysqli_num_rows($query2);
                                     ?>
-                                </span><div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 28%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>Tampilan / Sembunyikan Komentar</div>
+                                </span>
+                                <?php 
+                                $queryKomen = "SELECT * FROM komentar WHERE postingan_idpostingan = $idpostingan";
+                                $hasilQuery = $conn->query($queryKomen);
+                                if($hasilQuery->num_rows > 0) {
+                                ?>
+                                <div id="loadkomen<?php echo $idpostingan; ?>" style="display: inline; margin-left: 28%;" onclick="$('#isikomen<?php echo $idpostingan; ?>').slideToggle();";>Tampilkan / Sembunyikan Komentar</div>
+                            <?php } ?>
                                 <hr style="margin: 0;">
                             </div>
 
@@ -545,7 +552,14 @@ if (!empty($_POST["id"])) {
                                     $query2 = mysqli_query($conn, "SELECT * FROM `like` WHERE post_id = $postID");
                                     echo mysqli_num_rows($query2);
                                     ?>
-                                </span><div id="loadkomen<?php echo $postID; ?>" style="display: inline; margin-left: 28%;" onclick="$('#isikomen<?php echo $postID; ?>').slideToggle();";>Tampilkan / Sembunyikan Komentar</div>
+                                </span>
+                                <?php 
+                                $queryKomen = "SELECT * FROM komentar WHERE postingan_idpostingan = $postID";
+                                $hasilQuery = $conn->query($queryKomen);
+                                if($hasilQuery->num_rows > 0) {
+                                ?>
+                                <div id="loadkomen<?php echo $postID; ?>" style="display: inline; margin-left: 28%;" onclick="$('#isikomen<?php echo $postID; ?>').slideToggle();";>Tampilkan / Sembunyikan Komentar</div>
+                            <?php } ?>
                                 <hr style="margin: 0;">
                             </div>
 

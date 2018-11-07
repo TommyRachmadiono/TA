@@ -155,11 +155,14 @@ if ($_SESSION['login'] == true) {
         $nama = mysqli_real_escape_string($conn, $_POST["nama"]);
         $password = mysqli_real_escape_string($conn, $_POST["password"]);
         $kelas = mysqli_real_escape_string($conn, $_POST["select-kelas"]);
+        $role = mysqli_real_escape_string($conn, $_POST["role"]);
         $ortu_id = mysqli_real_escape_string($conn, $_POST["select-ortu"]);
 
-        $query2 = "DELETE FROM relasi_user_matpel WHERE user_id = '$user_id'";
-        mysqli_query($conn, $query2);
-
+        if($role === 'murid') {
+            $query2 = "DELETE FROM relasi_user_matpel WHERE user_id = '$user_id'";
+            mysqli_query($conn, $query2);
+        }
+        
         $q2 = "SELECT * FROM kelas WHERE id = '$kelas'";
         $hasil2 = $conn->query($q2);
         if ($hasil2->num_rows > 0) {
@@ -167,7 +170,6 @@ if ($_SESSION['login'] == true) {
                 $nama_kelas = $r2['nama_kelas'];
             }
         }
-
 
         if ($_FILES["file"]["size"] != 0) {
             $tglupload = date('YmdHis');
@@ -198,31 +200,34 @@ if ($_SESSION['login'] == true) {
                     }
                     $sql = "UPDATE user SET nama = '$nama', password = '$password', kelas_id = $kelas, ortu_id = $ortu_id, foto = '$file_name' WHERE id = '$user_id'";
                     if (mysqli_query($conn, $sql)) {
-                        $explodeKelas = explode(" ", $nama_kelas, 3);
-                        $jenjang = $explodeKelas[0];
-                        $jurusan = $explodeKelas[1];
-                        $namaKelas = $jenjang . ' ' . $jurusan;
+                        if($role === 'murid') {
+                            $explodeKelas = explode(" ", $nama_kelas, 3);
+                            $jenjang = $explodeKelas[0];
+                            $jurusan = $explodeKelas[1];
+                            $namaKelas = $jenjang . ' ' . $jurusan;
 
-                        $sql2 = "SELECT * FROM matpel WHERE jenjang_id = '$jenjang' AND jurusan = '$jurusan'";
-                        $h2 = $conn->query($sql2);
-                        if ($h2->num_rows > 0) {
-                            while ($r = $h2->fetch_assoc()) {
-                                $idpelajaran = $r['id'];
+                            $sql2 = "SELECT * FROM matpel WHERE jenjang_id = '$jenjang' AND jurusan = '$jurusan'";
+                            $h2 = $conn->query($sql2);
+                            if ($h2->num_rows > 0) {
+                                while ($r = $h2->fetch_assoc()) {
+                                    $idpelajaran = $r['id'];
 
-                                $sql4 = "INSERT INTO relasi_user_matpel (user_id, matpel_id)
-                                VALUES ('$user_id', '$idpelajaran')";
-                                if (mysqli_query($conn, $sql4)) {
-                                    echo '<script type="text/javascript">alert("Berhasil edit user"); </script>';
-                                    echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
-                                    echo '<script type="text/javascript">alert("matpel id ' . $matpel_id . '"); </script>';
-                                } else {
-                                    echo "Error: " . $sql4 . "<br>" . mysqli_error($conn);
+                                    $sql4 = "INSERT INTO relasi_user_matpel (user_id, matpel_id)
+                                    VALUES ('$user_id', '$idpelajaran')";
+                                    if (mysqli_query($conn, $sql4)) {
+                                        // echo '<script type="text/javascript">alert("Berhasil edit user"); </script>';
+                                        // echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
+                                    } else {
+                                        echo "Error: " . $sql4 . "<br>" . mysqli_error($conn);
+                                    }
+
                                 }
-
+                            } else {
+                                echo '<script type="text/javascript">alert("Belum ada mata pelajaran pada kelas '.$jenjang.' jurusan '.$jurusan.'"); </script>';
                             }
-                        } else {
-                            echo "Error: " . $sql2 . "<br>" . mysqli_error($conn);
                         }
+                        echo '<script type="text/javascript">alert("Berhasil edit user"); </script>';
+                        echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
                     } else {
                         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
                     }
@@ -233,32 +238,36 @@ if ($_SESSION['login'] == true) {
         } else {
             $sql = "UPDATE user SET nama = '$nama', password = '$password', kelas_id = $kelas, ortu_id = $ortu_id WHERE id = '$user_id'";
             if (mysqli_query($conn, $sql)) {
-                $explodeKelas = explode(" ", $nama_kelas, 3);
-                $jenjang = $explodeKelas[0];
-                $jurusan = $explodeKelas[1];
-                $namaKelas = $jenjang . ' ' . $jurusan;
+                if($role === 'murid') {
+                    $explodeKelas = explode(" ", $nama_kelas, 3);
+                    $jenjang = $explodeKelas[0];
+                    $jurusan = $explodeKelas[1];
+                    $namaKelas = $jenjang . ' ' . $jurusan;
 
-                $sql2 = "SELECT * FROM matpel WHERE jenjang_id = '$jenjang' AND jurusan = '$jurusan'";
-                $h2 = $conn->query($sql2);
-                if ($h2->num_rows > 0) {
-                    while ($r = $h2->fetch_assoc()) {
-                        $idpelajaran = $r['id'];
+                    $sql2 = "SELECT * FROM matpel WHERE jenjang_id = '$jenjang' AND jurusan = '$jurusan'";
+                    $h2 = $conn->query($sql2);
+                    if ($h2->num_rows > 0) {
+                        while ($r = $h2->fetch_assoc()) {
+                            $idpelajaran = $r['id'];
 
-                        $sql4 = "INSERT INTO relasi_user_matpel (user_id, matpel_id)
-                        VALUES ('$user_id', '$idpelajaran')";
-                        if (mysqli_query($conn, $sql4)) {
-                            echo '<script type="text/javascript">alert("Berhasil edit user"); </script>';
-                            echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
-                        } else {
-                            echo "Error: " . $sql4 . "<br>" . mysqli_error($conn);
+                            $sql4 = "INSERT INTO relasi_user_matpel (user_id, matpel_id)
+                            VALUES ('$user_id', '$idpelajaran')";
+                            if (mysqli_query($conn, $sql4)) {
+                                // echo '<script type="text/javascript">alert("Berhasil edit user"); </script>';
+                                // echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
+                            } else {
+                                echo "Error: " . $sql4 . "<br>" . mysqli_error($conn);
+                            }
+
                         }
-                        
+                    } else {
+                        // echo '<script type="text/javascript">alert("Berhasil edit user"); </script>';
+                        echo '<script type="text/javascript">alert("Belum ada mata pelajaran pada kelas '.$jenjang.' jurusan '.$jurusan.'"); </script>';
+                        // echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
                     }
-                } else {
-                    echo '<script type="text/javascript">alert("Berhasil edit user"); </script>';
-                    echo '<script type="text/javascript">alert("Belum ada mata pelajaran pada kelas '.$jenjang.' jurusan '.$jurusan.'"); </script>';
-                    echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
                 }
+                echo '<script type="text/javascript">alert("Berhasil edit user"); </script>';
+                echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
             } else {
                 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
