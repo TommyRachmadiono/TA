@@ -132,7 +132,7 @@ $_SESSION['count'] = 0;
                             </h3>
                             <?php
                             if ($_SESSION["login"] == true) {
-                                if ($row['id'] == $_COOKIE['user_id'] || $_COOKIE['role'] == 'admin') {
+                                if ($row['id'] == $_COOKIE['user_id']) {
                                     ?>
                                     <a href="#" style="float: right; margin-left: 2%;" data-toggle="modal" data-target="#modalDeleteStatus<?php echo $row['idpostingan']; ?>">
                                         <i class="fa fa-close"></i></a>

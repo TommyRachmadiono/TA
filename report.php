@@ -66,7 +66,7 @@ if ($_SESSION["login"] == false) {
                                 } else { ?>
                                     <td style="text-align: center;">Tidak Ada Attachment</td>
                                 <?php } ?>
-                                <td style="text-align: center;"><?php echo $row['isi']; ?></td>
+                                <td style="text-align: center;"><?php echo nl2br($row['isi']); ?></td>
                                 <td style="text-align: center;"><?php echo $row['Jumlah_Report']; ?></td>
                                 <td style="text-align: center;">
                                     <button class="btn btn-info" data-toggle="modal" data-target="#ignorePostingan<?php echo $row['id'] ?>">Abaikan</button>

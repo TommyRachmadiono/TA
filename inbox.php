@@ -16,7 +16,7 @@ $user_id = $_COOKIE['user_id'];
     <div class="c-layout-breadcrumbs-1 c-fonts-uppercase c-fonts-bold">
         <div class="container">
             <div class="c-page-title c-pull-left">
-                <h3 class="c-font-uppercase c-font-sbold">Kotak Masuk</h3>
+                <h3 class="c-font-uppercase c-font-sbold">Percakapan</h3>
                 <h4 class="">Baca dan kirim pesan dengan teman anda</h4>
             </div>
             <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
@@ -25,7 +25,7 @@ $user_id = $_COOKIE['user_id'];
                 </li>
                 <li>/</li>
                 <li>
-                    <a href="inbox.php">Kotak Masuk</a>
+                    <a href="inbox.php">Percakapan</a>
                 </li>
             </ul>
         </div>

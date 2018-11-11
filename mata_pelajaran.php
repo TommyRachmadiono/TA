@@ -52,7 +52,7 @@ if (isset($_GET["id"])) {
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             ?>
-                            <li class="c-state_active">Mata Pelajaran <?php echo $row['nama_pelajaran'] ?></li>
+                            <li class="c-state_active">Mata Pelajaran <?php echo $row['nama_pelajaran'] ?> <?php echo $row['jenjang_id'] ?></li>
                             <?php
                         }
                     } else {

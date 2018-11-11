@@ -12,7 +12,7 @@
                             <div class="c-line-left hide"></div>
                             <p class="c-text"> Sekolah X merupakan sekolah favorit di daerah surabaya X. Bergabunglah bersama kami dan raihlah prestasi. Kami sangat mengapresiasi bakat dan minat peserta didik.</p>
                         </div>
-                        <?php if($_SESSION['login'] === true) { ?>
+                        <?php if($_SESSION['login'] == true) { ?>
                         <ul class="c-links">
                             <li>
                                 <a href="index.php">Home</a>

@@ -44,7 +44,7 @@ if (isset($_GET["id"])) {
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 ?>
-                                <a href="mata_pelajaran.php?id=<?php echo $matpel_id; ?>"> <?php echo $row['nama_pelajaran']; ?></a>
+                                <a href="mata_pelajaran.php?id=<?php echo $matpel_id; ?>"> <?php echo $row['nama_pelajaran']; ?> <?php echo $row['jenjang_id']; ?></a>
                                 <?php
                             }
                         }
@@ -230,15 +230,22 @@ if (isset($_GET["id"])) {
                                         if ($hasil->num_rows >0) {
                                             while ($r = $hasil->fetch_assoc()) {
                                                 $jenjang_id = $r['jenjang_id'];
+                                                $jurusan = $r['jurusan'];
                                             }
                                         }
 
-                                        if($jenjang_id == '10')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10%'";
-                                        elseif($jenjang_id == '11')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11%'";
-                                        elseif($jenjang_id == '12')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12%'";
+                                        if($jenjang_id === '10' && $jurusan === 'IPA')
+                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10 IPA%'";
+                                        elseif($jenjang_id == '11' && $jurusan === 'IPA')
+                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11 IPA%'";
+                                        elseif($jenjang_id == '12' && $jurusan === 'IPA')
+                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12 IPA%'";
+                                        elseif($jenjang_id == '10' && $jurusan === 'IPS')
+                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10 IPS%'";
+                                        elseif($jenjang_id == '11' && $jurusan === 'IPS')
+                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11 IPS%'";
+                                        elseif($jenjang_id == '12' && $jurusan === 'IPS')
+                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12 IPS%'";
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
