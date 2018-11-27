@@ -21,6 +21,16 @@ if (isset($_GET["id"])) {
         echo '<script type="text/javascript">alert("Kamu tidak mengambil mata pelajaran ini"); </script>';
         echo '<script type="text/javascript"> window.location = "index.php" </script>';
     }
+
+    $queryTugas = "SELECT * FROM tugas WHERE id = '$tugas_id'";
+    $hasilQ = $conn->query($queryTugas);
+    if ($hasilQ->num_rows > 0) {
+        while ($row = $hasilQ->fetch_assoc()) {
+            $tgl_kumpul = $row['tgl_kumpul'];
+        }
+        if($tgl_kumpul == '')
+            $tgl_kumpul = "Tidak ada batas akhir pengumpulan";
+    }
     ?>
     <div class="c-layout-page">
         <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
@@ -61,7 +71,7 @@ if (isset($_GET["id"])) {
                             <?php
                         }
                     } else {
-                        echo '<script type="text/javascript">alert("Jangan otak atik idnya lewat url cok"); </script>';
+                        echo '<script type="text/javascript">alert("Jangan otak atik idnya lewat url"); </script>';
                         echo '<script type="text/javascript"> window.location = "index.php" </script>';
                     }
                     ?>
@@ -75,103 +85,113 @@ if (isset($_GET["id"])) {
                     <div class="panel panel-success" style="width: 100%;">
                         <div class="panel-heading">
                             <h3 class="panel-title"><h3 style="text-align: center;">Unggah Tugas Sekolah</h3>
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            <?php
-                            $sql = "SELECT * FROM user_has_tugas WHERE user_id = '$user_id' AND tugas_id = '$tugas_id'";
-                            $result = $conn->query($sql);
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    ?>
+                        </h3>
+                    </div>
+                    <label class="control-label" style="margin-left: 1.3%;">Batas Akhir Pengumpulan :</label> 
+                    <label class="control-label"><b><?php echo $tgl_kumpul; ?></b></label>
+                    <div class="panel-body">
+                        <?php
+                        $sql = "SELECT * FROM user_has_tugas WHERE user_id = '$user_id' AND tugas_id = '$tugas_id'";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                ?>
 
-                                    <div class="panel panel-primary">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Berkas Yang Sudah Terunggah
-                                                <a class="anchorjs-link" href="#panel-title">
-                                                    <span class="anchorjs-icon"></span>
-                                                </a>
-                                            </h3>
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="form-group">
-                                                <label style="margin-right: 2.4%;">Nama Berkas  </label>: <?php echo $row['file']; ?> <br>
-                                                <label style="margin-right: 0.5%">Tanggal Unggah </label>: <?php echo $row['tgl_diupload']; ?> <br>
-                                                <label style="margin-right: 8%;">Nilai </label>: <?php echo $row['nilai']; ?> <br>
-                                                <form action="matpelController.php" method="POST">
-                                                    <input type="hidden" name="act" value="delete_tugas_user">
-                                                    <input type="hidden" name="tugas_id" value="<?php echo $tugas_id; ?>">
-                                                    <button class="btn btn-danger" style="margin-top: 1%; margin-bottom: 0">Hapus</button>
-                                                </form>
-                                            </div>
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Berkas Yang Sudah Terunggah
+                                            <a class="anchorjs-link" href="#panel-title">
+                                                <span class="anchorjs-icon"></span>
+                                            </a>
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label style="margin-right: 2.4%;">Nama Berkas  </label>: <?php echo $row['file']; ?> <br>
+                                            <label style="margin-right: 0.5%">Tanggal Unggah </label>: <?php echo $row['tgl_diupload']; ?> <br>
+                                            <label style="margin-right: 8%;">Nilai </label>: <?php echo $row['nilai']; ?> <br>
+                                            <form action="matpelController.php" method="POST">
+                                                <input type="hidden" name="act" value="delete_tugas_user">
+                                                <input type="hidden" name="tugas_id" value="<?php echo $tugas_id; ?>">
+                                                <button class="btn btn-danger" style="margin-top: 1%; margin-bottom: 0">Hapus</button>
+                                            </form>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <form action="matpelController.php" method="POST" enctype="multipart/form-data">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label">Unggah Berkas Tugas</label>
-                                            <div class="col-md-7">
-                                                <input class="form-control  c-square c-theme" type="file" name="file" style="display: inline;" required="" disabled="">
-                                                <span class="help-block">Maksimal 20MB</span>
-                                                <input type="submit" value="Unggah" name="" class="btn btn-primary" disabled="">
-                                                <small>Hapus berkas yang sudah diunggah sebelum mengunggah berkas baru.</small>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <?php
-                                }
-                            } else {
-                                ?>
                                 <form action="matpelController.php" method="POST" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Unggah File Tugas</label>
+                                        <label class="col-md-3 control-label">Unggah Berkas Tugas</label>
                                         <div class="col-md-7">
-                                            <input type="hidden" name="act" value="upload_tugas">
-                                            <input type="hidden" name="tugas_id" value="<?php echo $tugas_id; ?>">
-                                            <input class="form-control  c-square c-theme" type="file" name="file" style="display: inline;" required="">
+                                            <input class="form-control  c-square c-theme" type="file" name="file" style="display: inline;" required="" disabled="">
                                             <span class="help-block">Maksimal 20MB</span>
-                                            <input type="submit" value="Unggah" name="" class="btn btn-primary">
+                                            <input type="submit" value="Unggah" name="" class="btn btn-primary" disabled="">
+                                            <small>Hapus berkas yang sudah diunggah sebelum mengunggah berkas baru.</small>
                                         </div>
                                     </div>
                                 </form>
-                            <?php } ?>
-                        </div>
+                                <?php
+                            }
+                        } else {
+                            ?>
+                            
+                            <form action="matpelController.php" method="POST" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Unggah Berkas Tugas</label>
+                                    <div class="col-md-7">
+                                        <input type="hidden" name="act" value="upload_tugas">
+                                        <input type="hidden" name="tugas_id" value="<?php echo $tugas_id; ?>">
+                                        <input class="form-control  c-square c-theme" type="file" name="file" style="display: inline;" required="">
+                                        <span class="help-block">Maksimal 20MB</span>
+                                        <?php
+                                        $tgl_sekarang = date('Y-m-d');
+                                        if ($tgl_sekarang > $tgl_kumpul) {
+                                        ?>
+                                        <input type="submit" value="Unggah" name="" class="btn btn-primary" disabled="">
+                                        <?php } else { ?>
+                                        <input type="submit" value="Unggah" name="" class="btn btn-primary">
+                                    <?php } ?>
+                                    </div>
+                                </div>
+                            </form>
+                        <?php } ?>
                     </div>
-                <?php } else { ?>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Dashboard Guru
-                                <a class="anchorjs-link" href="#panel-title">
-                                    <span class="anchorjs-icon"></span>
-                                </a>
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            <?php
-                            if (isset($_GET['select-kelas'])) {
-                                $kelas = $_GET['select-kelas'];
-                                if ($kelas != "NULL") {
-                                    $query = mysqli_query($conn, "SELECT uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id' AND k.id = '$kelas'") or die(mysqli_error());
-                                } else {
-                                    $query = mysqli_query($conn, "SELECT uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id'") or die(mysqli_error());
-                                }
+                </div>
+            <?php } else { ?>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Dashboard Guru
+                            <a class="anchorjs-link" href="#panel-title">
+                                <span class="anchorjs-icon"></span>
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <?php
+                        if (isset($_GET['select-kelas'])) {
+                            $kelas = $_GET['select-kelas'];
+                            if ($kelas != "NULL") {
+                                $query = mysqli_query($conn, "SELECT uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id' AND k.id = '$kelas'") or die(mysqli_error());
                             } else {
                                 $query = mysqli_query($conn, "SELECT uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id'") or die(mysqli_error());
                             }
+                        } else {
+                            $query = mysqli_query($conn, "SELECT uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id'") or die(mysqli_error());
+                        }
 
-                            if (mysqli_num_rows($query) > 0) {
-                                ?>
+                        if (mysqli_num_rows($query) > 0) {
+                            ?>
 
-                                <form method="POST" action="matpelController.php" enctype="multipart/form-data" style="float: left;">
-                                    <input type="hidden" name="kelas" value="<?php echo $kelas ?>">
-                                    <input type="hidden" name="act" value="download_zip">
-                                    <input type="hidden" name="tugas_id" value="<?php echo $tugas_id; ?>">
-                                    <input type="submit" class="btn btn-info" value="Unduh Semua File" style="display: inline;">
-                                </form>
+                            <form method="POST" action="matpelController.php" enctype="multipart/form-data" style="float: left;">
+                                <input type="hidden" name="kelas" value="<?php echo $kelas ?>">
+                                <input type="hidden" name="act" value="download_zip">
+                                <input type="hidden" name="tugas_id" value="<?php echo $tugas_id; ?>">
+                                <input type="submit" class="btn btn-info" value="Unduh Semua File" style="display: inline;">
+                            </form>
 
-                                <form method="GET" action="tugas.php" enctype="multipart/form-data" style="margin-left: 2%; float: left;" class="form-inline">
-                                    <input type="hidden" name="id" value="<?php echo $tugas_id; ?>">
-                                    <div class="form-group">
+                            <form method="GET" action="tugas.php" enctype="multipart/form-data" style="margin-left: 2%; float: left;" class="form-inline">
+                                <input type="hidden" name="id" value="<?php echo $tugas_id; ?>">
+                                <div class="form-group">
                                     <select name="select-kelas" class="form-control">
                                         <option value="NULL" selected disabled="">-- Pilih Kelas --</option> 
                                         <option value="NULL">All</option>
@@ -186,17 +206,17 @@ if (isset($_GET["id"])) {
                                         }
 
                                         if($jenjang_id === '10' && $jurusan === 'IPA')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10 IPA%'";
+                                            $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10 IPA%'";
                                         elseif($jenjang_id == '11' && $jurusan === 'IPA')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11 IPA%'";
+                                            $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11 IPA%'";
                                         elseif($jenjang_id == '12' && $jurusan === 'IPA')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12 IPA%'";
+                                            $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12 IPA%'";
                                         elseif($jenjang_id == '10' && $jurusan === 'IPS')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10 IPS%'";
+                                            $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10 IPS%'";
                                         elseif($jenjang_id == '11' && $jurusan === 'IPS')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11 IPS%'";
+                                            $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11 IPS%'";
                                         elseif($jenjang_id == '12' && $jurusan === 'IPS')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12 IPS%'";
+                                            $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12 IPS%'";
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
@@ -210,17 +230,17 @@ if (isset($_GET["id"])) {
 
                                     <button class="btn btn-info">Pilih</button>
                                 </div>
-                                </form>
+                            </form>
 
-                            <?php } else { ?>
-                                <form style="float: left;">
-                                    <button class="btn btn-info" disabled="">Unduh Semua File</button>
-                                </form>
-                                
+                        <?php } else { ?>
+                            <form style="float: left;">
+                                <button class="btn btn-info" disabled="">Unduh Semua File</button>
+                            </form>
 
-                                <form method="GET" action="tugas.php" enctype="multipart/form-data" style="float: left; margin-left: 2%;" class="form-inline">
-                                    <input type="hidden" name="id" value="<?php echo $tugas_id; ?>">
-                                    <div class="form-group">
+
+                            <form method="GET" action="tugas.php" enctype="multipart/form-data" style="float: left; margin-left: 2%;" class="form-inline">
+                                <input type="hidden" name="id" value="<?php echo $tugas_id; ?>">
+                                <div class="form-group">
                                     <select name="select-kelas" id="select-kelas" class="form-control">
                                         <option value="NULL" selected disabled="">-- Pilih Kelas --</option> 
                                         <option value="NULL">All</option>
@@ -235,17 +255,17 @@ if (isset($_GET["id"])) {
                                         }
 
                                         if($jenjang_id === '10' && $jurusan === 'IPA')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10 IPA%'";
+                                            $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10 IPA%'";
                                         elseif($jenjang_id == '11' && $jurusan === 'IPA')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11 IPA%'";
+                                            $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11 IPA%'";
                                         elseif($jenjang_id == '12' && $jurusan === 'IPA')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12 IPA%'";
+                                            $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12 IPA%'";
                                         elseif($jenjang_id == '10' && $jurusan === 'IPS')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10 IPS%'";
+                                            $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '10 IPS%'";
                                         elseif($jenjang_id == '11' && $jurusan === 'IPS')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11 IPS%'";
+                                            $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '11 IPS%'";
                                         elseif($jenjang_id == '12' && $jurusan === 'IPS')
-                                        $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12 IPS%'";
+                                            $sql = "SELECT * FROM kelas WHERE nama_kelas LIKE '12 IPS%'";
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
@@ -258,58 +278,58 @@ if (isset($_GET["id"])) {
                                     </select>
                                     <button class="btn btn-info">Pilih</button>
                                 </div>
-                                </form>
-                            <?php } ?>
+                            </form>
+                        <?php } ?>
 
 
-                            <table id="tabel-tugas" class="table table-hover table-bordered" width="100%;">
-                                <thead>
-                                    <tr>
-                                        <th style="text-align: center;">User</th>
-                                        <th style="text-align: center;">File</th>
-                                        <th style="text-align: center;">Tanggal di Unggah</th>
-                                        <th style="text-align: center;">Nilai</th>
-                                        <th style="text-align: center;">Kelas</th>
-                                        <th style="text-align: center;">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    if (isset($_GET['select-kelas'])) {
-                                        $kelas = $_GET['select-kelas'];
-                                        if ($kelas != "NULL") {
-                                            $sql2 = "SELECT u.ortu_id,uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id' AND k.id = '$kelas'";
-                                        } else {
-                                            $sql2 = "SELECT u.ortu_id,uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id'";
-                                        }
+                        <table id="tabel-tugas" class="table table-hover table-bordered" width="100%;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">User</th>
+                                    <th style="text-align: center;">File</th>
+                                    <th style="text-align: center;">Tanggal di Unggah</th>
+                                    <th style="text-align: center;">Nilai</th>
+                                    <th style="text-align: center;">Kelas</th>
+                                    <th style="text-align: center;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if (isset($_GET['select-kelas'])) {
+                                    $kelas = $_GET['select-kelas'];
+                                    if ($kelas != "NULL") {
+                                        $sql2 = "SELECT u.ortu_id,uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id' AND k.id = '$kelas'";
                                     } else {
                                         $sql2 = "SELECT u.ortu_id,uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id'";
                                     }
-                                    $result2 = $conn->query($sql2);
-                                    if ($result2->num_rows > 0) {
-                                        while ($row2 = $result2->fetch_assoc()) {
-                                            $nama_kelas = $row2['kelas'];
-                                            $namatugas = $row2['namatugas'];
-                                            $ortu_id = $row2['ortu_id'];
-                                            $id_ortu[] = $row2['ortu_id'];
-                                            $file = $row2['file'];
-                                            $path = 'tugas/' . $tugas_id . ' ' . $namatugas . '/' . $nama_kelas . '/' . $file;
-                                            ?>
+                                } else {
+                                    $sql2 = "SELECT u.ortu_id,uht.user_id, u.nama, uht.file, uht.tgl_diupload, uht.nilai, t.namatugas, k.nama_kelas as kelas FROM tugas t INNER JOIN user_has_tugas uht ON t.id = uht.tugas_id INNER JOIN user u ON u.id = uht.user_id INNER JOIN kelas k ON k.id = u.kelas_id WHERE t.id = '$tugas_id'";
+                                }
+                                $result2 = $conn->query($sql2);
+                                if ($result2->num_rows > 0) {
+                                    while ($row2 = $result2->fetch_assoc()) {
+                                        $nama_kelas = $row2['kelas'];
+                                        $namatugas = $row2['namatugas'];
+                                        $ortu_id = $row2['ortu_id'];
+                                        $id_ortu[] = $row2['ortu_id'];
+                                        $file = $row2['file'];
+                                        $path = 'tugas/' . $tugas_id . ' ' . $namatugas . '/' . $nama_kelas . '/' . $file;
+                                        ?>
 
-                                            <tr>
-                                                <th style="text-align: center;"><?php echo $row2['nama'] ?></th>
-                                                <td style="text-align: center;"><a href="<?php echo $path; ?>" download=""><?php echo $file ?></a></td>
-                                                <td style="text-align: center;"><?php echo $row2['tgl_diupload']; ?></td>
-                                                <td style="text-align: center;"><?php echo $row2['nilai']; ?></td>
-                                                <td style="text-align: center;"><?php echo $row2['kelas']; ?></td>
-                                                <td style="text-align: center;">
-                                                    <a data-toggle="modal" data-target="#grading<?php echo $row2['user_id']; ?>"> <button type="button" class="btn btn-info" value="<?php echo $row['user_id']; ?>">
-                                                            Tentukan Nilai
-                                                        </button></a>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <th style="text-align: center;"><?php echo $row2['nama'] ?></th>
+                                            <td style="text-align: center;"><a href="<?php echo $path; ?>" download=""><?php echo $file ?></a></td>
+                                            <td style="text-align: center;"><?php echo $row2['tgl_diupload']; ?></td>
+                                            <td style="text-align: center;"><?php echo $row2['nilai']; ?></td>
+                                            <td style="text-align: center;"><?php echo $row2['kelas']; ?></td>
+                                            <td style="text-align: center;">
+                                                <a data-toggle="modal" data-target="#grading<?php echo $row2['user_id']; ?>"> <button type="button" class="btn btn-info" value="<?php echo $row['user_id']; ?>">
+                                                    Tentukan Nilai
+                                                </button></a>
+                                            </td>
+                                        </tr>
 
-                                            <!-- MODAL GRADING -->
+                                        <!-- MODAL GRADING -->
                                         <div class="modal fade c-content-login-form" id="grading<?php echo $row2['user_id']; ?>" role="dialog">
                                             <div class="modal-dialog">
                                                 <div class="modal-content c-square">
@@ -322,7 +342,7 @@ if (isset($_GET["id"])) {
                                                         <h3 class="c-font-24 c-font-sbold">Penilaian Untuk User<br> <?php echo $row2['nama']; ?></h3>
                                                         <form action="matpelController.php" method="POST" enctype="multipart/form-data">
                                                             <div class="form-group">
-                                                                <label for="buat-tugas" class="">Masukkan Nilai</label>
+                                                                <label class="">Masukkan Nilai</label>
                                                                 <input type="number" class="form-control input-lg c-square" placeholder="Input Nilai" name="nilai" required="" min="0" max="100"> 
                                                                 <input type="hidden" name="tugas_id" value="<?php echo $tugas_id; ?>">
                                                                 <input type="hidden" name="user_id" value="<?php echo $row2['user_id']; ?>">
@@ -345,16 +365,16 @@ if (isset($_GET["id"])) {
                                     }
                                 }
                                 ?>
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
-                <?php } ?>
-            </div>
+                </div>
+            <?php } ?>
         </div>
     </div>
+</div>
 
-    <?php
+<?php
 } else {
     echo '<script type="text/javascript">alert("Mau ngapain hayo?"); </script>';
     echo '<script type="text/javascript"> window.location = "index.php" </script>';

@@ -181,7 +181,7 @@ if (isset($_GET["id"])) {
                                                     ?>
                                                     <div class="form-group">
                                                         <label class="">Topik</label>
-                                                        <input type="text" class="form-control input-lg c-square" placeholder="Title" name="title" required="" value="<?php echo $row4['title'] ?>">
+                                                        <input type="text" class="form-control input-lg c-square" placeholder="Title" name="title" value="<?php echo $row4['title'] ?>">
                                                         <label class="">Deskripsi</label>
                                                         <textarea name="description" placeholder="Ketikkan deskripsi (maksimal 500 karakter)" class="form-control input-lg c-square" rows="3" style="font-size: 17px; resize: none;" maxlength="500"><?php echo $row4['description']; ?></textarea>
                                                         <input type="hidden" name="matpel_id" value="<?php echo $matpel_id ?>">
@@ -231,7 +231,6 @@ if (isset($_GET["id"])) {
                                                 </button></a>
                                         </div>
                                     </form>
-
                                 </div>
                                 <!-- MODAL BUAT TUGAS -->
                                 <div class="modal fade c-content-login-form" id="buat-tugas<?php echo $row['id']; ?>" role="dialog">
@@ -247,13 +246,16 @@ if (isset($_GET["id"])) {
                                                 <form action="matpelController.php" method="POST" enctype="multipart/form-data">
                                                     <div class="form-group">
                                                         <label for="buat-tugas" class="">Nama Tugas</label>
-                                                        <input type="text" class="form-control input-lg c-square" placeholder="Nama Tugas" name="nama_tugas" required=""> 
+                                                        <input type="text" class="form-control input-lg c-square" placeholder="Nama Tugas" name="nama_tugas" required="">
+                                                        <br>
+                                                        <label for="" class="">Tanggal Pengumpulan</label>
+                                                        <input type="date" class="form-control input-lg c-square" min="<?php echo date('Y-m-d'); ?>" name="tgl_kumpul">  
                                                         <input type="hidden" name="week_id" value="<?php echo $row['id']; ?>">
                                                         <input type="hidden" name="act" value="buat_tugas">
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;" name="buat-tugas">Create</button><br><br>
+                                                        <button type="submit" class="btn c-theme-btn btn-md c-btn-uppercase c-btn-bold c-btn-square c-btn-login" style="float: right;" name="buat-tugas">Buat Tugas</button><br><br>
                                                     </div>
                                                 </form>
                                             </div>
@@ -272,7 +274,7 @@ if (isset($_GET["id"])) {
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <form action="matpelController.php" method="POST">
-                                                    <a href="tugas.php?id=<?php echo $row2['id']; ?>"><h3 class="panel-title"><h3><?php echo $row2['namatugas']; ?>
+                                                    <a href="tugas.php?id=<?php echo $row2['id']; ?>"><h3 class="panel-title"><h3><?php echo $row2['namatugas']; ?> | <b><?php echo $row2['tgl_kumpul']; ?></b>
                                                                 <input type="hidden" name="act" value="delete_tugas">
                                                                 <input type="hidden" name="matpel_id" value="$matpel_id">
                                                                 <input type="hidden" name="tugas_id" value="<?php echo $row2['id']; ?>">

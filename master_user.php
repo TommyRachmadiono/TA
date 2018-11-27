@@ -326,7 +326,7 @@ include_once 'layout/footer.php';
                         <label class="col-md-4 control-label">Role</label>
                         <div class="col-md-6">
                             <select id="selectRole" name="role" class="form-control  c-square c-theme input-lg" required="">
-                                <option value="" disabled selected>-- Select Role --</option>
+                                <option value="" disabled selected>-- Pilih Role --</option>
                                 <option value="murid">murid</option>
                                 <option value="guru">guru</option>
                                 <option value="ortu">ortu</option>
@@ -336,8 +336,8 @@ include_once 'layout/footer.php';
                     <div class="form-group">
                         <label class="col-md-4 control-label">Kelas</label>
                         <div class="col-md-6">
-                            <select id="selectKelas" name="kelas" class="form-control  c-square c-theme input-lg" required="">
-                                <option value="NULL" selected>-- Select Kelas --</option> 
+                            <select id="selectKelas" name="kelas" class="form-control  c-square c-theme input-lg">
+                                <option value="NULL" selected>-- Pilih Kelas --</option> 
                                 <?php
                                 $sql = "select * from kelas";
                                 $result = $conn->query($sql);
@@ -357,7 +357,7 @@ include_once 'layout/footer.php';
                         <label class="col-md-4 control-label">Orang Tua</label>
                         <div class="col-md-6">
                             <select id="selectOrtu" name="ortu" class="form-control  c-square c-theme input-lg">
-                                <option value="NULL" selected>-- Select Ortu --</option> 
+                                <option value="NULL" selected>-- Pilih Ortu --</option> 
                                 <?php
                                 $sql = "select * from user WHERE ISNULL(ortu_id) AND role NOT IN('guru','admin','murid')";
                                 $result = $conn->query($sql);
@@ -394,6 +394,9 @@ include_once 'layout/footer.php';
 <!-- END MODAL ADD USER -->
 
 <script type="text/javascript">
+    $('#selectOrtu').hide();
+    $('#selectKelas').hide();
+
     $('#selectRole').change(function(){
         if($('#selectRole').val() === 'murid') {
             $('#selectOrtu').show();

@@ -38,7 +38,7 @@ if ($_SESSION["login"] == false) {
                     <th style="text-align: center;">File</th>
                     <th style="text-align: center;">Postingan</th>
                     <th style="text-align: center;">Jumlah Report</th>
-                    <th style="text-align: center;">Aksi</th>
+                    <th style="text-align: center; width: 190px!important">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,60 +66,60 @@ if ($_SESSION["login"] == false) {
                                 } else { ?>
                                     <td style="text-align: center;">Tidak Ada Attachment</td>
                                 <?php } ?>
-                                <td style="text-align: center;"><?php echo nl2br($row['isi']); ?></td>
+                                <td style="text-align: center; word-break: break-all;"><?php echo nl2br($row['isi']); ?></td>
                                 <td style="text-align: center;"><?php echo $row['Jumlah_Report']; ?></td>
                                 <td style="text-align: center;">
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#ignorePostingan<?php echo $row['id'] ?>">Abaikan</button>
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#deletePostingan<?php echo $row['id'] ?>">Hapus</button>
+                                    <button class="btn btn-warning" data-toggle="modal" data-target="#ignorePostingan<?php echo $row['id'] ?>">Abaikan</button>
+                                    <button class="btn btn-danger" data-toggle="modal" data-target="#deletePostingan<?php echo $row['id'] ?>">Hapus</button>
 
                                 </td>
                             </tr>
 
                             <!-- BEGIN: MODAL DELETE STATUS -->
-                        <div class="modal fade" id="deletePostingan<?php echo $row['id'] ?>" tabindex="-1" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content c-square">
-                                    <div class="modal-body">
-                                        <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus postingan id <?php echo $row['id']; ?> ?</h3>
-                                        <div class="form-group">
-                                            <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
-                                            <form method="POST" action="reportController.php" style="display: inline-block;">
-                                                <input type="hidden" name="act" value="delete_postingan">
-                                                <input type="hidden" name="postingan_id" value="<?php echo $row['id']; ?>">
-                                                <button class="btn btn-info" >Hapus</button>
-                                            </form>
+                            <div class="modal fade" id="deletePostingan<?php echo $row['id'] ?>" tabindex="-1" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content c-square">
+                                        <div class="modal-body">
+                                            <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin menghapus postingan id <?php echo $row['id']; ?> ?</h3>
+                                            <div class="form-group">
+                                                <button  data-dismiss="modal" class="btn btn-danger">Batal</button>
+                                                <form method="POST" action="reportController.php" style="display: inline-block;">
+                                                    <input type="hidden" name="act" value="delete_postingan">
+                                                    <input type="hidden" name="postingan_id" value="<?php echo $row['id']; ?>">
+                                                    <button class="btn btn-warning" >Hapus</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- END: MODAL DELETE STATUS -->
+                            <!-- END: MODAL DELETE STATUS -->
 
-                        <!-- BEGIN: MODAL IGNORE REPORT -->
-                        <div class="modal fade" id="ignorePostingan<?php echo $row['id'] ?>" tabindex="-1" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content c-square">
-                                    <div class="modal-body">
-                                        <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin mengabaikan laporan untuk postingan id <?php echo $row['id']; ?> ?</h3>
-                                        <div class="form-group">
-                                            <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
-                                            <form method="POST" action="reportController.php" style="display: inline-block;">
-                                                <input type="hidden" name="act" value="ignore_report">
-                                                <input type="hidden" name="postingan_id" value="<?php echo $row['id']; ?>">
-                                                <button class="btn btn-info" >Abaikan</button>
-                                            </form>
+                            <!-- BEGIN: MODAL IGNORE REPORT -->
+                            <div class="modal fade" id="ignorePostingan<?php echo $row['id'] ?>" tabindex="-1" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content c-square">
+                                        <div class="modal-body">
+                                            <h3 class="c-font-24 c-font-sbold">Apakah anda yakin ingin mengabaikan laporan untuk postingan id <?php echo $row['id']; ?> ?</h3>
+                                            <div class="form-group">
+                                                <button  data-dismiss="modal" class="btn btn-danger">Cancel</button>
+                                                <form method="POST" action="reportController.php" style="display: inline-block;">
+                                                    <input type="hidden" name="act" value="ignore_report">
+                                                    <input type="hidden" name="postingan_id" value="<?php echo $row['id']; ?>">
+                                                    <button class="btn btn-info" >Abaikan</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- END: MODAL IGNORE REPORT -->
+                            <!-- END: MODAL IGNORE REPORT -->
 
-                        <?php
+                            <?php
+                        }
                     }
                 }
-            }
-            ?>
+                ?>
             </tbody>
         </table>
     </div>
@@ -133,6 +133,6 @@ include_once 'layout/footer.php';
 <script>
     var table = $('#tabel-report').DataTable({
         lengthChange: false,
-        buttons: ['copy', 'excel', 'pdf', 'colvis']
+
     });
 </script>

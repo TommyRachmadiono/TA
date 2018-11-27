@@ -10,33 +10,62 @@ if ($_SESSION['login'] == true) {
         $namatugas = mysqli_real_escape_string($conn, $_POST["nama_tugas"]);
         $matpel_id = $_SESSION["matpel_id"];
         $week_id = mysqli_real_escape_string($conn, $_POST["week_id"]);
+        $tgl_kumpul = mysqli_real_escape_string($conn, $_POST["tgl_kumpul"]);
 
+        if($tgl_kumpul != '') {
+            $sql = "INSERT INTO tugas (namatugas, matpel_id, week_id, tgl_kumpul)
+            VALUES ('$namatugas', '$matpel_id', '$week_id', '$tgl_kumpul')";
+            if (mysqli_query($conn, $sql)) {
 
-        $sql = "INSERT INTO tugas (namatugas, matpel_id, week_id)
-        VALUES ('$namatugas', '$matpel_id', '$week_id')";
-        if (mysqli_query($conn, $sql)) {
-
-            $sql2 = "SELECT id FROM tugas ORDER BY id DESC LIMIT 1";
-            $result = $conn->query($sql2);
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $tugas_id = $row['id'];
-                    mkdir('tugas/' . $tugas_id . ' ' . $namatugas);
+                $sql2 = "SELECT id FROM tugas ORDER BY id DESC LIMIT 1";
+                $result = $conn->query($sql2);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $tugas_id = $row['id'];
+                        mkdir('tugas/' . $tugas_id . ' ' . $namatugas);
+                    }
                 }
-            }
 
-            $sql3 = "SELECT * FROM kelas";
-            $result2 = $conn->query($sql3);
-            if ($result2->num_rows > 0) {
-                while ($row = $result2->fetch_assoc()) {
-                    $kelas = $row['nama_kelas'];
-                    mkdir('tugas/' . $tugas_id . ' ' . $namatugas . '/' . $kelas);
+                $sql3 = "SELECT * FROM kelas";
+                $result2 = $conn->query($sql3);
+                if ($result2->num_rows > 0) {
+                    while ($row = $result2->fetch_assoc()) {
+                        $kelas = $row['nama_kelas'];
+                        mkdir('tugas/' . $tugas_id . ' ' . $namatugas . '/' . $kelas);
+                    }
                 }
+                echo '<script type="text/javascript">alert("Berhasil membuat tugas baru"); </script>';
+                echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
+            } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
-            echo '<script type="text/javascript">alert("Berhasil membuat tugas baru"); </script>';
-            echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
         } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $sql = "INSERT INTO tugas (namatugas, matpel_id, week_id)
+            VALUES ('$namatugas', '$matpel_id', '$week_id')";
+            if (mysqli_query($conn, $sql)) {
+
+                $sql2 = "SELECT id FROM tugas ORDER BY id DESC LIMIT 1";
+                $result = $conn->query($sql2);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $tugas_id = $row['id'];
+                        mkdir('tugas/' . $tugas_id . ' ' . $namatugas);
+                    }
+                }
+
+                $sql3 = "SELECT * FROM kelas";
+                $result2 = $conn->query($sql3);
+                if ($result2->num_rows > 0) {
+                    while ($row = $result2->fetch_assoc()) {
+                        $kelas = $row['nama_kelas'];
+                        mkdir('tugas/' . $tugas_id . ' ' . $namatugas . '/' . $kelas);
+                    }
+                }
+                echo '<script type="text/javascript">alert("Berhasil membuat tugas baru"); </script>';
+                echo '<script type="text/javascript"> window.location = "mata_pelajaran.php?id=' . $matpel_id . '" </script>';
+            } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            }
         }
         break;
 

@@ -1031,16 +1031,17 @@ if(!String.prototype.formatNum) {
 
 		$('*[data-toggle="tooltip"]').tooltip({container: this.options.tooltip_container});
 
-		$('*[data-cal-date]').click(function() {
-			var view = $(this).data('cal-view');
-			self.options.day = $(this).data('cal-date');
-			self.view(view);
-		});
-		$('.cal-cell').dblclick(function() {
-			var view = $('[data-cal-date]', this).data('cal-view');
-			self.options.day = $('[data-cal-date]', this).data('cal-date');
-			self.view(view);
-		});
+		// $('*[data-cal-date]').click(function() {
+		// 	var view = $(this).data('cal-view');
+		// 	self.options.day = $(this).data('cal-date');
+		// 	self.view(view);
+		// });
+		
+		// $('.cal-cell').dblclick(function() {
+		// 	var view = $('[data-cal-date]', this).data('cal-view');
+		// 	self.options.day = $('[data-cal-date]', this).data('cal-date');
+		// 	self.view(view);
+		// });
 
 		this['_update_' + this.options.view]();
 
@@ -1169,7 +1170,6 @@ if(!String.prototype.formatNum) {
 				self.view('week');
 			});
 		}
-
 
 		self.context.find('a.event').mouseenter(function() {
 			$('a[data-event-id="' + $(this).data('event-id') + '"]').closest('.cal-cell1').addClass('day-highlight dh-' + $(this).data('event-class'));

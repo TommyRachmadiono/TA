@@ -18,6 +18,13 @@ if ($_SESSION['login'] == true) {
         $tglupload = date('YmdHis');
         $file_name = basename($tglupload . $_FILES["file"]["name"]);
 
+        $queryUsername = "SELECT * FROM user WHERE username = '$username'";
+        $hasilQuery = $conn->query($queryUsername);
+        if ($hasilQuery->num_rows > 0) {
+            echo '<script type="text/javascript">alert("Username sudah digunakan, silahkan gunakan username lain."); </script>';
+            echo '<script type="text/javascript"> window.location = "' . $url . '" </script>';
+        }
+
         if ($_FILES["file"]["size"] != 0) {
             if(!is_dir("images/fotoprofil"))
                 mkdir("images/fotoprofil");

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2018 at 09:29 AM
+-- Generation Time: Nov 21, 2018 at 03:23 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -64,6 +64,26 @@ CREATE TABLE `anggota` (
   `tgl_join` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `anggota`
+--
+
+INSERT INTO `anggota` (`grup_id`, `user_id`, `tgl_join`) VALUES
+(2, 1, '2018-11-08'),
+(1, 2, '2018-11-07'),
+(2, 2, '2018-11-08'),
+(1, 3, '2018-11-07'),
+(1, 4, '2018-11-07'),
+(1, 5, '2018-11-07'),
+(1, 6, '2018-11-07'),
+(1, 7, '2018-11-07'),
+(1, 8, '2018-11-07'),
+(1, 9, '2018-11-07'),
+(1, 10, '2018-11-07'),
+(1, 11, '2018-11-07'),
+(1, 12, '2018-11-07'),
+(1, 13, '2018-11-07');
+
 -- --------------------------------------------------------
 
 --
@@ -76,6 +96,14 @@ CREATE TABLE `conversation` (
   `id_penerima` int(11) NOT NULL,
   `time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `conversation`
+--
+
+INSERT INTO `conversation` (`c_id`, `id_pengirim`, `id_penerima`, `time`) VALUES
+(1, 16, 17, '2018-11-08 11:08:32'),
+(2, 2, 1, '2018-11-19 12:02:28');
 
 -- --------------------------------------------------------
 
@@ -91,6 +119,16 @@ CREATE TABLE `conversation_reply` (
   `fk_c_id` int(11) NOT NULL,
   `seen` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `conversation_reply`
+--
+
+INSERT INTO `conversation_reply` (`cr_id`, `reply`, `fk_id_pengirim`, `time`, `fk_c_id`, `seen`) VALUES
+(1, 'Putra/i anda mendapatkan nilai 00000 dari tugas <b>Tugas MTK 10</b> pada pelajaran <b>Matematika</b>.', 16, '2018-11-08 11:08:32', 1, 0),
+(2, 'Putra/i anda mendapatkan nilai 100 dari tugas <b>Tugas MTK 10</b> pada pelajaran <b>Matematika</b>.', 16, '2018-11-08 11:08:51', 1, 0),
+(3, 'Putra/i anda mendapatkan nilai 0 dari tugas <b>Tugas MTK 10</b> pada pelajaran <b>Matematika</b>.', 16, '2018-11-08 11:12:34', 1, 0),
+(4, 'Halo admin', 2, '2018-11-19 12:02:28', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -113,7 +151,8 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `title`, `description`, `start_date`, `end_date`, `created`, `user_id`) VALUES
-(1, 'asd', 'asd', '2018-10-25', '2018-10-25', '2018-10-25', 1);
+(1, 'asd', 'asd', '2018-10-25', '2018-10-25', '2018-10-25', 1),
+(2, 'HORE', 'LOL', '2018-11-08', '2018-11-08', '2018-11-08', 1);
 
 -- --------------------------------------------------------
 
@@ -136,13 +175,13 @@ CREATE TABLE `gallery` (
 INSERT INTO `gallery` (`id`, `title`, `description`, `file`, `user_id`) VALUES
 (1, 'Lorem', 'Lorem Ipsum Dolor Sit Amet', 's1.jpg', 1),
 (2, 'Lorem ', 'Lorem Ipsum Dolor Sit Amet', 's2.jpg', 1),
-(3, 'Lorem', 'Lorem Ipsum Dolor Sit Amet', 's3.jpg', 1),
 (4, 'Lorem', 'Lorem Ipsum Dolor Sit Amet', 's4.jpg', 1),
 (5, 'Lorem', 'Lorem Ipsum Dolor Sit Amet', 's5.jpg', 1),
 (6, 'Lorem', 'Lorem Ipsum Dolor Sit Amet', 's6.jpg', 1),
 (7, 'Lorem', 'Lorem Ipsum Dolor Sit Amet', 's7.jpg', 1),
 (8, 'Lorem', 'Lorem Ipsum Dolor Sit Amet', 's8.jpg', 1),
-(9, 'Lorem', 'Lorem Ipsum Dolor Sit Amet', 's9.jpg', 1);
+(9, 'Lorem', 'Lorem Ipsum Dolor Sit Amet', 's9.jpg', 1),
+(11, 'Coba Gambar', 'By Admin', 's3.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -156,6 +195,14 @@ CREATE TABLE `grup` (
   `user_id` int(11) NOT NULL,
   `tgl_dibuat` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `grup`
+--
+
+INSERT INTO `grup` (`id`, `topik_grup`, `user_id`, `tgl_dibuat`) VALUES
+(1, 'Grup Murid', 2, '2018-11-07'),
+(2, 'YOLO', 1, '2018-11-08');
 
 -- --------------------------------------------------------
 
@@ -205,7 +252,12 @@ CREATE TABLE `komentar` (
 --
 
 INSERT INTO `komentar` (`idkomentar`, `isi`, `user_id`, `postingan_idpostingan`, `file`) VALUES
-(1, 'asd', 14, 11, NULL);
+(1, 'asd', 14, 11, NULL),
+(2, 'komentar pake file', 2, 10, '20181107171041Curriculum Vitae Alvin.docx'),
+(3, 'komen pake gambar', 2, 10, '20181107171101A.jpg'),
+(4, 'hari gini masih mikir?', 2, 23, NULL),
+(5, 'mikirlah sebelum mikir itu di larang nak', 16, 23, NULL),
+(6, 'foto jellyfish', 15, 22, '20181118081335Jellyfish.jpg');
 
 -- --------------------------------------------------------
 
@@ -217,6 +269,16 @@ CREATE TABLE `like` (
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `like`
+--
+
+INSERT INTO `like` (`user_id`, `post_id`) VALUES
+(2, 23),
+(3, 10),
+(15, 22),
+(16, 23);
 
 -- --------------------------------------------------------
 
@@ -237,7 +299,9 @@ CREATE TABLE `materi` (
 --
 
 INSERT INTO `materi` (`id`, `file`, `matpel_id`, `week_id`, `user_id`) VALUES
-(1, '201810190912412017-09-26.like-and-unlike-system-using-php-and-mysql-database.zip', 25, 1, 14);
+(1, '201810190912412017-09-26.like-and-unlike-system-using-php-and-mysql-database.zip', 25, 1, 14),
+(2, '20181118173522Document Flow Diagram.pdf', 10, 1, 15),
+(3, '20181118173532week 1.pptx', 10, 1, 15);
 
 -- --------------------------------------------------------
 
@@ -308,8 +372,8 @@ INSERT INTO `matpel_has_week` (`matpel_id`, `week_id`, `title`, `description`) V
 (9, 12, '', ''),
 (9, 13, '', ''),
 (9, 14, '', ''),
-(10, 1, '', ''),
-(10, 2, '', ''),
+(10, 1, 'Pertemuan Pertama', 'Kumpulkan tugas sesuai dengan kelas masing-masing'),
+(10, 2, 'Pengenalan Materi', ''),
 (10, 3, '', ''),
 (10, 4, '', ''),
 (10, 5, '', ''),
@@ -406,7 +470,7 @@ INSERT INTO `matpel_has_week` (`matpel_id`, `week_id`, `title`, `description`) V
 (20, 12, '', ''),
 (20, 13, '', ''),
 (20, 14, '', ''),
-(21, 1, '', ''),
+(21, 1, 'Ini Judul Topik Week Pertama', 'Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet '),
 (21, 2, '', ''),
 (21, 3, '', ''),
 (21, 4, '', ''),
@@ -420,7 +484,7 @@ INSERT INTO `matpel_has_week` (`matpel_id`, `week_id`, `title`, `description`) V
 (21, 12, '', ''),
 (21, 13, '', ''),
 (21, 14, '', ''),
-(22, 1, '', ''),
+(22, 1, 'Materi Pengenalan Bahan Kimia', ''),
 (22, 2, '', ''),
 (22, 3, '', ''),
 (22, 4, '', ''),
@@ -476,7 +540,7 @@ INSERT INTO `matpel_has_week` (`matpel_id`, `week_id`, `title`, `description`) V
 (25, 12, '', ''),
 (25, 13, '', ''),
 (25, 14, '', ''),
-(26, 1, '', ''),
+(26, 1, 'Judul Topik', 'Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi Ini deskripsi '),
 (26, 2, '', ''),
 (26, 3, '', ''),
 (26, 4, '', ''),
@@ -518,7 +582,7 @@ INSERT INTO `matpel_has_week` (`matpel_id`, `week_id`, `title`, `description`) V
 (28, 12, '', ''),
 (28, 13, '', ''),
 (28, 14, '', ''),
-(29, 1, '', ''),
+(29, 1, 'Lorem Ipsum Dolor Sit Amet', 'Ini merupakan deskripsi'),
 (29, 2, '', ''),
 (29, 3, '', ''),
 (29, 4, '', ''),
@@ -560,6 +624,14 @@ CREATE TABLE `notification` (
   `id_penerima` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `c_id`, `n_number`, `id_penerima`) VALUES
+(1, 1, 3, 17),
+(2, 2, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -575,6 +647,19 @@ CREATE TABLE `notif_socmed` (
   `seen` tinyint(1) DEFAULT NULL,
   `idkomentar` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `notif_socmed`
+--
+
+INSERT INTO `notif_socmed` (`id`, `nama_notif`, `idpostingan`, `id_penerima`, `time`, `seen`, `idkomentar`) VALUES
+(1, 'Murid 1 mengomentari postingan anda', 10, 14, '2018-11-07 17:10:41', 0, 2),
+(2, 'Murid 1 mengomentari postingan anda', 10, 14, '2018-11-07 17:11:01', 0, 3),
+(3, 'Murid 2 menyukai postingan anda', 10, 14, '2018-11-07 17:15:28', 0, NULL),
+(4, 'GUru 3 mengomentari postingan anda', 23, 2, '2018-11-08 11:17:03', 1, 5),
+(5, 'GUru 3 menyukai postingan anda', 23, 2, '2018-11-08 11:46:09', 1, NULL),
+(6, 'Guru 2 mengomentari postingan anda', 22, 2, '2018-11-18 08:13:35', 0, 6),
+(8, 'Guru 2 menyukai postingan anda', 22, 2, '2018-11-18 08:14:18', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -597,7 +682,14 @@ CREATE TABLE `postingan` (
 
 INSERT INTO `postingan` (`idpostingan`, `isi`, `tgldiposting`, `user_id`, `grup_id`, `file`) VALUES
 (10, 'tes posting gambar', '2018-10-19', 14, NULL, '20181019095451Koala.jpg'),
-(11, 'tes posting file', '2018-10-19', 14, NULL, '20181019095504APACitationStyle (1).docx');
+(11, 'tes posting file', '2018-10-19', 14, NULL, '20181019095504APACitationStyle (1).docx'),
+(12, 'Contoh Tugas', '2018-11-07', 2, NULL, '20181107171015TA BPMN Update Like Komen Status.jpg'),
+(13, 'posting\r\n\r\nspasi\r\n\r\nbanyak\r\n\r\nhehe\r\n\r\noke', '2018-11-07', 3, NULL, NULL),
+(14, 'file ppt', '2018-11-07', 3, NULL, '20181107171202Analisa2016.pptx'),
+(22, 'Foto penguin X', '2018-11-07', 2, NULL, '20181107172716Penguins.jpg'),
+(23, 'mikir', '2018-11-08', 2, NULL, NULL),
+(24, 'Postingan di grup\r\n\r\ncoba', '2018-11-18', 2, 1, NULL),
+(26, 'coba\r\n\r\nposting\r\n\r\npake\r\n\r\nenter\r\n\r\ntes', '2018-11-18', 15, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -651,6 +743,12 @@ INSERT INTO `relasi_user_matpel` (`user_id`, `matpel_id`) VALUES
 (12, 30),
 (13, 27),
 (13, 30),
+(14, 25),
+(14, 26),
+(14, 27),
+(14, 28),
+(14, 29),
+(14, 30),
 (15, 10),
 (15, 11),
 (15, 12),
@@ -662,7 +760,31 @@ INSERT INTO `relasi_user_matpel` (`user_id`, `matpel_id`) VALUES
 (15, 24),
 (16, 9),
 (16, 17),
-(16, 18);
+(16, 18),
+(29, 9),
+(29, 10),
+(29, 21),
+(29, 22),
+(30, 9),
+(30, 10),
+(30, 21),
+(30, 22),
+(31, 9),
+(31, 10),
+(31, 21),
+(31, 22),
+(32, 9),
+(32, 10),
+(32, 21),
+(32, 22),
+(34, 9),
+(34, 10),
+(34, 21),
+(34, 22),
+(35, 9),
+(35, 10),
+(35, 21),
+(35, 22);
 
 -- --------------------------------------------------------
 
@@ -685,16 +807,38 @@ CREATE TABLE `tugas` (
   `id` int(11) NOT NULL,
   `namatugas` varchar(45) DEFAULT NULL,
   `matpel_id` int(11) NOT NULL,
-  `week_id` int(11) NOT NULL
+  `week_id` int(11) NOT NULL,
+  `tgl_kumpul` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tugas`
 --
 
-INSERT INTO `tugas` (`id`, `namatugas`, `matpel_id`, `week_id`) VALUES
-(1, 'Tugas Geografi pertama', 28, 1),
-(2, 'Tugas Pertama', 25, 1);
+INSERT INTO `tugas` (`id`, `namatugas`, `matpel_id`, `week_id`, `tgl_kumpul`) VALUES
+(1, 'Tugas Geografi pertama', 28, 1, NULL),
+(2, 'Tugas Pertama', 25, 1, NULL),
+(3, 'Tugas Awal', 29, 1, NULL),
+(4, 'Tugas Pertama 11', 26, 1, NULL),
+(5, 'Tugas Pertemuan Pertama', 30, 1, NULL),
+(6, 'Sejarah Tugas', 27, 1, NULL),
+(9, 'Tugas Kimia 10', 22, 1, NULL),
+(10, 'Tugas Pertama', 11, 1, NULL),
+(11, 'Tugas Pertama', 19, 1, NULL),
+(12, 'Tugas Pertama', 12, 1, NULL),
+(13, 'Tugas Kelas 12', 24, 1, NULL),
+(14, 'Tugas Awal 12', 23, 1, NULL),
+(15, 'Tugas', 20, 1, NULL),
+(16, 'Tugas MTK 10', 9, 1, NULL),
+(17, 'Tugas Pertama Matematika', 17, 1, NULL),
+(18, 'Tugas Awal MTK', 18, 1, NULL),
+(19, 'Tugas Pake Deadline', 17, 1, '2018-11-15'),
+(22, 'Tugas Pake Deadline', 10, 1, '2018-11-18'),
+(26, 'Tugas 10 IPA 1', 10, 1, NULL),
+(27, 'Tugas 10 IPA 2', 10, 1, NULL),
+(28, 'Tugas Pake Batas Waktu', 21, 1, '2018-11-19'),
+(29, 'Tugas Semua Kelas', 21, 1, NULL),
+(30, 'Tugas Semua Kelas', 10, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -733,7 +877,7 @@ INSERT INTO `user` (`id`, `nama`, `username`, `password`, `role`, `foto`, `kelas
 (13, 'Murid 12', 'murid12', '123456', 'murid', 'team11.jpg', 12, 28),
 (14, 'Guru 1', 'guru1', '123456', 'guru', 'people22.png', NULL, NULL),
 (15, 'Guru 2', 'guru2', '123456', 'guru', 'team12.jpg', NULL, NULL),
-(16, 'GUru 3', 'guru3', '123456', 'guru', 'people18.png', NULL, NULL),
+(16, 'Guru 3', 'guru3', '123456', 'guru', 'people18.png', NULL, NULL),
 (17, 'Ortu 1', 'ortu1', '123456', 'ortu', NULL, NULL, NULL),
 (18, 'Ortu 2', 'ortu2', '123456', 'ortu', NULL, NULL, NULL),
 (19, 'Ortu 3', 'ortu3', '123456', 'ortu', NULL, NULL, NULL),
@@ -745,7 +889,13 @@ INSERT INTO `user` (`id`, `nama`, `username`, `password`, `role`, `foto`, `kelas
 (25, 'Ortu 9', 'ortu9', '123456', 'ortu', NULL, NULL, NULL),
 (26, 'Ortu 10', 'ortu10', '123456', 'ortu', NULL, NULL, NULL),
 (27, 'Ortu 11', 'ortu11', '123456', 'ortu', NULL, NULL, NULL),
-(28, 'Ortu 12', 'ortu12', '123456', 'ortu', NULL, NULL, NULL);
+(28, 'Ortu 12', 'ortu12', '123456', 'ortu', NULL, NULL, NULL),
+(29, 'Murid X', 'murid01', '123456', 'murid', NULL, 1, NULL),
+(30, 'Murid Y', 'murid02', '123456', 'murid', NULL, 1, NULL),
+(31, 'Murid Z', 'murid03', '123456', 'murid', NULL, 1, NULL),
+(32, 'Murid A', 'murid04', '123456', 'murid', NULL, 2, NULL),
+(34, 'Murid B', 'murid05', '123456', 'murid', NULL, 2, NULL),
+(35, 'Murid C', 'murid06', '123456', 'murid', NULL, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -766,7 +916,24 @@ CREATE TABLE `user_has_tugas` (
 --
 
 INSERT INTO `user_has_tugas` (`user_id`, `tugas_id`, `file`, `tgl_diupload`, `nilai`) VALUES
-(4, 1, '2018101909254114081_Form perpanjangan TA.doc', '2018-10-19', NULL);
+(4, 1, '2018101909254114081_Form perpanjangan TA.doc', '2018-10-19', NULL),
+(13, 5, '2018110719043709_latihan BPMN multi user.docx', '2018-11-07', NULL),
+(13, 6, '2018110719050109_latihan BPMN multi user.docx', '2018-11-07', NULL),
+(2, 16, '20181108110314A.jpg', '2018-11-08', 0),
+(29, 26, '20181118173033Week 12 - Ajax _ DB.ppt', '2018-11-18', 10),
+(30, 26, '20181118173127FINAL PROJECT WEB FRAMEWORK PROGRAMMING.pdf', '2018-11-18', NULL),
+(31, 26, '20181118173218ITFWeek1.pdf', '2018-11-18', NULL),
+(32, 27, '20181118173247Document Flow Diagram.pdf', '2018-11-18', NULL),
+(34, 27, '20181118173315Week 3 Business Intelligence.ppt', '2018-11-18', NULL),
+(35, 27, '20181118173357Evaluasi Quiz & Tugas selama NTS.pdf', '2018-11-18', NULL),
+(2, 30, '20181119121958APACitationStyle (1).docx', '2018-11-19', NULL),
+(3, 30, '2018111912202309_latihan BPMN multi user.docx', '2018-11-19', NULL),
+(29, 30, '2018111912240309_latihan BPMN multi user.docx', '2018-11-19', NULL),
+(30, 30, '2018111912245909_latihan BPMN multi user.docx', '2018-11-19', NULL),
+(31, 30, '2018111912254609_latihan BPMN multi user.docx', '2018-11-19', NULL),
+(32, 30, '2018111912261509_latihan BPMN multi user.docx', '2018-11-19', NULL),
+(34, 30, '2018111912264209_latihan BPMN multi user.docx', '2018-11-19', NULL),
+(35, 30, '2018111912271109_latihan BPMN multi user.docx', '2018-11-19', NULL);
 
 -- --------------------------------------------------------
 
@@ -986,27 +1153,27 @@ ALTER TABLE `achievement`
 -- AUTO_INCREMENT for table `conversation`
 --
 ALTER TABLE `conversation`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `conversation_reply`
 --
 ALTER TABLE `conversation_reply`
-  MODIFY `cr_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `grup`
 --
 ALTER TABLE `grup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `kelas`
 --
@@ -1016,12 +1183,12 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idkomentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `materi`
 --
 ALTER TABLE `materi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `matpel`
 --
@@ -1031,27 +1198,27 @@ ALTER TABLE `matpel`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `notif_socmed`
 --
 ALTER TABLE `notif_socmed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `postingan`
 --
 ALTER TABLE `postingan`
-  MODIFY `idpostingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idpostingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `week`
 --
