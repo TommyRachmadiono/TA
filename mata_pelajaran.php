@@ -169,7 +169,7 @@ if (isset($_GET["id"])) {
                         <div class="modal fade c-content" id="modalTopik<?php echo $week_id; ?>" role="dialog">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content c-square">
-                                    
+
                                     <div class="modal-body">
                                         <h3 class="c-font-24 c-font-sbold">Edit Topik & Deskripsi Week <?php echo $week_id; ?></h3>
                                         <form action="matpelController.php" method="POST" enctype="multipart/form-data">
@@ -204,18 +204,18 @@ if (isset($_GET["id"])) {
 
                         <div class="panel panel-info" style="width: 100%;">
                             <div class="panel-heading">
-            <?php if ($_COOKIE['role'] == 'guru' || $_COOKIE['role'] == 'admin') { ?>
+                                <?php if ($_COOKIE['role'] == 'guru' || $_COOKIE['role'] == 'admin') { ?>
                                     <button class="btn btn-primary" data-toggle="modal" data-target="#modalTopik<?php echo $week_id; ?>">Edit Topik & Deskripsi</button>
-            <?php } ?>
-                                <h3 class="panel-title"><h3><?php echo $row['nama']; ?> : <?php echo $row['title'] ?></h3>
+                                <?php } ?>
+                                <div class="panel-title"><h3><?php echo $row['nama']; ?> : <?php echo $row['title'] ?></h3>
                                     <a class="anchorjs-link" href="#panel-title">
                                         <span class="anchorjs-icon"></span>
                                     </a>
-                                </h3>
-                                
+                                </div>
+
                             </div>
                             <p style="margin-left: 2%;margin-right: 2%;margin-top: 1%;"><?php echo $row['description'] ?></p>
-            <?php if ($_COOKIE['role'] == 'guru') { ?>
+                            <?php if ($_COOKIE['role'] == 'guru') { ?>
                                 <div class="" style="margin: 2%; margin-bottom: 0;">
                                     <form action="matpelController.php" method="POST" enctype="multipart/form-data">
                                         <div class="form-group" style="display: inline;">
@@ -263,28 +263,48 @@ if (isset($_GET["id"])) {
                                     </div>
                                 </div>
                                 <!-- END MODAL BUAT TUGAS -->
-                                <?php } ?>
+                            <?php } ?>
+                                
                             <div class="panel-body"> 
                                 <?php
                                 $sql2 = "SELECT * FROM tugas t WHERE t.matpel_id='$matpel_id' AND t.week_id='$week_id'";
                                 $result2 = $conn->query($sql2);
                                 if ($result2->num_rows > 0) {
+                                    $tgl_sekarang = date('Y-m-d');
                                     while ($row2 = $result2->fetch_assoc()) {
+                                        $tgl_kumpul = $row2['tgl_kumpul'];
                                         ?>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <form action="matpelController.php" method="POST">
-                                                    <a href="tugas.php?id=<?php echo $row2['id']; ?>"><h3 class="panel-title"><h3><?php echo $row2['namatugas']; ?> | <b><?php echo $row2['tgl_kumpul']; ?></b>
-                                                                <input type="hidden" name="act" value="delete_tugas">
-                                                                <input type="hidden" name="matpel_id" value="$matpel_id">
-                                                                <input type="hidden" name="tugas_id" value="<?php echo $row2['id']; ?>">
-                    <?php if ($_COOKIE['role'] == 'guru') { ?>
-                                                                    <button class="btn btn-danger" style="float: right;">Hapus</button>
-                    <?php } ?>
-                                                            </h3></a>
-                                                </form>
+                                        <?php if ($tgl_kumpul !='' && $tgl_sekarang > $tgl_kumpul && $_COOKIE['role'] == 'murid') { ?>
+                                            <div class="panel panel-warning">
+                                                <div class="panel-heading">
+                                                    <form action="matpelController.php" method="POST">
+                                                        <h3 class="panel-title"><h3><?php echo $row2['namatugas']; ?> | <b><?php echo $row2['tgl_kumpul']; ?></b>
+                                                                    <input type="hidden" name="act" value="delete_tugas">
+                                                                    <input type="hidden" name="matpel_id" value="$matpel_id">
+                                                                    <input type="hidden" name="tugas_id" value="<?php echo $row2['id']; ?>">
+                                                                    <?php if ($_COOKIE['role'] == 'guru') { ?>
+                                                                        <button class="btn btn-danger" style="float: right;">Hapus</button>
+                                                                    <?php } ?>
+                                                                </h3>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
+                                        <?php } else { ?>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <form action="matpelController.php" method="POST">
+                                                        <a href="tugas.php?id=<?php echo $row2['id']; ?>"><h3 class="panel-title"><h3><?php echo $row2['namatugas']; ?> | <b><?php echo $row2['tgl_kumpul']; ?></b>
+                                                                    <input type="hidden" name="act" value="delete_tugas">
+                                                                    <input type="hidden" name="matpel_id" value="$matpel_id">
+                                                                    <input type="hidden" name="tugas_id" value="<?php echo $row2['id']; ?>">
+                                                                    <?php if ($_COOKIE['role'] == 'guru') { ?>
+                                                                        <button class="btn btn-danger" style="float: right;">Hapus</button>
+                                                                    <?php } ?>
+                                                                </h3></a>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
                                         <?php
                                     }
                                 }
